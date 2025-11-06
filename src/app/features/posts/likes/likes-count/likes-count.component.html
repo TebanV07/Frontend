@@ -1,0 +1,41 @@
+<div class="like-count">
+  <span 
+    class="count-text"
+    [class.clickable]="clickable && likesCount > 0"
+    (click)="openLikersModal()"
+  >
+    <strong>{{ likesCount }}</strong> 
+    {{ likesCount === 1 ? 'like' : 'likes' }}
+  </span>
+</div>
+
+<div class="modal-overlay" *ngIf="showModal" (click)="closeLikersModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Liked by</h3>
+      <button class="close-btn" (click)="closeLikersModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <div *ngIf="isLoadingLikers" class="loading">Loading...</div>
+
+      <div *ngIf="!isLoadingLikers && likers.length === 0" class="empty">
+        No likes yet
+      </div>
+
+      <div class="likers-list" *ngIf="!isLoadingLikers">
+        <div class="liker-item" *ngFor="let user of likers">
+          <img 
+            [src]="user.avatar_url || '/assets/default-avatar.png'" 
+            [alt]="user.username"
+            class="avatar"
+          >
+          <div class="user-info">
+            <span class="username">{{ user.username }}</span>
+            <span class="full-name" *ngIf="user.full_name">{{ user.full_name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="feed-container">
+  <app-create-post (postCreated)="onPostCreated($event)"></app-create-post>
+  
+  <div class="ai-banner">
+    <div class="banner-content">
+      <div class="banner-icon">🤖✨</div>
+      <div class="banner-text">
+        <h3>AI Translation Active</h3>
+        <p>All content automatically translated to your preferred language</p>
+      </div>
+      <div class="banner-stats">
+        <span class="stat-item">
+          <span class="stat-number">24</span>
+          <span class="stat-label">Languages</span>
+        </span>
+        <span class="stat-item">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">Videos</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading state -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Cargando posts...</p>
+  </div>
+
+  <!-- Posts container - VERSIÓN SEGURA -->
+  <div class="posts-container" *ngIf="!isLoading">
+    <!-- ✅ SOLO renderiza posts con ID válido -->
+    <app-post 
+      *ngFor="let post of validPosts" 
+      [post]="post"
+      (translateVideo)="onTranslateVideo($any($event))">
+    </app-post>
+    
+    <!-- Debug: muestra posts inválidos -->
+    <div *ngIf="invalidPosts.length > 0" class="debug-warning">
+      <div class="warning-icon">⚠️</div>
+      <h4>Posts con problemas:</h4>
+      <div *ngFor="let invalidPost of invalidPosts" class="invalid-post">
+        {{ invalidPost | json }}
+      </div>
+    </div>
+    
+    <!-- Empty state -->
+    <div class="empty-state" *ngIf="validPosts.length === 0 && invalidPosts.length === 0">
+      <div class="empty-icon">📝</div>
+      <h3>No hay posts aún</h3>
+      <p>¡Sé el primero en compartir algo!</p>
+    </div>
+    
+    <!-- Load more button -->
+    <div class="load-more" *ngIf="validPosts.length > 0">
+      <button class="load-more-btn">
+        <span class="btn-text">Load More Posts</span>
+        <span class="btn-icon">🌊</span>
+      </button>
+    </div>
+  </div>
+</div>

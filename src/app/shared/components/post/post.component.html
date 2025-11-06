@@ -1,0 +1,69 @@
+<!-- post.component.html -->
+<article class="post-card" *ngIf="post">
+  <!-- ====== CABECERA ====== -->
+  <div class="post-header">
+    <div class="user-info">
+      <img
+        [src]="post.user?.avatar || 'https://ui-avatars.com/api/?name=' + (post.user?.username || 'User')"
+        [alt]="post.user?.username || 'User'"
+        class="user-avatar"
+      />
+      <div class="user-details">
+        <h4 class="user-name">{{ post.user?.username }}</h4>
+        <span class="timestamp">{{ getRelativeTime(post.created_at) }}</span>
+      </div>
+    </div>
+    <button class="more-options">⋯</button>
+  </div>
+
+  <!-- ====== CONTENIDO ====== -->
+  <div class="post-content">
+    <p class="post-text">{{ post.content }}</p>
+
+    <div *ngIf="post.has_video && post.video_url" class="video-container">
+      <video [src]="post.video_url" controls class="post-video"></video>
+    </div>
+
+    <div *ngIf="post.has_images && post.images?.length" class="image-container">
+      <img *ngFor="let image of post.images" [src]="image.image_url" class="post-image" />
+    </div>
+  </div>
+
+  <!-- ====== ACCIONES ====== -->
+  <div class="post-actions">
+    <!-- Usamos el componente de likes-button -->
+    <app-like-button
+      [postId]="post.id"
+      [isLiked]="post.isLiked ?? false"
+      [likesCount]="post.likes_count"
+      (likeToggled)="onLikeToggled($event)"
+    ></app-like-button>
+
+    <button class="action-button comment-btn" (click)="toggleComments()">
+      💬 {{ post.comments_count }}
+    </button>
+
+    <button class="action-button share-btn">🌊 {{ post.shares_count }}</button>
+  </div>
+
+  <!-- ====== COMENTARIOS ====== -->
+  <section *ngIf="showComments" class="post-comments">
+    <!-- Componente de formulario de comentario -->
+    <app-comment-form
+      [postId]="post.id"
+      [placeholder]="'Escribe un comentario...'"
+      [autoFocus]="true"
+      (commentCreated)="onCommentFormCreated($event)"
+      (cancelled)="onCommentFormCancelled()"
+    ></app-comment-form>
+
+    <!-- Componente de lista de comentarios -->
+    <app-comment-list
+      [postId]="post.id"
+      [currentUserId]="currentUserId"
+      (commentCreated)="onCommentCreated($any($event))"
+      (commentDeleted)="onCommentDeleted($any($event))"
+      (commentUpdated)="onCommentUpdated($any($event))"
+    ></app-comment-list>
+  </section>
+</article>

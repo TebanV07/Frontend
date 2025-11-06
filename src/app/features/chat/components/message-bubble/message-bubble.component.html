@@ -1,0 +1,42 @@
+<div 
+  class="message-wrapper"
+  [class.sent]="isSent"
+  [class.received]="!isSent">
+  
+  <div class="message">
+    <div class="bubble">
+      <!-- Texto principal (traducido si existe, sino original) -->
+      <div class="text">
+        {{ message.translatedContent && message.aiTranslated ? message.translatedContent : message.content }}
+      </div>
+      
+      <!-- Texto original cuando está traducido -->
+      <div class="original-text" *ngIf="message.translatedContent && message.aiTranslated">
+        <span class="translation-label">Original ({{ message.originalLanguage }}):</span>
+        <span class="original-content">{{ message.content }}</span>
+      </div>
+      
+      <!-- Footer del mensaje -->
+      <div class="message-footer">
+        <span class="time">{{ getFormattedTime(message.timestamp) }}</span>
+        <span class="ai-badge" *ngIf="message.aiTranslated" title="Traducido por IA">🤖</span>
+        <span class="status-indicator" *ngIf="isSent">
+          {{ message.isRead ? '✓✓' : '✓' }}
+        </span>
+      </div>
+    </div>
+    
+    <!-- Botón de traducción (solo para mensajes recibidos) -->
+    <button 
+      *ngIf="!isSent" 
+      class="translate-btn" 
+      (click)="onTranslate()" 
+      [class.translating]="message.isTranslating"
+      [class.translated]="message.aiTranslated"
+      title="Traducir mensaje">
+      <span class="translate-icon">
+        {{ message.isTranslating ? '⏳' : (message.aiTranslated ? '✓' : '🌐') }}
+      </span>
+    </button>
+  </div>
+</div>

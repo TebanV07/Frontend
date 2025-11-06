@@ -1,0 +1,135 @@
+<div class="trending-container">
+  <!-- Barra lateral de tendencias -->
+  <div class="trending-sidebar">
+    <div class="sidebar-header">
+      <h2>🔥 Tendencias</h2>
+    </div>
+
+    <div class="trending-list">
+      <div 
+        *ngFor="let trending of trendingTopics; let i = index"
+        class="trending-item"
+        [class.active]="selectedTrending?.id === trending.id"
+        (click)="selectTrending(trending)">
+        
+        <div class="trending-position">{{ getTrendingPosition(i) }}</div>
+        
+        <div class="trending-thumbnail">
+          <img [src]="trending.thumbnailUrl" [alt]="trending.title">
+        </div>
+
+        <div class="trending-info">
+          <h3>{{ trending.title }}</h3>
+          <div class="trending-meta">
+            <span class="videos-count">{{ formatNumber(trending.videosCount) }} videos</span>
+            <span class="category-badge">{{ trending.category }}</span>
+          </div>
+          <div class="trending-views">
+            👁️ {{ formatNumber(trending.views) }} views
+          </div>
+        </div>
+
+        <div class="trending-arrow">→</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="trending-main">
+    <div class="trending-header" *ngIf="selectedTrending">
+      <div class="header-content">
+        <h1>{{ selectedTrending.title }}</h1>
+        <p class="category-description">{{ selectedTrending.videosCount }} videos • {{ formatNumber(selectedTrending.views) }} visualizaciones</p>
+      </div>
+
+      <!-- Controles -->
+      <div class="trending-controls">
+        <div class="view-controls">
+          <button 
+            class="view-btn"
+            [class.active]="selectedView === 'grid'"
+            (click)="toggleView('grid')"
+            title="Vista de cuadrícula">
+            ⊞
+          </button>
+          <button 
+            class="view-btn"
+            [class.active]="selectedView === 'list'"
+            (click)="toggleView('list')"
+            title="Vista de lista">
+            ≡
+          </button>
+        </div>
+
+        <div class="sort-controls">
+          <label>Ordenar por:</label>
+          <select [(ngModel)]="sortBy" class="sort-select">
+            <option value="trending">Más tendencia</option>
+            <option value="views">Más vistas</option>
+            <option value="recent">Más recientes</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de videos -->
+    <div class="videos-section" *ngIf="selectedTrending">
+      <div class="videos-grid" [class.list-view]="selectedView === 'list'">
+      <div 
+        *ngFor="let video of selectedTrending.videos"
+        class="video-card">
+        
+        <div class="video-thumbnail">
+          <img [src]="video.thumbnailUrl" [alt]="video.title">
+          <div class="video-overlay">
+            <div class="play-icon">▶</div>
+            <div class="duration">{{ video.duration }}s</div>
+          </div>
+          <div class="trending-badge">
+            <span class="fire-icon">🔥</span>
+            Tendencia
+          </div>
+        </div>
+
+        <div class="video-info">
+          <div class="video-header">
+            <div class="user-avatar">
+              <img [src]="video.user.avatar" [alt]="video.user.name">
+            </div>
+            <div class="video-title-section">
+              <h3>{{ video.title }}</h3>
+              <p class="description">{{ video.description }}</p>
+              <p class="creator-name">
+                {{ video.user.name }}
+                <span class="verified" *ngIf="video.user.verified">✓</span>
+              </p>
+              <div class="video-tags">
+                <span *ngFor="let tag of video.tags" class="tag">#{{ tag }}</span>
+              </div>
+
+              <button class="watch-btn">Ver ahora →</button>
+            </div>
+          </div>
+          <div class="video-stats">
+            <span class="stat">
+              <span class="icon">👁️</span>
+              {{ formatNumber(video.views) }}
+            </span>
+            <span class="stat">
+              <span class="icon">❤️</span>
+              {{ formatNumber(video.likes) }}
+            </span>
+            <span class="stat">
+              <span class="icon">💬</span>
+              {{ formatNumber(video.comments) }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+            </div>
+          </div>
+
+           
+
+            

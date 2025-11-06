@@ -1,0 +1,44 @@
+<div class="comment-list">
+  <div class="comment-form-container">
+    <app-comment-form
+      [postId]="postId"
+      (commentCreated)="onCommentCreated($event)"
+    ></app-comment-form>
+  </div>
+
+  <div class="comments-container">
+    <div *ngIf="isLoading" class="loading-state">
+      <div class="spinner"></div>
+      <span>Loading comments...</span>
+    </div>
+
+    <div *ngIf="error" class="error-state">
+      {{ error }}
+    </div>
+
+    <div *ngIf="!isLoading && !error && comments.length === 0" class="empty-state">
+      <p>No comments yet. Be the first to comment!</p>
+    </div>
+
+    <div *ngIf="!isLoading && comments.length > 0" class="comments">
+      <app-comment-item
+        *ngFor="let comment of comments"
+        [comment]="comment"
+        [postId]="postId"
+        [currentUserId]="currentUserId"
+        (commentDeleted)="onCommentDeleted($event)"
+        (commentUpdated)="onCommentUpdated($event)"
+        (replyCreated)="onCommentCreated($event)"
+      ></app-comment-item>
+
+      <button 
+        *ngIf="hasMore" 
+        class="load-more-btn"
+        (click)="loadMore()"
+        [disabled]="isLoadingMore"
+      >
+        {{ isLoadingMore ? 'Loading...' : 'Load more comments' }}
+      </button>
+    </div>
+  </div>
+</div>

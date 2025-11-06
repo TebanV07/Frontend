@@ -1,0 +1,39 @@
+<form class="comment-form" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <textarea
+      #textarea
+      [(ngModel)]="content"
+      name="content"
+      [placeholder]="placeholder"
+      rows="2"
+      (input)="autoResize($event)"
+      [disabled]="isSubmitting"
+      class="comment-textarea"
+    ></textarea>
+  </div>
+
+  <div class="error-message" *ngIf="error">
+    {{ error }}
+  </div>
+
+  <div class="form-actions">
+    <button 
+      type="button" 
+      class="btn btn-cancel"
+      (click)="onCancel()"
+      *ngIf="parentCommentId"
+      [disabled]="isSubmitting"
+    >
+      Cancel
+    </button>
+    
+    <button 
+      type="submit" 
+      class="btn btn-primary"
+      [disabled]="!content.trim() || isSubmitting"
+    >
+      <span *ngIf="!isSubmitting">{{ parentCommentId ? 'Reply' : 'Comment' }}</span>
+      <span *ngIf="isSubmitting" class="spinner"></span>
+    </button>
+  </div>
+</form>

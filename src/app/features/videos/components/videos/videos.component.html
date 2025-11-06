@@ -1,0 +1,140 @@
+<div class="videos-container" *ngIf="currentVideo">
+  <!-- Video Principal -->
+  <div class="video-player">
+    <div class="video-content" [style.background-image]="'url(' + currentVideo.thumbnailUrl + ')'">
+      <!-- Overlay de video simulado -->
+      <div class="video-overlay">
+        <div class="play-pause-overlay" (click)="togglePlay()">
+          <div class="play-icon" *ngIf="!isPlaying">▶</div>
+        </div>
+      </div>
+
+      <!-- Controles superiores -->
+      <div class="top-controls">
+        <button class="control-btn back-btn" routerLink="/home">
+          <span>←</span>
+        </button>
+        <div class="video-info-top">
+          <span class="live-badge" *ngIf="currentVideo.hasAudioTranslation">
+            🌐 AI Translation
+          </span>
+        </div>
+        <button class="control-btn" (click)="toggleMute()">
+          <span>{{ isMuted ? '🔇' : '🔊' }}</span>
+        </button>
+      </div>
+
+      <!-- Información del video (lado izquierdo) -->
+      <div class="video-info">
+        <div class="user-info" (click)="followUser(currentVideo.user)">
+          <img [src]="currentVideo.user.avatar" [alt]="currentVideo.user.name" class="user-avatar">
+          <div class="user-details">
+            <div class="user-name">
+              <h3>{{ currentVideo.user.name }}</h3>
+              <span class="verified-badge" *ngIf="currentVideo.user.verified">✓</span>
+            </div>
+            <p class="username">{{ currentVideo.user.username }}</p>
+          </div>
+          <button class="follow-btn">Seguir</button>
+        </div>
+
+        <div class="video-description">
+          <h2 class="video-title">
+            {{ showTranslation && currentVideo.translatedTitle ? currentVideo.translatedTitle : currentVideo.title }}
+          </h2>
+          <p class="description-text">
+            {{ showTranslation && currentVideo.translatedDescription ? currentVideo.translatedDescription : currentVideo.description }}
+          </p>
+          
+          <div class="video-meta">
+            <span class="meta-item">
+              <span class="icon">👁️</span>
+              {{ formatNumber(currentVideo.views) }} views
+            </span>
+            <span class="meta-item">
+              <span class="icon">🕐</span>
+              {{ formatDuration(currentVideo.duration) }}
+            </span>
+            <span class="meta-item">
+              <span class="icon">🌍</span>
+              {{ currentVideo.originalLanguage }}
+            </span>
+          </div>
+
+          <div class="video-tags">
+            <span *ngFor="let tag of currentVideo.tags" class="tag">
+              #{{ tag }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acciones (lado derecho) -->
+      <div class="video-actions">
+        <button 
+          class="action-btn"
+          [class.active]="currentVideo.isLiked"
+          (click)="toggleLike(currentVideo)">
+          <span class="icon">{{ currentVideo.isLiked ? '❤️' : '🤍' }}</span>
+          <span class="count">{{ formatNumber(currentVideo.likes) }}</span>
+        </button>
+
+        <button class="action-btn" (click)="openComments(currentVideo)">
+          <span class="icon">💬</span>
+          <span class="count">{{ formatNumber(currentVideo.comments) }}</span>
+        </button>
+
+        <button 
+          class="action-btn"
+          [class.active]="currentVideo.isBookmarked"
+          (click)="toggleBookmark(currentVideo)">
+          <span class="icon">{{ currentVideo.isBookmarked ? '🔖' : '📑' }}</span>
+          <span class="count">Guardar</span>
+        </button>
+
+        <button class="action-btn" (click)="shareVideo(currentVideo)">
+          <span class="icon">📤</span>
+          <span class="count">{{ formatNumber(currentVideo.shares) }}</span>
+        </button>
+
+        <button 
+          class="action-btn translation-btn"
+          [class.active]="showTranslation"
+          (click)="toggleTranslation()">
+          <span class="icon">🌐</span>
+          <span class="count">{{ showTranslation ? 'Original' : 'Traducir' }}</span>
+        </button>
+
+        <button class="action-btn audio-translation-btn" *ngIf="currentVideo.hasAudioTranslation">
+          <span class="icon">🎧</span>
+          <span class="count">Audio IA</span>
+        </button>
+      </div>
+
+      <!-- Indicadores de navegación -->
+      <div class="navigation-indicators">
+        <div class="nav-arrow nav-up" *ngIf="currentVideoIndex > 0" (click)="previousVideo()">
+          <span>↑</span>
+        </div>
+        <div class="progress-dots">
+          <span 
+            *ngFor="let video of videos; let i = index"
+            class="dot"
+            [class.active]="i === currentVideoIndex">
+          </span>
+        </div>
+        <div class="nav-arrow nav-down" *ngIf="currentVideoIndex < videos.length - 1" (click)="nextVideo()">
+          <span>↓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="no-videos" *ngIf="!currentVideo">
+  <div class="empty-state">
+    <span class="empty-icon">🎥</span>
+    <h3>No hay videos disponibles</h3>
+    <p>Vuelve más tarde para ver nuevo contenido</p>
+  </div>
+</div>

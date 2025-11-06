@@ -1,0 +1,41 @@
+<div class="video-overlay">
+  <!-- Información del usuario -->
+  <div class="user-info">
+    <img [src]="video.user.avatar" [alt]="video.user.username" class="avatar">
+    <span class="username">@{{ video.user.username }}</span>
+    <button class="follow-btn">Seguir</button>
+  </div>
+
+  <!-- Descripción del video -->
+  <div class="video-description">
+    <p>{{ video.description }}</p>
+    <div class="tags">
+      <span *ngFor="let tag of video.tags" class="tag">#{{ tag }}</span>
+    </div>
+  </div>
+
+  <!-- Botones de interacción -->
+  <div class="interaction-buttons">
+    <div class="button-group">
+      <button class="icon-btn" (click)="onLike()">
+        <span class="icon">{{ video.isLiked ? '❤️' : '🤍' }}</span>
+        <span class="count">{{ video.likesCount | shortNumber }}</span>
+      </button>
+      
+      <button class="icon-btn" (click)="comment.emit(video)">
+        <span class="icon">💬</span>
+        <span class="count">{{ video.commentsCount | shortNumber }}</span>
+      </button>
+      
+      <button class="icon-btn" (click)="share.emit(video)">
+        <span class="icon">↗️</span>
+        <span class="count">{{ video.sharesCount | shortNumber }}</span>
+      </button>
+      
+      <button class="icon-btn" (click)="onSave()">
+        <span class="icon">{{ video.isSaved ? '⭐' : '✩' }}</span>
+        <span class="count">{{ video.savesCount | shortNumber }}</span>
+      </button>
+    </div>
+  </div>
+</div>

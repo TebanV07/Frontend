@@ -1,0 +1,56 @@
+<div class="chat-container">
+  <!-- Lista de conversaciones -->
+  <div class="chat-sidebar">
+    <div class="sidebar-header">
+      <h2>Mensajes</h2>
+      <button class="new-chat-btn" title="Nueva conversación">✏️</button>
+    </div>
+    
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Buscar conversaciones...">
+    </div>
+    
+    <div class="conversations-list">
+      <div 
+        *ngFor="let conversation of conversations" 
+        class="conversation-item"
+        [class.active]="activeConversation?.id === conversation.id"
+        (click)="onConversationSelected(conversation)">
+        
+        <div class="conversation-avatar">
+          <img [src]="conversation.participants[0].avatar" [alt]="conversation.participants[0].name">
+          <span class="online-indicator" *ngIf="conversation.participants[0].isOnline"></span>
+        </div>
+        
+        <div class="conversation-info">
+          <div class="conversation-header">
+            <h4>{{ conversation.participants[0].name }}</h4>
+            <span class="time">{{ getFormattedTime(conversation.lastActivity) }}</span>
+          </div>
+          
+          <div class="conversation-preview">
+            <p class="last-message">
+              <span *ngIf="conversation.lastMessage?.aiTranslated" class="translate-badge">🌐</span>
+              {{ conversation.lastMessage?.translatedContent || conversation.lastMessage?.content || 'Sin mensajes' }}
+            </p>
+            <span class="unread-badge" *ngIf="conversation.unreadCount > 0">
+              {{ conversation.unreadCount }}
+            </span>
+          </div>
+          
+          <div class="language-info">
+            <span class="language-tag">{{ conversation.participants[0].language }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ventana de chat -->
+  <app-chat-window 
+    [activeConversation]="activeConversation"
+    [messages]="messages"
+    (messageSent)="onMessageSent($event)">
+  </app-chat-window>
+</div>

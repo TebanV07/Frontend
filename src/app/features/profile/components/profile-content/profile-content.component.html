@@ -1,0 +1,77 @@
+<div class="profile-content">
+  <!-- Videos Grid -->
+  <div class="videos-grid" *ngIf="selectedTab === 'videos'">
+    <div *ngFor="let video of profile.videos" 
+         class="video-card"
+         (click)="onVideoClick(video.id)">
+      <div class="video-thumbnail">
+        <img [src]="video.thumbnailUrl" [alt]="video.title">
+        <div class="video-overlay">
+          <div class="play-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="white">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="video-duration">
+          {{ video.duration }}s
+        </div>
+        <div class="video-stats">
+          <span class="stat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            {{ formatNumber(video.views) }}
+          </span>
+          <span class="stat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            {{ formatNumber(video.likes) }}
+          </span>
+        </div>
+      </div>
+      <div class="video-info">
+        <h3>{{ video.title }}</h3>
+        <p *ngIf="video.description">{{ video.description }}</p>
+        <div class="video-tags" *ngIf="video.tags && video.tags.length > 0">
+          <span *ngFor="let tag of video.tags | slice:0:3" class="tag">#{{ tag }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="profile.videos.length === 0">
+      <div class="empty-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polygon points="23 7 16 12 23 17 23 7"/>
+          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+        </svg>
+      </div>
+      <h3>No hay videos aún</h3>
+      <p>Cuando subas videos, aparecerán aquí</p>
+    </div>
+  </div>
+
+  <!-- Liked Videos -->
+  <div class="empty-state" *ngIf="selectedTab === 'liked'">
+    <div class="empty-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </div>
+    <h3>No hay videos con "Me gusta"</h3>
+    <p>Los videos que te gusten aparecerán aquí</p>
+  </div>
+
+  <!-- Bookmarked Videos -->
+  <div class="empty-state" *ngIf="selectedTab === 'bookmarks'">
+    <div class="empty-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+      </svg>
+    </div>
+    <h3>No hay videos guardados</h3>
+    <p>Los videos que guardes aparecerán aquí</p>
+  </div>
+</div>

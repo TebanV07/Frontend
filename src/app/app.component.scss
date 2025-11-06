@@ -1,0 +1,29 @@
+.app-container {
+      min-height: 100vh;
+      background: #f8fafc;
+      transition: all 0.3s ease;
+    }
+
+    .app-container.dark-theme {
+      background: #0f172a;
+    }
+
+    .main-content {
+      display: flex;
+      padding-top: 80px;
+      max-width: 1400px;
+      margin: 0 auto;
+      gap: 20px;
+    }
+
+    .content-area {
+      flex: 1;
+      padding: 20px;
+      max-width: calc(100% - 350px);
+    }
+
+    @media (max-width: 1024px) {
+      .content-area {
+        max-width: 100%;
+      }
+    }

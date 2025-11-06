@@ -1,0 +1,16 @@
+<div class="video-feed" (swipeup)="onSwipe('up')" (swipedown)="onSwipe('down')">
+  <div class="video-container">
+    <app-video-player 
+      [video]="currentVideo"
+      [isPlaying]="isPlaying"
+      (videoEnded)="onVideoEnded()">
+    </app-video-player>
+    
+    <app-video-overlay 
+      [video]="currentVideo"
+      (like)="onLike($event)"
+      (comment)="onComment($event)"
+      (share)="onShare($event)">
+    </app-video-overlay>
+  </div>
+</div>

@@ -1,0 +1,255 @@
+.message-input-container {
+  padding: 20px 30px;
+  background: rgba(15, 23, 42, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  
+  .emoji-picker {
+    position: absolute;
+    bottom: 100%;
+    right: 30px;
+    margin-bottom: 10px;
+    background: rgba(30, 41, 59, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    width: 300px;
+    z-index: 1000;
+    animation: slideUp 0.3s ease-out;
+    
+    .emoji-picker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      
+      h4 {
+        margin: 0;
+        color: #e2e8f0;
+        font-size: 0.9em;
+        font-weight: 600;
+      }
+      
+      .close-btn {
+        background: none;
+        border: none;
+        color: #94a3b8;
+        cursor: pointer;
+        font-size: 1.2em;
+        padding: 5px;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          color: #e2e8f0;
+          transform: scale(1.1);
+        }
+      }
+    }
+    
+    .emoji-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 5px;
+      max-height: 200px;
+      overflow-y: auto;
+      
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: rgba(96, 165, 250, 0.3);
+        border-radius: 3px;
+      }
+      
+      .emoji-item {
+        background: none;
+        border: none;
+        font-size: 1.5em;
+        padding: 8px;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          background: rgba(59, 130, 246, 0.2);
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+  
+  .message-input {
+    display: flex;
+    align-items: center;
+    background: rgba(30, 41, 59, 0.8);
+    border-radius: 25px;
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    
+    &:focus-within {
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    .attach-btn, .emoji-btn, .voice-btn, .send-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      font-size: 1.1em;
+      flex-shrink: 0;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #e2e8f0;
+      }
+      
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+    
+    .emoji-btn {
+      &.active {
+        background: rgba(59, 130, 246, 0.2);
+        color: #60a5fa;
+      }
+    }
+    
+    .voice-btn {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      
+      &:hover {
+        background: rgba(239, 68, 68, 0.3);
+        transform: scale(1.05);
+      }
+      
+      &.recording {
+        animation: recordingPulse 1.5s ease-in-out infinite;
+        background: rgba(239, 68, 68, 0.4);
+      }
+    }
+    
+    .send-btn {
+      background: rgba(59, 130, 246, 0.3);
+      color: #94a3b8;
+      
+      &.active {
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        color: white;
+        
+        &:hover {
+          transform: scale(1.1);
+          box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+      }
+    }
+    
+    .text-input {
+      flex: 1;
+      background: none;
+      border: none;
+      padding: 12px 15px;
+      color: #e2e8f0;
+      font-size: 1em;
+      min-width: 0;
+      
+      &::placeholder {
+        color: #94a3b8;
+      }
+      
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  
+  .recording-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 12px 20px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 20px;
+    animation: slideUp 0.3s ease-out;
+    
+    .recording-pulse {
+      width: 10px;
+      height: 10px;
+      background: #ef4444;
+      border-radius: 50%;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    
+    .recording-text {
+      color: #f87171;
+      font-size: 0.9em;
+      font-weight: 600;
+    }
+    
+    .stop-recording-btn {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+      padding: 6px 15px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 0.85em;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba(239, 68, 68, 0.3);
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes recordingPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}

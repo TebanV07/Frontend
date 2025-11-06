@@ -1,0 +1,192 @@
+.create-post-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 25px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(102, 126, 234, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .create-post-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.1);
+    }
+
+    :host-context(.dark-theme) .create-post-card {
+      background: rgba(15, 76, 117, 0.95);
+      border-color: rgba(50, 130, 184, 0.3);
+    }
+
+    .user-info {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 3px solid rgba(102, 126, 234, 0.3);
+      flex-shrink: 0;
+    }
+
+    .input-section {
+      flex: 1;
+    }
+
+    .post-input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: rgba(102, 126, 234, 0.05);
+      border-radius: 15px;
+      padding: 15px 20px;
+      font-size: 16px;
+      font-family: inherit;
+      resize: none;
+      transition: all 0.3s ease;
+    }
+
+    .post-input:focus {
+      background: rgba(102, 126, 234, 0.1);
+      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+    }
+
+    :host-context(.dark-theme) .post-input {
+      background: rgba(50, 130, 184, 0.1);
+      color: #bbe1fa;
+    }
+
+    :host-context(.dark-theme) .post-input:focus {
+      background: rgba(50, 130, 184, 0.2);
+      box-shadow: 0 0 0 2px rgba(50, 130, 184, 0.3);
+    }
+
+    .post-input::placeholder {
+      color: rgba(102, 126, 234, 0.6);
+    }
+
+    :host-context(.dark-theme) .post-input::placeholder {
+      color: rgba(187, 225, 250, 0.6);
+    }
+
+    .post-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 20px;
+      background: rgba(102, 126, 234, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      position: relative;
+    }
+
+    .action-btn:hover {
+      background: rgba(102, 126, 234, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .video-btn {
+      background: linear-gradient(45deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+      border: 1px solid rgba(102, 126, 234, 0.3);
+    }
+
+    .ai-badge {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-weight: 600;
+      position: absolute;
+      top: -5px;
+      right: -5px;
+    }
+
+    .btn-icon {
+      font-size: 1.1rem;
+    }
+
+    .btn-text {
+      font-weight: 500;
+    }
+
+    .post-btn {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border: none;
+      border-radius: 25px;
+      padding: 12px 25px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .post-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .ai-features-info {
+      display: flex;
+      gap: 20px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(102, 126, 234, 0.1);
+    }
+
+    :host-context(.dark-theme) .ai-features-info {
+      border-top-color: rgba(50, 130, 184, 0.3);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    .feature-icon {
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .create-post-card {
+        padding: 20px;
+      }
+      
+      .post-actions {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+      }
+      
+      .action-buttons {
+        justify-content: center;
+      }
+      
+      .ai-features-info {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }

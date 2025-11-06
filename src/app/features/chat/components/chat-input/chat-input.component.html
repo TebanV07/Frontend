@@ -1,0 +1,75 @@
+<div class="message-input-container">
+  <!-- Emoji Picker -->
+  <div class="emoji-picker" *ngIf="showEmojiPicker">
+    <div class="emoji-picker-header">
+      <h4>Emojis</h4>
+      <button class="close-btn" (click)="toggleEmojiPicker()">✕</button>
+    </div>
+    <div class="emoji-grid">
+      <button 
+        *ngFor="let emoji of commonEmojis" 
+        class="emoji-item"
+        (click)="addEmoji(emoji)">
+        {{ emoji }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Input Principal -->
+  <div class="message-input">
+    <!-- Botón Adjuntar -->
+    <button 
+      class="attach-btn" 
+      (click)="onAttachFile()"
+      title="Adjuntar archivo">
+      📎
+    </button>
+
+    <!-- Input de texto -->
+    <input 
+      type="text" 
+      placeholder="Escribe un mensaje..."
+      [(ngModel)]="newMessage"
+      (keyup.enter)="sendMessage()"
+      #messageInput
+      class="text-input">
+
+    <!-- Botón Emoji -->
+    <button 
+      class="emoji-btn" 
+      (click)="toggleEmojiPicker()"
+      [class.active]="showEmojiPicker"
+      title="Emojis">
+      😊
+    </button>
+
+    <!-- Botón Voz (cuando no hay texto) -->
+    <button 
+      *ngIf="!newMessage.trim()"
+      class="voice-btn" 
+      (click)="toggleVoiceRecording()"
+      [class.recording]="isRecording"
+      title="Grabar mensaje de voz">
+      <span class="voice-icon">🎤</span>
+    </button>
+
+    <!-- Botón Enviar (cuando hay texto) -->
+    <button 
+      *ngIf="newMessage.trim()"
+      class="send-btn" 
+      (click)="sendMessage()" 
+      [class.active]="newMessage.trim()"
+      title="Enviar mensaje">
+      <span class="send-icon">➤</span>
+    </button>
+  </div>
+
+  <!-- Indicador de grabación -->
+  <div class="recording-indicator" *ngIf="isRecording">
+    <span class="recording-pulse"></span>
+    <span class="recording-text">Grabando...</span>
+    <button class="stop-recording-btn" (click)="toggleVoiceRecording()">
+      Detener
+    </button>
+  </div>
+</div>

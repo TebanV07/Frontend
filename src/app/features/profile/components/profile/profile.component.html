@@ -1,0 +1,22 @@
+<div class="profile-container" *ngIf="profile">
+  <app-profile-header
+    [profile]="profile"
+    [isOwnProfile]="isOwnProfile"
+    [isFollowing]="isFollowing"
+    (onToggleFollow)="toggleFollow()"
+    (onEditProfile)="editProfile()"
+    (onShareProfile)="shareProfile()"
+    (onOpenSettings)="openSettings()">
+  </app-profile-header>
+
+  <app-profile-tabs
+    [selectedTab]="selectedTab"
+    [videosCount]="profile.videos.length"
+    (onSelectTab)="selectTab($event)">
+  </app-profile-tabs>
+
+  <app-profile-content
+    [profile]="profile"
+    [selectedTab]="selectedTab">
+  </app-profile-content>
+</div>

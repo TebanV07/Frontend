@@ -1,0 +1,14 @@
+<div class="video-player">
+  <video 
+    [src]="video.videoUrl"
+    [poster]="video.thumbnailUrl"
+    playsinline
+    webkit-playsinline>
+    Tu navegador no soporta videos HTML5.
+  </video>
+  <div class="video-controls">
+    <button class="play-btn" (click)="togglePlay()">
+      {{ isPlaying ? '⏸️' : '▶️' }}
+    </button>
+  </div>
+</div>

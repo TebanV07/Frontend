@@ -1,0 +1,114 @@
+<div class="post-detail-container">
+  
+  <!-- Manejo de estado de carga -->
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <span>Loading post...</span>
+  </div>
+
+  <!-- Manejo de errores -->
+  <div class="error-state" *ngIf="error">
+    <p>{{ error }}</p>
+    <button routerLink="/feed" class="btn-back">Go back to feed</button>
+  </div>
+
+  <!-- Contenido del Post -->
+  <div class="post-detail" *ngIf="!isLoading && !error && post">
+    
+    <!-- Botón de regreso -->
+    <div class="back-button">
+      <button routerLink="/feed" class="btn-back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back
+      </button>
+    </div>
+
+    <article class="post-content">
+      
+      <!-- Encabezado del Post: Autor e Info -->
+      <div class="post-header">
+        <div class="author-info">
+          <img 
+            [src]="post.user?.avatar || 'https://ui-avatars.com/api/?name=' + (post.user?.username || 'User')" 
+            [alt]="post.user?.username"
+            class="avatar"
+            [routerLink]="['/profile', post.user?.username]"
+          >
+          <div class="author-details">
+            <a [routerLink]="['/profile', post.user?.username]" class="username">
+              {{ post.user?.username }}
+            </a>
+            <!-- CORRECCIÓN: El modelo usa first_name/last_name. Asumo que se desea el nombre completo. -->
+            <span class="full-name" *ngIf="post.user?.first_name || post.user?.last_name">
+              {{ post.user?.first_name }} {{ post.user?.last_name }}
+            </span>
+            <span class="timestamp">{{ formattedDate }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cuerpo del Post: Texto y Media -->
+      <div class="post-body">
+        <p class="content-text">{{ post.content }}</p>
+
+        <!-- CORRECCIÓN: Uso de las propiedades del modelo Post para media -->
+        <div class="media-container">
+          <!-- Video -->
+          <video 
+            *ngIf="post.has_video && post.video_url" 
+            [src]="post.video_url"
+            controls
+            class="media-video"
+          ></video>
+          
+          <!-- Imágenes -->
+          <ng-container *ngIf="post.has_images && post.images?.length">
+            <img 
+              *ngFor="let image of post.images" 
+              [src]="image.image_url" 
+              [alt]="image.alt_text || 'Post image'"
+              class="media-image"
+            >
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Estadísticas -->
+      <div class="post-stats">
+        <app-like-count 
+          [postId]="post.id" 
+          [likesCount]="post.likes_count"
+        ></app-like-count>
+        <!-- Agregar contador de comentarios que usa 'comments_count' -->
+        <span class="comment-count">{{ post.comments_count }} comments</span>
+      </div>
+
+      <!-- Acciones (Like y Compartir) -->
+      <div class="post-actions">
+        <app-like-button
+          [postId]="post.id"
+          [isLiked]="post.isLiked || false" 
+          [likesCount]="post.likes_count"
+          (likeToggled)="onLikeToggled($event)"
+        ></app-like-button>
+
+        <!-- Botón para Compartir (añadido para consistencia con un post completo) -->
+        <button class="action-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share
+        </button>
+      </div>
+    </article>
+
+    <!-- Sección de Comentarios -->
+    <div class="comments-section">
+      <h3 class="section-title">Comments</h3>
+      <app-comment-list 
+        [postId]="post.id"
+        [currentUserId]="currentUserId"
+      ></app-comment-list>
+    </div>
+  </div>
+</div>

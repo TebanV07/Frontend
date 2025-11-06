@@ -1,0 +1,107 @@
+<div class="profile-header">
+  <div class="header-background">
+    <div class="animated-gradient"></div>
+  </div>
+  
+  <div class="profile-info-section">
+    <div class="profile-avatar">
+      <div class="avatar-ring"></div>
+      <img [src]="profile.avatar" [alt]="profile.name">
+    </div>
+
+    <div class="profile-details">
+      <div class="profile-header-top">
+        <div class="profile-name">
+          <h1>{{ profile.name }}</h1>
+          <span class="verified-badge" *ngIf="profile.verified">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+          </span>
+        </div>
+        <div class="profile-actions">
+          <button class="action-btn" (click)="onShareProfile.emit()" title="Compartir perfil">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+              <polyline points="16 6 12 2 8 6"/>
+              <line x1="12" y1="2" x2="12" y2="15"/>
+            </svg>
+          </button>
+          <button class="action-btn settings-btn" (click)="onOpenSettings.emit()" *ngIf="isOwnProfile" title="Configuración">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 1v6m0 6v6m-9-9h6m6 0h6"/>
+            </svg>
+          </button>
+          <button 
+            *ngIf="!isOwnProfile"
+            class="follow-btn"
+            [class.following]="isFollowing"
+            (click)="onToggleFollow.emit()">
+            <span class="btn-text">{{ isFollowing ? 'Siguiendo' : 'Seguir' }}</span>
+          </button>
+          <button *ngIf="isOwnProfile" class="edit-btn" (click)="onEditProfile.emit()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+            <span>Editar perfil</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="profile-username">
+        {{ '@' + profile.username }}
+      </div>
+
+      <div class="profile-stats">
+        <div class="stat-item">
+          <span class="stat-value">{{ formatNumber(profile.totalVideos) }}</span>
+          <span class="stat-label">Videos</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ formatNumber(profile.followers) }}</span>
+          <span class="stat-label">Seguidores</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ formatNumber(profile.following) }}</span>
+          <span class="stat-label">Siguiendo</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ formatNumber(profile.totalViews) }}</span>
+          <span class="stat-label">Visualizaciones</span>
+        </div>
+      </div>
+
+      <div class="profile-bio" *ngIf="profile.bio">
+        {{ profile.bio }}
+      </div>
+
+      <div class="profile-meta">
+        <span class="meta-item" *ngIf="profile.country">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          {{ profile.country }}
+        </span>
+        <span class="meta-item" *ngIf="profile.website">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+          {{ profile.website }}
+        </span>
+        <span class="meta-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Se unió en {{ getJoinedDate() }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="chat-window" [class.has-active-chat]="!!activeConversation">
+  <!-- Sin conversación seleccionada -->
+  <div class="no-chat-selected" *ngIf="!activeConversation">
+    <div class="placeholder-content">
+      <div class="placeholder-icon">💬</div>
+      <h3>Selecciona una conversación</h3>
+      <p>Elige un chat de la lista para empezar a conversar</p>
+    </div>
+  </div>
+  
+  <!-- Conversación activa -->
+  <div class="chat-content" *ngIf="activeConversation">
+    <!-- Header -->
+    <div class="header">
+      <div class="user-info">
+        <img 
+          [src]="activeConversation.participants[0].avatar" 
+          [alt]="activeConversation.participants[0].name"
+          class="avatar">
+        <div class="user-details">
+          <h3>{{ activeConversation.participants[0].name }}</h3>
+          <span class="status" [class.online]="activeConversation.participants[0].isOnline">
+            {{ activeConversation.participants[0].isOnline ? '🟢 En línea' : '⚫ Desconectado' }}
+          </span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="action-btn" title="Traducción automática">
+          🌐
+          <span class="translation-status" *ngIf="activeConversation.isTranslationEnabled">ON</span>
+        </button>
+        <button class="action-btn video-call-btn" title="Video llamada">🎥</button>
+      </div>
+    </div>
+    
+    <!-- Mensajes -->
+    <div class="messages-container" #messagesContainer>
+      <div class="messages">
+        <app-message-bubble
+          *ngFor="let msg of messages"
+          [message]="msg"
+          [isSent]="isMessageSent(msg)"
+          (translate)="onTranslateMessage($event)">
+        </app-message-bubble>
+
+        <div class="no-messages" *ngIf="messages.length === 0">
+          <p>No hay mensajes aún. ¡Inicia la conversación! 👋</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Input de mensajes -->
+    <app-chat-input
+      (messageSent)="onMessageSent($event)">
+    </app-chat-input>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="stories-container">
+      <h3 class="stories-title">Historias</h3>
+      <div class="stories-list">
+        <div class="story-item" 
+             *ngFor="let story of stories" 
+             [class.own-story]="story.isOwn"
+             [class.has-new]="story.hasNew">
+          <div class="story-avatar-container">
+            <img [src]="story.image" [alt]="story.user.name" class="story-avatar">
+            <div class="add-story-btn" *ngIf="story.isOwn">
+              <span class="add-icon">+</span>
+            </div>
+            <div class="new-indicator" *ngIf="story.hasNew && !story.isOwn"></div>
+          </div>
+          <span class="story-name">{{ story.isOwn ? 'Agregar' : story.user.name.split(' ')[0] }}</span>
+        </div>
+      </div>
+    </div>

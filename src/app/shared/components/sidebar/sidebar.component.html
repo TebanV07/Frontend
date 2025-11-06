@@ -1,0 +1,98 @@
+<aside class="sidebar">
+  <div class="user-profile" *ngIf="currentUser">
+    <div class="profile-header">
+      <img [src]="currentUser.profile_image || 'https://ui-avatars.com/api/?name=' + currentUser.first_name" 
+           [alt]="currentUser.username" 
+           class="profile-avatar">
+      <div class="profile-info">
+        <h3 class="profile-name">{{ currentUser.first_name }} {{ currentUser.last_name }}</h3>
+        <p class="profile-username">{{ '@' + currentUser.username }}</p>
+      </div>
+    </div>
+    
+    <div class="profile-stats">
+      <div class="stat-item">
+        <span class="stat-number">{{ formatNumber(currentUser.followers ?? 0) }}</span>
+        <span class="stat-label">Seguidores</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{{ formatNumber(currentUser.following ?? 0) }}</span>
+        <span class="stat-label">Siguiendo</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{{ formatNumber(currentUser.posts ?? 0) }}</span>
+        <span class="stat-label">Posts</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-access">
+    <h4 class="section-title">Navegación</h4>
+    <div class="access-menu">
+      <div 
+        *ngFor="let item of quickAccessItems" 
+        class="menu-item"
+        (click)="navigateTo(item.route)">
+        <div class="menu-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path [attr.d]="getIconPath(item.icon)"></path>
+          </svg>
+        </div>
+        <span class="menu-text">{{ item.text }}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="menu-arrow">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="ai-translation-panel">
+    <div class="panel-header">
+      <h4 class="section-title">AI Translation</h4>
+      <div class="ai-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Activo</span>
+      </div>
+    </div>
+    <div class="translation-info">
+      <div class="info-item">
+        <div class="info-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <div class="info-content">
+          <span class="info-title">Real-time Translation</span>
+          <span class="info-desc">Videos & Posts</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+        </div>
+        <div class="info-content">
+          <span class="info-title">24+ Languages</span>
+          <span class="info-desc">Global connectivity</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <div class="info-content">
+          <span class="info-title">Instant Processing</span>
+          <span class="info-desc">Lightning fast</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>

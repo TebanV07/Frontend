@@ -1,0 +1,49 @@
+<div class="create-post-card">
+  <div class="user-info">
+    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face" 
+         alt="User" class="user-avatar">
+    <div class="input-section">
+      <textarea placeholder="Share your thoughts... 🌍" 
+               class="post-input" 
+               rows="3"
+               [(ngModel)]="postContent"
+               [disabled]="isPosting"></textarea>
+    </div>
+  </div>
+  
+  <div class="post-actions">
+    <div class="action-buttons">
+      <button class="action-btn video-btn">
+        <span class="btn-icon">🎥</span>
+        <span class="btn-text">AI Video</span>
+        <span class="ai-badge">BETA</span>
+      </button>
+      <button class="action-btn">
+        <span class="btn-icon">📷</span>
+        <span class="btn-text">Photo</span>
+      </button>
+      <button class="action-btn">
+        <span class="btn-icon">🌐</span>
+        <span class="btn-text">Translate</span>
+      </button>
+    </div>
+    
+    <button class="post-btn" 
+            (click)="onShare()"
+            [disabled]="!postContent.trim() || isPosting">
+      <span class="post-btn-text">{{ isPosting ? 'Sharing...' : 'Share' }}</span>
+      <span class="post-btn-icon">✨</span>
+    </button>
+  </div>
+  
+  <div class="ai-features-info">
+    <div class="feature-item">
+      <span class="feature-icon">🤖</span>
+      <span class="feature-text">Auto-translate to 24+ languages</span>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">🎙️</span>
+      <span class="feature-text">AI voice synthesis for videos</span>
+    </div>
+  </div>
+</div>
