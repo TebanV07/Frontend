@@ -369,4 +369,19 @@
         flex: 1;
         justify-content: center;
       }
+      .post-language {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: #65676b;
+  margin-left: 8px;
+  padding: 2px 8px;
+  background: #f0f2f5;
+  border-radius: 12px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
     }

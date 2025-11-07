@@ -1,33 +1,33 @@
 <div class="comment-list">
-  <div class="comment-form-container">
-    <app-comment-form
-      [postId]="postId"
-      (commentCreated)="onCommentCreated($event)"
-    ></app-comment-form>
-  </div>
-
+  <!-- Lista de comentarios -->
   <div class="comments-container">
+    <h3 class="comments-title">
+      <span class="icon">💬</span>
+      Comments
+      <span class="count" *ngIf="!isLoading">{{ comments.length }}</span>
+    </h3>
     <div *ngIf="isLoading" class="loading-state">
       <div class="spinner"></div>
       <span>Loading comments...</span>
     </div>
 
     <div *ngIf="error" class="error-state">
+      <span class="icon">⚠️</span>
       {{ error }}
     </div>
 
     <div *ngIf="!isLoading && !error && comments.length === 0" class="empty-state">
-      <p>No comments yet. Be the first to comment!</p>
+      <div class="empty-icon">💭</div>
+      <p class="empty-title">No comments yet</p>
+      <p class="empty-subtitle">Be the first to share your thoughts!</p>
     </div>
 
     <div *ngIf="!isLoading && comments.length > 0" class="comments">
       <app-comment-item
-        *ngFor="let comment of comments"
+        *ngFor="let comment of comments; trackBy: trackByCommentId"
         [comment]="comment"
         [postId]="postId"
         [currentUserId]="currentUserId"
-        (commentDeleted)="onCommentDeleted($event)"
-        (commentUpdated)="onCommentUpdated($event)"
         (replyCreated)="onCommentCreated($event)"
       ></app-comment-item>
 
@@ -37,7 +37,13 @@
         (click)="loadMore()"
         [disabled]="isLoadingMore"
       >
-        {{ isLoadingMore ? 'Loading...' : 'Load more comments' }}
+        <span *ngIf="!isLoadingMore">
+          <span class="icon">↓</span> Load more comments
+        </span>
+        <span *ngIf="isLoadingMore" class="loading-text">
+          <div class="spinner-small"></div>
+          Loading...
+        </span>
       </button>
     </div>
   </div>

@@ -10,6 +10,10 @@
       />
       <div class="user-details">
         <h4 class="user-name">{{ post.user?.username }}</h4>
+        <!-- ✅ MUESTRA EL IDIOMA ORIGINAL -->
+        <span class="post-language" *ngIf="post.original_language">
+          🌐 {{ getLanguageName(post.original_language) }}
+        </span>
         <span class="timestamp">{{ getRelativeTime(post.created_at) }}</span>
       </div>
     </div>
@@ -38,6 +42,12 @@
       [likesCount]="post.likes_count"
       (likeToggled)="onLikeToggled($event)"
     ></app-like-button>
+      <!-- 🔢 Contador de likes -->
+    <app-like-count
+      [postId]="post.id"
+      [likesCount]="post.likes_count"
+      [clickable]="true"
+    ></app-like-count>
 
     <button class="action-button comment-btn" (click)="toggleComments()">
       💬 {{ post.comments_count }}
@@ -48,22 +58,11 @@
 
   <!-- ====== COMENTARIOS ====== -->
   <section *ngIf="showComments" class="post-comments">
-    <!-- Componente de formulario de comentario -->
-    <app-comment-form
-      [postId]="post.id"
-      [placeholder]="'Escribe un comentario...'"
-      [autoFocus]="true"
-      (commentCreated)="onCommentFormCreated($event)"
-      (cancelled)="onCommentFormCancelled()"
-    ></app-comment-form>
-
     <!-- Componente de lista de comentarios -->
     <app-comment-list
       [postId]="post.id"
       [currentUserId]="currentUserId"
       (commentCreated)="onCommentCreated($any($event))"
-      (commentDeleted)="onCommentDeleted($any($event))"
-      (commentUpdated)="onCommentUpdated($any($event))"
     ></app-comment-list>
   </section>
 </article>

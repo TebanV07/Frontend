@@ -2,13 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostCommentService } from '../../../../core/services/post-comment.service';
 import { Comment } from '../../../../core/models/comment.model';
-import { CommentFormComponent } from '../comment-form/comment-form.component';
 import { CommentItemComponent } from '../comment-item/comment-item.component';
 
 @Component({
   selector: 'app-comment-list',
   standalone: true,
-  imports: [CommonModule, CommentFormComponent, CommentItemComponent],
+  imports: [CommonModule, CommentItemComponent],
   templateUrl: './comment-list.component.html',
   styleUrls: ['./comment-list.component.scss']
 })
@@ -34,7 +33,7 @@ export class CommentListComponent implements OnInit {
     this.commentService.getComments(this.postId, this.page).subscribe({
       next: (comments) => {
         this.comments = comments;
-        this.hasMore = comments.length === 20; // Si vienen 20, hay más
+        this.hasMore = comments.length === 20;
         this.isLoading = false;
       },
       error: (error) => {
@@ -69,14 +68,8 @@ export class CommentListComponent implements OnInit {
     this.comments.unshift(comment);
   }
 
-  onCommentDeleted(commentId: number): void {
-    this.comments = this.comments.filter(c => c.id !== commentId);
-  }
-
-  onCommentUpdated(comment: Comment): void {
-    const index = this.comments.findIndex(c => c.id === comment.id);
-    if (index !== -1) {
-      this.comments[index] = comment;
-    }
+  // Método para optimizar el rendering con trackBy
+  trackByCommentId(index: number, comment: Comment): number {
+    return comment.id;
   }
 }

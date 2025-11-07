@@ -3,9 +3,11 @@ export interface User {
   username: string;
   full_name?: string;
   avatar_url?: string;
+  native_language?: string;
 }
 
 export interface Comment {
+  is_edited: boolean;
   id: number;
   content: string;
   post_id: number;
@@ -22,6 +24,7 @@ export interface Comment {
   // Contadores
   likes_count?: number;
   replies_count?: number;
+  is_liked?: boolean;
 }
 
 export interface CreateCommentDto {
@@ -45,4 +48,6 @@ export interface CommentResponse {
   replies?: Comment[];
   likes_count: number;
   replies_count: number;
+  native_language?: string;
+  is_liked: boolean;
 }

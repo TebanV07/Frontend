@@ -48,23 +48,6 @@ export class CommentService {
     );
   }
 
-  // Actualizar un comentario
-  updateComment(commentId: number, content: string): Observable<Comment> {
-    return this.http.put<Comment>(
-      `${API_BASE}/comments/posts/comments/${commentId}`,
-      { content },
-      { headers: this.getAuthHeaders() }
-    );
-  }
-
-  // Eliminar un comentario
-  deleteComment(commentId: number): Observable<any> {
-    return this.http.delete(
-      `${API_BASE}/comments/posts/comments/${commentId}`,
-      { headers: this.getAuthHeaders() }
-    );
-  }
-
   // Dar like a un comentario
   likeComment(commentId: number): Observable<any> {
     return this.http.post(

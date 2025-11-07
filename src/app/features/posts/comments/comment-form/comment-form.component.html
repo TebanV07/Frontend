@@ -13,6 +13,7 @@
   </div>
 
   <div class="error-message" *ngIf="error">
+    <span class="icon">⚠️</span>
     {{ error }}
   </div>
 
@@ -24,6 +25,7 @@
       *ngIf="parentCommentId"
       [disabled]="isSubmitting"
     >
+      <span class="icon">✕</span>
       Cancel
     </button>
     
@@ -32,8 +34,14 @@
       class="btn btn-primary"
       [disabled]="!content.trim() || isSubmitting"
     >
-      <span *ngIf="!isSubmitting">{{ parentCommentId ? 'Reply' : 'Comment' }}</span>
-      <span *ngIf="isSubmitting" class="spinner"></span>
+      <span *ngIf="!isSubmitting" class="btn-content">
+        <span class="icon">{{ parentCommentId ? '↩' : '💬' }}</span>
+        {{ parentCommentId ? 'Reply' : 'Comment' }}
+      </span>
+      <span *ngIf="isSubmitting" class="btn-loading">
+        <span class="spinner"></span>
+        Posting...
+      </span>
     </button>
   </div>
 </form>

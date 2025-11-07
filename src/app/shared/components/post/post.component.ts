@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { CommentFormComponent } from '../../../features/posts/comments/comment-form/comment-form.component';
 import { CommentListComponent } from '../../../features/posts/comments/comment-list/comment-list.component';
 import { LikeButtonComponent } from '../../../features/posts/likes/likes-button/likes-button.component';
+import { LikeCountComponent } from '../../../features/posts/likes/likes-count/likes-count.component';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -21,6 +22,7 @@ import { LikeButtonComponent } from '../../../features/posts/likes/likes-button/
     CommentFormComponent,
     CommentListComponent,
     LikeButtonComponent,
+    LikeCountComponent
   ],
 })
 export class PostComponent implements OnInit {
@@ -66,16 +68,6 @@ export class PostComponent implements OnInit {
     this.post.comments_count++;
   }
 
-  onCommentDeleted(commentId: number): void {
-    // El comment-list ya maneja esto internamente, pero podemos actualizar el contador
-    this.post.comments_count = Math.max(0, this.post.comments_count - 1);
-  }
-
-  onCommentUpdated(comment: Comment): void {
-    // El comment-list ya maneja esto internamente
-    console.log('Comment updated:', comment);
-  }
-
   // ----------------------------
   // MANEJADORES DE EVENTOS DE COMMENT-FORM
   // ----------------------------
@@ -108,4 +100,27 @@ export class PostComponent implements OnInit {
     const diffDays = Math.floor(diffHours / 24);
     return `${diffDays}d`;
   }
+  // Agrega este método en post.component.ts
+
+getLanguageName(code: string): string {
+  const languages: { [key: string]: string } = {
+    'en': 'English',
+    'es': 'Español',
+    'fr': 'Français',
+    'de': 'Deutsch',
+    'it': 'Italiano',
+    'pt': 'Português',
+    'ru': 'Русский',
+    'zh': '中文',
+    'ja': '日本語',
+    'ko': '한국어',
+    'ar': 'العربية',
+    'hi': 'हिन्दी',
+    'nl': 'Nederlands',
+    'pl': 'Polski',
+    'tr': 'Türkçe',
+    // Agrega más según necesites
+  };
+  return languages[code] || code.toUpperCase();
+}
 }
