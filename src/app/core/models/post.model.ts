@@ -1,5 +1,22 @@
 import { UserBasic } from './user.model';
 
+/**
+ * Interface para una imagen de un post
+ */
+export interface PostImage {
+  id: number;
+  post_id?: number;
+  image_url: string;
+  thumbnail_url?: string;
+  width: number;
+  height: number;
+  order: number;
+  alt_text?: string;
+}
+
+/**
+ * Interface principal de Post
+ */
 export interface Post {
   // Identificación
   id: number;
@@ -8,13 +25,17 @@ export interface Post {
   // Contenido
   content: string;
   original_language: string;
+  target_language?: string;
 
   // Media
   has_images: boolean;
   has_video: boolean;
   has_audio: boolean;
-  video_url?: string; // viene del CreatePostRequest
-  images?: PostImage[];
+  
+  // URLs de media
+  image_url?: string;      // Primera imagen (compatibilidad)
+  video_url?: string;
+  images?: PostImage[];    // Array de imágenes
 
   // Usuario
   user_id: number;
@@ -25,43 +46,34 @@ export interface Post {
   comments_count: number;
   shares_count: number;
   saves_count: number;
-  views_count?: number;
+  views_count: number;
 
-  // Estado del usuario actual (frontend)
-  isLiked?: boolean;
-  isSaved?: boolean;
+  // Estado del usuario actual
+  is_liked: boolean;       // Snake case (como viene del backend)
+  is_saved: boolean;       // Snake case (como viene del backend)
 
   // Visibilidad
   is_public: boolean;
   is_active: boolean;
 
   // Categorización
-  tags?: string[];
+  tags: string[];
   location_name?: string;
   latitude?: number;
   longitude?: number;
   city?: string;
   country?: string;
 
+  // Traducción IA
+  translations?: { [key: string]: string };
+
   // Tiempo
   created_at: string;
-  updated_at?: string;
+  updated_at: string;
 
-  // UI
+  // UI (solo frontend)
   showComments?: boolean;
 }
-
-export interface PostImage {
-  id: number;
-  post_id: number;
-  image_url: string;
-  thumbnail_url?: string;
-  width: number;
-  height: number;
-  order: number;
-  alt_text?: string;
-}
-
 
 /**
  * Interface para ubicación del post
@@ -79,8 +91,9 @@ export interface PostLocation {
  */
 export interface CreatePostDto {
   content: string;
-  originalLanguage: string;
+  originalLanguage?: string;
   images?: File[];
+  video?: File;
   isPublic?: boolean;
   tags?: string[];
   location?: PostLocation;

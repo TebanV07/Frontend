@@ -11,9 +11,9 @@ import { PostLikeService } from '../../../../core/services/post-like.service';
 })
 export class LikeButtonComponent {
   @Input() postId!: number;
-  @Input() isLiked: boolean = false;
+  @Input() is_liked: boolean = false;
   @Input() likesCount: number = 0;
-  @Output() likeToggled = new EventEmitter<{ isLiked: boolean; likesCount: number }>();
+  @Output() likeToggled = new EventEmitter<{ is_liked: boolean; likesCount: number }>();
 
   isLoading = false;
 
@@ -24,14 +24,14 @@ export class LikeButtonComponent {
 
   this.isLoading = true;
 
-  // ✅ PASA isLiked al servicio
-  this.likeService.toggleLike(this.postId, this.isLiked).subscribe({
+  // ✅ PASA is_liked al servicio
+  this.likeService.toggleLike(this.postId, this.is_liked).subscribe({
     next: (response) => {
       // Toggle manual ya que el backend no devuelve el estado
-      this.isLiked = !this.isLiked;
-      this.likesCount = this.isLiked ? this.likesCount + 1 : this.likesCount - 1;
+      this.is_liked = !this.is_liked;
+      this.likesCount = this.is_liked ? this.likesCount + 1 : this.likesCount - 1;
       this.likeToggled.emit({ 
-        isLiked: this.isLiked, 
+        is_liked: this.is_liked, 
         likesCount: this.likesCount 
       });
       this.isLoading = false;

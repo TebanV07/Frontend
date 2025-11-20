@@ -10,19 +10,45 @@
                [disabled]="isPosting"></textarea>
     </div>
   </div>
+
+  <!-- Preview de imagen -->
+  <div class="media-preview" *ngIf="imagePreview">
+    <div class="preview-container">
+      <img [src]="imagePreview" alt="Preview" class="preview-image">
+      <button class="remove-media-btn" (click)="removeAllMedia()" [disabled]="isPosting">
+        <span>✕</span>
+      </button>
+      <div class="media-badge image-badge">
+        <span>📷</span> Image
+      </div>
+    </div>
+  </div>
+
+  <!-- Preview de video -->
+  <div class="media-preview" *ngIf="videoPreview">
+    <div class="preview-container">
+      <video [src]="videoPreview" class="preview-video" controls></video>
+      <button class="remove-media-btn" (click)="removeAllMedia()" [disabled]="isPosting">
+        <span>✕</span>
+      </button>
+      <div class="media-badge video-badge">
+        <span>🎥</span> AI Video Translation
+      </div>
+    </div>
+  </div>
   
   <div class="post-actions">
     <div class="action-buttons">
-      <button class="action-btn video-btn">
+      <button class="action-btn video-btn" (click)="onSelectVideo()" [disabled]="isPosting">
         <span class="btn-icon">🎥</span>
         <span class="btn-text">AI Video</span>
         <span class="ai-badge">BETA</span>
       </button>
-      <button class="action-btn">
+      <button class="action-btn" (click)="onSelectImages()" [disabled]="isPosting">
         <span class="btn-icon">📷</span>
         <span class="btn-text">Photo</span>
       </button>
-      <button class="action-btn">
+      <button class="action-btn" [disabled]="true">
         <span class="btn-icon">🌐</span>
         <span class="btn-text">Translate</span>
       </button>
@@ -30,7 +56,7 @@
     
     <button class="post-btn" 
             (click)="onShare()"
-            [disabled]="!postContent.trim() || isPosting">
+            [disabled]="(!postContent.trim() && !selectedImage && !selectedVideo) || isPosting">
       <span class="post-btn-text">{{ isPosting ? 'Sharing...' : 'Share' }}</span>
       <span class="post-btn-icon">✨</span>
     </button>
@@ -46,4 +72,19 @@
       <span class="feature-text">AI voice synthesis for videos</span>
     </div>
   </div>
+
+  <!-- Inputs ocultos para archivos -->
+  <input 
+    type="file" 
+    #imageInput
+    accept="image/*"
+    (change)="onImagesSelected($event)"
+    style="display: none;">
+  
+  <input 
+    type="file" 
+    #videoInput
+    accept="video/*"
+    (change)="onVideoSelected($event)"
+    style="display: none;">
 </div>

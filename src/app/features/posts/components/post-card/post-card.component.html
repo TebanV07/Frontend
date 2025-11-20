@@ -33,26 +33,49 @@
   </div>
 
   <div class="post-content">
-    <p class="content-text">{{ post.content }}</p>
+    <!-- ==================== BADGE DE IDIOMA ==================== -->
+    <div class="language-badge" *ngIf="post.original_language">
+      <span class="language-indicator">
+        {{ getLanguageFlag(post.original_language) }} 
+        {{ getLanguageName(post.original_language) }}
+      </span>
+    </div>
+    <!-- ======================================================== -->
+
+    <!-- ==================== CONTENIDO (ORIGINAL O TRADUCIDO) ==================== -->
+    <p class="content-text" *ngIf="!showTranslation">{{ post.content }}</p>
+    <p class="content-text translated-text" *ngIf="showTranslation">{{ translatedContent }}</p>
+    <!-- ========================================================================== -->
 
     <div class="media-container">
       <video 
         *ngIf="post.has_video && post.video_url" 
-        [src]="post.video_url"
+        [src]="getFullVideoUrl(post.video_url)"
         controls
         class="media-video"
+        (error)="onVideoError($event)"
       ></video>
       
       <div *ngIf="post.has_images && post.images?.length" class="image-grid">
         <img 
           *ngFor="let image of post.images" 
-          [src]="image.image_url" 
+          [src]="getFullImageUrl(image.image_url)" 
           [alt]="image.alt_text || 'Post image'"
           class="media-image"
+          (error)="onImageError($event)"
         >
       </div>
     </div>
   </div>
+
+  <!-- ==================== INDICADOR DE TRADUCCIÓN ==================== -->
+  <div class="translation-indicator" *ngIf="showTranslation">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M5 8h14M9 2v4M15 2v4M6.5 8.5l1.8 11.5h7.4l1.8-11.5"/>
+    </svg>
+    <span>Translated from {{ getLanguageName(post.original_language) }}</span>
+  </div>
+  <!-- ================================================================= -->
 
   <div class="post-stats">
     <app-like-count 
@@ -65,9 +88,9 @@
   <div class="post-actions">
     <app-like-button
       [postId]="post.id"
-      [isLiked]="post.isLiked || false"
+      [is_liked]="post.is_liked || false"
       [likesCount]="post.likes_count"
-      (likeToggled)="onLikeToggled($event)"
+      (likeToggled)="onLikeToggled($any($event))"
     ></app-like-button>
 
     <button class="action-button" [routerLink]="['/posts', post.id]">
@@ -84,5 +107,29 @@
       </svg>
       <span>Share</span>
     </button>
+
+    <!-- ==================== BOTÓN DE TRADUCIR (NUEVO) ==================== -->
+    <button 
+      class="action-button translate-button" 
+      (click)="toggleTranslation()"
+      [disabled]="isTranslating"
+      [class.active]="showTranslation"
+    >
+      <!-- Icono de traducir -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="m5 8 6 6"/>
+        <path d="m4 14 6-6 2-3"/>
+        <path d="M2 5h12"/>
+        <path d="M7 2h1"/>
+        <path d="m22 22-5-10-5 10"/>
+        <path d="M14 18h6"/>
+      </svg>
+      
+      <!-- Texto del botón -->
+      <span *ngIf="isTranslating">Translating...</span>
+      <span *ngIf="!isTranslating && !showTranslation">Translate</span>
+      <span *ngIf="!isTranslating && showTranslation">Show Original</span>
+    </button>
+    <!-- =================================================================== -->
   </div>
 </article>

@@ -89,9 +89,9 @@
       <div class="post-actions">
         <app-like-button
           [postId]="post.id"
-          [isLiked]="post.isLiked || false" 
+          [is_liked]="post.is_liked || false" 
           [likesCount]="post.likes_count"
-          (likeToggled)="onLikeToggled($event)"
+          (likeToggled)="onLikeToggled($any($event))"
         ></app-like-button>
 
         <!-- Botón para Compartir (añadido para consistencia con un post completo) -->

@@ -2,12 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { 
-  LikeToggleResponse, 
-  LikeCountResponse, 
-  LikeCheckResponse,
-  LikeUser 
-} from '../models/like.model';
+import { LikeToggleResponse, LikeCountResponse, LikeCheckResponse, LikeUser } from '../models/like.model';
 
 @Injectable({
   providedIn: 'root'

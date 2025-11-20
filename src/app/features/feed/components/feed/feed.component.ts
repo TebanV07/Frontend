@@ -11,7 +11,7 @@ import { forkJoin } from 'rxjs';
   standalone: true,
   imports: [PostComponent, CreatePostComponent, NgFor, NgIf, CommonModule],
   templateUrl: './feed.component.html',
-  styleUrl: './feed.component.scss'
+  styleUrls: ['./feed.component.scss']
 })
 export class FeedComponent implements OnInit {
   posts: Post[] = [];
@@ -21,47 +21,50 @@ export class FeedComponent implements OnInit {
 
   constructor(
     private postsService: PostsService,
-    private likeService: PostLikeService // ✅ INYECTA EL SERVICIO
+    private likeService: PostLikeService
   ) {}
 
   ngOnInit() {
     this.loadPosts();
   }
 
+  // 📦 Cargar posts
   loadPosts() {
     this.isLoading = true;
+
     this.postsService.getPosts().subscribe({
       next: (response) => {
         console.log('📝 Raw API Response:', response);
-        
+
         const items = Array.isArray(response)
           ? response
-          : (response as any)?.posts ?? (response as any)?.results ?? (response as any)?.data ?? response ?? [];
-        
-        this.posts = Array.isArray(items) 
-          ? items.filter((p: any) => !!p)
-          : [];
-        
-        this.validPosts = this.posts.filter(post => 
-          post && 
-          post.id != null &&
-          typeof post.id === 'number' &&
-          post.id > 0
+          : (response as any)?.posts ??
+            (response as any)?.results ??
+            (response as any)?.data ??
+            response ??
+            [];
+
+        this.posts = Array.isArray(items) ? items.filter((p: any) => !!p) : [];
+
+        this.validPosts = this.posts.filter(
+          (post) =>
+            post &&
+            post.id != null &&
+            typeof post.id === 'number' &&
+            post.id > 0
         );
-        
-        this.invalidPosts = this.posts.filter(post => 
-          !post || 
-          post.id == null ||
-          typeof post.id !== 'number' ||
-          post.id <= 0  
+
+        this.invalidPosts = this.posts.filter(
+          (post) =>
+            !post || post.id == null || typeof post.id !== 'number' || post.id <= 0
         );
-        
-        // ✅ CARGAR ESTADO DE LIKES PARA CADA POST
+
+        // ✅ Cargar estado de likes
         this.loadLikeStates();
-        
+
         console.log('🔍 Valid posts:', this.validPosts.length);
         console.log('🚨 Invalid posts:', this.invalidPosts.length);
-        
+
         if (this.invalidPosts.length > 0) {
           console.error('❌ Posts inválidos encontrados:', this.invalidPosts);
         }
@@ -76,21 +79,21 @@ export class FeedComponent implements OnInit {
     });
   }
 
-  // ✅ NUEVO: Cargar estado de likes
+  // ❤️ Cargar estado de likes
   loadLikeStates(): void {
     if (this.validPosts.length === 0) {
       this.isLoading = false;
       return;
     }
 
-    const likeChecks = this.validPosts.map(post => 
+    const likeChecks = this.validPosts.map((post) =>
       this.likeService.checkIfLiked(post.id)
     );
 
     forkJoin(likeChecks).subscribe({
       next: (results) => {
         results.forEach((result, index) => {
-          this.validPosts[index].isLiked = result.is_liked;
+          this.validPosts[index].is_liked = result.is_liked;
         });
         this.isLoading = false;
         console.log('✅ Posts con estado de likes cargado');
@@ -102,14 +105,15 @@ export class FeedComponent implements OnInit {
     });
   }
 
+  // 🆕 Cuando se crea un nuevo post
   onPostCreated(payload: any) {
     if (!payload) {
       this.loadPosts();
       return;
     }
-    
+
     if (payload.id && typeof payload.id === 'number' && payload.id > 0) {
-      payload.isLiked = false; // Nuevo post no tiene like
+      payload.isLiked = false; // nuevo post sin like
       this.validPosts.unshift(payload);
       this.posts.unshift(payload);
     } else {
@@ -118,7 +122,16 @@ export class FeedComponent implements OnInit {
     }
   }
 
-  onTranslateVideo(postId: string) {
-    console.log('🌐 Traducir video del post:', postId);
+  // 🌐 Cuando el post emite traducción de texto
+  onTranslatePost(postId: number) {
+    console.log('🌐 Traducir texto del post:', postId);
+    // Aquí podrías luego invocar un servicio real:
+    // this.postsService.translatePost(postId).subscribe(...)
+  }
+
+  // 🌐 Cuando el post emite traducción de video
+  onTranslateVideo(postId: number) {
+    console.log('🎥 Traducir video del post:', postId);
+    // Similar: podrías usar un servicio para traducir el video
   }
 }

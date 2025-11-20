@@ -1,9 +1,9 @@
 <button 
   class="like-button"
-  [class.liked]="isLiked"
+  [class.liked]="is_liked"
   [disabled]="isLoading"
   (click)="toggleLike()"
-  [attr.aria-label]="isLiked ? 'Unlike post' : 'Like post'"
+  [attr.aria-label]="is_liked ? 'Unlike post' : 'Like post'"
 >
   <svg 
     *ngIf="!isLoading"
@@ -11,7 +11,7 @@
     width="20" 
     height="20" 
     viewBox="0 0 24 24" 
-    [attr.fill]="isLiked ? 'currentColor' : 'none'"
+    [attr.fill]="is_liked ? 'currentColor' : 'none'"
     stroke="currentColor" 
     stroke-width="2"
   >
@@ -19,6 +19,6 @@
   </svg>
   
   <span *ngIf="isLoading" class="spinner"></span>
-  
-  <span class="like-text">{{ isLiked ? 'Liked' : 'Like' }}</span>
+
+  <span class="like-text">{{ is_liked ? 'Liked' : 'Like' }}</span>
 </button>

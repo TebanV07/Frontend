@@ -53,7 +53,7 @@ export class PostDetailComponent implements OnInit {
 
   onLikeToggled(event: { isLiked: boolean; likesCount: number }): void {
     if (this.post) {
-      this.post.isLiked = event.isLiked;
+      this.post.is_liked = event.isLiked;
       this.post.likes_count = event.likesCount;
     }
   }
