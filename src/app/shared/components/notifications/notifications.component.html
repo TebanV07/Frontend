@@ -1,0 +1,122 @@
+<div class="notifications-container">
+  <!-- Botón de campana -->
+  <button class="notification-bell" (click)="toggleDropdown()" [class.has-unread]="unreadCount > 0">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+      <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+    </svg>
+
+    <!-- Badge de notificaciones no leídas -->
+    <span class="notification-badge" *ngIf="unreadCount > 0">
+      {{ unreadCount > 99 ? '99+' : unreadCount }}
+    </span>
+  </button>
+
+  <!-- Dropdown de notificaciones -->
+  <div class="notification-dropdown" *ngIf="showDropdown">
+    <!-- Header -->
+    <div class="dropdown-header">
+      <h3>Notificaciones</h3>
+      <button class="close-btn" (click)="closeDropdown()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Acciones -->
+    <div class="dropdown-actions" *ngIf="notifications.length > 0">
+      <button class="action-text" (click)="markAllAsRead($event)" [disabled]="isMarkingAsRead || unreadCount === 0">
+        {{ isMarkingAsRead ? 'Marcando...' : 'Marcar todo como leído' }}
+      </button>
+      <button class="action-delete" (click)="clearAll($event)" [disabled]="isLoading">
+        Limpiar todo
+      </button>
+    </div>
+
+    <!-- Lista de notificaciones -->
+    <div class="notification-list">
+      <!-- Estado vacío -->
+      <div class="empty-state" *ngIf="!isLoading && notifications.length === 0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        <p>No tienes notificaciones</p>
+      </div>
+
+      <!-- Loading -->
+      <div class="loading-state" *ngIf="isLoading">
+        <div class="spinner"></div>
+        <p>Cargando...</p>
+      </div>
+
+      <!-- Notificaciones -->
+      <ng-container *ngIf="!isLoading && notifications.length > 0">
+        <div
+          *ngFor="let notification of notifications"
+          class="notification-item"
+          [class.unread]="!notification.is_read"
+          (click)="handleNotificationClick(notification)">
+
+          <!-- Avatar -->
+          <div class="notification-avatar">
+            <img
+              *ngIf="notification.from_user?.avatar"
+              [src]="notification.from_user?.avatar"
+              [alt]="notification.from_user?.username"
+              class="avatar">
+            <div *ngIf="!notification.from_user?.avatar" class="avatar-placeholder">
+              {{ getNotificationIcon(notification) }}
+            </div>
+          </div>
+
+          <!-- Contenido -->
+          <div class="notification-content">
+            <div class="notification-header">
+              <h4 class="notification-title">{{ notification.title }}</h4>
+              <span class="notification-time">{{ getTimeAgo(notification.created_at) }}</span>
+            </div>
+
+            <p class="notification-message" *ngIf="notification.message">
+              {{ notification.message }}
+            </p>
+
+            <span *ngIf="!notification.is_read" class="unread-indicator"></span>
+          </div>
+
+          <!-- Acciones -->
+          <div class="notification-actions">
+            <button
+              class="action-mark"
+              [title]="notification.is_read ? 'Marcar como no leído' : 'Marcar como leído'"
+              (click)="markAsRead(notification, $event)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </button>
+
+            <button
+              class="action-delete"
+              title="Eliminar"
+              (click)="deleteNotification(notification, $event)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Footer -->
+    <div class="dropdown-footer" *ngIf="!isLoading && notifications.length > 0">
+      <a href="#" class="view-all-link">Ver todas las notificaciones →</a>
+    </div>
+  </div>
+
+  <!-- Overlay para cerrar dropdown -->
+  <div class="notification-overlay" *ngIf="showDropdown" (click)="closeDropdown()"></div>
+</div>

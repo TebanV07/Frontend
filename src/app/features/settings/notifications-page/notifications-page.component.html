@@ -1,0 +1,148 @@
+<div class="notifications-page">
+  <!-- Header -->
+  <div class="page-header">
+    <h1>Notificaciones</h1>
+
+    <div class="header-actions">
+      <button class="btn btn-secondary" (click)="markAllAsRead()" [disabled]="unreadCount === 0">
+        Marcar todo como leído
+      </button>
+      <button class="btn btn-danger" (click)="clearAll()" [disabled]="notifications.length === 0">
+        Limpiar todo
+      </button>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters-section">
+    <button
+      class="filter-btn"
+      [class.active]="filter === 'all'"
+      (click)="setFilter('all')">
+      Todas
+      <span class="count" *ngIf="filter === 'all'">{{ totalNotifications }}</span>
+    </button>
+
+    <button
+      class="filter-btn"
+      [class.active]="filter === 'unread'"
+      (click)="setFilter('unread')">
+      Sin leer
+      <span class="count" *ngIf="filter === 'unread' && unreadCount > 0">{{ unreadCount }}</span>
+    </button>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="notifications-content">
+    <!-- Loading -->
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>Cargando notificaciones...</p>
+    </div>
+
+    <!-- Estado vacío -->
+    <div class="empty-state" *ngIf="!isLoading && notifications.length === 0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+      <h3>{{ filter === 'unread' ? 'Sin notificaciones sin leer' : 'No tienes notificaciones' }}</h3>
+      <p>{{ filter === 'unread' ? 'Estás al día con todo' : 'Vuelve pronto para nuevas notificaciones' }}</p>
+    </div>
+
+    <!-- Lista de notificaciones -->
+    <div class="notifications-list" *ngIf="!isLoading && notifications.length > 0">
+      <div
+        *ngFor="let notification of notifications"
+        class="notification-card"
+        [class.unread]="!notification.is_read">
+
+        <!-- Avatar -->
+        <div class="card-avatar">
+          <img
+            *ngIf="notification.from_user?.avatar"
+            [src]="notification.from_user?.avatar"
+            [alt]="notification.from_user?.username"
+            class="avatar">
+          <div *ngIf="!notification.from_user?.avatar" class="avatar-placeholder">
+            {{ getNotificationIcon(notification) }}
+          </div>
+        </div>
+
+        <!-- Contenido -->
+        <div class="card-content">
+          <div class="card-title">
+            <h3>{{ notification.title }}</h3>
+            <span class="card-time">{{ getTimeAgo(notification.created_at) }}</span>
+          </div>
+
+          <p class="card-message" *ngIf="notification.message">
+            {{ notification.message }}
+          </p>
+
+          <div class="card-meta" *ngIf="notification.from_user">
+            <span class="meta-user">{{ '@' + notification.from_user.username }}</span>
+          </div>
+
+          <span *ngIf="!notification.is_read" class="unread-badge">Nuevo</span>
+        </div>
+
+        <!-- Tipo -->
+        <div class="card-type">
+          <span class="type-badge" [ngClass]="'type-' + notification.type">
+            {{ getNotificationIcon(notification) }}
+          </span>
+        </div>
+
+        <!-- Acciones -->
+        <div class="card-actions">
+          <button
+            class="action-btn mark-read"
+            [title]="notification.is_read ? 'Marcar como no leído' : 'Marcar como leído'"
+            (click)="markAsRead(notification)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </button>
+
+          <button
+            class="action-btn delete"
+            title="Eliminar"
+            (click)="deleteNotification(notification)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paginación -->
+  <div class="pagination" *ngIf="!isLoading && getTotalPages() > 1">
+    <button
+      class="page-btn"
+      (click)="goToPage(currentPage - 1)"
+      [disabled]="currentPage === 1">
+      &#8592; Anterior
+    </button>
+
+    <div class="page-numbers">
+      <button
+        *ngFor="let page of getPageNumbers()"
+        class="page-number"
+        [class.active]="page === currentPage"
+        (click)="goToPage(page)">
+        {{ page }}
+      </button>
+    </div>
+
+    <button
+      class="page-btn"
+      (click)="goToPage(currentPage + 1)"
+      [disabled]="currentPage === getTotalPages()">
+      Siguiente &#8594;
+    </button>
+  </div>
+</div>

@@ -1,15 +1,16 @@
-// post.component.ts
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Post } from '../../../core/models/post.model';
 import { PostsService } from '../../../core/services/posts.service';
-import { CommentService, Comment } from '../../../core/services/comment.service';
+import { Comment } from '../../../core/models/comment.model';
+import { CommentService } from '../../../core/services/comment.service';
 import { FormsModule } from '@angular/forms';
+import { FlagService } from '../../../core/services/flag.service';
 
-// Importa los componentes de features
 import { CommentListComponent } from '../../../features/posts/comments/comment-list/comment-list.component';
 import { LikeButtonComponent } from '../../../features/posts/likes/likes-button/likes-button.component';
 import { LikeCountComponent } from '../../../features/posts/likes/likes-count/likes-count.component';
+import { ReportModalComponent } from '../report-modal/report-modal.component';
 
 @Component({
   selector: 'app-post',
@@ -17,166 +18,184 @@ import { LikeCountComponent } from '../../../features/posts/likes/likes-count/li
   styleUrls: ['./post.component.scss'],
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     FormsModule,
     CommentListComponent,
     LikeButtonComponent,
-    LikeCountComponent
+    LikeCountComponent,
+    ReportModalComponent
   ],
 })
 export class PostComponent implements OnInit {
   @Input() post!: Post;
+  @Input() currentUserId?: number;
+  @Output() postDeleted = new EventEmitter<number>();
+
   showComments = false;
   comments: Comment[] = [];
   loadingComments = false;
 
-  // 🆕 Variables para traducción
+  // ── Dropdown ──────────────────────────────────────────────
+  showDropdown = false;
+
+  // ── Delete ────────────────────────────────────────────────
+  showDeleteConfirm = false;
+  isDeleting = false;
+  deleteError = '';
+
+  // ── Report ────────────────────────────────────────────────
+  showReportModal = false;
+
+  // ── Translation ───────────────────────────────────────────
   showTranslation = false;
   translatedContent = '';
   isTranslating = false;
-  userLanguage = 'en'; // Idioma del usuario actual
-  selectedTranslationLanguage: string = 'es'; // 🆕 Idioma seleccionado para traducir
-  lastTranslatedLanguage: string = ''; // 🆕 Último idioma traducido
+  userLanguage = 'en';
+  selectedTranslationLanguage = 'es';
+  lastTranslatedLanguage = '';
 
-  // 🆕 Lista de idiomas disponibles
   availableLanguages = [
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-    { code: 'pt', name: 'Português', flag: '🇧🇷' },
-    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-    { code: 'ja', name: '日本語', flag: '🇯🇵' },
-    { code: 'zh', name: '中文', flag: '🇨🇳' },
-    { code: 'ko', name: '한국어', flag: '🇰🇷' },
-    { code: 'ru', name: 'Русский', flag: '🇷🇺' },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-    { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
+    { code: 'es', name: 'Español',    flag: '🇪🇸' },
+    { code: 'en', name: 'English',    flag: '🇺🇸' },
+    { code: 'fr', name: 'Français',   flag: '🇫🇷' },
+    { code: 'de', name: 'Deutsch',    flag: '🇩🇪' },
+    { code: 'pt', name: 'Português',  flag: '🇧🇷' },
+    { code: 'it', name: 'Italiano',   flag: '🇮🇹' },
+    { code: 'ja', name: '日本語',      flag: '🇯🇵' },
+    { code: 'zh', name: '中文',        flag: '🇨🇳' },
+    { code: 'ko', name: '한국어',      flag: '🇰🇷' },
+    { code: 'ru', name: 'Русский',    flag: '🇷🇺' },
+    { code: 'ar', name: 'العربية',    flag: '🇸🇦' },
+    { code: 'hi', name: 'हिन्दी',     flag: '🇮🇳' },
     { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
-    { code: 'pl', name: 'Polski', flag: '🇵🇱' },
-    { code: 'tr', name: 'Türkçe', flag: '🇹🇷' }
+    { code: 'pl', name: 'Polski',     flag: '🇵🇱' },
+    { code: 'tr', name: 'Türkçe',     flag: '🇹🇷' }
   ];
 
-  // Para el currentUserId - reemplaza con tu lógica real de autenticación
-  currentUserId: number = 1;
-
-  // URL base del backend
   private readonly apiBaseUrl = 'http://localhost:8001';
 
   constructor(
     private postsService: PostsService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    public flagService: FlagService
   ) {}
 
-  ngOnInit(): void {
-    // Obtener idioma del usuario desde localStorage o auth service
+ngOnInit(): void {
+  if (!this.currentUserId) {
+    const stored = localStorage.getItem('currentUser');
+    if (stored) {
+      const user = JSON.parse(stored);
+      this.currentUserId = user?.id;
+    }
+  }
+
     this.userLanguage = localStorage.getItem('userLanguage') || 'en';
-    
-    // 🆕 Detectar idioma del navegador para el selector
     const browserLang = navigator.language.split('-')[0];
-    if (this.availableLanguages.some(lang => lang.code === browserLang)) {
+    if (this.availableLanguages.some(l => l.code === browserLang)) {
       this.selectedTranslationLanguage = browserLang;
     }
-    
-    console.log('PostComponent ngOnInit — post id:', this.post?.id, 'post.original_language:', this.post?.original_language, 'userLanguage:', this.userLanguage, 'selectedTranslationLanguage:', this.selectedTranslationLanguage);
   }
 
-  // ==================== BANDERAS DE IDIOMAS ====================
-  getLanguageFlag(langCode: string): string {
-    const flags: { [key: string]: string } = {
-      'en': '🇺🇸', 'es': '🇪🇸', 'fr': '🇫🇷', 'de': '🇩🇪', 'it': '🇮🇹',
-      'pt': '🇵🇹', 'ru': '🇷🇺', 'zh': '🇨🇳', 'ja': '🇯🇵', 'ko': '🇰🇷',
-      'ar': '🇸🇦', 'hi': '🇮🇳', 'nl': '🇳🇱', 'sv': '🇸🇪', 'no': '🇳🇴',
-      'da': '🇩🇰', 'fi': '🇫🇮', 'pl': '🇵🇱', 'tr': '🇹🇷', 'el': '🇬🇷',
-      'he': '🇮🇱', 'th': '🇹🇭', 'vi': '🇻🇳', 'id': '🇮🇩',
-    };
-    return flags[langCode?.toLowerCase()] || '🌐';
+  get isOwnPost(): boolean {
+    if (!this.currentUserId || !this.post) return false;
+    return this.currentUserId === (this.post.user_id ?? (this.post as any).user?.id);
   }
 
-  getLanguageName(code: string): string {
-    const languages: { [key: string]: string } = {
-      'en': 'English', 'es': 'Español', 'fr': 'Français', 'de': 'Deutsch',
-      'it': 'Italiano', 'pt': 'Português', 'ru': 'Русский', 'zh': '中文',
-      'ja': '日本語', 'ko': '한국어', 'ar': 'العربية', 'hi': 'हिन्दी',
-      'nl': 'Nederlands', 'pl': 'Polski', 'tr': 'Türkçe',
-    };
-    return languages[code] || code?.toUpperCase() || 'Unknown';
+  // ==================== DROPDOWN ====================
+
+  toggleDropdown(event: Event): void {
+    event.stopPropagation();
+    this.showDropdown = !this.showDropdown;
+  }
+
+  closeDropdown(): void {
+    this.showDropdown = false;
+  }
+
+  // ==================== DELETE ====================
+
+  openDeleteConfirm(): void {
+    this.closeDropdown();
+    this.deleteError = '';
+    this.showDeleteConfirm = true;
+  }
+
+  cancelDelete(): void {
+    this.showDeleteConfirm = false;
+    this.deleteError = '';
+  }
+
+  confirmDelete(): void {
+    if (this.isDeleting) return;
+    this.isDeleting = true;
+    this.deleteError = '';
+
+    this.postsService.deletePost(this.post.id.toString()).subscribe({
+      next: () => {
+        this.isDeleting = false;
+        this.showDeleteConfirm = false;
+        this.postDeleted.emit(this.post.id);
+      },
+      error: (err) => {
+        this.isDeleting = false;
+        this.deleteError = err.error?.detail || 'Error al eliminar el post.';
+      }
+    });
+  }
+
+  // ==================== REPORT ====================
+
+  openReport(): void {
+    this.closeDropdown();
+    this.showReportModal = true;
+  }
+
+  onReportClosed(): void {
+    this.showReportModal = false;
   }
 
   // ==================== TRADUCCIÓN ====================
-  
-  // Ahora devuelve true solo si original_language está definido y coincide con el idioma del usuario
-  isCurrentUserLanguage(): boolean {
-    return !!this.post?.original_language && this.post.original_language === this.userLanguage;
-  }
 
-  // 🆕 Método para cambiar el idioma de traducción
   onTranslationLanguageChange(event: Event): void {
     const newLanguage = (event.target as HTMLSelectElement).value;
     this.selectedTranslationLanguage = newLanguage;
-    
-    console.log('🔄 Idioma cambiado a:', newLanguage);
-    
-    // Si ya está mostrando una traducción, obtener la nueva automáticamente
     if (this.showTranslation) {
-      this.translatedContent = ''; // Limpiar traducción anterior
-      this.lastTranslatedLanguage = ''; // Reset
-      this.showTranslation = false; // Ocultar temporalmente
-      this.toggleTranslation(); // Obtener nueva traducción
+      this.translatedContent = '';
+      this.lastTranslatedLanguage = '';
+      this.showTranslation = false;
+      this.toggleTranslation();
     }
   }
 
   toggleTranslation(): void {
-    if (this.showTranslation) {
-      // Mostrar original
-      this.showTranslation = false;
-      return;
-    }
+    if (this.showTranslation) { this.showTranslation = false; return; }
 
-    // 🔄 Si ya tenemos la traducción EN EL IDIOMA SELECCIONADO, mostrarla
     if (this.translatedContent && this.lastTranslatedLanguage === this.selectedTranslationLanguage) {
-      console.log('✅ Usando traducción en cache para:', this.selectedTranslationLanguage);
       this.showTranslation = true;
       return;
     }
 
-    // Obtener traducción del backend
     this.isTranslating = true;
-    console.log('🌐 Solicitando traducción:', {
-      postId: this.post.id,
-      fromLanguage: this.post.original_language,
-      toLanguage: this.selectedTranslationLanguage // ✅ Usa el idioma seleccionado
-    });
-
-    this.postsService.translatePost(this.post.id, this.selectedTranslationLanguage) // ✅ CAMBIADO
-      .subscribe({
-        next: (response) => {
-          console.log('✅ Traducción recibida:', response);
-          // Aceptamos response.translated_content o response.content o la propia respuesta si viene en otro formato
-          this.translatedContent = response?.translated_content || response?.content || (typeof response === 'string' ? response : '');
-          this.lastTranslatedLanguage = this.selectedTranslationLanguage; // 🆕 Guardar idioma de esta traducción
-          this.showTranslation = true;
+    this.postsService.translatePost(this.post.id, this.selectedTranslationLanguage).subscribe({
+      next: (response) => {
+        this.translatedContent = response?.translated_content || response?.content || (typeof response === 'string' ? response : '');
+        this.lastTranslatedLanguage = this.selectedTranslationLanguage;
+        this.showTranslation = true;
+        this.isTranslating = false;
+      },
+      error: (error) => {
+        if (error?.status === 404 || error?.status === 501) {
+          this.simulateTranslation();
+        } else {
           this.isTranslating = false;
-        },
-        error: (error) => {
-          console.error('❌ Error al traducir:', error);
-          
-          // 🆕 Fallback: Simulación temporal si el endpoint no está implementado
-          if (error?.status === 404 || error?.status === 501) {
-            console.warn('⚠️ Endpoint no disponible, usando simulación...');
-            this.simulateTranslation();
-          } else {
-            alert('Error al traducir el contenido. Por favor, intenta de nuevo.');
-            this.isTranslating = false;
-          }
         }
-      });
+      }
+    });
   }
 
-  // 🆕 MÉTODO FALLBACK de simulación (solo si el backend no está listo)
   private simulateTranslation(): void {
     setTimeout(() => {
-      this.translatedContent = `[AI Translated from ${this.getLanguageName(this.post.original_language)} to ${this.getLanguageName(this.selectedTranslationLanguage)}]\n\n${this.post.content}`;
+      this.translatedContent = `[AI Translated to ${this.flagService.getLanguageName(this.selectedTranslationLanguage)}]\n\n${this.post.content}`;
       this.lastTranslatedLanguage = this.selectedTranslationLanguage;
       this.showTranslation = true;
       this.isTranslating = false;
@@ -187,36 +206,26 @@ export class PostComponent implements OnInit {
 
   getFullImageUrl(imageUrl: string): string {
     if (!imageUrl) return '';
-    if (imageUrl.startsWith('http')) return imageUrl;
-    return `${this.apiBaseUrl}${imageUrl}`;
+    return imageUrl.startsWith('http') ? imageUrl : `${this.apiBaseUrl}${imageUrl}`;
   }
 
   getFullVideoUrl(videoUrl: string): string {
     if (!videoUrl) return '';
-    if (videoUrl.startsWith('http')) return videoUrl;
-    return `${this.apiBaseUrl}${videoUrl}`;
+    return videoUrl.startsWith('http') ? videoUrl : `${this.apiBaseUrl}${videoUrl}`;
   }
 
-  // ==================== ERRORES ====================
-
   onImageError(event: Event): void {
-    const img = event.target as HTMLImageElement;
-    console.error('❌ Error loading image:', img.src);
-    img.src = 'https://via.placeholder.com/600x400?text=Image+Not+Found';
+    (event.target as HTMLImageElement).src = '/assets/default-image.png';
   }
 
   onVideoError(event: Event): void {
-    const video = event.target as HTMLVideoElement;
-    console.error('❌ Error loading video:', video.src);
+    console.error('❌ Error loading video');
   }
 
   // ==================== COMENTARIOS ====================
 
   toggleComments(): void {
-    if (!this.post?.id) {
-      console.error('❌ Cannot load comments: post.id is undefined', this.post);
-      return;
-    }
+    if (!this.post?.id) return;
     this.showComments = !this.showComments;
   }
 
@@ -224,23 +233,15 @@ export class PostComponent implements OnInit {
     this.post.comments_count++;
   }
 
-  onCommentFormCreated(comment: Comment): void {
-    this.post.comments_count++;
-  }
-
-  onCommentFormCancelled(): void {
-    console.log('Comment creation cancelled');
-  }
-
   // ==================== LIKES ====================
 
   onLikeToggled(event: { isLiked: boolean; likesCount: number }): void {
-    console.log('✅ Like toggled:', event);
     this.post.is_liked = event.isLiked;
     this.post.likes_count = event.likesCount;
   }
 
   // ==================== TIEMPO RELATIVO ====================
+
   getRelativeTime(date: string): string {
     const diffMs = Date.now() - new Date(date).getTime();
     const diffMinutes = Math.floor(diffMs / 60000);
@@ -248,7 +249,6 @@ export class PostComponent implements OnInit {
     if (diffMinutes < 60) return `${diffMinutes}m`;
     const diffHours = Math.floor(diffMinutes / 60);
     if (diffHours < 24) return `${diffHours}h`;
-    const diffDays = Math.floor(diffHours / 24);
-    return `${diffDays}d`;
+    return `${Math.floor(diffHours / 24)}d`;
   }
 }

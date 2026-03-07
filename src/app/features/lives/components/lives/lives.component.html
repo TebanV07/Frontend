@@ -1,8 +1,10 @@
+
+    <app-header></app-header>
     <div class="lives-container">
       <div class="lives-sidebar">
         <div class="sidebar-header"><h2>En Vivo</h2></div>
         <div class="live-list">
-          <div *ngFor="let live of liveStreams" 
+          <div *ngFor="let live of liveStreams"
                class="live-item"
                [class.active]="selectedLive?.id === live.id"
                (click)="selectLive(live)">

@@ -1,16 +1,72 @@
-<div class="video-feed" (swipeup)="onSwipe('up')" (swipedown)="onSwipe('down')">
-  <div class="video-container">
-    <app-video-player 
-      [video]="currentVideo"
-      [isPlaying]="isPlaying"
-      (videoEnded)="onVideoEnded()">
-    </app-video-player>
-    
-    <app-video-overlay 
-      [video]="currentVideo"
-      (like)="onLike($event)"
-      (comment)="onComment($event)"
-      (share)="onShare($event)">
-    </app-video-overlay>
+<!-- app/features/feed/videos/video-feed/video-feed.component.html -->
+
+<div class="video-feed-container" #feedContainer>
+  <!-- Loading inicial -->
+  <div class="loading-initial" *ngIf="isLoading && videos.length === 0">
+    <div class="spinner"></div>
+    <p>Cargando videos...</p>
+  </div>
+
+  <!-- Videos -->
+  <div class="video-items" *ngIf="hasVideos">
+    <div 
+      class="video-item" 
+      *ngFor="let video of videos; let i = index"
+      [class.active]="i === currentVideoIndex">
+      
+      <!-- Player -->
+      <app-video-player
+        [video]="video"
+        [isPlaying]="i === currentVideoIndex && isPlaying"
+        (videoEnded)="onVideoEnded()"
+      ></app-video-player>
+
+      <!-- Overlay con info y controles -->
+      <app-video-overlay
+        [video]="video"
+        (like)="onLike($event)"
+        (comment)="onComment($event)"
+        (share)="onShare($event)"
+        (save)="onSave($event)"
+        (requestTranslation)="onRequestTranslation($event.video, $event.language)"
+      ></app-video-overlay>
+    </div>
+  </div>
+
+  <!-- Estado vacío -->
+  <div class="empty-state" *ngIf="!isLoading && !hasVideos">
+    <div class="empty-icon">🎥</div>
+    <h3>No hay videos disponibles</h3>
+    <p>Sé el primero en subir un video con traducción IA</p>
+    <button class="upload-btn" routerLink="/upload">
+      Subir Video
+    </button>
+  </div>
+
+  <!-- Loading más videos (scroll infinito) -->
+  <div class="loading-more" *ngIf="isLoading && videos.length > 0">
+    <div class="spinner-small"></div>
+    <p>Cargando más videos...</p>
+  </div>
+
+  <!-- Controles de navegación -->
+  <div class="navigation-controls" *ngIf="hasVideos">
+    <button 
+      class="nav-btn prev-btn" 
+      [disabled]="currentVideoIndex === 0"
+      (click)="previousVideo()">
+      ↑
+    </button>
+    <button 
+      class="nav-btn next-btn" 
+      [disabled]="currentVideoIndex === videos.length - 1 && !hasMore"
+      (click)="nextVideo()">
+      ↓
+    </button>
+  </div>
+
+  <!-- Indicador de posición -->
+  <div class="position-indicator" *ngIf="hasVideos">
+    {{ currentVideoIndex + 1 }} / {{ videos.length }}
   </div>
 </div>

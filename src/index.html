@@ -8,6 +8,26 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Google Sign-In SDK (v1 - Moderno) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script>
+    // Script para inicializar Google Sign-In cuando esté listo
+    function initializeGoogleSignIn() {
+      // Será inicializado en login.component.ts con el GOOGLE_CLIENT_ID correcto
+      console.log('Google Sign-In SDK cargado');
+    }
+
+    // Si prefieres usar el SDK antiguo (gapi), descomenta esto:
+    /*
+    window.onload = function() {
+      gapi.load('auth2', function() {
+        gapi.auth2.init({
+          client_id: window['GOOGLE_CLIENT_ID'] || 'REPLACE_WITH_YOUR_GOOGLE_CLIENT_ID'
+        });
+      });
+    };
+    */
+  </script>
 </head>
 <body class="mat-typography">
   <app-root></app-root>

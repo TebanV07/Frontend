@@ -1,0 +1,27 @@
+<div class="verify-container">
+
+      <!-- Loading -->
+      <div class="verify-card" *ngIf="status === 'loading'">
+        <div class="spinner-lg"></div>
+        <p class="card-msg">Verificando tu correo...</p>
+      </div>
+
+      <!-- Success -->
+      <div class="verify-card success" *ngIf="status === 'success'">
+        <div class="card-icon">✅</div>
+        <h2>¡Email verificado!</h2>
+        <p class="card-msg">
+          Tu cuenta está ahora verificada. Ya puedes disfrutar de todas las funciones.
+        </p>
+        <a routerLink="/home" class="btn-home">Ir al inicio</a>
+      </div>
+
+      <!-- Error -->
+      <div class="verify-card error" *ngIf="status === 'error'">
+        <div class="card-icon">❌</div>
+        <h2>Enlace inválido</h2>
+        <p class="card-msg">{{ errorMsg }}</p>
+        <a routerLink="/settings" class="btn-home">Solicitar nuevo enlace</a>
+      </div>
+
+    </div>

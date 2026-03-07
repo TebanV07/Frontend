@@ -1,29 +1,26 @@
-export interface User {
+export interface CommentUser {
   id: number;
   username: string;
-  full_name?: string;
-  avatar_url?: string;
+  profile_picture?: string;
   native_language?: string;
 }
 
 export interface Comment {
-  is_edited: boolean;
   id: number;
   content: string;
-  post_id: number;
+  post_id?: number;
+  video_id?: number;
   user_id: number;
+  parent_id?: number;
   parent_comment_id?: number;
   created_at: string;
   updated_at?: string;
+  is_edited?: boolean;
   is_deleted?: boolean;
-  
-  // Relaciones
-  author?: User;
+  user?: CommentUser;
   replies?: Comment[];
-  
-  // Contadores
-  likes_count?: number;
-  replies_count?: number;
+  likes_count: number;
+  replies_count: number;
   is_liked?: boolean;
 }
 
@@ -39,15 +36,17 @@ export interface UpdateCommentDto {
 export interface CommentResponse {
   id: number;
   content: string;
-  post_id: number;
+  post_id?: number;
+  video_id?: number;
   user_id: number;
-  parent_comment_id?: number;
+  parent_id?: number;
   created_at: string;
   updated_at?: string;
-  author: User;
-  replies?: Comment[];
+  is_edited?: boolean;
+  user: CommentUser;
+  replies?: CommentResponse[];
   likes_count: number;
   replies_count: number;
-  native_language?: string;
-  is_liked: boolean;
+  has_liked: boolean;
+  original_language?: string;
 }

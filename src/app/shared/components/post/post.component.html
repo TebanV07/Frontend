@@ -1,86 +1,143 @@
 <!-- post.component.html -->
-<!-- ========== POST NORMAL ========== -->
 <article class="post-card" *ngIf="post">
+
   <!-- ====== CABECERA ====== -->
   <div class="post-header">
     <div class="user-info">
       <img
         [src]="post.user?.avatar || 'https://ui-avatars.com/api/?name=' + (post.user?.username || 'User')"
         [alt]="post.user?.username || 'User'"
-        class="user-avatar"
-      />
+        class="user-avatar"/>
+
       <div class="user-details">
         <div class="name-row">
           <h4 class="user-name">{{ post.user?.username }}</h4>
-          <!-- 🆕 BANDERA DEL IDIOMA ORIGINAL -->
+
+          <!-- ⭐ Bandera del PAÍS del autor -->
+          <img
+            *ngIf="post.user?.country_code"
+            [src]="flagService.getCountryFlagUrl(post.user?.country_code, 20)"
+            [alt]="flagService.getCountryName(post.user?.country_code)"
+            [title]="flagService.getCountryName(post.user?.country_code)"
+            class="country-flag"
+            (error)="$any($event.target).style.display='none'">
+
+          <!-- Badge idioma original del post -->
           <span class="language-badge" *ngIf="post.original_language">
-            <span class="flag">{{ getLanguageFlag(post.original_language) }}</span>
-            <span class="lang-code">
-              {{ post.original_language ? post.original_language.toUpperCase() : '' }}
-            </span>
+            <img
+              [src]="flagService.getLanguageFlagUrl(post.original_language, 20)"
+              [alt]="flagService.getLanguageName(post.original_language)"
+              class="lang-flag"
+              (error)="$any($event.target).style.display='none'">
+            <span class="lang-code">{{ post.original_language.toUpperCase() }}</span>
           </span>
         </div>
         <span class="timestamp">{{ getRelativeTime(post.created_at) }}</span>
       </div>
     </div>
-    <button class="more-options">⋯</button>
-  </div>
-  
-  <!-- ====== CONTENIDO ====== -->
-  <div class="post-content">
-<!-- BARRA DE TRADUCCIÓN CON SELECTOR (FUNCIONAL) -->
-<div class="translation-bar" *ngIf="post && post.original_language">
-  <div class="translation-info">
-    <span class="translation-icon">🌐</span>
-    <span class="translation-text">
-      Post in {{ getLanguageName(post.original_language) }}
-    </span>
-  </div>
+<!-- DROPDOWN MENU -->
+<div class="post-menu">
+  <button class="more-options" (click)="toggleDropdown($event)">⋯</button>
 
-  <!-- CONTROLES DE TRADUCCIÓN (del DEBUG que funcionaba) -->
-  <div class="translation-controls">
-    <!-- Selector de idioma -->
-    <select 
-      [(ngModel)]="selectedTranslationLanguage"
-      (change)="onTranslationLanguageChange($event)"
-      class="language-selector"
-      [disabled]="isTranslating">
-      <option *ngFor="let lang of availableLanguages" [value]="lang.code">
-        {{ lang.flag }} {{ lang.name }}
-      </option>
-    </select>
-
-    <!-- Botón de traducir (el que funcionaba en DEBUG) -->
-    <button 
-      class="translate-action-btn"
-      [disabled]="isTranslating"
-      (click)="toggleTranslation()">
-      <span *ngIf="!isTranslating && !showTranslation">🌐 Traducir</span>
-      <span *ngIf="!isTranslating && showTranslation">📝 Ver Original</span>
-      <span *ngIf="isTranslating">⏳ Traduciendo...</span>
-    </button>
+  <div class="dropdown-menu" *ngIf="showDropdown" (click)="$event.stopPropagation()">
+    <ng-container *ngIf="isOwnPost">
+      <button (click)="openDeleteConfirm()">🗑️ Eliminar</button>
+    </ng-container>
+    <ng-container *ngIf="!isOwnPost">
+      <button (click)="openReport()">🚩 Denunciar</button>
+    </ng-container>
   </div>
 </div>
 
-    <!-- Contenido original o traducido -->
+<!-- DELETE MODAL -->
+<div class="delete-overlay" *ngIf="showDeleteConfirm" (click)="cancelDelete()">
+  <div class="delete-confirm" (click)="$event.stopPropagation()">
+    <div class="confirm-icon">🗑️</div>
+    <h4>¿Eliminar este post?</h4>
+    <p>Esta acción no se puede deshacer.</p>
+    <div class="delete-error" *ngIf="deleteError">{{ deleteError }}</div>
+    <div class="confirm-actions">
+      <button class="btn-cancel-del" (click)="cancelDelete()" [disabled]="isDeleting">Cancelar</button>
+      <button class="btn-delete-confirm" (click)="confirmDelete()" [disabled]="isDeleting">
+        <span *ngIf="!isDeleting">Eliminar</span>
+        <span *ngIf="isDeleting" class="spinner-sm"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT MODAL -->
+<app-report-modal
+  *ngIf="showReportModal"
+  [contentType]="'post'"
+  [contentId]="post.id"
+  (closed)="onReportClosed()">
+</app-report-modal>
+  </div>
+
+  <!-- ====== CONTENIDO ====== -->
+  <div class="post-content">
+
+    <!-- Barra de traducción -->
+    <div class="translation-bar" *ngIf="post && post.original_language">
+      <div class="translation-info">
+        <span class="translation-icon">🌐</span>
+        <span class="translation-text">
+          Post in {{ flagService.getLanguageName(post.original_language) }}
+        </span>
+      </div>
+      <div class="translation-controls">
+        <select
+          [(ngModel)]="selectedTranslationLanguage"
+          (change)="onTranslationLanguageChange($event)"
+          class="language-selector"
+          [disabled]="isTranslating">
+          <option *ngFor="let lang of availableLanguages" [value]="lang.code">
+            {{ lang.flag }} {{ lang.name }}
+          </option>
+        </select>
+        <button
+          class="translate-action-btn"
+          [disabled]="isTranslating"
+          [class.active]="showTranslation"
+          (click)="toggleTranslation()">
+          <span *ngIf="!isTranslating && !showTranslation">🌐 Traducir</span>
+          <span *ngIf="!isTranslating && showTranslation">📝 Ver Original</span>
+          <span *ngIf="isTranslating">⏳ Traduciendo...</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Texto original o traducido -->
     <p class="post-text" [class.translated]="showTranslation">
       {{ showTranslation ? translatedContent : post.content }}
     </p>
 
-    <!-- Indicador de traducción activa -->
+    <!-- ⭐ Badge de traducción activa con banderas -->
     <div class="translation-badge" *ngIf="showTranslation">
-      <span class="badge-icon">✨</span>
-      Translated by AI from {{ getLanguageName(post.original_language) }} to {{ getLanguageName(selectedTranslationLanguage) }}
+      <img
+        [src]="flagService.getLanguageFlagUrl(selectedTranslationLanguage, 20)"
+        class="badge-flag"
+        (error)="$any($event.target).style.display='none'">
+      <span>Traducido por IA a {{ flagService.getLanguageName(selectedTranslationLanguage) }}</span>
+      <span *ngIf="post.original_language" class="from-lang">
+        · desde
+        <img
+          [src]="flagService.getLanguageFlagUrl(post.original_language, 20)"
+          class="badge-flag"
+          (error)="$any($event.target).style.display='none'">
+        {{ flagService.getLanguageName(post.original_language) }}
+      </span>
     </div>
 
     <!-- Video -->
     <div *ngIf="post.has_video && post.video_url" class="video-container">
-      <video 
-        [src]="getFullVideoUrl(post.video_url)" 
-        controls 
+      <video
+        [src]="getFullVideoUrl(post.video_url)"
+        controls
         class="post-video"
-        (error)="onVideoError($event)"
-      ></video>
+        (error)="onVideoError($event)">
+      </video>
     </div>
 
     <!-- Imágenes -->
@@ -89,19 +146,16 @@
       class="image-container"
       [class.single-image]="post.images.length === 1"
       [class.double-image]="post.images.length === 2"
-      [class.grid-images]="post.images.length > 2"
-    >
-      <div 
-        *ngFor="let image of post.images; let i = index" 
+      [class.grid-images]="post.images.length > 2">
+      <div
+        *ngFor="let image of post.images; let i = index"
         class="image-wrapper"
         [class.hidden]="i >= 4">
-        <img 
-          [src]="getFullImageUrl(image.image_url)" 
+        <img
+          [src]="getFullImageUrl(image.image_url)"
           class="post-image"
           [alt]="image.alt_text || 'Post image'"
-          (error)="onImageError($event)"
-        />
-        <!-- Overlay para "más imágenes" -->
+          (error)="onImageError($event)"/>
         <div class="more-images-overlay" *ngIf="i === 3 && post.images.length > 4">
           <span class="more-count">+{{ post.images.length - 4 }}</span>
         </div>
@@ -111,28 +165,24 @@
 
   <!-- ====== ACCIONES ====== -->
   <div class="post-actions">
-    <!-- Like button -->
     <app-like-button
       [postId]="post.id"
       [is_liked]="post.is_liked"
       [likesCount]="post.likes_count"
-      (likeToggled)="onLikeToggled($any($event))"
-    ></app-like-button>
-    
-    <!-- Like count -->
+      (likeToggled)="onLikeToggled($any($event))">
+    </app-like-button>
+
     <app-like-count
       [postId]="post.id"
       [likesCount]="post.likes_count"
-      [clickable]="true"
-    ></app-like-count>
+      [clickable]="true">
+    </app-like-count>
 
-    <!-- Comments -->
     <button class="action-button comment-btn" (click)="toggleComments()">
       <span class="btn-icon">💬</span>
       <span class="btn-count">{{ post.comments_count }}</span>
     </button>
 
-    <!-- Share -->
     <button class="action-button share-btn">
       <span class="btn-icon">🌊</span>
       <span class="btn-count">{{ post.shares_count }}</span>
@@ -144,7 +194,8 @@
     <app-comment-list
       [postId]="post.id"
       [currentUserId]="currentUserId"
-      (commentCreated)="onCommentCreated($any($event))"
-    ></app-comment-list>
+      (commentCreated)="onCommentCreated($any($event))">
+    </app-comment-list>
   </section>
+
 </article>

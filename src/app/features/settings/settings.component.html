@@ -1,388 +1,321 @@
-<div class="settings-container">
-  <div class="settings-header">
-    <button class="back-btn" (click)="goBack()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-      <span>Volver</span>
-    </button>
-    <h1 class="settings-title">Configuración</h1>
+<div class="settings-page">
+
+  <!-- Modal eliminar cuenta -->
+  <div class="delete-overlay" *ngIf="showDeleteModal" (click)="cancelDelete()">
+    <div class="delete-modal" (click)="$event.stopPropagation()">
+      <div class="delete-modal-icon">⚠️</div>
+      <h2>¿Eliminar tu cuenta?</h2>
+      <p>Esta acción es <strong>permanente e irreversible</strong>. Se eliminarán todos tus datos, publicaciones y videos en un plazo de 30 días.</p>
+
+      <div class="form-field" style="margin: 1.25rem 0 0">
+        <label>Confirma tu contraseña para continuar</label>
+        <input
+          type="password"
+          [(ngModel)]="deletePassword"
+          placeholder="••••••••"
+          (keyup.enter)="confirmDelete()"
+          [disabled]="isDeletingAccount">
+      </div>
+
+      <div class="delete-error" *ngIf="deleteError">{{ deleteError }}</div>
+
+      <div class="delete-actions">
+        <button class="btn-cancel" (click)="cancelDelete()" [disabled]="isDeletingAccount">
+          Cancelar
+        </button>
+        <button class="btn-delete-confirm" (click)="confirmDelete()" [disabled]="isDeletingAccount || !deletePassword">
+          <span *ngIf="!isDeletingAccount">Sí, eliminar mi cuenta</span>
+          <span *ngIf="isDeletingAccount" class="spinner"></span>
+        </button>
+      </div>
+    </div>
   </div>
 
-  <div class="settings-content">
-    <!-- Sidebar Tabs -->
-    <div class="settings-sidebar">
-      <button 
-        class="tab-btn" 
-        [class.active]="activeTab === 'account'"
-        (click)="selectTab('account')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
+  <!-- Header -->
+  <div class="settings-header">
+    <h1>
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+      Configuración
+    </h1>
+  </div>
+
+  <div class="settings-body">
+
+    <!-- Sidebar de tabs -->
+    <nav class="settings-nav">
+      <button class="nav-item" [class.active]="activeTab === 'profile'" (click)="activeTab = 'profile'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
         </svg>
-        <span>Cuenta</span>
+        Perfil
+      </button>
+      <button class="nav-item" [class.active]="activeTab === 'account'" (click)="activeTab = 'account'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        Cuenta
+      </button>
+      <button class="nav-item" [class.active]="activeTab === 'notifications'" (click)="activeTab = 'notifications'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        Notificaciones
+      </button>
+      <button class="nav-item" [class.active]="activeTab === 'privacy'" (click)="activeTab = 'privacy'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Privacidad
       </button>
 
-      <button 
-        class="tab-btn" 
-        [class.active]="activeTab === 'subscription'"
-        (click)="selectTab('subscription')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+      <div class="nav-separator"></div>
+
+      <button class="nav-item danger" (click)="logout()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
         </svg>
-        <span>Suscripción</span>
-        <span class="premium-badge" *ngIf="currentPlan !== 'free'">PRO</span>
+        Cerrar sesión
       </button>
+    </nav>
 
-      <button 
-        class="tab-btn" 
-        [class.active]="activeTab === 'translation'"
-        (click)="selectTab('translation')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="2" y1="12" x2="22" y2="12"></line>
-          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+    <!-- Panel de contenido -->
+    <div class="settings-panel">
+
+      <!-- Toast feedback -->
+      <div class="toast success" *ngIf="saveSuccess">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="20 6 9 17 4 12"/>
         </svg>
-        <span>Traducción IA</span>
-      </button>
-
-      <button 
-        class="tab-btn" 
-        [class.active]="activeTab === 'privacy'"
-        (click)="selectTab('privacy')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        Cambios guardados correctamente
+      </div>
+      <div class="toast error" *ngIf="saveError">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
         </svg>
-        <span>Privacidad</span>
-      </button>
+        {{ saveError }}
+      </div>
 
-      <button 
-        class="tab-btn" 
-        [class.active]="activeTab === 'notifications'"
-        (click)="selectTab('notifications')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-        </svg>
-        <span>Notificaciones</span>
-      </button>
-    </div>
+      <!-- ===== TAB: PERFIL ===== -->
+      <div class="panel-section" *ngIf="activeTab === 'profile'">
+        <h2>Editar perfil</h2>
 
-    <!-- Main Content -->
-    <div class="settings-main">
-      <!-- Account Settings -->
-      <div class="settings-section" *ngIf="activeTab === 'account'">
-        <h2 class="section-title">Información de la Cuenta</h2>
-        
-        <div class="form-group">
-          <label>Nombre de usuario</label>
-          <input type="text" [(ngModel)]="userSettings.username" class="form-input">
-        </div>
-
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" [(ngModel)]="userSettings.email" class="form-input">
-        </div>
-
-        <div class="form-group">
-          <label>Biografía</label>
-          <textarea [(ngModel)]="userSettings.bio" class="form-textarea" rows="4"></textarea>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label>País</label>
-            <input type="text" [(ngModel)]="userSettings.country" class="form-input">
+        <div class="avatar-section">
+          <div class="avatar-preview-wrap">
+            <img [src]="getAvatarUrl()" alt="Avatar" class="avatar-preview" (error)="onAvatarError($event)">
+            <label class="avatar-change-btn" title="Cambiar foto">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+              <input type="file" accept="image/*" (change)="onAvatarSelected($event)" style="display:none">
+            </label>
           </div>
+          <div class="avatar-info">
+            <p class="avatar-name">{{ currentUser?.first_name || currentUser?.firstName }} {{ currentUser?.last_name || currentUser?.lastName }}</p>
+            <p class="avatar-hint">JPG, PNG o WebP · Máx 5MB</p>
+            <button class="btn-save" *ngIf="avatarFile" (click)="uploadAvatar()" [disabled]="isUploadingAvatar">
+              <span *ngIf="!isUploadingAvatar">Guardar foto</span>
+              <span *ngIf="isUploadingAvatar" class="spinner"></span>
+            </button>
+          </div>
+        </div>
 
-          <div class="form-group">
-            <label>Idioma</label>
-            <select [(ngModel)]="userSettings.language" class="form-select">
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Nombre</label>
+            <input type="text" [(ngModel)]="profileForm.first_name" placeholder="Tu nombre">
+          </div>
+          <div class="form-field">
+            <label>Apellido</label>
+            <input type="text" [(ngModel)]="profileForm.last_name" placeholder="Tu apellido">
+          </div>
+          <div class="form-field full">
+            <label>Biografía</label>
+            <textarea [(ngModel)]="profileForm.bio" placeholder="Cuéntanos algo sobre ti..." rows="3" maxlength="500"></textarea>
+          </div>
+          <div class="form-field">
+            <label>Sitio web</label>
+            <input type="url" [(ngModel)]="profileForm.website" placeholder="https://tu-sitio.com">
+          </div>
+          <div class="form-field">
+            <label>Ubicación</label>
+            <input type="text" [(ngModel)]="profileForm.location" placeholder="Ciudad, País">
+          </div>
+          <div class="form-field">
+            <label>Idioma nativo</label>
+            <select [(ngModel)]="profileForm.native_language">
               <option *ngFor="let lang of languages" [value]="lang.code">{{ lang.name }}</option>
             </select>
           </div>
         </div>
 
-        <div class="form-group">
-          <label>Sitio web</label>
-          <input type="url" [(ngModel)]="userSettings.website" class="form-input">
-        </div>
-
         <div class="form-actions">
-          <button class="btn btn-primary" (click)="saveAccountSettings()">Guardar cambios</button>
+          <button class="btn-save" (click)="saveProfile()" [disabled]="isSaving">
+            <span *ngIf="!isSaving">Guardar cambios</span>
+            <span *ngIf="isSaving" class="spinner"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== TAB: CUENTA ===== -->
+      <div class="panel-section" *ngIf="activeTab === 'account'">
+        <h2>Cuenta</h2>
+
+        <div class="info-card">
+          <div class="info-row">
+            <span class="info-label">Email</span>
+            <span class="info-value">{{ currentUser?.email }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Username</span>
+            <span class="info-value">{{'@' + currentUser?.username }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Cuenta verificada</span>
+            <span class="badge" [class.yes]="currentUser?.is_verified || currentUser?.isVerified">
+              {{ (currentUser?.is_verified || currentUser?.isVerified) ? 'Verificada' : 'No verificada' }}
+            </span>
+          </div>
         </div>
 
+        <h3>Cambiar contraseña</h3>
+        <div class="form-grid">
+          <div class="form-field full">
+            <label>Contraseña actual</label>
+            <input type="password" [(ngModel)]="accountForm.current_password" placeholder="••••••••">
+          </div>
+          <div class="form-field">
+            <label>Nueva contraseña</label>
+            <input type="password" [(ngModel)]="accountForm.new_password" placeholder="••••••••">
+          </div>
+          <div class="form-field">
+            <label>Confirmar nueva contraseña</label>
+            <input type="password" [(ngModel)]="accountForm.confirm_password" placeholder="••••••••">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn-save" (click)="changePassword()" [disabled]="isSaving">
+            <span *ngIf="!isSaving">Cambiar contraseña</span>
+            <span *ngIf="isSaving" class="spinner"></span>
+          </button>
+        </div>
+
+        <!-- Zona de peligro -->
         <div class="danger-zone">
-          <h3 class="danger-title">Zona de peligro</h3>
-          <p class="danger-description">Esta acción no se puede deshacer</p>
-          <button class="btn btn-danger" (click)="deleteAccount()">Eliminar cuenta</button>
-        </div>
-      </div>
-
-      <!-- Subscription Plans -->
-      <div class="settings-section" *ngIf="activeTab === 'subscription'">
-        <h2 class="section-title">Planes de Suscripción</h2>
-        <p class="section-description">
-          Elige el plan que mejor se adapte a tus necesidades. Cancela en cualquier momento.
-        </p>
-
-        <div class="plans-grid">
-          <div 
-            *ngFor="let plan of subscriptionPlans"
-            class="plan-card"
-            [class.active]="currentPlan === plan.id"
-            [class.popular]="plan.popular">
-            
-            <div class="plan-badge" *ngIf="plan.badge" [style.background]="plan.badgeColor">
-              {{ plan.badge }}
-            </div>
-
-            <div class="plan-header" [style.background]="plan.gradient">
-              <h3 class="plan-name">{{ plan.name }}</h3>
-              <div class="plan-price">
-                <span class="currency">$</span>
-                <span class="amount">{{ plan.price }}</span>
-                <span class="period">/ {{ plan.period }}</span>
+          <div class="danger-zone-header">
+            <h3>Zona de peligro</h3>
+            <p>Estas acciones son permanentes y no se pueden deshacer.</p>
+          </div>
+          <div class="danger-zone-body">
+            <div class="danger-item">
+              <div class="danger-info">
+                <span class="danger-title">Eliminar cuenta</span>
+                <span class="danger-desc">Elimina permanentemente tu cuenta, publicaciones y todos tus datos personales conforme a la LOPDP.</span>
               </div>
+              <button class="btn-danger" (click)="openDeleteModal()">
+                Eliminar cuenta
+              </button>
             </div>
-
-            <div class="plan-features">
-              <div 
-                *ngFor="let feature of plan.features" 
-                class="feature-item"
-                [class.included]="feature.included">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline *ngIf="feature.included" points="20 6 9 17 4 12"></polyline>
-                  <line *ngIf="!feature.included" x1="18" y1="6" x2="6" y2="18"></line>
-                  <line *ngIf="!feature.included" x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-                <span>{{ feature.text }}</span>
-              </div>
-            </div>
-
-            <button 
-              class="btn"
-              [class.btn-primary]="currentPlan !== plan.id"
-              [class.btn-active]="currentPlan === plan.id"
-              (click)="selectPlan(plan.id)"
-              [disabled]="currentPlan === plan.id">
-              {{ currentPlan === plan.id ? 'Plan Actual' : (plan.id === 'free' ? 'Cambiar a Free' : 'Actualizar') }}
-            </button>
           </div>
-        </div>
-
-        <div class="subscription-info" *ngIf="currentPlan !== 'free'">
-          <h3>Gestionar Suscripción</h3>
-          <p>Tu suscripción se renovará automáticamente el próximo mes.</p>
-          <button class="btn btn-secondary" (click)="cancelSubscription()">Cancelar suscripción</button>
         </div>
       </div>
 
-      <!-- Translation Settings -->
-      <div class="settings-section" *ngIf="activeTab === 'translation'">
-        <h2 class="section-title">Configuración de Traducción IA</h2>
-        
-        <div class="toggle-group">
+      <!-- ===== TAB: NOTIFICACIONES ===== -->
+      <div class="panel-section" *ngIf="activeTab === 'notifications'">
+        <h2>Notificaciones</h2>
+
+        <div class="toggle-list">
           <div class="toggle-item">
             <div class="toggle-info">
-              <h4>Traducción automática</h4>
-              <p>Traduce automáticamente el contenido a tu idioma preferido</p>
+              <span class="toggle-label">Notificaciones push</span>
+              <span class="toggle-desc">Recibe alertas de actividad en la app</span>
             </div>
             <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="translationSettings.autoTranslate">
-              <span class="toggle-slider"></span>
+              <input type="checkbox" [(ngModel)]="notifSettings.notifications_enabled">
+              <span class="slider"></span>
             </label>
           </div>
-
           <div class="toggle-item">
             <div class="toggle-info">
-              <h4>Mostrar texto original</h4>
-              <p>Muestra el texto original junto con la traducción</p>
+              <span class="toggle-label">Notificaciones por email</span>
+              <span class="toggle-desc">Recibe un resumen semanal y alertas importantes</span>
             </div>
             <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="translationSettings.showOriginal">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-
-          <div class="toggle-item">
-            <div class="toggle-info">
-              <h4>Traducir comentarios</h4>
-              <p>Traduce automáticamente los comentarios en las publicaciones</p>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="translationSettings.translateComments">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Idioma preferido para traducciones</label>
-          <select [(ngModel)]="translationSettings.preferredLanguage" class="form-select">
-            <option *ngFor="let lang of languages" [value]="lang.code">{{ lang.name }}</option>
-          </select>
-        </div>
-
-        <div class="form-actions">
-          <button class="btn btn-primary" (click)="saveTranslationSettings()">Guardar configuración</button>
-        </div>
-      </div>
-
-      <!-- Privacy Settings -->
-      <div class="settings-section" *ngIf="activeTab === 'privacy'">
-        <h2 class="section-title">Privacidad y Seguridad</h2>
-        
-        <div class="toggle-group">
-          <div class="toggle-item">
-            <div class="toggle-info">
-              <h4>Perfil público</h4>
-              <p>Permite que cualquiera vea tu perfil</p>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="privacySettings.profilePublic">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-
-          <div class="toggle-item">
-            <div class="toggle-info">
-              <h4>Mostrar email</h4>
-              <p>Tu email será visible en tu perfil público</p>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="privacySettings.showEmail">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-
-          <div class="toggle-item">
-            <div class="toggle-info">
-              <h4>Permitir mensajes</h4>
-              <p>Permite que otros usuarios te envíen mensajes directos</p>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="privacySettings.allowMessages">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-
-          <div class="toggle-item">
-            <div class="toggle-info">
-              <h4>Mostrar actividad</h4>
-              <p>Otros pueden ver tu actividad reciente</p>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="privacySettings.showActivity">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-
-          <div class="toggle-item">
-            <div class="toggle-info">
-              <h4>Recopilación de datos</h4>
-              <p>Permitir análisis para mejorar la experiencia</p>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="privacySettings.dataCollection">
-              <span class="toggle-slider"></span>
+              <input type="checkbox" [(ngModel)]="notifSettings.email_notifications">
+              <span class="slider"></span>
             </label>
           </div>
         </div>
 
         <div class="form-actions">
-          <button class="btn btn-primary" (click)="savePrivacySettings()">Guardar configuración</button>
+          <button class="btn-save" (click)="saveSettings()" [disabled]="isSaving">
+            <span *ngIf="!isSaving">Guardar</span>
+            <span *ngIf="isSaving" class="spinner"></span>
+          </button>
         </div>
       </div>
 
-      <!-- Notification Settings -->
-      <div class="settings-section" *ngIf="activeTab === 'notifications'">
-        <h2 class="section-title">Notificaciones</h2>
-        
-        <div class="toggle-group">
+      <!-- ===== TAB: PRIVACIDAD ===== -->
+      <div class="panel-section" *ngIf="activeTab === 'privacy'">
+        <h2>Privacidad y preferencias</h2>
+
+        <div class="toggle-list">
           <div class="toggle-item">
             <div class="toggle-info">
-              <h4>Notificaciones por email</h4>
-              <p>Recibe notificaciones en tu correo electrónico</p>
+              <span class="toggle-label">Cuenta privada</span>
+              <span class="toggle-desc">Solo tus seguidores pueden ver tu contenido</span>
             </div>
             <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="notificationSettings.emailNotifications">
-              <span class="toggle-slider"></span>
+              <input type="checkbox" [(ngModel)]="privacySettings.private_account">
+              <span class="slider"></span>
             </label>
           </div>
-
           <div class="toggle-item">
             <div class="toggle-info">
-              <h4>Notificaciones push</h4>
-              <p>Recibe notificaciones en tiempo real</p>
+              <span class="toggle-label">Traducción automática</span>
+              <span class="toggle-desc">Traduce automáticamente el contenido de otros idiomas</span>
             </div>
             <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="notificationSettings.pushNotifications">
-              <span class="toggle-slider"></span>
+              <input type="checkbox" [(ngModel)]="privacySettings.auto_translate">
+              <span class="slider"></span>
             </label>
           </div>
+        </div>
 
-          <div class="toggle-item">
-            <div class="toggle-info">
-              <h4>Nuevos seguidores</h4>
-              <p>Cuando alguien comience a seguirte</p>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="notificationSettings.newFollowers">
-              <span class="toggle-slider"></span>
-            </label>
+        <div class="form-grid" style="margin-top:1.5rem">
+          <div class="form-field">
+            <label>Idioma de traducción preferido</label>
+            <select [(ngModel)]="privacySettings.preferred_translation_language">
+              <option value="">Mismo que el nativo</option>
+              <option *ngFor="let lang of languages" [value]="lang.code">{{ lang.name }}</option>
+            </select>
           </div>
-
-          <div class="toggle-item">
-            <div class="toggle-info">
-              <h4>Me gusta</h4>
-              <p>Cuando alguien le dé me gusta a tu contenido</p>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="notificationSettings.likes">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-
-          <div class="toggle-item">
-            <div class="toggle-info">
-              <h4>Comentarios</h4>
-              <p>Cuando alguien comente en tus publicaciones</p>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="notificationSettings.comments">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-
-          <div class="toggle-item">
-            <div class="toggle-info">
-              <h4>Menciones</h4>
-              <p>Cuando alguien te mencione</p>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="notificationSettings.mentions">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-
-          <div class="toggle-item">
-            <div class="toggle-info">
-              <h4>Transmisiones en vivo</h4>
-              <p>Cuando alguien que sigues inicie una transmisión</p>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" [(ngModel)]="notificationSettings.liveStreams">
-              <span class="toggle-slider"></span>
-            </label>
+          <div class="form-field">
+            <label>Tema</label>
+            <select [(ngModel)]="privacySettings.theme">
+              <option value="auto">Automático</option>
+              <option value="dark">Oscuro</option>
+              <option value="light">Claro</option>
+            </select>
           </div>
         </div>
 
         <div class="form-actions">
-          <button class="btn btn-primary" (click)="saveNotificationSettings()">Guardar configuración</button>
+          <button class="btn-save" (click)="saveSettings()" [disabled]="isSaving">
+            <span *ngIf="!isSaving">Guardar</span>
+            <span *ngIf="isSaving" class="spinner"></span>
+          </button>
         </div>
       </div>
+
     </div>
   </div>
 </div>

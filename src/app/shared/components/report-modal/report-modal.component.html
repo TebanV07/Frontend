@@ -1,0 +1,57 @@
+<div class="report-overlay" (click)="onOverlayClick($event)">
+      <div class="report-modal" (click)="$event.stopPropagation()">
+
+        <div class="modal-header">
+          <h3 class="modal-title">🚩 Denunciar contenido</h3>
+          <button class="close-btn" (click)="cancel()">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <p class="modal-subtitle">Selecciona el motivo de tu denuncia</p>
+
+          <div class="reason-list">
+            <label
+              *ngFor="let r of reasons"
+              class="reason-item"
+              [class.reason-selected]="selectedReason === r.value">
+              <input
+                type="radio"
+                name="report-reason"
+                [value]="r.value"
+                [(ngModel)]="selectedReason">
+              <span class="reason-icon">{{ r.icon }}</span>
+              <span class="reason-label">{{ r.label }}</span>
+            </label>
+          </div>
+
+          <div class="description-field" *ngIf="selectedReason">
+            <label class="desc-label">Descripción adicional (opcional)</label>
+            <textarea
+              [(ngModel)]="description"
+              placeholder="Cuéntanos más sobre el problema..."
+              maxlength="500"
+              rows="3"
+              class="desc-textarea">
+            </textarea>
+            <span class="char-count">{{ description.length }}/500</span>
+          </div>
+
+          <div class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</div>
+          <div class="success-msg" *ngIf="successMsg">{{ successMsg }}</div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-cancel" (click)="cancel()" [disabled]="isSubmitting">
+            Cancelar
+          </button>
+          <button
+            class="btn-submit"
+            (click)="submit()"
+            [disabled]="!selectedReason || isSubmitting">
+            <span *ngIf="!isSubmitting">Enviar denuncia</span>
+            <span *ngIf="isSubmitting" class="modal-spinner"></span>
+          </button>
+        </div>
+
+      </div>
+    </div>

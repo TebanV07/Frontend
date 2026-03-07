@@ -9,12 +9,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './profile-tabs.component.scss'
 })
 export class ProfileTabsComponent {
-  @Input() selectedTab: 'videos' | 'liked' | 'bookmarks' = 'videos';
+  @Input() selectedTab: 'posts' | 'videos' | 'liked' | 'bookmarks' = 'posts';
   @Input() videosCount = 0;
-  
-  @Output() onSelectTab = new EventEmitter<'videos' | 'liked' | 'bookmarks'>();
+  @Input() postsCount = 0;
 
-  selectTab(tab: 'videos' | 'liked' | 'bookmarks') {
+  @Output() onSelectTab = new EventEmitter<'posts' | 'videos' | 'liked' | 'bookmarks'>();
+
+  selectTab(tab: 'posts' | 'videos' | 'liked' | 'bookmarks') {
     this.onSelectTab.emit(tab);
   }
 }

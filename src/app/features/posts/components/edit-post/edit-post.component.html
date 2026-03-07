@@ -1,0 +1,24 @@
+<div class="edit-post-container" *ngIf="post">
+  <h2>Editar Post</h2>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <label>
+    Contenido:
+    <textarea [(ngModel)]="content"></textarea>
+  </label>
+
+  <label>
+    Tags (separados por coma):
+    <input type="text" [(ngModel)]="tagsText" />
+  </label>
+
+  <label>
+    <input type="checkbox" [(ngModel)]="isPublic" /> Público
+  </label>
+
+  <div class="actions">
+    <button (click)="save()" [disabled]="isLoading">Guardar</button>
+    <button (click)="skip()" class="secondary">Omitir</button>
+  </div>
+</div>

@@ -1,8 +1,17 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component, Input, Output, EventEmitter,
+  OnChanges, SimpleChanges, ViewChildren, QueryList
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Conversation, Message } from '../../../../core/services/chat.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import type { Conversation, Message } from '../../../../core/models';
 import { MessageBubbleComponent } from '../message-bubble/message-bubble.component';
 import { ChatInputComponent } from '../chat-input/chat-input.component';
+import { ChatService } from '../../../../core/services/chat.service';
+import { WebSocketService } from '../../../../core/services/websocket.service';
+import { AuthService } from '../../../../core/services/auth.service';
+import { FlagService } from '../../../../core/services/flag.service';
 
 @Component({
   selector: 'app-chat-window',
@@ -12,74 +21,173 @@ import { ChatInputComponent } from '../chat-input/chat-input.component';
   styleUrl: './chat-window.component.scss'
 })
 export class ChatWindowComponent implements OnChanges {
+
   @Input() activeConversation: Conversation | null = null;
   @Input() messages: Message[] = [];
+  @Input() typingUsers: number[] = [];
+
+  onlineUsers: any[] = [];
+  isUploadingFile = false;
+  uploadError: string | null = null;
+
   @Output() messageSent = new EventEmitter<string>();
+  @Output() typing = new EventEmitter<boolean>();
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['activeConversation'] && this.activeConversation) {
-      setTimeout(() => {
-        this.scrollToBottom();
-      }, 100);
-    }
-    
-    if (changes['messages']) {
-      setTimeout(() => {
-        this.scrollToBottom();
-      }, 100);
+  @ViewChildren(MessageBubbleComponent) messageBubbles!: QueryList<MessageBubbleComponent>;
+
+  private readonly uploadUrl = 'http://localhost:8001/api/v1/messages/upload';
+
+  constructor(
+    private http: HttpClient,
+    private wsService: WebSocketService,
+    private chatService: ChatService,
+    private authService: AuthService,
+    public flagService: FlagService       // ⭐ NUEVO
+  ) {
+    this.chatService.loadOnlineUsers();
+    this.chatService.onlineUsers$.subscribe(list => { this.onlineUsers = list; });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['activeConversation'] || changes['messages']) {
+      setTimeout(() => this.scrollToBottom(), 100);
     }
   }
 
-  onMessageSent(content: string) {
+  private isOtherUserOnline(): boolean {
+    if (!this.activeConversation?.other_user) return false;
+    return this.onlineUsers.some(u => u.id === this.activeConversation?.other_user?.id);
+  }
+
+  getStatusText(): string {
+    const typing = this.getTypingUserNames();
+    if (typing) return typing;
+    return this.isOtherUserOnline() ? 'En línea' : 'Desconectado';
+  }
+
+  onMessageSent(content: string): void {
     this.messageSent.emit(content);
-    setTimeout(() => {
-      this.scrollToBottom();
-    }, 100);
+    setTimeout(() => this.scrollToBottom(), 100);
   }
 
-  onTranslateMessage(message: Message) {
-    if (message.translatedContent && message.translatedTo) {
-      return;
-    }
-    
-    message.isTranslating = true;
-    
-    // Simulación de traducción con IA
-    setTimeout(() => {
-      message.translatedContent = this.getMockTranslation(message.content, message.originalLanguage);
-      message.translatedTo = 'English';
-      message.aiTranslated = true;
-      message.isTranslating = false;
-    }, 1500);
-  }
+  onTyping(isTyping: boolean): void { this.typing.emit(isTyping); }
 
-  getMockTranslation(text: string, originalLanguage: string): string {
-    const translations: {[key: string]: string} = {
-      '¡Hola! ¿Cómo estás? Me encanta la nueva función de traducción de videos.': 
-        'Hello! How are you? I love the new video translation feature.',
-      'Es increíble cómo podemos comunicarnos sin barreras de idioma. ¡El futuro está aquí! 🚀': 
-        'It\'s incredible how we can communicate without language barriers. The future is here! 🚀',
-      'こんにちは！新しいAI翻訳機能をテストしています。': 
-        'Hello! I\'m testing the new AI translation feature.',
-      'Bonjour! Cette fonction de traduction est fantastique!': 
-        'Hello! This translation feature is fantastic!'
-    };
-    
-    return translations[text] || `[Translated from ${originalLanguage}] ${text}`;
-  }
-
-  scrollToBottom() {
-    if (typeof document !== 'undefined') {
-      setTimeout(() => {
-        const container = document.querySelector('.messages-container');
-        if (container) {
-          container.scrollTop = container.scrollHeight;
-        }
-      });
-    }
+  scrollToBottom(): void {
+    if (typeof document === 'undefined') return;
+    const container = document.querySelector('.messages-container');
+    if (container) container.scrollTop = container.scrollHeight;
   }
 
   isMessageSent(message: Message): boolean {
-    return message.senderId === '1';
+    return message.sender_id === this.getCurrentUserId();
+  }
+
+  private getCurrentUserId(): number {
+    const userId = this.authService.getCurrentUserId();
+    if (userId) return userId;
+    if (typeof localStorage !== 'undefined') {
+      const currentUserStr = localStorage.getItem('currentUser');
+      if (currentUserStr) {
+        try { return JSON.parse(currentUserStr).id || 0; } catch (e) {}
+      }
+    }
+    return 0;
+  }
+
+  // ==================== ARCHIVO ADJUNTO ====================
+
+  onFileAttached(file: File): void {
+    if (!this.activeConversation) return;
+    this.isUploadingFile = true;
+    this.uploadError = null;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+
+    this.http.post<{ url: string; media_type: string; filename: string }>(
+      this.uploadUrl, formData, { headers }
+    ).subscribe({
+      next: (response) => {
+        this.isUploadingFile = false;
+        this.chatService.sendMessage(
+          this.activeConversation!.id,
+          '',
+          [response.url],
+          response.media_type
+        );
+        setTimeout(() => this.scrollToBottom(), 150);
+      },
+      error: (err) => {
+        this.isUploadingFile = false;
+        if (err.status === 413) this.uploadError = 'El archivo supera el límite de 10 MB.';
+        else if (err.status === 400) this.uploadError = 'Tipo de archivo no permitido.';
+        else this.uploadError = 'Error al subir el archivo. Intenta de nuevo.';
+        setTimeout(() => this.uploadError = null, 4000);
+      }
+    });
+  }
+
+  // ==================== ACCIONES DE MENSAJES ====================
+
+  onDeleteForMe(messageId: number): void { this.chatService.removeMessageLocally(messageId); }
+
+  onForward(message: Message): void {
+    const target = prompt('Escribe el ID de la conversación destino');
+    const convId = target ? parseInt(target, 10) : NaN;
+    if (convId && !isNaN(convId)) {
+      this.chatService.sendMessage(convId, message.content || '');
+      alert('Mensaje reenviado');
+    }
+  }
+
+  onShare(message: Message): void {
+    if (navigator.share) {
+      navigator.share({ text: message.content }).catch(err => console.warn(err));
+    } else {
+      navigator.clipboard.writeText(message.content || '').then(() => alert('Texto copiado al portapapeles'));
+    }
+  }
+
+  // ==================== TRADUCCIÓN ====================
+
+  onTranslateMessage(event: { message: Message, language: string }): void {
+    const { message, language } = event;
+    this.chatService.translateMessage(message.id, language).subscribe({
+      next: (response) => {
+        const bubble = this.messageBubbles.find(b => b.message.id === message.id);
+        if (bubble) bubble.setTranslation(response.translated_content);
+        this.chatService.replaceMessage({
+          ...message,
+          translations: { ...message.translations, [language]: response.translated_content }
+        });
+      },
+      error: () => {
+        const bubble = this.messageBubbles.find(b => b.message.id === message.id);
+        if (bubble) bubble.setTranslationError('Error al traducir. Intenta de nuevo.');
+      }
+    });
+  }
+
+  onMessageEdited(event: { id: number; content: string }): void {
+    this.chatService.updateMessage(event.id, event.content).subscribe({
+      next: (msg) => console.log('✏️ Mensaje editado:', msg.id),
+      error: (err) => console.error('❌ Error editando:', err)
+    });
+  }
+
+  onMessageDeleted(messageId: number): void {
+    this.chatService.deleteMessage(messageId).subscribe({
+      next: () => console.log('🗑️ Mensaje eliminado:', messageId),
+      error: (err) => console.error('❌ Error eliminando:', err)
+    });
+  }
+
+  getTypingUserNames(): string {
+    if (!this.activeConversation || this.typingUsers.length === 0) return '';
+    if (!this.activeConversation.other_user) return 'Escribiendo...';
+    return `${this.activeConversation.other_user.name} está escribiendo...`;
   }
 }

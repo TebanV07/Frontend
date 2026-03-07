@@ -1,26 +1,28 @@
 <aside class="sidebar">
   <div class="user-profile" *ngIf="currentUser">
     <div class="profile-header">
-      <img [src]="currentUser.profile_image || 'https://ui-avatars.com/api/?name=' + currentUser.first_name" 
-           [alt]="currentUser.username" 
-           class="profile-avatar">
+      <img
+        [src]="getAvatarUrl()"
+        [alt]="currentUser.username"
+        class="profile-avatar"
+        (error)="onAvatarError($event)">
       <div class="profile-info">
         <h3 class="profile-name">{{ currentUser.first_name }} {{ currentUser.last_name }}</h3>
-        <p class="profile-username">{{ '@' + currentUser.username }}</p>
+          <p class="profile-username">{{ '@' + currentUser.username }}</p>
       </div>
     </div>
-    
+
     <div class="profile-stats">
-      <div class="stat-item">
-        <span class="stat-number">{{ formatNumber(currentUser.followers ?? 0) }}</span>
+      <div class="stat-item" (click)="navigateTo('/profile')">
+        <span class="stat-number">{{ formatNumber(profileStats.followers_count) }}</span>
         <span class="stat-label">Seguidores</span>
       </div>
-      <div class="stat-item">
-        <span class="stat-number">{{ formatNumber(currentUser.following ?? 0) }}</span>
+      <div class="stat-item" (click)="navigateTo('/profile')">
+        <span class="stat-number">{{ formatNumber(profileStats.following_count) }}</span>
         <span class="stat-label">Siguiendo</span>
       </div>
-      <div class="stat-item">
-        <span class="stat-number">{{ formatNumber(currentUser.posts ?? 0) }}</span>
+      <div class="stat-item" (click)="navigateTo('/profile')">
+        <span class="stat-number">{{ formatNumber(profileStats.posts_count) }}</span>
         <span class="stat-label">Posts</span>
       </div>
     </div>
@@ -29,8 +31,8 @@
   <div class="quick-access">
     <h4 class="section-title">Navegación</h4>
     <div class="access-menu">
-      <div 
-        *ngFor="let item of quickAccessItems" 
+      <div
+        *ngFor="let item of quickAccessItems"
         class="menu-item"
         (click)="navigateTo(item.route)">
         <div class="menu-icon">

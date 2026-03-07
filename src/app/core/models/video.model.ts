@@ -8,54 +8,55 @@ export interface Video {
   // Identificación
   id: number;
   uuid: string; // UUID para URLs públicas
-  
+
   // Contenido
   videoUrl: string;
   thumbnailUrl: string;
   title?: string;
   description?: string;
-  
+
   // Metadata del video
   duration: number; // en segundos
   width: number;
   height: number;
   aspectRatio: string; // ej: '9:16', '1:1'
+  orientation?: 'vertical' | 'horizontal' | 'square';
   fileSize?: number; // en bytes
   format?: string; // mp4, webm, etc
-  
+
   // Usuario creador
   userId: number;
   user: UserBasic;
-  
+
   // Idioma y traducción
   originalLanguage: string;
   availableLanguages: string[]; // Idiomas con traducción disponible
   hasSubtitles: boolean;
   hasAudioTranslation: boolean;
-  
+
   // Interacciones
   likesCount: number;
   commentsCount: number;
   sharesCount: number;
   viewsCount: number;
   savesCount: number;
-  
+
   // Estado del usuario actual con este video
   isLiked?: boolean;
   isSaved?: boolean;
   hasCommented?: boolean;
-  
+
   // Visibilidad y moderación
   isPublic: boolean;
   isActive: boolean;
   isFeatured?: boolean;
-  
+
   // Categorización
   tags?: string[];
   category?: string;
   location?: VideoLocation;
   music?: VideoMusic;
-  
+
   // Timestamps
   createdAt: Date | string;
   updatedAt?: Date | string;

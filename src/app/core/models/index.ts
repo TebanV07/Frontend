@@ -4,3 +4,8 @@ export type { Post } from './post.model';
 export type { Comment } from './comment.model';
 export type { Like } from './like.model';
 export type { Message } from './message.model';
+export type { Conversation } from './conversation.model';
+export type { ConversationDetail } from './conversation-detail.model';
+export type { MessageListResponse } from './message-list.model';
+export type { UserMinimal } from './user-minimal.model';
+export type { Notification, NotificationListResponse } from './notification.model';

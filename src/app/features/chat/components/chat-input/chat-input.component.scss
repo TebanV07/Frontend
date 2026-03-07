@@ -1,255 +1,276 @@
+$yellow: #f5c518;
+$yellow-bright: #ffd700;
+$yellow-glow: rgba(245, 197, 24, 0.3);
+$dark-bg: #111111;
+$dark-surface: #1c1c1c;
+$dark-card: #242424;
+$dark-border: #2e2e2e;
+$text-primary: #f0f0f0;
+$text-secondary: #a0a0a0;
+$text-muted: #5a5a5a;
+
 .message-input-container {
-  padding: 20px 30px;
-  background: rgba(15, 23, 42, 0.95);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
-  
-  .emoji-picker {
-    position: absolute;
-    bottom: 100%;
-    right: 30px;
-    margin-bottom: 10px;
-    background: rgba(30, 41, 59, 0.98);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 15px;
-    box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
-    width: 300px;
-    z-index: 1000;
-    animation: slideUp 0.3s ease-out;
-    
-    .emoji-picker-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      
-      h4 {
-        margin: 0;
-        color: #e2e8f0;
-        font-size: 0.9em;
-        font-weight: 600;
-      }
-      
-      .close-btn {
-        background: none;
-        border: none;
-        color: #94a3b8;
-        cursor: pointer;
-        font-size: 1.2em;
-        padding: 5px;
-        transition: all 0.2s ease;
-        
-        &:hover {
-          color: #e2e8f0;
-          transform: scale(1.1);
-        }
-      }
-    }
-    
-    .emoji-grid {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      gap: 5px;
-      max-height: 200px;
-      overflow-y: auto;
-      
-      &::-webkit-scrollbar {
-        width: 5px;
-      }
-      
-      &::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.05);
-      }
-      
-      &::-webkit-scrollbar-thumb {
-        background: rgba(96, 165, 250, 0.3);
-        border-radius: 3px;
-      }
-      
-      .emoji-item {
-        background: none;
-        border: none;
-        font-size: 1.5em;
-        padding: 8px;
-        cursor: pointer;
-        border-radius: 8px;
-        transition: all 0.2s ease;
-        
-        &:hover {
-          background: rgba(59, 130, 246, 0.2);
-          transform: scale(1.2);
-        }
-      }
-    }
-  }
-  
-  .message-input {
+  width: 100%;
+}
+
+// ==================== EMOJI PICKER ====================
+.emoji-picker {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  background: $dark-card;
+  border: 1px solid $dark-border;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba($yellow, 0.05);
+  padding: 16px;
+  margin-bottom: 8px;
+  z-index: 20;
+  animation: slideUpEmoji 0.18s ease-out;
+
+  .emoji-picker-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    background: rgba(30, 41, 59, 0.8);
-    border-radius: 25px;
-    padding: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-    
-    &:focus-within {
-      border-color: rgba(59, 130, 246, 0.5);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid $dark-border;
+
+    h4 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: $yellow;
     }
-    
-    .attach-btn, .emoji-btn, .voice-btn, .send-btn {
-      background: none;
+
+    .close-btn {
+      background: transparent;
       border: none;
-      color: #94a3b8;
+      color: $text-muted;
+      font-size: 20px;
       cursor: pointer;
-      padding: 10px 15px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 50%;
-      transition: all 0.3s ease;
-      font-size: 1.1em;
-      flex-shrink: 0;
-      
+      transition: all 0.2s;
+
       &:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: #e2e8f0;
-      }
-      
-      &:active {
-        transform: scale(0.95);
-      }
-    }
-    
-    .emoji-btn {
-      &.active {
-        background: rgba(59, 130, 246, 0.2);
-        color: #60a5fa;
-      }
-    }
-    
-    .voice-btn {
-      background: rgba(239, 68, 68, 0.2);
-      color: #f87171;
-      
-      &:hover {
-        background: rgba(239, 68, 68, 0.3);
-        transform: scale(1.05);
-      }
-      
-      &.recording {
-        animation: recordingPulse 1.5s ease-in-out infinite;
-        background: rgba(239, 68, 68, 0.4);
-      }
-    }
-    
-    .send-btn {
-      background: rgba(59, 130, 246, 0.3);
-      color: #94a3b8;
-      
-      &.active {
-        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-        color: white;
-        
-        &:hover {
-          transform: scale(1.1);
-          box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
-        }
-      }
-    }
-    
-    .text-input {
-      flex: 1;
-      background: none;
-      border: none;
-      padding: 12px 15px;
-      color: #e2e8f0;
-      font-size: 1em;
-      min-width: 0;
-      
-      &::placeholder {
-        color: #94a3b8;
-      }
-      
-      &:focus {
-        outline: none;
+        background: $dark-surface;
+        color: $text-primary;
       }
     }
   }
-  
-  .recording-indicator {
+
+  .emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar { width: 6px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb {
+      background: $dark-border;
+      border-radius: 3px;
+      &:hover { background: $text-muted; }
+    }
+
+    .emoji-item {
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background: rgba($yellow, 0.1);
+        transform: scale(1.2);
+      }
+
+      &:active { transform: scale(1.1); }
+    }
+  }
+}
+
+// ==================== INPUT PRINCIPAL ====================
+.message-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: $dark-card;
+  border: 1px solid $dark-border;
+  border-radius: 24px;
+  padding: 8px 12px;
+  transition: all 0.2s ease;
+
+  &:focus-within {
+    border-color: rgba($yellow, 0.5);
+    box-shadow: 0 0 0 3px rgba($yellow, 0.08);
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-    padding: 12px 20px;
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    border-radius: 20px;
-    animation: slideUp 0.3s ease-out;
-    
-    .recording-pulse {
-      width: 10px;
-      height: 10px;
-      background: #ef4444;
-      border-radius: 50%;
-      animation: pulse 1.5s ease-in-out infinite;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 18px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+
+    &:hover { background: rgba($yellow, 0.08); }
+    &:active { transform: scale(0.95); }
+  }
+
+  .attach-btn { color: $text-muted; &:hover { color: $yellow; } }
+  .camera-btn { color: $text-muted; &:hover { color: $yellow; } }
+
+  .emoji-btn {
+    color: $text-muted;
+    &:hover { color: $yellow; }
+
+    &.active {
+      background: rgba($yellow, 0.1);
+      color: $yellow;
     }
-    
-    .recording-text {
-      color: #f87171;
-      font-size: 0.9em;
-      font-weight: 600;
+  }
+
+  .voice-btn {
+    color: $text-muted;
+    &:hover { color: $yellow; }
+
+    &.recording {
+      background: #ff5252;
+      color: white;
+      animation: pulse 1.5s infinite;
     }
-    
-    .stop-recording-btn {
-      background: rgba(239, 68, 68, 0.2);
-      border: 1px solid rgba(239, 68, 68, 0.4);
-      color: #f87171;
-      padding: 6px 15px;
-      border-radius: 15px;
-      cursor: pointer;
-      font-size: 0.85em;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      
-      &:hover {
-        background: rgba(239, 68, 68, 0.3);
-        transform: scale(1.05);
-      }
+
+    .voice-icon { font-size: 20px; }
+  }
+
+  .send-btn {
+    background: $yellow;
+    color: $dark-bg;
+
+    &:hover {
+      background: $yellow-bright;
+      transform: scale(1.05);
+      box-shadow: 0 4px 14px $yellow-glow;
     }
+
+    &:active { transform: scale(0.98); }
+
+    .send-icon { font-size: 18px; }
+  }
+
+  .text-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    color: $text-primary;
+    padding: 8px 12px;
+
+    &::placeholder { color: $text-muted; }
+    &:focus { outline: none; }
   }
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+// ==================== INDICADOR DE GRABACIÓN ====================
+.recording-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 82, 82, 0.08);
+  border: 1px solid rgba(255, 82, 82, 0.25);
+  border-radius: 12px;
+  animation: slideUpRecording 0.2s ease-out;
+
+  .recording-pulse {
+    width: 12px;
+    height: 12px;
+    background: #ff5252;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .recording-text {
+    flex: 1;
+    color: $text-primary;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .stop-recording-btn {
+    background: #ff5252;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover { background: #ff3838; }
+    &:active { transform: scale(0.95); }
   }
 }
 
-@keyframes recordingPulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-  }
-  50% {
-    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
-  }
+// ==================== ANIMACIONES ====================
+@keyframes slideUpEmoji {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUpRecording {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.2); }
+}
+
+// ==================== RESPONSIVE ====================
+@media (max-width: 768px) {
+  .message-input {
+    padding: 6px 10px;
+    gap: 8px;
+
+    button { width: 32px; height: 32px; font-size: 16px; }
+    .text-input { font-size: 14px; }
   }
-  50% {
-    opacity: 0.5;
-    transform: scale(0.8);
+
+  .emoji-picker {
+    .emoji-grid {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+      .emoji-item { font-size: 20px; padding: 6px; }
+    }
+  }
+
+  .recording-indicator {
+    padding: 10px 12px;
+    font-size: 13px;
+    .recording-pulse { width: 10px; height: 10px; }
   }
 }

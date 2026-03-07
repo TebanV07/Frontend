@@ -1,0 +1,65 @@
+<div class="explore-people-container">
+  <div class="page-header">
+    <h1>Descubrir personas</h1>
+    <p>Encuentra y conecta con personas de todo el mundo</p>
+  </div>
+
+  <!-- Barra de búsqueda -->
+  <div class="search-section">
+    <div class="search-box">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (keyup.enter)="onSearch()"
+        placeholder="Buscar personas por nombre o usuario..."
+        class="search-input">
+      <button
+        *ngIf="searchQuery"
+        class="clear-btn"
+        (click)="clearSearch()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <button class="search-btn" (click)="onSearch()" [disabled]="isSearching">
+      {{ isSearching ? 'Buscando...' : 'Buscar' }}
+    </button>
+  </div>
+
+  <!-- Resultados de búsqueda -->
+  <div class="search-results" *ngIf="hasSearched">
+    <h3 *ngIf="searchResults.length > 0">Resultados ({{ searchResults.length }})</h3>
+    <div class="results-grid">
+      <div *ngFor="let user of searchResults" class="user-card" [routerLink]="['/profile', user.username]">
+        <img [src]="user.avatar || 'assets/default-avatar.png'" [alt]="user.username" class="user-avatar">
+        <h4>{{ user.name || user.firstName + ' ' + user.lastName || user.username }}</h4>
+        <p class="username">{{ '@' + user.username }}</p>
+        <p class="bio" *ngIf="user.bio">{{ user.bio }}</p>
+      </div>
+    </div>
+    <div class="no-results" *ngIf="searchResults.length === 0 && !isSearching">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      <h3>No se encontraron resultados</h3>
+      <p>Intenta con otro término de búsqueda</p>
+    </div>
+  </div>
+
+  <!-- Solicitudes de seguimiento -->
+  <div class="section">
+    <app-follow-requests></app-follow-requests>
+  </div>
+
+  <!-- Sugerencias -->
+  <div class="section">
+    <app-suggested-users></app-suggested-users>
+  </div>
+</div>

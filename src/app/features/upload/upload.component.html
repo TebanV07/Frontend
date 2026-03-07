@@ -1,0 +1,26 @@
+<div class="upload-container">
+  <h2>Subir video/post</h2>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <input type="file" (change)="onFileChange($event)" accept="video/*" />
+
+  <div *ngIf="previewUrl" class="preview">
+    <video [src]="previewUrl" controls></video>
+  </div>
+
+  <div class="fields">
+    <label>
+      Título (opcional)
+      <input type="text" [(ngModel)]="title" />
+    </label>
+    <label>
+      Descripción (opcional)
+      <textarea [(ngModel)]="description"></textarea>
+    </label>
+  </div>
+
+  <button (click)="submit()" [disabled]="isSubmitting">
+    {{ isSubmitting ? 'Subiendo...' : 'Subir' }}
+  </button>
+</div>

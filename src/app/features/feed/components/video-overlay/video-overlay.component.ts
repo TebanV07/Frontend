@@ -1,12 +1,15 @@
+// app/features/feed/videos/video-overlay/video-overlay.component.ts
+
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Video } from '../../../../core/models/video.model';
+import { FormsModule } from '@angular/forms';
+import { Video } from '../../../../core/services/video.service';
 import { ShortNumberPipe } from "../../../../shared/pipes/short-number.pipe";
 
 @Component({
   selector: 'app-video-overlay',
   standalone: true,
-  imports: [CommonModule, ShortNumberPipe],
+  imports: [CommonModule, FormsModule, ShortNumberPipe],
   templateUrl: './video-overlay.component.html',
   styleUrls: ['./video-overlay.component.scss']
 })
@@ -15,15 +18,139 @@ export class VideoOverlayComponent {
   @Output() like = new EventEmitter<Video>();
   @Output() comment = new EventEmitter<Video>();
   @Output() share = new EventEmitter<Video>();
+  @Output() save = new EventEmitter<Video>();
+  @Output() requestTranslation = new EventEmitter<{video: Video, language: string}>();
+
+  // Estados locales
+  showTranslationMenu = false;
+  selectedSubtitleLanguage: string = '';
+
+  // Idiomas disponibles para traducción
+  availableTranslationLanguages = [
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+    { code: 'pt', name: 'Português', flag: '🇧🇷' },
+    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+    { code: 'ja', name: '日本語', flag: '🇯🇵' },
+    { code: 'zh', name: '中文', flag: '🇨🇳' },
+    { code: 'ko', name: '한국어', flag: '🇰🇷' },
+  ];
+
+  ngOnInit() {
+    // Establecer idioma de subtítulo por defecto (original)
+    this.selectedSubtitleLanguage = this.video?.original_language || 'es';
+  }
+
+  // ==================== ACCIONES ====================
 
   onLike() {
-    this.video.isLiked = !this.video.isLiked;
-    this.video.likesCount += this.video.isLiked ? 1 : -1;
     this.like.emit(this.video);
   }
 
+  onComment() {
+    this.comment.emit(this.video);
+  }
+
+  onShare() {
+    this.share.emit(this.video);
+  }
+
   onSave() {
-    this.video.isSaved = !this.video.isSaved;
-    this.video.savesCount += this.video.isSaved ? 1 : -1;
+    this.save.emit(this.video);
+  }
+
+  // ==================== TRADUCCIÓN ====================
+
+  toggleTranslationMenu() {
+    this.showTranslationMenu = !this.showTranslationMenu;
+  }
+
+  onSubtitleLanguageChange(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    const newLanguage = select.value;
+    
+    console.log('🌐 Cambiar subtítulos a:', newLanguage);
+    
+    // Si el idioma ya está disponible, cambiar subtítulos
+    if (this.video.available_languages?.includes(newLanguage)) {
+      this.selectedSubtitleLanguage = newLanguage;
+      // TODO: Actualizar track de subtítulos en el video player
+    } else {
+      // Si no está disponible, solicitar traducción
+      if (confirm(`Los subtítulos en ${this.getLanguageName(newLanguage)} no están disponibles. ¿Deseas solicitarlos? (puede tardar unos minutos)`)) {
+        this.requestTranslation.emit({
+          video: this.video,
+          language: newLanguage
+        });
+      } else {
+        // Revertir selección
+        select.value = this.selectedSubtitleLanguage;
+      }
+    }
+  }
+
+  requestVideoTranslation(targetLanguage: string) {
+    this.requestTranslation.emit({
+      video: this.video,
+      language: targetLanguage
+    });
+    this.showTranslationMenu = false;
+  }
+
+  // ==================== HELPERS ====================
+
+  getLanguageFlag(langCode: string): string {
+    const lang = this.availableTranslationLanguages.find(l => l.code === langCode);
+    return lang?.flag || '🌐';
+  }
+
+  getLanguageName(langCode: string): string {
+    const lang = this.availableTranslationLanguages.find(l => l.code === langCode);
+    return lang?.name || langCode.toUpperCase();
+  }
+
+  get availableSubtitles() {
+    return this.availableTranslationLanguages.filter(lang => 
+      this.video.available_languages?.includes(lang.code)
+    );
+  }
+
+  get unavailableSubtitles() {
+    return this.availableTranslationLanguages.filter(lang => 
+      !this.video.available_languages?.includes(lang.code) &&
+      lang.code !== this.video.original_language
+    );
+  }
+
+  // ==================== FORMATEO ====================
+
+  formatViews(count: number): string {
+    if (count >= 1000000) {
+      return `${(count / 1000000).toFixed(1)}M`;
+    } else if (count >= 1000) {
+      return `${(count / 1000).toFixed(1)}K`;
+    }
+    return count.toString();
+  }
+
+  getRelativeTime(dateString: string): string {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    
+    if (diffMins < 1) return 'Ahora';
+    if (diffMins < 60) return `${diffMins}m`;
+    
+    const diffHours = Math.floor(diffMins / 60);
+    if (diffHours < 24) return `${diffHours}h`;
+    
+    const diffDays = Math.floor(diffHours / 24);
+    if (diffDays < 7) return `${diffDays}d`;
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)}w`;
+    
+    return date.toLocaleDateString();
   }
 }

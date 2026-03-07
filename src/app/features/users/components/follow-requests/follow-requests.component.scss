@@ -1,0 +1,180 @@
+$yellow: #f5c518;
+$yellow-bright: #ffd700;
+$yellow-glow: rgba(245, 197, 24, 0.3);
+$dark-bg: #111111;
+$dark-surface: #1c1c1c;
+$dark-card: #242424;
+$dark-border: #2e2e2e;
+$text-primary: #f0f0f0;
+$text-secondary: #a0a0a0;
+$text-muted: #5a5a5a;
+
+.follow-requests-container {
+  background: $dark-card;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid $dark-border;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: $text-primary;
+  }
+
+  .count-badge {
+    background: $yellow;
+    color: $dark-bg;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+}
+
+.requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.request-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid $dark-border;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $yellow;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid $dark-border;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    border-color: $yellow;
+  }
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+
+  h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: $text-primary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $yellow;
+    }
+  }
+
+  .username {
+    margin: 2px 0;
+    font-size: 13px;
+    color: $text-secondary;
+  }
+
+  .time {
+    margin: 4px 0 0 0;
+    font-size: 12px;
+    color: $text-muted;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.accept-btn,
+.reject-btn {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.accept-btn {
+  background: $yellow;
+  color: $dark-bg;
+
+  &:hover:not(:disabled) {
+    background: $yellow-bright;
+    box-shadow: 0 4px 12px $yellow-glow;
+    transform: translateY(-1px);
+  }
+}
+
+.reject-btn {
+  background: transparent;
+  color: $text-secondary;
+  border: 1px solid $dark-border;
+
+  &:hover:not(:disabled) {
+    background: $dark-surface;
+    border-color: $text-muted;
+    color: $text-primary;
+  }
+}
+
+.no-requests {
+  text-align: center;
+  padding: 60px 20px;
+
+  .empty-icon {
+    margin-bottom: 16px;
+    color: $text-muted;
+    display: flex;
+    justify-content: center;
+  }
+
+  h4 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: $text-primary;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: $text-secondary;
+  }
+}

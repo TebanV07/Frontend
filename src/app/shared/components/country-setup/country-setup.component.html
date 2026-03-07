@@ -1,0 +1,70 @@
+<div class="country-setup-overlay">
+  <div class="country-setup-modal">
+
+    <div class="modal-header">
+      <div class="modal-icon">🌍</div>
+      <h2>¿De dónde eres?</h2>
+      <p>Tu bandera aparecerá en tus posts y mensajes para que la gente sepa de dónde eres.</p>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <span>Detectando tu país...</span>
+    </div>
+
+    <!-- País detectado -->
+    <div class="detected-country" *ngIf="!isLoading && (detectedCountryCode || selectedCountryCode)">
+      <span class="detection-label">País detectado:</span>
+      <div class="country-display">
+        <img
+          *ngIf="flagUrl"
+          [src]="flagUrl"
+          [alt]="detectedCountryName || selectedCountryCode"
+          class="country-flag"
+          (error)="$any($event.target).style.display='none'">
+        <span class="country-name">{{ detectedCountryName || flagService.getCountryName(selectedCountryCode) }}</span>
+      </div>
+    </div>
+
+    <!-- No detectado -->
+    <div class="no-detection" *ngIf="!isLoading && !detectedCountryCode && !selectedCountryCode">
+      <span>No pudimos detectar tu país automáticamente.</span>
+    </div>
+
+    <!-- Selector manual -->
+    <div class="manual-select" *ngIf="showManualSelect || (!detectedCountryCode && !isLoading)">
+      <label class="select-label">Selecciona tu país:</label>
+      <select class="country-select" [(ngModel)]="selectedCountryCode">
+        <option value="" disabled>-- Elige tu país --</option>
+        <option *ngFor="let country of countries" [value]="country.code">
+          {{ country.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Botón "No es mi país" si fue detectado automáticamente -->
+    <button
+      class="change-btn"
+      *ngIf="!showManualSelect && (detectedCountryCode || selectedCountryCode)"
+      (click)="showManualSelect = true">
+      No es mi país — cambiar
+    </button>
+
+    <!-- Acciones -->
+    <div class="modal-actions">
+      <button
+        class="confirm-btn"
+        [disabled]="isSaving || (!detectedCountryCode && !selectedCountryCode)"
+        (click)="confirmCountry()">
+        <span *ngIf="!isSaving">✅ Confirmar</span>
+        <span *ngIf="isSaving">Guardando...</span>
+      </button>
+
+      <button class="skip-btn" (click)="skipSetup()">
+        Omitir por ahora
+      </button>
+    </div>
+
+  </div>
+</div>

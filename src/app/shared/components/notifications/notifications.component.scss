@@ -1,0 +1,386 @@
+.notifications-container {
+  position: relative;
+
+  .notification-bell {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--text-primary, #333);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: var(--bg-secondary, #f5f5f5);
+      color: var(--primary-color, #007bff);
+    }
+
+    &.has-unread {
+      color: var(--primary-color, #007bff);
+      animation: ring 0.5s ease infinite;
+
+      .notification-badge {
+        animation: pulse 2s ease-in-out infinite;
+      }
+    }
+
+    svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 2;
+    }
+  }
+
+  .notification-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--danger-color, #ff4444);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    min-width: 24px;
+  }
+
+  @keyframes ring {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+}
+
+.notification-dropdown {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  border: 1px solid var(--border-color, #e0e0e0);
+  overflow: hidden;
+
+  .dropdown-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color, #e0e0e0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-secondary, #f9f9f9);
+
+    h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary, #333);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-secondary, #666);
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        color: var(--text-primary, #333);
+      }
+    }
+  }
+
+  .dropdown-actions {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color, #e0e0e0);
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    background: var(--bg-tertiary, #fff);
+
+    button {
+      flex: 1;
+      padding: 6px 12px;
+      border: none;
+      background: none;
+      color: var(--primary-color, #007bff);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 4px;
+      transition: all 0.2s;
+
+      &:hover:not(:disabled) {
+        background: var(--bg-secondary, #f0f0f0);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    .action-delete {
+      color: var(--danger-color, #ff4444);
+    }
+  }
+
+  .notification-list {
+    flex: 1;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--border-color, #ddd);
+      border-radius: 3px;
+
+      &:hover {
+        background: var(--text-secondary, #999);
+      }
+    }
+  }
+
+  .empty-state,
+  .loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    gap: 12px;
+    color: var(--text-secondary, #666);
+
+    svg {
+      opacity: 0.3;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+
+  .notification-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color, #e0e0e0);
+    display: flex;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+
+    &:hover {
+      background: var(--bg-secondary, #f5f5f5);
+    }
+
+    &.unread {
+      background: var(--notification-bg, #f0f8ff);
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--primary-color, #007bff);
+      }
+    }
+
+    .notification-avatar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: flex-start;
+
+      .avatar,
+      .avatar-placeholder {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: var(--bg-secondary, #f0f0f0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+    }
+
+    .notification-content {
+      flex: 1;
+      min-width: 0;
+      position: relative;
+
+      .notification-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 4px;
+
+        .notification-title {
+          margin: 0;
+          font-size: 14px;
+          font-weight: 600;
+          color: var(--text-primary, #333);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .notification-time {
+          flex-shrink: 0;
+          font-size: 12px;
+          color: var(--text-secondary, #999);
+        }
+      }
+
+      .notification-message {
+        margin: 0;
+        font-size: 13px;
+        color: var(--text-secondary, #666);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 1.4;
+      }
+
+      .unread-indicator {
+        position: absolute;
+        right: -12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--primary-color, #007bff);
+      }
+    }
+
+    .notification-actions {
+      display: flex;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.2s;
+
+      button {
+        width: 32px;
+        height: 32px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary, #999);
+        border-radius: 4px;
+        transition: all 0.2s;
+
+        &:hover {
+          background: var(--border-color, #ddd);
+          color: var(--text-primary, #333);
+        }
+
+        &.action-delete:hover {
+          color: var(--danger-color, #ff4444);
+        }
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+
+    &:hover .notification-actions {
+      opacity: 1;
+    }
+  }
+
+  .dropdown-footer {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border-color, #e0e0e0);
+    background: var(--bg-secondary, #f9f9f9);
+    text-align: center;
+
+    .view-all-link {
+      color: var(--primary-color, #007bff);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+.notification-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 998;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--border-color, #e0e0e0);
+  border-top-color: var(--primary-color, #007bff);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .notification-dropdown {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    max-width: 100%;
+    border-radius: 0;
+    max-height: 100%;
+    bottom: 0;
+  }
+}

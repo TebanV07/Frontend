@@ -1,54 +1,69 @@
-<div class="comment-item">
+<div class="comment-item" [class.nested]="isNested">
   <div class="comment-content">
     <div class="comment-bubble">
+
       <div class="comment-header">
         <div class="user-info">
-          <span class="username">{{ comment.author?.username }}</span>
-          <span class="language-badge" *ngIf="comment.author?.native_language">
-            <span class="icon">🌐</span>
-            {{ comment.author?.native_language }}
+          <img *ngIf="comment.user?.profile_picture" class="avatar"
+               [src]="comment.user?.profile_picture" alt="avatar">
+          <div class="avatar-placeholder" *ngIf="!comment.user?.profile_picture">
+            {{ comment.user?.username?.charAt(0)?.toUpperCase() }}
+          </div>
+          <span class="username">{{ comment.user?.username }}</span>
+          <span class="language-badge" *ngIf="comment.user?.native_language">
+            🌐 {{ comment.user?.native_language }}
           </span>
+          <span class="edited-badge" *ngIf="comment.is_edited">· editado</span>
         </div>
-        <span class="timestamp">{{ formattedDate }}</span>
+
+        <div class="header-right">
+          <span class="timestamp">{{ formattedDate }}</span>
+
+          <!-- Menú 3 puntitos — solo para el autor -->
+          <div class="options-menu-wrap" *ngIf="currentUserId === comment.user_id">
+            <button class="options-btn" (click)="toggleMenu($event)">⋯</button>
+            <div class="options-dropdown" *ngIf="showMenu">
+              <button class="option-item" (click)="startEdit()">
+                ✏️ Editar
+              </button>
+              <button class="option-item danger" (click)="deleteThisComment()">
+                🗑️ Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
+      <!-- Contenido o formulario de edición -->
       <div class="comment-body">
-        <p>{{ comment.content }}</p>
+        <ng-container *ngIf="!isEditing; else editForm">
+          <p>{{ comment.content }}</p>
+        </ng-container>
+        <ng-template #editForm>
+          <textarea [(ngModel)]="editContent" class="edit-textarea" rows="2"></textarea>
+          <div class="edit-actions">
+            <button (click)="saveEdit()" class="save-btn">Guardar</button>
+            <button (click)="cancelEdit()" class="cancel-btn">Cancelar</button>
+          </div>
+        </ng-template>
       </div>
     </div>
 
+    <!-- Acciones del comentario -->
     <div class="comment-actions">
-      <!-- Botón de like -->
-      <button 
-        class="action-btn like-btn"
-        [class.liked]="comment.is_liked"
-        (click)="toggleCommentLike()"
-        [attr.aria-label]="comment.is_liked ? 'Unlike comment' : 'Like comment'"
-      >
-        <span class="icon">{{ comment.is_liked ? '❤️' : '🤍' }}</span>
+      <button class="action-btn like-btn" [class.liked]="comment.is_liked" (click)="toggleCommentLike()">
+        <span>{{ comment.is_liked ? '❤️' : '🤍' }}</span>
         <span class="count" *ngIf="(comment.likes_count ?? 0) > 0">{{ comment.likes_count }}</span>
-        <span class="label">{{ comment.is_liked ? 'Liked' : 'Like' }}</span>
       </button>
 
-      <!-- Botón de reply -->
-      <button 
-        class="action-btn reply-btn" 
-        (click)="toggleReplyForm()"
-        [class.active]="isReplying"
-      >
-        <span class="icon">💬</span>
-        <span class="label">Reply</span>
+      <button class="action-btn reply-btn" (click)="toggleReplyForm()" [class.active]="isReplying">
+        <span>💬</span>
+        <span>Responder</span>
       </button>
 
-      <!-- Botón para ver respuestas -->
-      <button 
-        *ngIf="hasReplies" 
-        class="action-btn replies-btn"
-        [class.active]="showReplies"
-        (click)="toggleReplies()"
-      >
-        <span class="icon">{{ showReplies ? '▼' : '▶' }}</span>
-        <span class="label">{{ comment.replies_count ?? 0 }} {{ (comment.replies_count ?? 0) === 1 ? 'reply' : 'replies' }}</span>
+      <button *ngIf="hasReplies" class="action-btn replies-btn" (click)="toggleReplies()">
+        <span>{{ showReplies ? '▼' : '▶' }}</span>
+        <span>{{ comment.replies_count }} {{ comment.replies_count === 1 ? 'respuesta' : 'respuestas' }}</span>
       </button>
     </div>
 
@@ -56,24 +71,24 @@
     <div *ngIf="isReplying" class="reply-form-container">
       <app-comment-form
         [postId]="postId"
+        [videoId]="videoId"
         [parentCommentId]="comment.id"
-        [placeholder]="'Reply to @' + comment.author?.username"
+        [placeholder]="'Responder a @' + comment.user?.username"
         (commentCreated)="onReplyCreated($any($event))"
-        (cancelled)="toggleReplyForm()"
-      ></app-comment-form>
+        (cancelled)="toggleReplyForm()">
+      </app-comment-form>
     </div>
 
     <!-- Respuestas anidadas -->
-    <div *ngIf="showReplies && hasReplies" class="replies-container">
-      <div class="replies-list">
-        <app-comment-item
-          *ngFor="let reply of comment.replies"
-          [comment]="reply"
-          [postId]="postId"
-          [currentUserId]="currentUserId"
-          [isNested]="true"
-        ></app-comment-item>
-      </div>
+    <div *ngIf="showReplies && comment.replies?.length" class="replies-container">
+      <app-comment-item
+        *ngFor="let reply of comment.replies"
+        [comment]="reply"
+        [postId]="postId"
+        [videoId]="videoId"
+        [currentUserId]="currentUserId"
+        [isNested]="true">
+      </app-comment-item>
     </div>
   </div>
 </div>

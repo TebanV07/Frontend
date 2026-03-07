@@ -1,116 +1,189 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { VideoService, Trending, Video } from '../../../../core/services/video.service';
+import { FlagService } from '../../../../core/services/flag.service';
 
 interface TrendingWithVideos extends Trending {
   videos: Video[];
 }
 
+interface CountryOption {
+  country_code: string;
+  video_count: number;
+  flag_url: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-trending',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './trending.component.html',
-  styleUrl: './trending.component.scss'
+  styleUrls: ['./trending.component.scss']
 })
 export class TrendingComponent implements OnInit {
   trendingTopics: TrendingWithVideos[] = [];
   selectedTrending: TrendingWithVideos | null = null;
   selectedView: 'grid' | 'list' = 'grid';
-  filterCategory = 'all';
   sortBy: 'trending' | 'views' | 'recent' = 'trending';
+  isLoading = true;
 
-  categories = ['all', 'Technology', 'Food', 'Fitness', 'Travel', 'Music', 'Education'];
+  selectedCountry: string | null = null;
+  availableCountries: CountryOption[] = [];
+  isLoadingCountries = false;
 
-  constructor(private videoService: VideoService) {}
+  private apiUrl = 'http://localhost:8001/api/v1';
+
+  constructor(
+    private videoService: VideoService,
+    private http: HttpClient,
+    public flagService: FlagService
+  ) {}
 
   ngOnInit() {
+    this.loadAvailableCountries();
     this.loadTrendingTopics();
   }
 
-  loadTrendingTopics() {
-    this.videoService.getTrending().subscribe(trending => {
-      // Simular videos para cada tendencia
-      this.trendingTopics = trending.map(t => ({
-        ...t,
-        videos: this.getVideosForTrending(t.id)
-      }));
+  // ── Países ────────────────────────────────────────────────────────────────
 
-      if (this.trendingTopics.length > 0) {
-        this.selectedTrending = this.trendingTopics[0];
-      }
+  loadAvailableCountries() {
+    this.isLoadingCountries = true;
+    this.http.get<{ country_code: string; video_count: number }[]>(
+      `${this.apiUrl}/videos/trending/countries`
+    ).subscribe({
+      next: (data) => {
+        this.availableCountries = data.map(c => ({
+          country_code: c.country_code,
+          video_count: c.video_count,
+          flag_url: this.flagService.getCountryFlagUrl(c.country_code, 20),
+          name: this.flagService.getCountryName(c.country_code),
+        }));
+        this.isLoadingCountries = false;
+      },
+      error: () => { this.isLoadingCountries = false; }
     });
   }
 
-  getVideosForTrending(trendingId: string): Video[] {
-    // Simular videos relacionados con la tendencia
-    return [
-      {
-        id: `vid-${trendingId}-1`,
-        user: {
-          id: '1',
-          username: '@creator1',
-          name: 'Creator 1',
-          avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
-          verified: true,
-          followers: 50000,
-          following: 100,
-          language: 'English',
-          country: 'USA'
-        },
-        title: `Amazing ${trendingId} content`,
-        description: 'This is trending content related to the topic',
-        videoUrl: 'https://example.com/video.mp4',
-        thumbnailUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=300&h=500&fit=crop',
-        duration: 45,
-        views: 245000,
-        likes: 12500,
-        comments: 856,
-        shares: 1200,
-        originalLanguage: 'English',
-        hasAudioTranslation: true,
-        isLiked: false,
-        isBookmarked: false,
-        createdAt: new Date(),
-        category: 'Technology',
-        tags: ['trending', 'viral']
-      }
-    ];
+  selectCountry(code: string | null) {
+    this.selectedCountry = code;
+    this.loadTrendingTopics();
+  }
+
+  getSelectedCountryName(): string {
+    if (!this.selectedCountry) return '';
+    return this.flagService.getCountryName(this.selectedCountry);
+  }
+
+  // ── Trending ──────────────────────────────────────────────────────────────
+
+  loadTrendingTopics() {
+    this.isLoading = true;
+
+    this.videoService.getTrending().subscribe({
+      next: (trending) => {
+        Promise.all(trending.map(t => this.loadVideosForTrending(t))).then(results => {
+          this.trendingTopics = results;
+          this.isLoading = false;
+          if (this.trendingTopics.length > 0) {
+            this.selectedTrending = this.trendingTopics[0];
+          }
+        }).catch(() => { this.isLoading = false; });
+      },
+      error: () => { this.isLoading = false; }
+    });
+  }
+
+  private loadVideosForTrending(trending: Trending): Promise<TrendingWithVideos> {
+    return new Promise((resolve) => {
+      let params = new HttpParams().set('page', '1').set('page_size', '20');
+      if (trending.category) params = params.set('category', trending.category);
+      if (this.selectedCountry) params = params.set('country_code', this.selectedCountry);
+
+      this.http.get<any>(`${this.apiUrl}/videos/trending/by-country`, { params }).subscribe({
+        next: (res) => resolve({ ...trending, videos: res.videos || [] }),
+        error: () => {
+          // Fallback al endpoint original
+          this.videoService.getVideosFeed(1, 10, 'trending', trending.category).subscribe({
+            next: (res) => resolve({ ...trending, videos: res.videos }),
+            error: () => resolve({ ...trending, videos: [] })
+          });
+        }
+      });
+    });
   }
 
   selectTrending(trending: TrendingWithVideos) {
     this.selectedTrending = trending;
+    if (trending.videos.length === 0) {
+      let params = new HttpParams().set('page', '1').set('page_size', '20');
+      if (trending.category) params = params.set('category', trending.category);
+      if (this.selectedCountry) params = params.set('country_code', this.selectedCountry);
+
+      this.http.get<any>(`${this.apiUrl}/videos/trending/by-country`, { params }).subscribe({
+        next: (res) => { trending.videos = res.videos || []; },
+        error: () => {}
+      });
+    }
   }
 
-  toggleView(view: 'grid' | 'list') {
-    this.selectedView = view;
-  }
-
-  setFilter(category: string) {
-    this.filterCategory = category;
-  }
+  toggleView(view: 'grid' | 'list') { this.selectedView = view; }
 
   setSortBy(sort: 'trending' | 'views' | 'recent') {
     this.sortBy = sort;
+    if (this.selectedTrending) this.sortVideos(this.selectedTrending.videos);
   }
+
+  private sortVideos(videos: Video[]) {
+    switch (this.sortBy) {
+      case 'views':
+        videos.sort((a, b) => b.views_count - a.views_count);
+        break;
+      case 'recent':
+        videos.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        break;
+    }
+  }
+
+  // ── Helpers template ──────────────────────────────────────────────────────
 
   formatNumber(num: number): string {
-    if (num >= 1000000) {
-      return (num / 1000000).toFixed(1) + 'M';
-    }
-    if (num >= 1000) {
-      return (num / 1000).toFixed(1) + 'K';
-    }
-    return num.toString();
+    if (num >= 1_000_000) return (num / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (num >= 1_000) return (num / 1_000).toFixed(1).replace(/\.0$/, '') + 'K';
+    return String(num || 0);
   }
 
-  getCategories(): string[] {
-    const allCategories = new Set(this.trendingTopics.map(t => t.category));
-    return Array.from(allCategories);
+  getTrendingPosition(index: number): string { return `#${index + 1}`; }
+
+  getVideoTitle(video: Video): string { return video.title || 'Sin título'; }
+  getVideoDescription(video: Video): string { return video.description || ''; }
+  getVideoDuration(video: Video): number { return video.duration || 0; }
+  getVideoViews(video: Video): number { return video.views_count || 0; }
+  getVideoLikes(video: Video): number { return video.likes_count || 0; }
+  getVideoComments(video: Video): number { return video.comments_count || 0; }
+  getVideoThumbnail(video: Video): string { return video.thumbnail_url || 'assets/default-thumb.png'; }
+  getVideoTags(video: Video): string[] { return video.tags || []; }
+
+  getUserName(video: Video): string {
+    const full = ((video.user?.first_name || '') + ' ' + (video.user?.last_name || '')).trim();
+    return full || video.user?.username || 'Usuario';
   }
 
-  getTrendingPosition(index: number): string {
-    return `#${index + 1}`;
+  getUserAvatar(video: Video): string { return video.user?.avatar || 'assets/default-avatar.png'; }
+  isUserVerified(video: Video): boolean { return video.user?.is_verified || false; }
+
+  getUserCountryCode(video: Video): string {
+    return (video.user as any)?.country_code || '';
+  }
+
+  getUserFlagUrl(video: Video): string {
+    return this.flagService.getCountryFlagUrl(this.getUserCountryCode(video), 20);
+  }
+
+  getUserCountryName(video: Video): string {
+    return this.flagService.getCountryName(this.getUserCountryCode(video));
   }
 }

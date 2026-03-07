@@ -78,4 +78,16 @@ checkLike(commentId: number): Observable<any> {
     { headers: this.getAuthHeaders() }
   );
 }
+
+  updatePostComment(commentId: number, update: UpdateCommentDto): Observable<CommentResponse> {
+    return this.http.put<CommentResponse>(`${this.apiUrl}/${commentId}`, update, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  deletePostComment(commentId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${commentId}`, {
+      headers: this.getAuthHeaders()
+    });
+  }
 }

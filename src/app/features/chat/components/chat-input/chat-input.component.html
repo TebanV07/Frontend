@@ -6,8 +6,8 @@
       <button class="close-btn" (click)="toggleEmojiPicker()">✕</button>
     </div>
     <div class="emoji-grid">
-      <button 
-        *ngFor="let emoji of commonEmojis" 
+      <button
+        *ngFor="let emoji of commonEmojis"
         class="emoji-item"
         (click)="addEmoji(emoji)">
         {{ emoji }}
@@ -18,25 +18,37 @@
   <!-- Input Principal -->
   <div class="message-input">
     <!-- Botón Adjuntar -->
-    <button 
-      class="attach-btn" 
+    <button
+      class="attach-btn"
       (click)="onAttachFile()"
       title="Adjuntar archivo">
       📎
     </button>
+    <!-- Botón Cámara -->
+    <button
+      class="camera-btn"
+      (click)="onTakePhoto()"
+      title="Tomar foto">
+      📷
+    </button>
+    <!-- Input oculto para seleccionar archivo general -->
+    <input #fileInput type="file" style="display:none" accept="image/*,video/*,audio/*" capture="environment" (change)="handleFileInput($event)" />
+    <!-- Input oculto para capture de cámara solo imagen -->
+    <input #cameraInput type="file" style="display:none" accept="image/*" capture="environment" (change)="handleFileInput($event)" />
 
     <!-- Input de texto -->
-    <input 
-      type="text" 
+    <input
+      type="text"
       placeholder="Escribe un mensaje..."
       [(ngModel)]="newMessage"
+      (ngModelChange)="onInputChange()"
       (keyup.enter)="sendMessage()"
       #messageInput
       class="text-input">
 
     <!-- Botón Emoji -->
-    <button 
-      class="emoji-btn" 
+    <button
+      class="emoji-btn"
       (click)="toggleEmojiPicker()"
       [class.active]="showEmojiPicker"
       title="Emojis">
@@ -44,9 +56,9 @@
     </button>
 
     <!-- Botón Voz (cuando no hay texto) -->
-    <button 
+    <button
       *ngIf="!newMessage.trim()"
-      class="voice-btn" 
+      class="voice-btn"
       (click)="toggleVoiceRecording()"
       [class.recording]="isRecording"
       title="Grabar mensaje de voz">
@@ -54,10 +66,10 @@
     </button>
 
     <!-- Botón Enviar (cuando hay texto) -->
-    <button 
+    <button
       *ngIf="newMessage.trim()"
-      class="send-btn" 
-      (click)="sendMessage()" 
+      class="send-btn"
+      (click)="sendMessage()"
       [class.active]="newMessage.trim()"
       title="Enviar mensaje">
       <span class="send-icon">➤</span>

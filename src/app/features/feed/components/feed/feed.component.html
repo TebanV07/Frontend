@@ -1,6 +1,6 @@
 <div class="feed-container">
   <!-- ✏️ Crear nuevo post -->
-  <app-create-post (postCreated)="onPostCreated($event)"></app-create-post>
+  <app-create-post (postCreated)="onPostCreated($event)" (videoCreated)="onVideoCreated($event)"></app-create-post>
 
   <!-- 🤖 Banner de traducción -->
   <div class="ai-banner">
@@ -23,6 +23,71 @@
     </div>
   </div>
 
+  <!-- 👥 SECCIÓN DE USUARIOS SUGERIDOS -->
+  <div class="suggested-users-section" *ngIf="suggestedUsers.length > 0">
+    <div class="section-header">
+      <h3>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Personas que quizás conozcas
+      </h3>
+      <button (click)="navigateToExplorePeople()" class="see-all-btn">
+        Ver todo
+      </button>
+    </div>
+
+    <div class="suggested-users-carousel">
+      <div class="user-card" *ngFor="let user of suggestedUsers">
+        <div class="user-card-header">
+          <!-- ✅ CAMBIO: Usar (click) en lugar de routerLink para consistencia -->
+          <img
+            [src]="user.avatar || 'assets/default-avatar.png'"
+            [alt]="user.username"
+            class="user-avatar"
+            (click)="navigateToProfile(user.username, $event)"
+            style="cursor: pointer;">
+          <button
+            class="close-btn"
+            (click)="removeSuggestedUser(user.id); $event.stopPropagation()"
+            title="Ocultar sugerencia">
+            ✕
+          </button>
+        </div>
+
+        <!-- ✅ CAMBIO: Envolver todo en un div clickeable -->
+        <div class="user-info"
+             (click)="navigateToProfile(user.username, $event)"
+             style="cursor: pointer;">
+          <h4>{{ user.name || (user.firstName && user.lastName ? user.firstName + ' ' + user.lastName : user.username) }}</h4>
+          <p class="username">{{ '@' + user.username }}</p>
+          <p class="bio" *ngIf="user.bio">{{ user.bio }}</p>
+
+          <div class="user-stats">
+            <span class="stat">
+              <strong>{{ user.followers_count || 0 }}</strong> seguidores
+            </span>
+            <span class="mutual" *ngIf="user.mutualFollowersCount && user.mutualFollowersCount > 0">
+              • {{ user.mutualFollowersCount }} en común
+            </span>
+          </div>
+        </div>
+
+        <!-- ✅ IMPORTANTE: stopPropagation para que el click del botón no active la navegación -->
+        <button
+          class="follow-btn"
+          [class.following]="followingUsers[user.id]"
+          [disabled]="isProcessingFollow[user.id]"
+          (click)="toggleFollowUser(user); $event.stopPropagation()">
+          {{ followingUsers[user.id] ? 'Siguiendo' : 'Seguir' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- 🔄 Estado de carga -->
   <div *ngIf="isLoading" class="loading-container">
     <div class="loading-spinner"></div>
@@ -40,7 +105,7 @@
     >
     </app-post>
 
-    <!-- ⚠️ Mostrar posts inválidos -->
+    <!-- ⚠️ Mostrar posts inválidos en desarrollo -->
     <div *ngIf="invalidPosts.length > 0" class="debug-warning">
       <div class="warning-icon">⚠️</div>
       <h4>Posts con problemas:</h4>
@@ -61,7 +126,7 @@
 
     <!-- 📥 Cargar más -->
     <div class="load-more" *ngIf="validPosts.length > 0">
-      <button class="load-more-btn">
+      <button class="load-more-btn" (click)="loadPosts()">
         <span class="btn-text">Load More Posts</span>
         <span class="btn-icon">🌊</span>
       </button>

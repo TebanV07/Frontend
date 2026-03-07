@@ -1,135 +1,234 @@
-<article class="post-card">
+<!-- post-card.component.html — UPDATED with delete + report -->
+<article class="post-card" (click)="closeDropdown()">
+
+  <!-- ===== DELETE CONFIRMATION OVERLAY ===== -->
+  <div class="delete-overlay" *ngIf="showDeleteConfirm"
+       (click)="cancelDelete(); $event.stopPropagation()">
+    <div class="delete-confirm" (click)="$event.stopPropagation()">
+      <div class="confirm-icon">🗑️</div>
+      <h4>¿Eliminar este post?</h4>
+      <p>Esta acción no se puede deshacer.</p>
+      <div class="delete-error" *ngIf="deleteError">{{ deleteError }}</div>
+      <div class="confirm-actions">
+        <button class="btn-cancel-del" (click)="cancelDelete()" [disabled]="isDeleting">
+          Cancelar
+        </button>
+        <button class="btn-delete-confirm" (click)="confirmDelete()" [disabled]="isDeleting">
+          <span *ngIf="!isDeleting">Eliminar</span>
+          <span *ngIf="isDeleting" class="spinner-sm"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== REPORT MODAL ===== -->
+  <app-report-modal
+    *ngIf="showReportModal"
+    [contentType]="'post'"
+    [contentId]="post.id"
+    (closed)="onReportClosed()">
+  </app-report-modal>
+
+  <!-- HEADER -->
   <div class="post-header">
     <div class="author-info">
-      <img 
-        [src]="post.user?.avatar || '/assets/default-avatar.png'" 
+      <img
+        [src]="post.user?.avatar || '/assets/default-avatar.png'"
         [alt]="post.user?.username"
         class="avatar"
-        [routerLink]="['/profile', post.user?.username]"
-      >
+        [routerLink]="['/profile', post.user?.username]">
+
       <div class="author-details">
-        <a [routerLink]="['/profile', post.user?.username]" class="username">
-          {{ post.user?.username }}
-        </a>
+        <div class="author-name-row">
+          <a [routerLink]="['/profile', post.user?.username]" class="username">
+            {{ post.user?.username }}
+          </a>
+          <img
+            *ngIf="post.user?.country_code"
+            [src]="flagService.getCountryFlagUrl(post.user?.country_code, 20)"
+            [alt]="flagService.getCountryName(post.user?.country_code)"
+            class="author-flag"
+            (error)="$any($event.target).style.display='none'">
+        </div>
         <span class="full-name" *ngIf="post.user?.first_name">
-          {{ post.user?.first_name }} {{ post.user?.last_name }} 
+          {{ post.user?.first_name }} {{ post.user?.last_name }}
         </span>
         <span class="timestamp">• {{ formattedDate }}</span>
       </div>
     </div>
 
-    <div class="post-menu" *ngIf="isOwnPost">
-      <button class="menu-button" (click)="toggleDropdown()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <!-- ===== DROPDOWN MENU (UPDATED) ===== -->
+    <div class="post-menu">
+      <button class="menu-button" (click)="$event.stopPropagation(); toggleDropdown()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/>
         </svg>
       </button>
 
-      <div class="dropdown-menu" *ngIf="showDropdown">
-        <button (click)="editPost()">Edit</button>
-        <button class="danger" (click)="deletePost()">Delete</button>
+      <div class="dropdown-menu" *ngIf="showDropdown" (click)="$event.stopPropagation()">
+        <!-- Opciones del DUEÑO -->
+        <ng-container *ngIf="isOwnPost">
+          <button (click)="editPost()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+            Editar
+          </button>
+          <button class="danger" (click)="openDeleteConfirm()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+              <path d="M10 11v6M14 11v6"/>
+              <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+            </svg>
+            Eliminar
+          </button>
+        </ng-container>
+
+        <!-- Opciones para OTROS usuarios -->
+        <ng-container *ngIf="!isOwnPost">
+          <button (click)="openReport()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+              <line x1="4" y1="22" x2="4" y2="15"/>
+            </svg>
+            Denunciar
+          </button>
+        </ng-container>
+
+        <div class="menu-divider"></div>
+        <button (click)="sharePost()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          Compartir
+        </button>
       </div>
     </div>
   </div>
 
+  <!-- CONTENT -->
   <div class="post-content">
-    <!-- ==================== BADGE DE IDIOMA ==================== -->
     <div class="language-badge" *ngIf="post.original_language">
-      <span class="language-indicator">
-        {{ getLanguageFlag(post.original_language) }} 
-        {{ getLanguageName(post.original_language) }}
-      </span>
+      <img
+        [src]="flagService.getLanguageFlagUrl(post.original_language, 20)"
+        [alt]="flagService.getLanguageName(post.original_language)"
+        class="lang-flag"
+        (error)="$any($event.target).style.display='none'">
+      <span class="language-name">{{ flagService.getLanguageName(post.original_language) }}</span>
     </div>
-    <!-- ======================================================== -->
 
-    <!-- ==================== CONTENIDO (ORIGINAL O TRADUCIDO) ==================== -->
     <p class="content-text" *ngIf="!showTranslation">{{ post.content }}</p>
     <p class="content-text translated-text" *ngIf="showTranslation">{{ translatedContent }}</p>
-    <!-- ========================================================================== -->
 
     <div class="media-container">
-      <video 
-        *ngIf="post.has_video && post.video_url" 
-        [src]="getFullVideoUrl(post.video_url)"
-        controls
-        class="media-video"
-        (error)="onVideoError($event)"
-      ></video>
-      
+      <div *ngIf="post.has_video && post.video_url" class="video-wrapper">
+        <ng-container *ngIf="isPlaying; else posterTpl">
+          <video
+            [id]="'video-player-' + post.id"
+            class="media-video"
+            controls playsinline preload="metadata"
+            [attr.poster]="getThumbnail()"
+            (error)="onVideoError($event)">
+            <source [src]="getFullVideoUrl(post.video_url)" type="video/mp4"/>
+          </video>
+          <button class="stop-btn" (click)="stopInline($event)">Cerrar</button>
+        </ng-container>
+        <ng-template #posterTpl>
+          <img class="media-image poster" [src]="getThumbnail()" alt="thumbnail"
+            (error)="onImageError($event)" (click)="playInline($event)"/>
+          <div class="play-overlay" (click)="playInline($event)">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </div>
+        </ng-template>
+      </div>
+
       <div *ngIf="post.has_images && post.images?.length" class="image-grid">
-        <img 
-          *ngFor="let image of post.images" 
-          [src]="getFullImageUrl(image.image_url)" 
+        <img
+          *ngFor="let image of post.images"
+          [src]="getFullImageUrl(image.image_url)"
           [alt]="image.alt_text || 'Post image'"
           class="media-image"
-          (error)="onImageError($event)"
-        >
+          (error)="onImageError($event)">
       </div>
     </div>
   </div>
 
-  <!-- ==================== INDICADOR DE TRADUCCIÓN ==================== -->
+  <!-- Translation indicator -->
   <div class="translation-indicator" *ngIf="showTranslation">
-    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M5 8h14M9 2v4M15 2v4M6.5 8.5l1.8 11.5h7.4l1.8-11.5"/>
-    </svg>
-    <span>Translated from {{ getLanguageName(post.original_language) }}</span>
+    <img
+      [src]="flagService.getLanguageFlagUrl(userLanguage, 20)"
+      class="lang-flag-small"
+      (error)="$any($event.target).style.display='none'">
+    <span>Translated to {{ flagService.getLanguageName(userLanguage) }}</span>
+    <span class="original-lang" *ngIf="post.original_language">
+      (from
+      <img
+        [src]="flagService.getLanguageFlagUrl(post.original_language, 20)"
+        class="lang-flag-small"
+        (error)="$any($event.target).style.display='none'">
+      {{ flagService.getLanguageName(post.original_language) }})
+    </span>
   </div>
-  <!-- ================================================================= -->
 
+  <!-- STATS -->
   <div class="post-stats">
-    <app-like-count 
-      [postId]="post.id" 
-      [likesCount]="post.likes_count"
-    ></app-like-count>
+    <app-like-count [postId]="post.id" [likesCount]="post.likes_count"></app-like-count>
     <span class="comment-count">{{ post.comments_count }} comments</span>
   </div>
 
+  <!-- ACTIONS -->
   <div class="post-actions">
     <app-like-button
       [postId]="post.id"
       [is_liked]="post.is_liked || false"
       [likesCount]="post.likes_count"
-      (likeToggled)="onLikeToggled($any($event))"
-    ></app-like-button>
+      (likeToggled)="onLikeToggled($any($event))">
+    </app-like-button>
 
     <button class="action-button" [routerLink]="['/posts', post.id]">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
       </svg>
       <span>Comment</span>
     </button>
 
     <button class="action-button" (click)="sharePost()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
       </svg>
       <span>Share</span>
     </button>
 
-    <!-- ==================== BOTÓN DE TRADUCIR (NUEVO) ==================== -->
-    <button 
-      class="action-button translate-button" 
+    <button
+      class="action-button translate-button"
       (click)="toggleTranslation()"
       [disabled]="isTranslating"
-      [class.active]="showTranslation"
-    >
-      <!-- Icono de traducir -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="m5 8 6 6"/>
-        <path d="m4 14 6-6 2-3"/>
-        <path d="M2 5h12"/>
-        <path d="M7 2h1"/>
-        <path d="m22 22-5-10-5 10"/>
-        <path d="M14 18h6"/>
+      [class.active]="showTranslation">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2">
+        <path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/>
+        <path d="M2 5h12"/><path d="M7 2h1"/>
+        <path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>
       </svg>
-      
-      <!-- Texto del botón -->
       <span *ngIf="isTranslating">Translating...</span>
       <span *ngIf="!isTranslating && !showTranslation">Translate</span>
-      <span *ngIf="!isTranslating && showTranslation">Show Original</span>
+      <span *ngIf="!isTranslating && showTranslation">Original</span>
     </button>
-    <!-- =================================================================== -->
   </div>
+
 </article>

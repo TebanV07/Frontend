@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from '../../../../shared/components/header/header.component';
 
 interface ChatMessage {
   id: string;
@@ -26,7 +27,7 @@ interface Live {
 @Component({
   selector: 'app-lives',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HeaderComponent],
   templateUrl: './lives.component.html',
   styleUrls: ['./lives.component.scss']
 })

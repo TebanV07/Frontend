@@ -1,56 +1,133 @@
+<app-header></app-header>
 <div class="chat-container">
-  <!-- Lista de conversaciones -->
+
+  <!-- ============================================================ -->
+  <!-- SIDEBAR -->
+  <!-- ============================================================ -->
   <div class="chat-sidebar">
+
     <div class="sidebar-header">
       <h2>Mensajes</h2>
       <button class="new-chat-btn" title="Nueva conversación">✏️</button>
     </div>
-    
+
+    <!-- USUARIOS CONECTADOS AHORA -->
+    <div class="online-users-section" *ngIf="onlineUsers.length > 0">
+      <div class="online-section-header">
+        <span class="online-dot-indicator"></span>
+        <span class="online-label">Conectados ahora</span>
+        <span class="online-count">{{ onlineUsers.length }}</span>
+      </div>
+
+      <div class="online-users-scroll">
+        <div
+          *ngFor="let user of onlineUsers"
+          class="online-user-item"
+          (click)="onOnlineUserClick(user)"
+          [title]="user.name || user.username">
+
+          <div class="online-avatar-wrapper">
+            <img [src]="getAvatarUrl(user.avatar)"
+              (error)="$any($event.target).src = 'assets/default-avatar.png'">
+            <span class="online-status-dot"></span>
+          </div>
+
+          <span class="online-username">
+            {{ getOnlineUserDisplayName(user) }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUSCADOR -->
     <div class="search-box">
       <span class="search-icon">🔍</span>
       <input type="text" placeholder="Buscar conversaciones...">
     </div>
-    
+
+    <!-- LISTA DE CONVERSACIONES -->
     <div class="conversations-list">
-      <div 
-        *ngFor="let conversation of conversations" 
+
+      <div
+        *ngFor="let conversation of conversations"
         class="conversation-item"
         [class.active]="activeConversation?.id === conversation.id"
         (click)="onConversationSelected(conversation)">
-        
+
+        <!-- ✅ Avatar con indicador online (se mantiene SOLO en el sidebar) -->
         <div class="conversation-avatar">
-          <img [src]="conversation.participants[0].avatar" [alt]="conversation.participants[0].name">
-          <span class="online-indicator" *ngIf="conversation.participants[0].isOnline"></span>
+          <img
+            [src]="getAvatarUrl(conversation.other_user?.avatar)"
+            [alt]="conversation.other_user?.name || 'Usuario'"
+            (error)="$any($event.target).src = 'assets/default-avatar.png'">
+          <span
+            class="online-badge"
+            *ngIf="isContactOnline(conversation.other_user?.id)">
+          </span>
         </div>
-        
+
         <div class="conversation-info">
           <div class="conversation-header">
-            <h4>{{ conversation.participants[0].name }}</h4>
-            <span class="time">{{ getFormattedTime(conversation.lastActivity) }}</span>
+            <h4>
+              <!-- ✅ FIX: usar name → username → name_del_grupo → fallback genérico -->
+              {{ conversation.other_user?.name
+                || conversation.other_user?.username
+                || conversation.name
+                || 'Sin nombre' }}
+            </h4>
+            <div class="right-header">
+              <span class="time">
+                {{ getFormattedTime(conversation.last_message_at) }}
+              </span>
+              <span
+                class="lang-badge"
+                *ngIf="getPreferredLang(conversation.other_user)">
+                {{ getPreferredLang(conversation.other_user) | uppercase }}
+              </span>
+            </div>
           </div>
-          
+
           <div class="conversation-preview">
-            <p class="last-message">
-              <span *ngIf="conversation.lastMessage?.aiTranslated" class="translate-badge">🌐</span>
-              {{ conversation.lastMessage?.translatedContent || conversation.lastMessage?.content || 'Sin mensajes' }}
+
+            <p class="last-message" *ngIf="!isUserTyping(conversation.id)">
+              {{ conversation.last_message_content || 'Sin mensajes' }}
             </p>
-            <span class="unread-badge" *ngIf="conversation.unreadCount > 0">
-              {{ conversation.unreadCount }}
+
+            <p class="typing-indicator" *ngIf="isUserTyping(conversation.id)">
+              <span class="typing-dots">
+                <span></span><span></span><span></span>
+              </span>
+              Escribiendo...
+            </p>
+
+            <span
+              class="unread-badge"
+              *ngIf="conversation.unread_count && conversation.unread_count > 0">
+              {{ conversation.unread_count }}
             </span>
-          </div>
-          
-          <div class="language-info">
-            <span class="language-tag">{{ conversation.participants[0].language }}</span>
+
           </div>
         </div>
       </div>
+
+      <div class="empty-conversations" *ngIf="conversations.length === 0">
+        <div class="empty-icon">💬</div>
+        <h4>No tienes conversaciones</h4>
+        <p>Comienza a chatear con alguien</p>
+      </div>
+
     </div>
   </div>
 
-  <!-- Ventana de chat -->
-  <app-chat-window 
+  <!-- ============================================================ -->
+  <!-- CHAT WINDOW -->
+  <!-- ============================================================ -->
+  <app-chat-window
     [activeConversation]="activeConversation"
     [messages]="messages"
-    (messageSent)="onMessageSent($event)">
+    [typingUsers]="activeConversation ? (typingUsers[activeConversation.id] || []) : []"
+    (messageSent)="onMessageSent($event)"
+    (typing)="activeConversation && onTyping(activeConversation.id, $event)">
   </app-chat-window>
+
 </div>
