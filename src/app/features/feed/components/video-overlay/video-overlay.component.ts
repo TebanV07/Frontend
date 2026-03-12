@@ -25,6 +25,7 @@ export class VideoOverlayComponent {
   // Estados locales
   showTranslationMenu = false;
   selectedSubtitleLanguage: string = '';
+  private readonly apiBaseUrl = 'http://localhost:8001';
 
   // Idiomas disponibles para traduccion
   availableTranslationLanguages = [
@@ -103,6 +104,26 @@ export class VideoOverlayComponent {
   getLanguageFlag(langCode: string): string {
     const lang = this.availableTranslationLanguages.find(l => l.code === langCode);
     return lang?.flag || '🌐';
+  }
+
+  getUserAvatarUrl(): string {
+    const user = this.video?.user as any;
+    const avatar = user?.avatar || user?.avatar_url || user?.profile_picture_url || user?.profile_image;
+
+    if (!avatar) {
+      return `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.username || 'User')}`;
+    }
+
+    if (typeof avatar !== 'string') {
+      return `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.username || 'User')}`;
+    }
+
+    if (avatar.startsWith('http://') || avatar.startsWith('https://') || avatar.startsWith('data:')) {
+      return avatar;
+    }
+
+    const normalizedPath = avatar.startsWith('/') ? avatar : `/${avatar}`;
+    return `${this.apiBaseUrl}${normalizedPath}`;
   }
 
   getLanguageName(langCode: string): string {

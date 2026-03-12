@@ -237,6 +237,26 @@ export class PostComponent implements OnInit {
     return videoUrl.startsWith('http') ? videoUrl : `${this.apiBaseUrl}${videoUrl}`;
   }
 
+  getUserAvatarUrl(): string {
+    const user = this.post?.user as any;
+    const avatar = user?.avatar || user?.avatar_url || user?.profile_picture_url || user?.profile_image;
+
+    if (!avatar) {
+      return `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.username || 'User')}`;
+    }
+
+    if (typeof avatar !== 'string') {
+      return `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.username || 'User')}`;
+    }
+
+    if (avatar.startsWith('http://') || avatar.startsWith('https://') || avatar.startsWith('data:')) {
+      return avatar;
+    }
+
+    const normalizedPath = avatar.startsWith('/') ? avatar : `/${avatar}`;
+    return `${this.apiBaseUrl}${normalizedPath}`;
+  }
+
   onImageError(event: Event): void {
     (event.target as HTMLImageElement).src = '/assets/default-image.png';
   }

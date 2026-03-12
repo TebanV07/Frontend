@@ -41,6 +41,7 @@ export class TrendingComponent implements OnInit {
   isLoadingCountries = false;
 
   private apiUrl = 'http://localhost:8001/api/v1';
+  private baseUrl = 'http://localhost:8001';
 
   constructor(
     private videoService: VideoService,
@@ -231,7 +232,25 @@ export class TrendingComponent implements OnInit {
     return full || video.user?.username || 'Usuario';
   }
 
-  getUserAvatar(video: Video): string { return video.user?.avatar || 'assets/default-avatar.png'; }
+  getUserAvatar(video: Video): string {
+    const user = video.user as any;
+    const avatar = user?.avatar || user?.avatar_url || user?.profile_picture_url || user?.profile_image;
+
+    if (!avatar) {
+      return 'assets/default-avatar.png';
+    }
+
+    if (typeof avatar !== 'string') {
+      return 'assets/default-avatar.png';
+    }
+
+    if (avatar.startsWith('http://') || avatar.startsWith('https://') || avatar.startsWith('data:')) {
+      return avatar;
+    }
+
+    const normalizedPath = avatar.startsWith('/') ? avatar : `/${avatar}`;
+    return `${this.baseUrl}${normalizedPath}`;
+  }
   isUserVerified(video: Video): boolean { return video.user?.is_verified || false; }
 
   getUserCountryCode(video: Video): string {

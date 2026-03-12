@@ -146,7 +146,7 @@
             <div class="video-info">
               <div class="video-header">
                 <div class="user-avatar">
-                  <img [src]="getUserAvatar(video)" [alt]="getUserName(video)">
+                  <img [src]="getUserAvatar(video)" [alt]="getUserName(video)" (error)="$any($event.target).src = 'assets/default-avatar.png'">
                 </div>
                 <div class="video-title-section">
                   <h3>{{ getVideoTitle(video) }}</h3>

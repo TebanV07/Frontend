@@ -261,6 +261,7 @@ export class VideoFeedComponent implements OnInit {
           id: 1,
           username: 'test_user',
           full_name: 'Usuario de Prueba',
+          avatar: 'https://ui-avatars.com/api/?name=Test+User',
           profile_picture_url: 'https://ui-avatars.com/api/?name=Test+User',
           is_verified: true
         }

@@ -5,9 +5,10 @@
   <div class="post-header">
     <div class="user-info">
       <img
-        [src]="post.user?.avatar || 'https://ui-avatars.com/api/?name=' + (post.user?.username || 'User')"
+        [src]="getUserAvatarUrl()"
         [alt]="post.user?.username || 'User'"
-        class="user-avatar"/>
+        class="user-avatar"
+        (error)="$any($event.target).src = 'assets/default-avatar.png'"/>
 
       <div class="user-details">
         <div class="name-row">

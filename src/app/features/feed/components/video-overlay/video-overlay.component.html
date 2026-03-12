@@ -6,9 +6,10 @@
     <!-- Usuario -->
     <div class="user-section">
       <img
-        [src]="video.user?.avatar || $any(video.user)?.profile_picture_url || 'https://ui-avatars.com/api/?name=' + (video.user?.username || 'User')"
+        [src]="getUserAvatarUrl()"
         [alt]="video.user?.username"
-        class="user-avatar">
+        class="user-avatar"
+        (error)="$any($event.target).src = 'assets/default-avatar.png'">
       <div class="user-details">
         <div class="username-row">
           <span class="username">@{{ video.user?.username }}</span>
@@ -105,9 +106,10 @@
     <!-- Avatar del usuario (grande) -->
     <div class="action-avatar">
       <img
-        [src]="video.user?.avatar || $any(video.user)?.profile_picture_url || 'https://ui-avatars.com/api/?name=' + (video.user?.username || 'User')"
+        [src]="getUserAvatarUrl()"
         [alt]="video.user?.username"
-        class="action-user-avatar">
+        class="action-user-avatar"
+        (error)="$any($event.target).src = 'assets/default-avatar.png'">
       <div class="avatar-plus">+</div>
     </div>
 
