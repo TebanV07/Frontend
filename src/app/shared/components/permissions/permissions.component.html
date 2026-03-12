@@ -1,0 +1,107 @@
+<div class="permissions-container">
+  <!-- Welcome Step -->
+  <div class="step-welcome" *ngIf="step === 'welcome'">
+    <div class="welcome-card">
+      <div class="icon-large">🔐</div>
+      <h1>{{ 'permissions.welcome.title' | translate }}</h1>
+      <p>{{ 'permissions.welcome.subtitle' | translate }}</p>
+
+      <div class="features">
+        <div class="feature">
+          <span class="feature-icon">📷</span>
+          <span class="feature-text">{{ 'permissions.welcome.camera' | translate }}</span>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">🎤</span>
+          <span class="feature-text">{{ 'permissions.welcome.microphone' | translate }}</span>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">🔔</span>
+          <span class="feature-text">{{ 'permissions.welcome.notifications' | translate }}</span>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button class="btn-secondary" (click)="skipOptionalPermissions()">
+          {{ 'permissions.welcome.later' | translate }}
+        </button>
+        <button class="btn-primary" (click)="step = 'permissions'">
+          {{ 'permissions.welcome.continue' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Permissions Step -->
+  <div class="step-permissions" *ngIf="step === 'permissions'">
+    <div class="permissions-header">
+      <h1>{{ 'permissions.list.title' | translate }}</h1>
+      <p>{{ 'permissions.list.subtitle' | translate }}</p>
+    </div>
+
+    <div class="permissions-list">
+      <div class="permission-card" *ngFor="let permission of permissions">
+        <div class="permission-header">
+          <div class="permission-icon">{{ permission.icon }}</div>
+          <div class="permission-info">
+            <h3>{{ permission.name }}</h3>
+            <p>{{ permission.description }}</p>
+          </div>
+          <div class="permission-status">
+            <span class="badge" *ngIf="permission.granted" [ngClass]="{ granted: true }">
+              {{ 'permissions.list.granted' | translate }}
+            </span>
+            <span class="badge" *ngIf="!permission.granted && permission.required" [ngClass]="{ required: true }">
+              {{ 'permissions.list.required' | translate }}
+            </span>
+            <span class="badge" *ngIf="!permission.granted && !permission.required" [ngClass]="{ optional: true }">
+              {{ 'permissions.list.optional' | translate }}
+            </span>
+          </div>
+        </div>
+
+        <button
+          class="btn-request"
+          (click)="requestPermission(permission)"
+          [disabled]="permission.granted"
+          [class.granted]="permission.granted">
+          {{ (permission.granted ? 'permissions.list.granted' : 'permissions.list.request') | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="permissions-actions">
+      <button class="btn-secondary" (click)="step = 'welcome'">
+        {{ 'permissions.list.back' | translate }}
+      </button>
+      <button class="btn-primary" (click)="requestAllPermissions()">
+        {{ 'permissions.list.requestAll' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Complete Step -->
+  <div class="step-complete" *ngIf="step === 'complete'">
+    <div class="complete-card">
+      <div class="success-icon">✅</div>
+      <h1>{{ 'permissions.complete.title' | translate }}</h1>
+      <p>{{ 'permissions.complete.subtitle' | translate }}</p>
+
+      <div class="permissions-summary">
+        <div class="summary-item" *ngFor="let permission of permissions">
+          <span class="icon">{{ permission.icon }}</span>
+          <span class="name">{{ permission.name }}</span>
+          <span class="status" [ngClass]="{ granted: permission.granted, denied: !permission.granted }">
+            {{ (permission.granted ? 'permissions.complete.grantedStatus' : 'permissions.complete.deniedStatus') | translate }}
+          </span>
+        </div>
+      </div>
+
+      <p class="redirect-message">{{ 'permissions.complete.redirect' | translate }}</p>
+
+      <button class="btn-primary" (click)="router.navigate(['/home'])">
+        {{ 'permissions.complete.goHome' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

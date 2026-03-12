@@ -1,254 +1,505 @@
-import { Injectable } from '@angular/core';
-import { Observable, of, delay, BehaviorSubject } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
 
-export interface ChatUser {
-  id: string;
-  name: string;
+import {
+  Observable,
+  BehaviorSubject,
+  interval,
+  of,
+  Subscription,
+  combineLatest
+} from 'rxjs';
+import { WebSocketService, WebSocketMessage } from './websocket.service';
+
+import {
+  tap,
+  switchMap,
+  startWith,
+  catchError,
+  map,
+  distinctUntilChanged
+} from 'rxjs/operators';
+
+import type {
+  Message,
+  Conversation,
+  ConversationDetail,
+  MessageListResponse
+} from '../models';
+
+// ==================== INTERFACES ====================
+
+export interface TranslateMessageRequest {
+  target_language: string;
+}
+
+export interface TranslateMessageResponse {
+  message_id: number;
+  translated_content: string;
+  target_language: string;
+  source_language: string;
+}
+
+// 🆕 Usuario online
+export interface OnlineUser {
+  id: number;
   username: string;
-  avatar: string;
-  language: string;
-  isOnline: boolean;
-  lastSeen?: Date;
+  name: string;
+  avatar?: string;
+  is_online: boolean;
 }
 
-export interface Message {
-  id: string;
-  senderId: string;
-  recipientId: string;
-  content: string;
-  originalLanguage: string;
-  translatedContent?: string;
-  translatedTo?: string;
-  timestamp: Date;
-  isTranslating?: boolean;
-  aiTranslated?: boolean;
-  messageType: 'text' | 'image' | 'video' | 'audio';
-  isRead: boolean;
-}
-
-export interface Conversation {
-  id: string;
-  participants: ChatUser[];
-  lastMessage?: Message;
-  unreadCount: number;
-  isTranslationEnabled: boolean;
-  preferredLanguage?: string;
-  lastActivity: Date;
-}
+// ========================================================================
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService {
-  private conversations$ = new BehaviorSubject<Conversation[]>([]);
-  private activeConversation$ = new BehaviorSubject<Conversation | null>(null);
-  private messages$ = new BehaviorSubject<Message[]>([]);
+export class ChatService implements OnDestroy {
 
-  private mockUsers: ChatUser[] = [
-    {
-      id: '2',
-      name: 'María González',
-      username: '@maria_g',
-      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b05b?w=100&h=100&fit=crop&crop=face',
-      language: 'Spanish',
-      isOnline: true
-    },
-    {
-      id: '3',
-      name: 'Hiroshi Tanaka',
-      username: '@hiroshi_t',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
-      language: 'Japanese',
-      isOnline: false,
-      lastSeen: new Date(Date.now() - 30 * 60 * 1000)
-    },
-    {
-      id: '4',
-      name: 'Sophie Laurent',
-      username: '@sophie_l',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
-      language: 'French',
-      isOnline: true
-    },
-    {
-      id: '5',
-      name: 'Carlos Silva',
-      username: '@carlos_s',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
-      language: 'Portuguese',
-      isOnline: false,
-      lastSeen: new Date(Date.now() - 2 * 60 * 60 * 1000)
-    },
-    {
-      id: '6',
-      name: 'Emma Wilson',
-      username: '@emma_w',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face',
-      language: 'English',
-      isOnline: true
-    }
-  ];
+  private readonly apiUrl = 'http://localhost:8001/api/v1/messages';
+  private readonly wsApiUrl = 'http://localhost:8001/api/v1/ws';
+  private refreshIntervalMs = 5000;
+  private refreshSub?: Subscription;
 
-  private mockMessages: Message[] = [
-    {
-      id: '1',
-      senderId: '2',
-      recipientId: '1',
-      content: '¡Hola! ¿Cómo estás? Me encanta la nueva función de traducción de videos.',
-      originalLanguage: 'Spanish',
-      translatedContent: 'Hello! How are you? I love the new video translation feature.',
-      translatedTo: 'English',
-      timestamp: new Date(Date.now() - 10 * 60 * 1000),
-      aiTranslated: true,
-      messageType: 'text',
-      isRead: true
-    },
-    {
-      id: '2',
-      senderId: '1',
-      recipientId: '2',
-      content: 'Hi María! I\'m doing great, thanks for asking. The AI translation is working amazingly well!',
-      originalLanguage: 'English',
-      timestamp: new Date(Date.now() - 8 * 60 * 1000),
-      messageType: 'text',
-      isRead: true
-    },
-    {
-      id: '3',
-      senderId: '2',
-      recipientId: '1',
-      content: 'Es increíble cómo podemos comunicarnos sin barreras de idioma. ¡El futuro está aquí! 🚀',
-      originalLanguage: 'Spanish',
-      translatedContent: 'It\'s incredible how we can communicate without language barriers. The future is here! 🚀',
-      translatedTo: 'English',
-      timestamp: new Date(Date.now() - 5 * 60 * 1000),
-      aiTranslated: true,
-      messageType: 'text',
-      isRead: true
-    },
-    {
-      id: '4',
-      senderId: '1',
-      recipientId: '2',
-      content: 'Absolutely! And the voice translation for videos is mind-blowing.',
-      originalLanguage: 'English',
-      timestamp: new Date(Date.now() - 2 * 60 * 1000),
-      messageType: 'text',
-      isRead: false
-    }
-  ];
+  // ======================================================
+  // STATE
+  // ======================================================
 
-  private mockConversations: Conversation[] = [
-    {
-      id: '1',
-      participants: [this.mockUsers[0]],
-      lastMessage: this.mockMessages[3],
-      unreadCount: 1,
-      isTranslationEnabled: true,
-      preferredLanguage: 'English',
-      lastActivity: new Date(Date.now() - 2 * 60 * 1000)
-    },
-    {
-      id: '2',
-      participants: [this.mockUsers[1]],
-      lastMessage: {
-        id: '5',
-        senderId: '3',
-        recipientId: '1',
-        content: 'こんにちは！新しいAI翻訳機能をテストしています。',
-        originalLanguage: 'Japanese',
-        translatedContent: 'Hello! I\'m testing the new AI translation feature.',
-        translatedTo: 'English',
-        timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000),
-        aiTranslated: true,
-        messageType: 'text',
-        isRead: false
-      },
-      unreadCount: 2,
-      isTranslationEnabled: true,
-      preferredLanguage: 'English',
-      lastActivity: new Date(Date.now() - 1 * 60 * 60 * 1000)
-    },
-    {
-      id: '3',
-      participants: [this.mockUsers[2]],
-      lastMessage: {
-        id: '6',
-        senderId: '4',
-        recipientId: '1',
-        content: 'Bonjour! Cette fonction de traduction est fantastique!',
-        originalLanguage: 'French',
-        translatedContent: 'Hello! This translation feature is fantastic!',
-        translatedTo: 'English',
-        timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000),
-        aiTranslated: true,
-        messageType: 'text',
-        isRead: true
-      },
-      unreadCount: 0,
-      isTranslationEnabled: true,
-      preferredLanguage: 'English',
-      lastActivity: new Date(Date.now() - 3 * 60 * 60 * 1000)
-    }
-  ];
+  private conversationsSubject = new BehaviorSubject<Conversation[]>([]);
+  public readonly conversations$ = this.conversationsSubject.asObservable();
 
-  constructor() {
-    this.conversations$.next(this.mockConversations);
+  private activeConversationSubject = new BehaviorSubject<ConversationDetail | null>(null);
+  public readonly activeConversation$ = this.activeConversationSubject.asObservable();
+
+  private messagesSubject = new BehaviorSubject<Message[]>([]);
+  public readonly messages$ = this.messagesSubject.asObservable();
+
+  private unreadCountSubject = new BehaviorSubject<number>(0);
+  public readonly unreadCount$ = this.unreadCountSubject.asObservable();
+
+  private typingUsersSubject = new BehaviorSubject<Record<number, number[]>>({});
+  public readonly typingUsers$ = this.typingUsersSubject.asObservable();
+
+  // 🆕 Usuarios online
+  private onlineUsersSubject = new BehaviorSubject<OnlineUser[]>([]);
+  public readonly onlineUsers$ = this.onlineUsersSubject.asObservable();
+
+  // ======================================================
+  // CONSTRUCTOR
+  // ======================================================
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private wsService: WebSocketService
+  ) {
+    this.startSmartAutoRefresh();
+    this.wsService.getMessages().subscribe(msg => this.handleSocketMessage(msg));
+
+    // 🆕 Cargar usuarios online al iniciar
+    this.loadOnlineUsers();
   }
 
-  getConversations(): Observable<Conversation[]> {
-    return this.conversations$.asObservable();
+  ngOnDestroy(): void {
+    this.refreshSub?.unsubscribe();
   }
 
-  getActiveConversation(): Observable<Conversation | null> {
-    return this.activeConversation$.asObservable();
+  // ======================================================
+  // AUTO REFRESH
+  // ======================================================
+
+  private startSmartAutoRefresh(): void {
+    this.refreshSub = interval(this.refreshIntervalMs)
+      .pipe(
+        startWith(0),
+        switchMap(() => {
+          if (this.router.url.includes('/chat')) {
+            return this.getConversations();
+          }
+          return of([]);
+        }),
+        catchError(() => of([]))
+      )
+      .subscribe();
   }
 
-  getMessages(conversationId: string): Observable<Message[]> {
-    if (conversationId === '1') {
-      return of(this.mockMessages).pipe(delay(300));
-    }
-    return of([]).pipe(delay(300));
+  setRefreshInterval(ms: number): void {
+    this.refreshIntervalMs = ms;
+    this.refreshSub?.unsubscribe();
+    this.startSmartAutoRefresh();
   }
 
-  setActiveConversation(conversation: Conversation) {
-    this.activeConversation$.next(conversation);
-    this.getMessages(conversation.id).subscribe(messages => {
-      this.messages$.next(messages);
+  // ======================================================
+  // 🆕 USUARIOS ONLINE
+  // ======================================================
+
+  /**
+   * Carga inicial de usuarios online desde el endpoint REST
+   */
+  loadOnlineUsers(): void {
+    this.http.get<{ online_users: OnlineUser[]; total: number }>(
+      `${this.wsApiUrl}/online-users`
+    ).pipe(
+      catchError(() => of({ online_users: [], total: 0 }))
+    ).subscribe(res => {
+      this.onlineUsersSubject.next(res.online_users);
     });
   }
 
-  getCurrentMessages(): Observable<Message[]> {
-    return this.messages$.asObservable();
-  }
-
-  sendMessage(content: string, conversationId: string): Observable<Message> {
-    const newMessage: Message = {
-      id: Date.now().toString(),
-      senderId: '1',
-      recipientId: conversationId === '1' ? '2' : '3',
-      content: content,
-      originalLanguage: 'English',
-      timestamp: new Date(),
-      messageType: 'text',
-      isRead: false
-    };
-
-    // Simular envío y agregar al array
-    return of(newMessage).pipe(delay(500));
-  }
-
-  translateMessage(messageId: string, targetLanguage: string): Observable<Message> {
-    // Simular traducción
-    return of({} as Message).pipe(delay(1500));
-  }
-
-  markAsRead(conversationId: string): void {
-    const conversations = this.conversations$.value;
-    const conversation = conversations.find(c => c.id === conversationId);
-    if (conversation) {
-      conversation.unreadCount = 0;
-      this.conversations$.next([...conversations]);
+  /**
+   * Agregar o actualizar un usuario online en el store local
+   */
+  private addOnlineUser(user: OnlineUser): void {
+    const current = this.onlineUsersSubject.value;
+    const exists = current.find(u => u.id === user.id);
+    if (!exists) {
+      this.onlineUsersSubject.next([...current, user]);
+    } else {
+      // Actualizar datos si ya existe
+      this.onlineUsersSubject.next(
+        current.map(u => u.id === user.id ? { ...u, ...user, is_online: true } : u)
+      );
     }
+  }
+
+  /**
+   * Marcar usuario como offline en el store local
+   */
+  private removeOnlineUser(userId: number): void {
+    const current = this.onlineUsersSubject.value;
+    this.onlineUsersSubject.next(
+      current.filter(u => u.id !== userId)
+    );
+  }
+
+  // ======================================================
+  // CONVERSACIONES
+  // ======================================================
+
+  getConversations(): Observable<Conversation[]> {
+    return this.http
+      .get<Conversation[]>(`${this.apiUrl}/conversations`)
+      .pipe(
+        tap(conversations => {
+          this.conversationsSubject.next(conversations);
+          this.updateUnreadCount(conversations);
+        }),
+        catchError(err => {
+          console.error('Error cargando conversaciones', err);
+          return of([]);
+        })
+      );
+  }
+
+  getConversationDetail(conversationId: number): Observable<ConversationDetail> {
+    return this.http
+      .get<ConversationDetail>(`${this.apiUrl}/conversations/${conversationId}`)
+      .pipe(
+        tap(detail => {
+          this.activeConversationSubject.next(detail);
+          this.messagesSubject.next(detail.messages ?? []);
+        })
+      );
+  }
+
+  createConversation(userId: number): Observable<Conversation> {
+    return this.http
+      .post<Conversation>(`${this.apiUrl}/conversations`, { user_id: userId })
+      .pipe(tap(conv => this.pushConversation(conv)));
+  }
+
+  requestConversation(userId: number): Observable<{ message: string; conversation_id: number; created_conversation: boolean }> {
+    return this.http.post<{ message: string; conversation_id: number; created_conversation: boolean }>(
+      `${this.apiUrl}/conversations/request/${userId}`,
+      {}
+    );
+  }
+
+  createGroupConversation(participants: number[], name?: string): Observable<Conversation> {
+    return this.http
+      .post<Conversation>(`${this.apiUrl}/conversations`, { participants, name })
+      .pipe(tap(conv => this.pushConversation(conv)));
+  }
+
+  setActiveConversation(conversation: Conversation): void {
+    this.getConversationDetail(conversation.id).subscribe();
+  }
+
+  clearActiveConversation(): void {
+    this.activeConversationSubject.next(null);
+    this.messagesSubject.next([]);
+  }
+
+  // ======================================================
+  // MENSAJES
+  // ======================================================
+
+  getMessages(conversationId: number, skip = 0, limit = 50): Observable<Message[]> {
+    const params = new HttpParams().set('skip', skip).set('limit', limit);
+
+    return this.http
+      .get<MessageListResponse>(
+        `${this.apiUrl}/conversations/${conversationId}/messages`,
+        { params }
+      )
+      .pipe(
+        map(res => res.messages),
+        tap(messages => this.messagesSubject.next(messages)),
+        catchError(() => of([]))
+      );
+  }
+
+  sendMessage(
+    conversationId: number,
+    content: string,
+    mediaUrls?: string[],
+    mediaType?: string
+  ): Observable<void> {
+    this.wsService.send({
+      type: 'message',
+      data: {
+        conversation_id: conversationId,
+        content,
+        media_urls: mediaUrls,
+        media_type: mediaType
+      }
+    });
+    return of();
+  }
+
+  updateMessage(messageId: number, content: string): Observable<Message> {
+    return this.http
+      .put<Message>(`${this.apiUrl}/messages/${messageId}`, { content })
+      .pipe(
+        tap(msg => {
+          this.replaceMessage(msg);
+          this.wsService.send({
+            type: 'edit',
+            data: { message_id: msg.id, content: msg.content, updated_at: msg.updated_at }
+          });
+        })
+      );
+  }
+
+  deleteMessage(messageId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/messages/${messageId}`).pipe(
+      tap(() => {
+        this.removeMessage(messageId);
+        this.wsService.send({ type: 'delete', data: { message_id: messageId } });
+      })
+    );
+  }
+
+  /**
+   * Elimina un mensaje únicamente en el cliente ("eliminar para mí").
+   * No hace ninguna llamada al servidor.
+   */
+  public removeMessageLocally(messageId: number): void {
+    this.removeMessage(messageId);
+  }
+
+  markMessageAsRead(messageId: number): Observable<void> {
+    return this.http
+      .post<void>(`${this.apiUrl}/messages/${messageId}/read`, {})
+      .pipe(tap(() => this.markLocalMessageRead(messageId)));
+  }
+
+  markConversationAsRead(conversationId: number): Observable<Message[]> {
+    return this.getMessages(conversationId);
+  }
+
+  // ======================================================
+  // TRADUCCIÓN
+  // ======================================================
+
+  translateMessage(messageId: number, targetLanguage: string): Observable<TranslateMessageResponse> {
+    return this.http.post<TranslateMessageResponse>(
+      `${this.apiUrl}/messages/${messageId}/translate`,
+      { target_language: targetLanguage }
+    );
+  }
+
+  // ======================================================
+  // STREAMS DERIVADOS
+  // ======================================================
+
+  public readonly activeConversationMessages$ = combineLatest([
+    this.activeConversation$,
+    this.messages$
+  ]).pipe(
+    map(([conv, messages]) => conv ? messages.filter(m => m.conversation_id === conv.id) : []),
+    distinctUntilChanged()
+  );
+
+  // ======================================================
+  // HELPERS PRIVADOS
+  // ======================================================
+
+  private pushConversation(conv: Conversation): void {
+    const current = this.conversationsSubject.value;
+    this.conversationsSubject.next([conv, ...current]);
+  }
+
+  private appendMessage(message: Message): void {
+    const current = this.messagesSubject.value;
+    this.messagesSubject.next([...current, message]);
+  }
+
+  /**
+   * Reemplaza un mensaje en el estado local. Público para que componentes externos
+   * puedan actualizar traducciones o ediciones sin volver a consultar al servidor.
+   */
+  public replaceMessage(message: Message): void {
+    const updated = this.messagesSubject.value.map(m =>
+      m.id === message.id ? message : m
+    );
+    this.messagesSubject.next(updated);
+  }
+
+  private removeMessage(messageId: number): void {
+    this.messagesSubject.next(
+      this.messagesSubject.value.filter(m => m.id !== messageId)
+    );
+  }
+
+  private markLocalMessageRead(messageId: number): void {
+    const messages = this.messagesSubject.value.map(m =>
+      m.id === messageId ? { ...m, is_read: true } : m
+    );
+    this.messagesSubject.next(messages);
+  }
+
+  private applyEditedMessage(data: any): void {
+    const { id, content, updated_at } = data;
+    const messages = this.messagesSubject.value.map(m =>
+      m.id === id ? { ...m, content, updated_at, is_edited: true } : m
+    );
+    this.messagesSubject.next(messages);
+  }
+
+  private applyDeletedMessage(data: any): void {
+    this.removeMessage(data.id);
+  }
+
+  private applyTranslation(data: any): void {
+    const { message_id, target_language, translated_content } = data;
+    const messages = this.messagesSubject.value.map(m =>
+      m.id === message_id
+        ? { ...m, translations: { ...(m.translations || {}), [target_language]: translated_content } }
+        : m
+    );
+    this.messagesSubject.next(messages);
+  }
+
+  private updateConversationLastMessage(conversationId: number, message: Message): void {
+    const conversations = this.conversationsSubject.value.map(conv =>
+      conv.id === conversationId
+        ? { ...conv, last_message: message, last_message_at: message.created_at }
+        : conv
+    );
+    this.conversationsSubject.next(conversations);
+  }
+
+  private updateUnreadCount(conversations: Conversation[]): void {
+    const total = conversations.reduce((sum, c) => sum + (c.unread_count ?? 0), 0);
+    this.unreadCountSubject.next(total);
+  }
+
+  // ======================================================
+  // WEBSOCKET
+  // ======================================================
+
+  sendTypingIndicator(conversationId: number, isTyping: boolean = true): void {
+    this.wsService.send({
+      type: 'typing',
+      data: { conversation_id: conversationId, is_typing: isTyping }
+    });
+  }
+
+  sendReadReceipt(messageIds: number[]): void {
+    this.wsService.send({ type: 'read', data: { message_ids: messageIds } });
+  }
+
+  getTypingUsers(conversationId: number): Observable<number[]> {
+    return this.typingUsers$.pipe(map(m => m[conversationId] || []));
+  }
+
+  private handleSocketMessage(msg: WebSocketMessage): void {
+    switch (msg.type) {
+      case 'message':
+        this.processIncomingMessage(msg.data);
+        break;
+      case 'typing':
+        this.updateTypingUsers(msg.data);
+        break;
+      case 'read':
+        this.applyReadReceipt(msg.data);
+        break;
+      case 'edit':
+        this.applyEditedMessage(msg.data);
+        break;
+      case 'delete':
+        this.applyDeletedMessage(msg.data);
+        break;
+
+      // 🆕 Usuarios online/offline en tiempo real
+      case 'online':
+        this.addOnlineUser({
+          id: msg.data.user_id,
+          username: msg.data.username || '',
+          name: msg.data.name || msg.data.username || '',
+          avatar: msg.data.avatar,
+          is_online: true
+        });
+        break;
+      case 'offline':
+        this.removeOnlineUser(msg.data.user_id);
+        break;
+      case 'translation':
+        this.applyTranslation(msg.data);
+        break;
+    }
+  }
+
+  private processIncomingMessage(data: any): void {
+    const message: Message = data;
+    this.appendMessage(message);
+    this.updateConversationLastMessage(message.conversation_id, message);
+
+    const active = this.activeConversationSubject.value;
+    if (!active || active.id !== message.conversation_id) {
+      const convs = this.conversationsSubject.value.map(c => {
+        if (c.id === message.conversation_id) {
+          return {
+            ...c,
+            unread_count: (c.unread_count || 0) + 1,
+            last_message: message,
+            last_message_at: message.created_at
+          };
+        }
+        return c;
+      });
+      this.conversationsSubject.next(convs);
+      this.updateUnreadCount(convs);
+    }
+  }
+
+  private updateTypingUsers(data: any): void {
+    const { conversation_id, user_id, is_typing } = data;
+    const current = this.typingUsersSubject.value;
+    const list = [...(current[conversation_id] || [])];
+
+    if (is_typing) {
+      if (!list.includes(user_id)) list.push(user_id);
+    } else {
+      const idx = list.indexOf(user_id);
+      if (idx !== -1) list.splice(idx, 1);
+    }
+    this.typingUsersSubject.next({ ...current, [conversation_id]: list });
+  }
+
+  private applyReadReceipt(data: { message_ids: number[]; read_by_user_id?: number }): void {
+    data.message_ids.forEach((id: number) => this.markLocalMessageRead(id));
   }
 }

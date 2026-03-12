@@ -1,0 +1,36 @@
+.edit-post-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    textarea,
+    input[type=text] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+    }
+  }
+
+  .actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+
+    button.secondary {
+      background: transparent;
+      border: 1px solid #666;
+      color: #666;
+    }
+  }
+
+  .error {
+    color: red;
+    margin-bottom: 0.5rem;
+  }
+}

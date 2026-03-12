@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">RedSocialIA</string>
+    <string name="title_activity_main">RedSocialIA</string>
+    <string name="package_name">com.redsocialai.app</string>
+    <string name="custom_url_scheme">com.redsocialai.app</string>
+</resources>

@@ -1,0 +1,209 @@
+$yellow: #f5c518;
+$yellow-bright: #ffd700;
+$yellow-glow: rgba(245, 197, 24, 0.3);
+$dark-bg: #111111;
+$dark-surface: #1c1c1c;
+$dark-card: #242424;
+$dark-border: #2e2e2e;
+$text-primary: #f0f0f0;
+$text-secondary: #a0a0a0;
+$text-muted: #5a5a5a;
+
+.country-setup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.country-setup-modal {
+  background: $dark-surface;
+  border: 1px solid $dark-border;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba($yellow, 0.08);
+}
+
+.modal-header {
+  text-align: center;
+
+  .modal-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: $yellow;
+    margin: 0 0 0.5rem;
+    text-shadow: 0 0 20px $yellow-glow;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: $text-secondary;
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: $text-muted;
+  font-size: 0.9rem;
+  justify-content: center;
+
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid $dark-border;
+    border-top-color: $yellow;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+}
+
+.detected-country {
+  background: rgba($yellow, 0.05);
+  border: 1px solid rgba($yellow, 0.15);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  transition: border-color 0.2s ease;
+
+  &:hover { border-color: rgba($yellow, 0.3); }
+
+  .detection-label {
+    display: block;
+    font-size: 0.75rem;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .country-display {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .country-flag {
+    width: 40px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .country-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $text-primary;
+  }
+}
+
+.no-detection {
+  text-align: center;
+  color: $text-muted;
+  font-size: 0.9rem;
+}
+
+.manual-select {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .select-label {
+    font-size: 0.85rem;
+    color: $text-secondary;
+  }
+
+  .country-select {
+    background: $dark-card;
+    border: 1px solid $dark-border;
+    border-radius: 10px;
+    color: $text-primary;
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    width: 100%;
+    transition: border-color 0.2s ease;
+
+    option { background: $dark-card; color: $text-primary; }
+
+    &:focus {
+      outline: none;
+      border-color: $yellow;
+      box-shadow: 0 0 0 3px rgba($yellow, 0.1);
+    }
+
+    &:hover { border-color: rgba($yellow, 0.4); }
+  }
+}
+
+.change-btn {
+  background: none;
+  border: none;
+  color: $text-muted;
+  font-size: 0.82rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  align-self: flex-start;
+  transition: color 0.2s ease;
+
+  &:hover { color: $yellow; }
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.confirm-btn {
+  background: $yellow;
+  border: none;
+  border-radius: 12px;
+  color: $dark-bg;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  &:not(:disabled):hover {
+    background: $yellow-bright;
+    box-shadow: 0 4px 16px $yellow-glow;
+    transform: translateY(-1px);
+  }
+
+  &:not(:disabled):active { transform: translateY(0); }
+}
+
+.skip-btn {
+  background: none;
+  border: none;
+  color: $text-muted;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.2s ease;
+
+  &:hover { color: $text-secondary; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

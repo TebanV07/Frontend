@@ -33,12 +33,7 @@
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -107,5 +102,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "91131b3c-854a-43fe-99c3-6d6dac27e063"
   }
 }

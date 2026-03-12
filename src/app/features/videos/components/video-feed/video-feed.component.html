@@ -1,0 +1,190 @@
+<app-header></app-header>
+
+<div class="loading-state" *ngIf="isLoading">
+  <div class="spinner">⏳</div>
+  <p>{{ 'feed.loading' | translate }}</p>
+</div>
+
+<div class="feed-container" *ngIf="!isLoading">
+  <div
+    class="feed-item"
+    *ngFor="let video of videos; let i = index"
+    [class.active]="i === currentVideoIndex">
+
+    <!-- Header del autor -->
+    <div class="video-header">
+      <img
+        [src]="getUserAvatar(video)"
+        class="user-avatar"
+        [alt]="getUserName(video)"
+        (error)="$any($event.target).src='assets/default-avatar.png'"/>
+      <div class="user-info">
+        <span class="username">{{ getUserName(video) }}</span>
+        <span class="user-handle">{{ '@' + (video.user?.username || 'usuario') }}</span>
+      </div>
+      <img
+        *ngIf="video.user?.country_code"
+        [src]="flagService.getCountryFlagUrl(video.user?.country_code, 20)"
+        [alt]="flagService.getCountryName(video.user?.country_code)"
+        class="country-flag"
+        (error)="$any($event.target).style.display='none'"/>
+      <button class="follow-btn" (click)="followUser(video.user)">{{ 'common.follow' | translate }}</button>
+    </div>
+
+    <!-- Video wrapper -->
+    <div class="video-wrapper">
+      <video
+        #videoElem
+        [attr.data-index]="i"
+        [src]="getVideoUrl(video)"
+        [poster]="getVideoThumbnail(video)"
+        [muted]="isMuted"
+        [loop]="true"
+        playsinline
+        crossorigin="anonymous"
+        (click)="togglePlay(videoElem)"
+        (loadedmetadata)="onVideoLoaded($event)"
+        (error)="onVideoError($event)">
+        <track
+          *ngIf="i === currentVideoIndex && currentSubtitleUrl"
+          kind="subtitles"
+          [src]="currentSubtitleUrl"
+          [srclang]="currentLanguage"
+          [label]="getLanguageName(currentLanguage)"
+          default>
+      </video>
+
+      <!-- Overlay play/pause -->
+      <div class="video-overlay" (click)="togglePlay(videoElem)">
+        <div class="play-icon" *ngIf="i === currentVideoIndex && !isPlaying">▶</div>
+      </div>
+
+      <!-- Controles superiores (solo video activo) -->
+      <div class="top-controls" *ngIf="i === currentVideoIndex">
+        <div class="video-badges">
+          <span class="lang-badge" *ngIf="video.available_languages && video.available_languages.length > 1">
+            🌐 {{ video.available_languages.length }} {{ 'feed.aiLanguages' | translate }}
+          </span>
+          <span class="translating-badge" *ngIf="isTranslating">
+            ⏳ {{ 'post.translating' | translate }} {{ translationProgress }}%
+          </span>
+        </div>
+        <button class="mute-btn" (click)="toggleMute(videoElem)">
+          {{ isMuted ? '🔇' : '🔊' }}
+        </button>
+      </div>
+
+      <!-- Acciones lado derecho (solo video activo) -->
+      <div class="video-actions" *ngIf="i === currentVideoIndex">
+
+        <button class="action-btn" [class.liked]="video.is_liked" (click)="toggleLike(video)">
+          <span>{{ video.is_liked ? '❤️' : '🤍' }}</span>
+          <span class="count">{{ formatNumber(video.likes_count) }}</span>
+        </button>
+
+        <!-- ✅ Botón de comentarios con toggle -->
+        <button class="action-btn" [class.active]="showComments" (click)="toggleComments()">
+          <span>💬</span>
+          <span class="count">{{ formatNumber(video.comments_count) }}</span>
+        </button>
+
+        <button class="action-btn" [class.saved]="video.is_saved" (click)="toggleBookmark(video)">
+          <span>{{ video.is_saved ? '🔖' : '📑' }}</span>
+          <span class="count">{{ 'common.save' | translate }}</span>
+        </button>
+
+        <button class="action-btn" (click)="shareVideo(video)">
+          <span>📤</span>
+          <span class="count">{{ formatNumber(video.shares_count) }}</span>
+        </button>
+
+        <!-- Botón traducción + menú -->
+        <div class="translation-container">
+          <button
+            class="action-btn"
+            [class.active]="showLanguageMenu"
+            (click)="toggleTranslation()">
+            <span>🌐</span>
+            <span class="count">{{ getLanguageFlag(currentLanguage) }}</span>
+          </button>
+
+          <div class="language-menu" *ngIf="showLanguageMenu" (click)="$event.stopPropagation()">
+            <div class="language-menu-header">
+              <h4>{{ 'videoOverlay.translateVideo' | translate }}</h4>
+              <button (click)="showLanguageMenu = false">✕</button>
+            </div>
+            <div class="language-list">
+              <button
+                *ngFor="let lang of availableLanguages"
+                class="language-option"
+                [class.active]="currentLanguage === lang"
+                [class.original]="lang === video.original_language"
+                (click)="requestTranslation(lang)">
+                <span class="flag">{{ getLanguageFlag(lang) }}</span>
+                <span class="lang-name">
+                  {{ getLanguageName(lang) }}
+                  <span *ngIf="lang === video.original_language">{{ 'videoOverlay.original' | translate }}</span>
+                </span>
+                <span *ngIf="currentLanguage === lang">✓</span>
+              </button>
+            </div>
+            <div class="translation-progress" *ngIf="isTranslating">
+              <div class="progress-bar">
+                <div class="progress-fill" [style.width.%]="translationProgress"></div>
+              </div>
+              <p>{{ 'post.translating' | translate }} {{ translationProgress }}%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info del video -->
+      <div class="video-info">
+        <h2 class="video-title">{{ video.title || '-' }}</h2>
+        <p class="video-desc" *ngIf="video.description">{{ video.description }}</p>
+        <div class="video-meta">
+          <span>👁️ {{ formatNumber(video.views_count) }}</span>
+          <span>🕐 {{ formatDuration(video.duration) }}</span>
+          <span>🌍 {{ getLanguageName(video.original_language) }}</span>
+        </div>
+        <div class="video-tags" *ngIf="video.tags && video.tags.length > 0">
+          <span *ngFor="let tag of video.tags" class="tag">#{{ tag }}</span>
+        </div>
+      </div>
+
+      <!-- ✅ Drawer de comentarios: solo visible cuando showComments === true y es el video activo -->
+      <div
+        class="comments-drawer"
+        *ngIf="i === currentVideoIndex && showComments"
+        (click)="$event.stopPropagation()">
+
+        <!-- Barra superior del drawer -->
+        <div class="drawer-header">
+          <div class="drawer-handle"></div>
+          <span class="drawer-title">{{ 'comments.title' | translate }}</span>
+          <button class="drawer-close" (click)="toggleComments()">✕</button>
+        </div>
+
+        <app-comment-list
+          [videoId]="video.id"
+          [currentUserId]="currentUserId">
+        </app-comment-list>
+      </div>
+
+      <!-- ✅ Backdrop para cerrar el drawer tocando fuera -->
+      <div
+        class="comments-backdrop"
+        *ngIf="i === currentVideoIndex && showComments"
+        (click)="toggleComments()">
+      </div>
+
+    </div><!-- fin .video-wrapper -->
+
+  </div>
+</div>
+
+<div class="no-videos" *ngIf="!isLoading && videos.length === 0">
+  <span>🎥</span>
+  <h3>{{ 'feed.empty.title' | translate }}</h3>
+  <p>{{ 'feed.empty.subtitle' | translate }}</p>
+</div>

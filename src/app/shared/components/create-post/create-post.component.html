@@ -1,26 +1,42 @@
 <div class="create-post-card">
   <div class="user-info">
-    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face" 
-         alt="User" class="user-avatar">
+
+    <!-- ✅ Avatar real del usuario autenticado -->
+    <img
+      [src]="getAvatarUrl()"
+      alt="Tu avatar"
+      class="user-avatar"
+      (error)="onAvatarError($event)">
+
     <div class="input-section">
-      <textarea placeholder="Share your thoughts... 🌍" 
-               class="post-input" 
-               rows="3"
-               [(ngModel)]="postContent"
-               [disabled]="isPosting"></textarea>
+      <textarea
+        placeholder="Share your thoughts... 🌍"
+        class="post-input"
+        rows="3"
+        [(ngModel)]="postContent"
+        [disabled]="isPosting">
+      </textarea>
     </div>
   </div>
 
-  <!-- Preview de imagen -->
-  <div class="media-preview" *ngIf="imagePreview">
-    <div class="preview-container">
-      <img [src]="imagePreview" alt="Preview" class="preview-image">
-      <button class="remove-media-btn" (click)="removeAllMedia()" [disabled]="isPosting">
-        <span>✕</span>
-      </button>
-      <div class="media-badge image-badge">
-        <span>📷</span> Image
+  <!-- Preview de MÚLTIPLES imágenes -->
+  <div class="media-preview" *ngIf="selectedImages.length > 0">
+    <div class="images-grid"
+         [class.single-image]="selectedImages.length === 1"
+         [class.two-images]="selectedImages.length === 2"
+         [class.three-plus-images]="selectedImages.length >= 3">
+      <div class="preview-container" *ngFor="let preview of imagePreviews; let i = index">
+        <img [src]="preview" alt="Preview {{i+1}}" class="preview-image">
+        <button class="remove-single-media-btn" (click)="removeImage(i)" [disabled]="isPosting">
+          <span>✕</span>
+        </button>
       </div>
+    </div>
+    <button class="remove-all-media-btn" (click)="removeAllMedia()" [disabled]="isPosting">
+      <span>🗑️ Remover todas ({{selectedImages.length}})</span>
+    </button>
+    <div class="media-badge image-badge">
+      <span>📷</span> {{selectedImages.length}} {{selectedImages.length === 1 ? 'Imagen' : 'Imágenes'}}
     </div>
   </div>
 
@@ -28,40 +44,79 @@
   <div class="media-preview" *ngIf="videoPreview">
     <div class="preview-container">
       <video [src]="videoPreview" class="preview-video" controls></video>
-      <button class="remove-media-btn" (click)="removeAllMedia()" [disabled]="isPosting">
+      <button class="remove-media-btn" (click)="removeVideo()" [disabled]="isPosting">
         <span>✕</span>
       </button>
       <div class="media-badge video-badge">
-        <span>🎥</span> AI Video Translation
+        <span>🎥</span> Video - {{(selectedVideo!.size / 1024 / 1024).toFixed(1)}} MB
       </div>
     </div>
+
+    <!-- Campos adicionales para video -->
+    <div class="video-metadata" *ngIf="!isPosting">
+      <input
+        type="text"
+        class="video-title-input"
+        [placeholder]="'upload.titleField' | translate"
+        [(ngModel)]="videoTitle"
+        maxlength="100">
+      <textarea
+        class="video-description-input"
+        [placeholder]="'upload.description' | translate"
+        [(ngModel)]="videoDescription"
+        rows="2"
+        maxlength="500">
+      </textarea>
+    </div>
+
+    <!-- Progress bar de subida -->
+    <div class="upload-progress" *ngIf="isUploadingVideo">
+      <div class="progress-info">
+        <span class="progress-label">{{ uploadProgressText }}</span>
+        <span class="progress-percentage">{{ uploadProgress }}%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="uploadProgress"></div>
+      </div>
+      <p class="upload-tip">⏳ No cierres esta ventana mientras se sube el video</p>
+    </div>
   </div>
-  
+
   <div class="post-actions">
     <div class="action-buttons">
-      <button class="action-btn video-btn" (click)="onSelectVideo()" [disabled]="isPosting">
+      <button class="action-btn video-btn"
+              (click)="onSelectVideo()"
+              [disabled]="isPosting || mediaType === 'images'">
         <span class="btn-icon">🎥</span>
         <span class="btn-text">AI Video</span>
         <span class="ai-badge">BETA</span>
       </button>
-      <button class="action-btn" (click)="onSelectImages()" [disabled]="isPosting">
+      <button class="action-btn"
+              (click)="onSelectImages()"
+              [disabled]="isPosting || mediaType === 'video'">
         <span class="btn-icon">📷</span>
         <span class="btn-text">Photo</span>
+        <span class="multi-badge" *ngIf="selectedImages.length > 0">{{selectedImages.length}}</span>
       </button>
       <button class="action-btn" [disabled]="true">
         <span class="btn-icon">🌐</span>
         <span class="btn-text">Translate</span>
       </button>
     </div>
-    
-    <button class="post-btn" 
+
+    <button class="post-btn"
             (click)="onShare()"
-            [disabled]="(!postContent.trim() && !selectedImage && !selectedVideo) || isPosting">
-      <span class="post-btn-text">{{ isPosting ? 'Sharing...' : 'Share' }}</span>
-      <span class="post-btn-icon">✨</span>
+            [disabled]="!canShare || isPosting">
+      <span class="post-btn-text">
+        <ng-container *ngIf="!isPosting">{{ 'common.share' | translate }}</ng-container>
+        <ng-container *ngIf="isPosting && !isUploadingVideo">Posting...</ng-container>
+        <ng-container *ngIf="isUploadingVideo">Uploading {{uploadProgress}}%</ng-container>
+      </span>
+      <span class="post-btn-icon" *ngIf="!isPosting">✨</span>
+      <span class="post-btn-icon spinner" *ngIf="isPosting">⏳</span>
     </button>
   </div>
-  
+
   <div class="ai-features-info">
     <div class="feature-item">
       <span class="feature-icon">🤖</span>
@@ -71,20 +126,15 @@
       <span class="feature-icon">🎙️</span>
       <span class="feature-text">AI voice synthesis for videos</span>
     </div>
+    <div class="feature-item" *ngIf="selectedVideo">
+      <span class="feature-icon">⚡</span>
+      <span class="feature-text">Video processing with Whisper AI</span>
+    </div>
   </div>
 
-  <!-- Inputs ocultos para archivos -->
-  <input 
-    type="file" 
-    #imageInput
-    accept="image/*"
-    (change)="onImagesSelected($event)"
-    style="display: none;">
-  
-  <input 
-    type="file" 
-    #videoInput
-    accept="video/*"
-    (change)="onVideoSelected($event)"
-    style="display: none;">
+  <!-- Inputs ocultos -->
+  <input type="file" #imageInput accept="image/*" multiple
+         (change)="onImagesSelected($event)" style="display: none;">
+  <input type="file" #videoInput accept="video/*"
+         (change)="onVideoSelected($event)"  style="display: none;">
 </div>

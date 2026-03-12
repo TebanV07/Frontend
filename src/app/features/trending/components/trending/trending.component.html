@@ -1,135 +1,197 @@
 <div class="trending-container">
-  <!-- Barra lateral de tendencias -->
-  <div class="trending-sidebar">
-    <div class="sidebar-header">
-      <h2>🔥 Tendencias</h2>
-    </div>
 
-    <div class="trending-list">
-      <div 
-        *ngFor="let trending of trendingTopics; let i = index"
-        class="trending-item"
-        [class.active]="selectedTrending?.id === trending.id"
-        (click)="selectTrending(trending)">
-        
-        <div class="trending-position">{{ getTrendingPosition(i) }}</div>
-        
-        <div class="trending-thumbnail">
-          <img [src]="trending.thumbnailUrl" [alt]="trending.title">
-        </div>
-
-        <div class="trending-info">
-          <h3>{{ trending.title }}</h3>
-          <div class="trending-meta">
-            <span class="videos-count">{{ formatNumber(trending.videosCount) }} videos</span>
-            <span class="category-badge">{{ trending.category }}</span>
-          </div>
-          <div class="trending-views">
-            👁️ {{ formatNumber(trending.views) }} views
-          </div>
-        </div>
-
-        <div class="trending-arrow">→</div>
-      </div>
-    </div>
+  <!-- Loading -->
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="spinner">⏳</div>
+    <p>{{ 'trending.loading' | translate }}</p>
   </div>
 
-  <!-- Contenido principal -->
-  <div class="trending-main">
-    <div class="trending-header" *ngIf="selectedTrending">
-      <div class="header-content">
-        <h1>{{ selectedTrending.title }}</h1>
-        <p class="category-description">{{ selectedTrending.videosCount }} videos • {{ formatNumber(selectedTrending.views) }} visualizaciones</p>
+  <ng-container *ngIf="!isLoading">
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <div class="trending-sidebar">
+
+      <div class="sidebar-header">
+        <h2>🔥 {{ 'trending.title' | translate }}</h2>
       </div>
 
-      <!-- Controles -->
-      <div class="trending-controls">
-        <div class="view-controls">
-          <button 
-            class="view-btn"
-            [class.active]="selectedView === 'grid'"
-            (click)="toggleView('grid')"
-            title="Vista de cuadrícula">
-            ⊞
-          </button>
-          <button 
-            class="view-btn"
-            [class.active]="selectedView === 'list'"
-            (click)="toggleView('list')"
-            title="Vista de lista">
-            ≡
-          </button>
-        </div>
+      <!-- Filtro por país -->
+      <div class="country-filter" *ngIf="availableCountries.length > 0">
+        <div class="filter-label">🌍 {{ 'trending.filterByCountry' | translate }}</div>
+        <div class="country-scroll">
 
-        <div class="sort-controls">
-          <label>Ordenar por:</label>
-          <select [(ngModel)]="sortBy" class="sort-select">
-            <option value="trending">Más tendencia</option>
-            <option value="views">Más vistas</option>
-            <option value="recent">Más recientes</option>
-          </select>
+          <!-- Global -->
+          <button class="country-btn" [class.active]="selectedCountry === null" (click)="selectCountry(null)">
+            <span class="flag-emoji">🌐</span>
+            <span class="country-label">{{ 'trending.global' | translate }}</span>
+          </button>
+
+          <!-- Por país -->
+          <button
+            *ngFor="let country of availableCountries"
+            class="country-btn"
+            [class.active]="selectedCountry === country.country_code"
+            (click)="selectCountry(country.country_code)">
+            <img
+              class="flag-img"
+              [src]="country.flag_url"
+              [alt]="country.name"
+              (error)="$any($event.target).style.display='none'">
+            <span class="country-label">{{ country.name }}</span>
+            <span class="count">{{ formatNumber(country.video_count) }}</span>
+          </button>
+
         </div>
       </div>
+
+      <!-- Lista de trending topics -->
+      <div class="trending-list">
+        <div
+          *ngFor="let trending of trendingTopics; let i = index"
+          class="trending-item"
+          [class.active]="selectedTrending?.id === trending.id"
+          (click)="selectTrending(trending)">
+
+          <div class="trending-position">{{ getTrendingPosition(i) }}</div>
+
+          <div class="trending-thumbnail">
+            <img [src]="trending.thumbnailUrl" [alt]="trending.title">
+          </div>
+
+          <div class="trending-info">
+            <h3>{{ trending.title }}</h3>
+            <div class="trending-meta">
+              <span class="videos-count">{{ formatNumber(trending.videosCount) }} {{ 'trending.videos' | translate }}</span>
+              <span *ngIf="trending.category" class="category-badge">{{ trending.category }}</span>
+            </div>
+            <div class="trending-views">👁️ {{ formatNumber(trending.views) }} views</div>
+          </div>
+
+          <div class="trending-arrow">→</div>
+        </div>
+      </div>
+
+      <div class="empty-sidebar" *ngIf="trendingTopics.length === 0">
+        <p>{{ 'trending.noTrending' | translate }}</p>
+      </div>
+
     </div>
 
-    <!-- Grid de videos -->
-    <div class="videos-section" *ngIf="selectedTrending">
-      <div class="videos-grid" [class.list-view]="selectedView === 'list'">
-      <div 
-        *ngFor="let video of selectedTrending.videos"
-        class="video-card">
-        
-        <div class="video-thumbnail">
-          <img [src]="video.thumbnailUrl" [alt]="video.title">
-          <div class="video-overlay">
-            <div class="play-icon">▶</div>
-            <div class="duration">{{ video.duration }}s</div>
-          </div>
-          <div class="trending-badge">
-            <span class="fire-icon">🔥</span>
-            Tendencia
-          </div>
+    <!-- ═══ MAIN ═══ -->
+    <div class="trending-main">
+
+      <div class="trending-header" *ngIf="selectedTrending || hasDisplayedVideosSection">
+        <div class="header-content">
+          <h1>
+            {{ selectedTrending?.title || ('trending.title' | translate) }}
+            <span *ngIf="selectedCountry" class="country-tag">
+              <img
+                class="header-flag"
+                [src]="flagService.getCountryFlagUrl(selectedCountry, 20)"
+                [alt]="getSelectedCountryName()">
+              {{ getSelectedCountryName() }}
+            </span>
+          </h1>
+          <p class="category-description">
+            {{ formatNumber(displayedVideosCount) }} {{ 'trending.videos' | translate }}
+            <span *ngIf="selectedTrending">· {{ formatNumber(selectedTrending.views) }} {{ 'trending.views' | translate }}</span>
+            <span *ngIf="selectedCountry">· {{ 'trending.onlyFrom' | translate }} {{ getSelectedCountryName() }}</span>
+          </p>
         </div>
 
-        <div class="video-info">
-          <div class="video-header">
-            <div class="user-avatar">
-              <img [src]="video.user.avatar" [alt]="video.user.name">
-            </div>
-            <div class="video-title-section">
-              <h3>{{ video.title }}</h3>
-              <p class="description">{{ video.description }}</p>
-              <p class="creator-name">
-                {{ video.user.name }}
-                <span class="verified" *ngIf="video.user.verified">✓</span>
-              </p>
-              <div class="video-tags">
-                <span *ngFor="let tag of video.tags" class="tag">#{{ tag }}</span>
-              </div>
-
-              <button class="watch-btn">Ver ahora →</button>
-            </div>
+        <div class="trending-controls">
+          <div class="view-controls">
+            <button class="view-btn" [class.active]="selectedView === 'grid'" (click)="toggleView('grid')" [title]="'trending.gridView' | translate">⊞</button>
+            <button class="view-btn" [class.active]="selectedView === 'list'" (click)="toggleView('list')" [title]="'trending.listView' | translate">≡</button>
           </div>
-          <div class="video-stats">
-            <span class="stat">
-              <span class="icon">👁️</span>
-              {{ formatNumber(video.views) }}
-            </span>
-            <span class="stat">
-              <span class="icon">❤️</span>
-              {{ formatNumber(video.likes) }}
-            </span>
-            <span class="stat">
-              <span class="icon">💬</span>
-              {{ formatNumber(video.comments) }}
-            </span>
+          <div class="sort-controls">
+            <label>{{ 'trending.sort' | translate }}</label>
+            <select [(ngModel)]="sortBy" (change)="setSortBy(sortBy)" class="sort-select">
+              <option value="trending">{{ 'trending.sortTrending' | translate }}</option>
+              <option value="views">{{ 'trending.sortViews' | translate }}</option>
+              <option value="recent">{{ 'trending.sortRecent' | translate }}</option>
+            </select>
           </div>
         </div>
       </div>
 
+      <!-- Videos -->
+      <div class="videos-section" *ngIf="hasDisplayedVideosSection">
+        <div class="loading-state videos-loading" *ngIf="isLoadingDisplayedVideos">
+          <div class="spinner">⏳</div>
+          <p>{{ 'trending.loading' | translate }}</p>
+        </div>
+
+        <div class="videos-grid" [class.list-view]="selectedView === 'list'">
+
+          <div *ngFor="let video of displayedVideos" class="video-card">
+
+            <div class="video-thumbnail">
+              <img [src]="getVideoThumbnail(video)" [alt]="getVideoTitle(video)">
+              <div class="video-overlay">
+                <div class="play-icon">▶</div>
+              </div>
+              <div class="duration">{{ getVideoDuration(video) }}s</div>
+              <div class="trending-badge">🔥 {{ 'trending.trendingBadge' | translate }}</div>
+              <!-- Bandera del creador sobre el thumbnail -->
+              <img
+                *ngIf="getUserCountryCode(video)"
+                class="country-flag-badge"
+                [src]="getUserFlagUrl(video)"
+                [alt]="getUserCountryName(video)"
+                [title]="getUserCountryName(video)"
+                (error)="$any($event.target).style.display='none'">
             </div>
+
+            <div class="video-info">
+              <div class="video-header">
+                <div class="user-avatar">
+                  <img [src]="getUserAvatar(video)" [alt]="getUserName(video)" (error)="$any($event.target).src = 'assets/default-avatar.png'">
+                </div>
+                <div class="video-title-section">
+                  <h3>{{ getVideoTitle(video) }}</h3>
+                  <p class="description">{{ getVideoDescription(video) }}</p>
+                  <p class="creator-name">
+                    <img
+                      *ngIf="getUserCountryCode(video)"
+                      class="creator-flag"
+                      [src]="getUserFlagUrl(video)"
+                      [alt]="getUserCountryName(video)"
+                      (error)="$any($event.target).style.display='none'">
+                    {{ getUserName(video) }}
+                    <span class="verified" *ngIf="isUserVerified(video)">✓</span>
+                  </p>
+                  <div class="video-tags" *ngIf="getVideoTags(video).length > 0">
+                    <span *ngFor="let tag of getVideoTags(video)" class="tag">#{{ tag }}</span>
+                  </div>
+                  <button class="watch-btn" [routerLink]="['/videos', video.uuid]">{{ 'trending.watchNow' | translate }} →</button>
+                </div>
+              </div>
+
+              <div class="video-stats">
+                <span class="stat">👁️ {{ formatNumber(getVideoViews(video)) }}</span>
+                <span class="stat">❤️ {{ formatNumber(getVideoLikes(video)) }}</span>
+                <span class="stat">💬 {{ formatNumber(getVideoComments(video)) }}</span>
+              </div>
+            </div>
+
           </div>
+        </div>
 
-           
+        <div class="empty-videos" *ngIf="!isLoadingDisplayedVideos && displayedVideos.length === 0">
+          <div class="empty-icon">🎥</div>
+          <h3>No hay videos{{ selectedCountry ? ' de este país' : '' }} aquí</h3>
+          <p>{{ selectedCountry ? 'Prueba con "Global" u otro país' : 'Sé el primero en subir contenido' }}</p>
+        </div>
+      </div>
 
-            
+      <div class="no-selection" *ngIf="!selectedTrending && !hasDisplayedVideosSection">
+        <div class="empty-icon">🔥</div>
+        <h3>No hay tendencias disponibles</h3>
+        <p>Cambia de país o sube videos con hashtags para que aparezcan aquí</p>
+      </div>
+
+    </div>
+
+  </ng-container>
+</div>

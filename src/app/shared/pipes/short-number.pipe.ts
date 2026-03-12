@@ -1,3 +1,4 @@
+// shared/pipes/short-number.pipe.ts
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -7,9 +8,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ShortNumberPipe implements PipeTransform {
   transform(value: number): string {
     if (value >= 1000000) {
-      return (value / 1000000).toFixed(1) + 'M';
+      return `${(value / 1000000).toFixed(1)}M`;
     } else if (value >= 1000) {
-      return (value / 1000).toFixed(1) + 'K';
+      return `${(value / 1000).toFixed(1)}K`;
     }
     return value.toString();
   }

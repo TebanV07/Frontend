@@ -1,28 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
+﻿import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PostCommentService } from '../../../../core/services/post-comment.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
+import { CommentService } from '../../../../core/services/comment.service';
 import { Comment } from '../../../../core/models/comment.model';
 import { CommentItemComponent } from '../comment-item/comment-item.component';
 
 @Component({
   selector: 'app-comment-list',
   standalone: true,
-  imports: [CommonModule, CommentItemComponent],
+  imports: [CommonModule, FormsModule, CommentItemComponent, TranslateModule],
   templateUrl: './comment-list.component.html',
   styleUrls: ['./comment-list.component.scss']
 })
 export class CommentListComponent implements OnInit {
-  @Input() postId!: number;
+  @Input() postId?: number;
+  @Input() videoId?: number;
   @Input() currentUserId?: number;
+  @Output() commentCreated = new EventEmitter<Comment>();
 
   comments: Comment[] = [];
-  isLoading: boolean = true;
+  isLoading = true;
   error: string | null = null;
-  page: number = 1;
-  hasMore: boolean = true;
-  isLoadingMore: boolean = false;
+  hasMore = true;
+  isLoadingMore = false;
+  private page = 0;
 
-  constructor(private commentService: PostCommentService) {}
+  // Nuevo comentario
+  newCommentText = '';
+  isSubmitting = false;
+
+  constructor(private commentService: CommentService) {}
 
   ngOnInit(): void {
     this.loadComments();
@@ -30,46 +38,69 @@ export class CommentListComponent implements OnInit {
 
   loadComments(): void {
     this.isLoading = true;
-    this.commentService.getComments(this.postId, this.page).subscribe({
+    const obs = this.videoId
+      ? this.commentService.getVideoComments(this.videoId, 0, 20)
+      : this.commentService.getComments(this.postId || 0, 0, 20);
+
+    obs.subscribe({
       next: (comments) => {
         this.comments = comments;
         this.hasMore = comments.length === 20;
         this.isLoading = false;
       },
-      error: (error) => {
-        this.error = 'Failed to load comments';
+      error: () => {
+        this.error = 'Error al cargar comentarios';
         this.isLoading = false;
-        console.error('Error loading comments:', error);
       }
     });
   }
 
   loadMore(): void {
     if (this.isLoadingMore || !this.hasMore) return;
-
     this.page++;
     this.isLoadingMore = true;
+    const skip = this.page * 20;
 
-    this.commentService.getComments(this.postId, this.page).subscribe({
+    const obs = this.videoId
+      ? this.commentService.getVideoComments(this.videoId, skip, 20)
+      : this.commentService.getComments(this.postId || 0, skip, 20);
+
+    obs.subscribe({
       next: (comments) => {
         this.comments = [...this.comments, ...comments];
         this.hasMore = comments.length === 20;
         this.isLoadingMore = false;
       },
-      error: (error) => {
-        console.error('Error loading more comments:', error);
-        this.isLoadingMore = false;
-        this.page--;
-      }
+      error: () => { this.isLoadingMore = false; this.page--; }
     });
   }
 
-  onCommentCreated(comment: Comment): void {
-    this.comments.unshift(comment);
+  submitComment(): void {
+    if (!this.newCommentText.trim() || this.isSubmitting) return;
+    this.isSubmitting = true;
+
+    const data = { content: this.newCommentText.trim() };
+    const obs = this.videoId
+      ? this.commentService.createVideoComment(this.videoId, data)
+      : this.commentService.createComment(this.postId || 0, data);
+
+    obs.subscribe({
+      next: (comment) => {
+        this.comments.unshift(comment);
+        this.newCommentText = '';
+        this.isSubmitting = false;
+        this.commentCreated.emit(comment);
+      },
+      error: () => { this.isSubmitting = false; }
+    });
   }
 
-  // Método para optimizar el rendering con trackBy
-  trackByCommentId(index: number, comment: Comment): number {
+  onCommentDeleted(commentId: number): void {
+    this.comments = this.comments.filter(c => c.id !== commentId);
+  }
+
+  trackByCommentId(_: number, comment: Comment): number {
     return comment.id;
   }
 }
+

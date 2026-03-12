@@ -7,35 +7,36 @@ export interface User {
   id: number;
   username: string;
   email?: string; // Opcional ya que no siempre se expone públicamente
-  
+
   // Información personal
   firstName?: string;
   lastName?: string;
   nativeLanguage?: string;
-  
+  country_code?: string;
+
   // Perfil social
   name?: string; // Nombre para mostrar
   avatar?: string;
   bio?: string;
   website?: string;
   location?: string;
-  
+
   // Estadísticas del perfil
   followers: number;
   following: number;
   postsCount?: number;
   videosCount?: number;
-  
+
   // Estado del usuario
   isActive?: boolean;
   isVerified?: boolean;
   isOnline?: boolean; // Para mostrar estado en tiempo real
-  
+
   // Relación con el usuario actual (calculado en frontend)
   isFollowing?: boolean;
   isBlocked?: boolean;
   isMuted?: boolean;
-  
+
   // Timestamps
   createdAt?: Date | string;
   updatedAt?: Date | string;
@@ -49,13 +50,13 @@ export interface User {
 export interface CurrentUser extends User {
   // Sobrescribimos para que email sea requerido en el usuario actual
   email: string;
-  
+
   // Configuraciones privadas
   notificationsEnabled?: boolean;
   privateAccount?: boolean;
   twoFactorEnabled?: boolean;
   emailNotifications?: boolean;
-  
+
   // Preferencias
   theme?: 'light' | 'dark' | 'auto';
   autoTranslate?: boolean;
@@ -76,6 +77,8 @@ export interface UserBasic {
   bio?: string;
   website?: string;
   location?: string;
+  country_code?: string;
+  native_language?: string;
 
   followers_count: number;
   following_count: number;

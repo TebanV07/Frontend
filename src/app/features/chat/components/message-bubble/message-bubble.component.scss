@@ -1,187 +1,401 @@
-.message-wrapper {
-  margin-bottom: 20px;
-  animation: messageSlideIn 0.3s ease-out;
-  
+$yellow: #f5c518;
+$yellow-bright: #ffd700;
+$yellow-glow: rgba(245, 197, 24, 0.3);
+$dark-bg: #111111;
+$dark-surface: #1c1c1c;
+$dark-card: #242424;
+$dark-card-light: #2c2c2c;
+$dark-border: #2e2e2e;
+$text-primary: #f0f0f0;
+$text-secondary: #a0a0a0;
+$text-muted: #5a5a5a;
+
+// ==================== HOST ====================
+:host {
+  display: flex;
+  width: 100%;
+  background: transparent;
+}
+
+:host(.sent) { justify-content: flex-end; }
+:host(.received) { justify-content: flex-start; }
+
+// ==================== MESSAGE BUBBLE ====================
+.message-bubble {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 12px;
+  position: relative;
+  max-width: 70%;
+  animation: fadeIn 0.3s ease-in;
+
+  // ==================== ENVIADO (DERECHA) ====================
   &.sent {
-    align-self: flex-end;
-    margin-left: 20%;
-    
-    .message {
-      flex-direction: row-reverse;
-      
-      .bubble {
-        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-        color: white;
-        border-radius: 20px 20px 5px 20px;
-        margin-left: 10px;
-        
-        .original-text {
-          background: rgba(255, 255, 255, 0.1);
-          border-left: 3px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .message-footer {
-          justify-content: flex-end;
-          
-          .status-indicator {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.8em;
-            margin-left: 5px;
-          }
-          
-          .ai-badge {
-            margin-left: 5px;
-          }
-        }
-      }
+    flex-direction: row-reverse;
+
+    .message-content {
+      background: $yellow;
+      color: $dark-bg;
+      border-radius: 18px 18px 4px 18px;
+      margin-left: auto;
+      box-shadow: 0 2px 10px rgba($yellow, 0.2), 0 0 0 1px rgba($yellow, 0.1);
+    }
+
+    .message-time {
+      color: rgba($dark-bg, 0.55);
+    }
+
+    .translation-indicator {
+      color: rgba($dark-bg, 0.7);
+      background: rgba(0, 0, 0, 0.08);
+
+      &:hover { background: rgba(0, 0, 0, 0.15); }
     }
   }
-  
+
+  // ==================== RECIBIDO (IZQUIERDA) ====================
   &.received {
-    align-self: flex-start;
-    margin-right: 20%;
-    
-    .message {
-      .bubble {
-        background: rgba(30, 41, 59, 0.8);
-        color: #e2e8f0;
-        border-radius: 20px 20px 20px 5px;
-        margin-right: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        
-        .original-text {
-          background: rgba(59, 130, 246, 0.1);
-          border-left: 3px solid rgba(59, 130, 246, 0.5);
-        }
-      }
+    .message-content {
+      background: $dark-card-light;
+      color: $text-primary;
+      border-radius: 18px 18px 18px 4px;
+      border: 1px solid $dark-border;
+      margin-right: auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .message-time { color: $text-muted; }
+
+    .translation-indicator {
+      color: $text-muted;
+      background: rgba(255, 255, 255, 0.03);
+
+      &:hover { background: rgba(255, 255, 255, 0.06); color: $yellow; }
     }
   }
-  
-  .message {
+
+  // ==================== CONTENIDO ====================
+  .message-content {
+    padding: 10px 14px;
+    position: relative;
+    min-width: 100px;
+    word-wrap: break-word;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .message-text {
+    font-size: 15px;
+    line-height: 1.4;
+    margin-bottom: 4px;
+
+    p { margin: 0; }
+    .translated-text { font-style: italic; opacity: 0.85; }
+  }
+
+  .media-container {
     display: flex;
-    align-items: flex-end;
-    
-    .bubble {
-      padding: 15px 20px;
-      max-width: 400px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      position: relative;
-      transition: all 0.3s ease;
-      
-      &:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 6px;
+
+    .media-image { max-width: 200px; border-radius: 8px; }
+    .media-video { max-width: 200px; border-radius: 8px; }
+    .media-audio { width: 100%; }
+  }
+
+  .translation-langs {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+
+    .saved-lang {
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: $dark-border;
+      font-size: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+      color: $text-secondary;
+
+      &.selected {
+        background: $yellow;
+        color: $dark-bg;
+        font-weight: 700;
       }
-      
-      .text {
-        line-height: 1.5;
-        margin-bottom: 5px;
-        word-wrap: break-word;
-        font-size: 0.95em;
-      }
-      
-      .original-text {
-        margin-top: 10px;
-        padding: 8px 12px;
-        border-radius: 8px;
-        font-size: 0.85em;
-        
-        .translation-label {
-          display: block;
-          font-size: 0.75em;
-          opacity: 0.7;
-          margin-bottom: 4px;
-          font-weight: 600;
-        }
-        
-        .original-content {
-          display: block;
-          opacity: 0.9;
-          font-style: italic;
-        }
-      }
-      
-      .message-footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 0.75em;
-        opacity: 0.7;
-        margin-top: 5px;
-        
-        .time {
-          font-weight: 500;
-        }
-        
-        .ai-badge {
-          font-size: 1em;
-          margin-left: 5px;
-          opacity: 0.8;
-        }
-      }
+
+      &:hover { background: rgba($yellow, 0.2); color: $yellow; }
     }
-    
+  }
+
+  // ==================== INDICADOR DE TRADUCCIÓN ====================
+  .translation-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 12px;
+    margin-top: 6px;
+    transition: all 0.2s;
+
+    .icon { font-size: 14px; }
+    .text { font-size: 11px; }
+  }
+
+  // ==================== HORA ====================
+  .message-time {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+
+    .read-indicator { color: $yellow; font-size: 12px; }
+    .unread-indicator { color: $text-muted; font-size: 12px; }
+  }
+
+  // ==================== ACCIONES ====================
+  .message-actions {
+    position: relative;
+    margin-left: 8px;
+
     .translate-btn {
-      background: rgba(30, 41, 59, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: $dark-card;
+      border: 1px solid $dark-border;
       border-radius: 50%;
-      width: 35px;
-      height: 35px;
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.3s ease;
-      opacity: 0;
-      flex-shrink: 0;
-      
-      .translate-icon {
-        font-size: 0.9em;
-      }
-      
+      transition: all 0.2s;
+      font-size: 16px;
+      color: $text-muted;
+
       &:hover {
-        background: rgba(59, 130, 246, 0.3);
-        transform: scale(1.1);
+        background: $dark-surface;
+        transform: scale(1.05);
+        border-color: rgba($yellow, 0.4);
+        color: $yellow;
+        box-shadow: 0 0 8px rgba($yellow, 0.15);
       }
-      
-      &.translating {
-        opacity: 1;
-        animation: pulse 1.5s ease-in-out infinite;
+
+      &:disabled { opacity: 0.4; cursor: not-allowed; }
+
+      &.active {
+        background: $yellow;
+        border-color: $yellow;
+        color: $dark-bg;
+        box-shadow: 0 2px 8px $yellow-glow;
       }
-      
-      &.translated {
-        background: rgba(16, 185, 129, 0.3);
-        border-color: rgba(16, 185, 129, 0.5);
-        opacity: 1;
-      }
+
+      .spinner { animation: spin 1s linear infinite; }
     }
   }
-  
-  &:hover {
-    .translate-btn {
-      opacity: 1;
+
+  // ==================== MENÚ DE ACCIONES ====================
+  .action-menu {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: $dark-card;
+    border: 1px solid $dark-border;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba($yellow, 0.05);
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+
+    .action-item {
+      background: transparent;
+      border: none;
+      padding: 6px 8px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 14px;
+      width: 100%;
+      border-radius: 6px;
+      transition: background 0.2s;
+      color: $text-secondary;
+
+      &:hover { background: rgba($yellow, 0.08); color: $yellow; }
+      &.close { font-weight: bold; text-align: center; }
     }
+  }
+
+  // ==================== MENÚ DE IDIOMAS ====================
+  .language-menu {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: $dark-card;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba($yellow, 0.08);
+    padding: 8px;
+    min-width: 180px;
+    z-index: 10;
+    animation: slideDown 0.2s ease-out;
+    border: 1px solid $dark-border;
+
+    .language-menu-header {
+      font-size: 12px;
+      font-weight: 600;
+      color: $text-muted;
+      padding: 8px 12px 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .language-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 8px;
+      width: 100%;
+      transition: all 0.2s;
+      font-size: 14px;
+      color: $text-secondary;
+
+      &:hover { background: rgba($yellow, 0.08); color: $yellow; }
+
+      .flag { font-size: 20px; }
+      .name { color: inherit; }
+    }
+  }
+
+  // ==================== CONTROLES EDICIÓN ====================
+  .message-controls {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+    margin-bottom: 4px;
+
+    .ctrl-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      transition: background 0.2s;
+
+      &:hover { background: rgba($yellow, 0.1); }
+
+      &.delete:hover { background: rgba(255, 82, 82, 0.1); }
+    }
+  }
+
+  // ==================== EDICIÓN ====================
+  .edit-textarea {
+    width: 100%;
+    background: $dark-surface;
+    border: 1px solid $dark-border;
+    border-radius: 8px;
+    color: $text-primary;
+    font-size: 14px;
+    padding: 8px 10px;
+    resize: vertical;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.2s;
+
+    &:focus { border-color: rgba($yellow, 0.5); }
+  }
+
+  .edit-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+
+    .save-btn {
+      background: $yellow;
+      color: $dark-bg;
+      border: none;
+      border-radius: 6px;
+      padding: 5px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover { background: $yellow-bright; box-shadow: 0 2px 8px $yellow-glow; }
+    }
+
+    .cancel-btn {
+      background: transparent;
+      color: $text-secondary;
+      border: 1px solid $dark-border;
+      border-radius: 6px;
+      padding: 5px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover { background: $dark-surface; color: $text-primary; }
+    }
+  }
+
+  // ==================== FILE LINK ====================
+  .file-link {
+    color: $yellow;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.2s;
+
+    &:hover { color: $yellow-bright; text-decoration: underline; }
+  }
+
+  // ==================== ERROR DE TRADUCCIÓN ====================
+  .translation-error {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    padding: 6px 10px;
+    background: rgba(244, 67, 54, 0.08);
+    border: 1px solid rgba(244, 67, 54, 0.2);
+    border-radius: 8px;
+    font-size: 12px;
+    color: #ff5252;
+
+    .icon { font-size: 14px; }
   }
 }
 
-@keyframes messageSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+// ==================== ANIMACIONES ====================
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(0.95);
-  }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@media (max-width: 600px) {
+  .message-bubble { max-width: 100%; margin-bottom: 8px; }
+  .message-content { padding: 8px 10px; }
+  .message-text { font-size: 14px; }
+  .message-actions .translate-btn { width: 28px; height: 28px; }
 }

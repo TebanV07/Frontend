@@ -1,20 +1,23 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-tabs',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './profile-tabs.component.html',
   styleUrl: './profile-tabs.component.scss'
 })
 export class ProfileTabsComponent {
-  @Input() selectedTab: 'videos' | 'liked' | 'bookmarks' = 'videos';
+  @Input() selectedTab: 'posts' | 'videos' | 'liked' | 'bookmarks' = 'posts';
   @Input() videosCount = 0;
-  
-  @Output() onSelectTab = new EventEmitter<'videos' | 'liked' | 'bookmarks'>();
+  @Input() postsCount = 0;
 
-  selectTab(tab: 'videos' | 'liked' | 'bookmarks') {
+  @Output() onSelectTab = new EventEmitter<'posts' | 'videos' | 'liked' | 'bookmarks'>();
+
+  selectTab(tab: 'posts' | 'videos' | 'liked' | 'bookmarks') {
     this.onSelectTab.emit(tab);
   }
 }
+

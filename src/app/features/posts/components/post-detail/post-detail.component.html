@@ -1,46 +1,54 @@
 <div class="post-detail-container">
-  
-  <!-- Manejo de estado de carga -->
+
   <div class="loading-state" *ngIf="isLoading">
     <div class="spinner"></div>
-    <span>Loading post...</span>
+    <span>{{ 'common.loading' | translate }}</span>
   </div>
 
-  <!-- Manejo de errores -->
   <div class="error-state" *ngIf="error">
     <p>{{ error }}</p>
-    <button routerLink="/feed" class="btn-back">Go back to feed</button>
+    <button routerLink="/feed" class="btn-back">{{ 'post.back' | translate }}</button>
   </div>
 
-  <!-- Contenido del Post -->
   <div class="post-detail" *ngIf="!isLoading && !error && post">
-    
-    <!-- Botón de regreso -->
+
     <div class="back-button">
       <button routerLink="/feed" class="btn-back">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2">
           <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
-        Back
+        {{ 'common.back' | translate }}
       </button>
     </div>
 
     <article class="post-content">
-      
-      <!-- Encabezado del Post: Autor e Info -->
+
+      <!-- HEADER: Autor + bandera -->
       <div class="post-header">
         <div class="author-info">
-          <img 
-            [src]="post.user?.avatar || 'https://ui-avatars.com/api/?name=' + (post.user?.username || 'User')" 
+          <img
+            [src]="post.user?.avatar || 'https://ui-avatars.com/api/?name=' + (post.user?.username || 'User')"
             [alt]="post.user?.username"
             class="avatar"
-            [routerLink]="['/profile', post.user?.username]"
-          >
+            [routerLink]="['/profile', post.user?.username]">
+
           <div class="author-details">
-            <a [routerLink]="['/profile', post.user?.username]" class="username">
-              {{ post.user?.username }}
-            </a>
-            <!-- CORRECCIÓN: El modelo usa first_name/last_name. Asumo que se desea el nombre completo. -->
+
+            <!-- ⭐ Fila nombre + bandera país -->
+            <div class="author-name-row">
+              <a [routerLink]="['/profile', post.user?.username]" class="username">
+                {{ post.user?.username }}
+              </a>
+              <img
+                *ngIf="post.user?.country_code"
+                [src]="flagService.getCountryFlagUrl(post.user?.country_code, 20)"
+                [alt]="flagService.getCountryName(post.user?.country_code)"
+                [title]="flagService.getCountryName(post.user?.country_code)"
+                class="author-flag"
+                (error)="$any($event.target).style.display='none'">
+            </div>
+
             <span class="full-name" *ngIf="post.user?.first_name || post.user?.last_name">
               {{ post.user?.first_name }} {{ post.user?.last_name }}
             </span>
@@ -49,66 +57,126 @@
         </div>
       </div>
 
-      <!-- Cuerpo del Post: Texto y Media -->
+      <!-- BODY -->
       <div class="post-body">
-        <p class="content-text">{{ post.content }}</p>
 
-        <!-- CORRECCIÓN: Uso de las propiedades del modelo Post para media -->
-        <div class="media-container">
-          <!-- Video -->
-          <video 
-            *ngIf="post.has_video && post.video_url" 
-            [src]="post.video_url"
+        <!-- ⭐ Badge idioma original -->
+        <div class="language-badge" *ngIf="post.original_language">
+          <img
+            [src]="flagService.getLanguageFlagUrl(post.original_language, 20)"
+            [alt]="flagService.getLanguageName(post.original_language)"
+            class="lang-flag"
+            (error)="$any($event.target).style.display='none'">
+          <span class="language-name">{{ flagService.getLanguageName(post.original_language) }}</span>
+        </div>
+
+        <!-- Texto (original o traducido) -->
+        <p class="content-text" [class.translated]="showTranslation">
+          {{ showTranslation ? translatedContent : post.content }}
+        </p>
+
+        <!-- Media -->
+        <div class="media-container" *ngIf="post.has_video || post.has_images">
+          <video
+            *ngIf="post.has_video && post.video_url"
+            [src]="getFullVideoUrl(post.video_url)"
             controls
             class="media-video"
-          ></video>
-          
-          <!-- Imágenes -->
+            (error)="onVideoError($event)">
+          </video>
           <ng-container *ngIf="post.has_images && post.images?.length">
-            <img 
-              *ngFor="let image of post.images" 
-              [src]="image.image_url" 
+            <img
+              *ngFor="let image of post.images"
+              [src]="getFullImageUrl(image.image_url)"
               [alt]="image.alt_text || 'Post image'"
-              class="media-image"
-            >
+              class="media-image">
           </ng-container>
         </div>
+
+        <!-- ⭐ Barra de traducción -->
+        <div class="translation-bar">
+          <div class="translation-info">
+            <span>🌐</span>
+            <span>{{ (showTranslation ? 'post.showingTranslation' : 'post.translatePost') | translate }}</span>
+          </div>
+          <div class="translation-controls">
+            <select [(ngModel)]="selectedTranslationLanguage" [disabled]="isTranslating">
+              <option value="es">🇪🇸 Español</option>
+              <option value="en">🇺🇸 English</option>
+              <option value="fr">🇫🇷 Français</option>
+              <option value="pt">🇧🇷 Português</option>
+              <option value="de">🇩🇪 Deutsch</option>
+              <option value="it">🇮🇹 Italiano</option>
+              <option value="ja">🇯🇵 日本語</option>
+              <option value="ko">🇰🇷 한국어</option>
+              <option value="zh">🇨🇳 中文</option>
+            </select>
+            <button
+              class="translate-btn"
+              [class.active]="showTranslation"
+              [disabled]="isTranslating"
+              (click)="toggleTranslation()">
+              <span>{{ isTranslating ? '⏳' : '🌐' }}</span>
+              <span>{{ (isTranslating ? 'post.translating' : (showTranslation ? 'post.showOriginal' : 'post.translate')) | translate }}</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ⭐ Indicador de traducción activa -->
+        <div class="translation-indicator" *ngIf="showTranslation">
+          <img
+            [src]="flagService.getLanguageFlagUrl(selectedTranslationLanguage, 20)"
+            class="lang-flag-small"
+            (error)="$any($event.target).style.display='none'">
+          <span>{{ 'post.translatedTo' | translate }} {{ flagService.getLanguageName(selectedTranslationLanguage) }}</span>
+          <span *ngIf="post.original_language">
+            · {{ 'post.from' | translate }}
+            <img
+              [src]="flagService.getLanguageFlagUrl(post.original_language, 20)"
+              class="lang-flag-small"
+              (error)="$any($event.target).style.display='none'">
+            {{ flagService.getLanguageName(post.original_language) }}
+          </span>
+        </div>
+
       </div>
 
-      <!-- Estadísticas -->
+      <!-- STATS -->
       <div class="post-stats">
-        <app-like-count 
-          [postId]="post.id" 
-          [likesCount]="post.likes_count"
-        ></app-like-count>
-        <!-- Agregar contador de comentarios que usa 'comments_count' -->
-        <span class="comment-count">{{ post.comments_count }} comments</span>
+        <app-like-count [postId]="post.id" [likesCount]="post.likes_count"></app-like-count>
+        <span class="comment-count">{{ post.comments_count }} {{ 'post.comments' | translate }}</span>
       </div>
 
-      <!-- Acciones (Like y Compartir) -->
+      <!-- ACTIONS -->
       <div class="post-actions">
         <app-like-button
           [postId]="post.id"
-          [is_liked]="post.is_liked || false" 
+          [is_liked]="post.is_liked || false"
           [likesCount]="post.likes_count"
-          (likeToggled)="onLikeToggled($any($event))"
-        ></app-like-button>
+          (likeToggled)="onLikeToggled($any($event))">
+        </app-like-button>
 
-        <!-- Botón para Compartir (añadido para consistencia con un post completo) -->
         <button class="action-button">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
           Share
         </button>
       </div>
+
     </article>
 
-    <!-- Sección de Comentarios -->
+    <!-- COMENTARIOS -->
     <div class="comments-section">
       <h3 class="section-title">Comments</h3>
-      <app-comment-list 
+      <app-comment-list
         [postId]="post.id"
-        [currentUserId]="currentUserId"
-      ></app-comment-list>
+        [currentUserId]="currentUserId">
+      </app-comment-list>
     </div>
+
   </div>
 </div>

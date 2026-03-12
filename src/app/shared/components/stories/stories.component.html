@@ -1,5 +1,5 @@
 <div class="stories-container">
-      <h3 class="stories-title">Historias</h3>
+      <h3 class="stories-title">{{ 'stories.title' | translate }}</h3>
       <div class="stories-list">
         <div class="story-item" 
              *ngFor="let story of stories" 
@@ -12,7 +12,7 @@
             </div>
             <div class="new-indicator" *ngIf="story.hasNew && !story.isOwn"></div>
           </div>
-          <span class="story-name">{{ story.isOwn ? 'Agregar' : story.user.name.split(' ')[0] }}</span>
+          <span class="story-name">{{ story.isOwn ? ('stories.add' | translate) : story.user.name.split(' ')[0] }}</span>
         </div>
       </div>
     </div>

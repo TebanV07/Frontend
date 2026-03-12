@@ -1,0 +1,467 @@
+<div class="terms-overlay">
+  <div class="terms-modal">
+
+    <div class="modal-accent-bar"></div>
+
+    <div class="terms-header">
+      <div class="header-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+      </div>
+      <h1>{{ 'terms.title' | translate }}</h1>
+      <p class="subtitle">{{ 'terms.lastUpdated' | translate }}</p>
+    </div>
+
+    <!-- Tab nav -->
+    <div class="tab-nav">
+      <button class="tab-btn" [class.active]="activeTab === 'terms'" (click)="switchTab('terms')">
+        {{ 'terms.tabs.terms' | translate }}
+      </button>
+      <button class="tab-btn" [class.active]="activeTab === 'privacy'" (click)="switchTab('privacy')">
+        {{ 'terms.tabs.privacy' | translate }}
+      </button>
+    </div>
+
+    <!-- ═══════════════════════════════════
+         TÉRMINOS Y CONDICIONES
+    ════════════════════════════════════ -->
+    <div #termsContent class="terms-content" (scroll)="onScroll($event)" [hidden]="activeTab !== 'terms'">
+
+      <div class="legal-intro">
+        <p>
+          Bienvenido/a a <strong>Tinko</strong>, una red social de video operada desde la República del Ecuador.
+          Al crear una cuenta o utilizar la plataforma confirmas que has leído, comprendido y aceptado estos
+          Términos y Condiciones en su totalidad. Si no estás de acuerdo, no debes usar la plataforma.
+        </p>
+      </div>
+
+      <section>
+        <h2><span class="section-num">01</span>Identificación del Operador</h2>
+        <p>
+          Tinko es una plataforma de red social operada con domicilio en la República del Ecuador, sujeta a las
+          leyes ecuatorianas vigentes, incluyendo la <strong>Ley Orgánica de Protección de Datos Personales (LOPDP)</strong>
+          y el Código Orgánico Integral Penal (COIP) en lo que sea aplicable.
+        </p>
+        <p>Contacto: <strong>contact&#64;tinko.app</strong></p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">02</span>Edad Mínima de Uso</h2>
+        <p>
+          Tinko está dirigida a personas mayores de <strong>13 años</strong>. Al registrarte, declaras que tienes al menos
+          13 años de edad. Si eres menor de 18 años, debes contar con el consentimiento de tu padre, madre o
+          tutor legal para usar la plataforma.
+        </p>
+        <p>
+          Si Tinko detecta o recibe notificación de que una cuenta pertenece a un menor de 13 años, dicha cuenta
+          será suspendida y eliminada sin previo aviso.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">03</span>Registro y Seguridad de la Cuenta</h2>
+        <p>Para usar Tinko debes crear una cuenta proporcionando información veraz, completa y actualizada. Eres responsable de:</p>
+        <ul>
+          <li>Mantener la confidencialidad de tu contraseña</li>
+          <li>Todas las actividades realizadas desde tu cuenta</li>
+          <li>Notificarnos inmediatamente ante cualquier uso no autorizado en <strong>contact&#64;tinko.app</strong></li>
+          <li>No compartir tu cuenta con terceros</li>
+        </ul>
+        <p>
+          Tinko no se hace responsable de daños o pérdidas derivados del incumplimiento de estas obligaciones.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">04</span>Conducta del Usuario y Contenido Prohibido</h2>
+        <p>Al usar Tinko te comprometes a no publicar, compartir ni difundir contenido que:</p>
+        <ul>
+          <li>Sea sexualmente explícito o involucre a menores de edad</li>
+          <li>Incite a la violencia, odio, discriminación por raza, género, religión, orientación sexual, nacionalidad o discapacidad</li>
+          <li>Acose, amenace, intimide o difame a otras personas</li>
+          <li>Infrinja derechos de autor, marcas registradas o propiedad intelectual de terceros</li>
+          <li>Contenga información falsa, engañosa o desinformación deliberada</li>
+          <li>Promueva actividades ilegales, drogas, armas o fraude</li>
+          <li>Contenga malware, spam o links de phishing</li>
+          <li>Suplante la identidad de otras personas o entidades</li>
+        </ul>
+        <p>
+          El incumplimiento puede resultar en la suspensión temporal o eliminación permanente de la cuenta,
+          y en casos graves, en la denuncia ante las autoridades competentes del Ecuador.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">05</span>Contenido del Usuario — Licencia y Responsabilidad</h2>
+        <p>
+          Al subir fotos, videos, audio u otro contenido a Tinko, otorgas a la plataforma una licencia
+          <strong>mundial, no exclusiva, libre de regalías, sublicenciable y transferible</strong> para usar,
+          reproducir, distribuir, preparar obras derivadas, mostrar y ejecutar dicho contenido en relación
+          con el funcionamiento y la promoción de Tinko.
+        </p>
+        <p>
+          Esta licencia termina cuando eliminas tu contenido o tu cuenta, excepto cuando el contenido haya
+          sido compartido con otros usuarios que aún no lo han eliminado.
+        </p>
+        <p>
+          Garantizas que posees todos los derechos necesarios sobre el contenido que subes y que su publicación
+          no infringe derechos de terceros. Eres el único responsable de dicho contenido.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">06</span>Inteligencia Artificial, Voz y Traducción</h2>
+        <p>
+          Tinko ofrece funciones de traducción de video y clonación de voz mediante tecnologías de inteligencia
+          artificial de terceros (incluidos ElevenLabs y OpenAI). Al activar estas funciones:
+        </p>
+        <ul>
+          <li>Consientes que tu voz pueda ser procesada y temporalmente almacenada para generar una réplica sintética con fines exclusivos de traducción de tus propios videos</li>
+          <li>Las voces clonadas no se almacenan de forma permanente en servidores de Tinko tras completar la traducción</li>
+          <li>No puedes usar estas herramientas para clonar la voz de otra persona sin su consentimiento explícito</li>
+          <li>Tinko no garantiza la exactitud de las traducciones automáticas</li>
+        </ul>
+        <p>
+          El uso indebido de la clonación de voz para suplantar identidades constituye una violación grave de
+          estos términos y puede derivar en acciones legales.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">07</span>Propiedad Intelectual de Tinko</h2>
+        <p>
+          Todos los elementos de la plataforma Tinko — incluyendo diseño, logotipo, código, interfaces, texto,
+          gráficos y marca — son propiedad exclusiva de sus titulares y están protegidos por las leyes de propiedad
+          intelectual del Ecuador y tratados internacionales.
+        </p>
+        <p>
+          Queda prohibida la reproducción, distribución, modificación o uso comercial de cualquier elemento de
+          Tinko sin autorización escrita previa.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">08</span>Moderación y Eliminación de Contenido</h2>
+        <p>
+          Tinko se reserva el derecho de revisar, editar o eliminar cualquier contenido que viole estos términos,
+          sin previo aviso. Las cuentas que infrinjan reiteradamente las normas podrán ser suspendidas o eliminadas
+          de forma permanente.
+        </p>
+        <p>
+          Puedes reportar contenido inapropiado usando el botón de reporte disponible en cada publicación.
+          Tinko revisará los reportes y tomará las medidas pertinentes.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">09</span>Eliminación de Cuenta</h2>
+        <p>
+          Puedes eliminar tu cuenta en cualquier momento desde Configuración → Cuenta → Eliminar cuenta.
+          Tras la eliminación:
+        </p>
+        <ul>
+          <li>Tus datos personales serán eliminados en un plazo máximo de <strong>30 días hábiles</strong></li>
+          <li>El contenido que hayas compartido públicamente puede permanecer en caché de motores de búsqueda externos fuera del control de Tinko</li>
+          <li>Datos requeridos por obligación legal pueden conservarse el tiempo exigido por la ley ecuatoriana</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2><span class="section-num">10</span>Limitación de Responsabilidad</h2>
+        <p>
+          Tinko se proporciona <em>"tal cual"</em> y <em>"según disponibilidad"</em>, sin garantías de ningún tipo,
+          expresas o implícitas. En la máxima medida permitida por la ley ecuatoriana, Tinko no será responsable por:
+        </p>
+        <ul>
+          <li>Daños directos, indirectos, incidentales, especiales o consecuentes</li>
+          <li>Pérdida de datos, ingresos o ganancias</li>
+          <li>Conducta de terceros usuarios en la plataforma</li>
+          <li>Interrupciones del servicio por mantenimiento, fallas técnicas o causas de fuerza mayor</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2><span class="section-num">11</span>Modificación de Términos</h2>
+        <p>
+          Tinko puede modificar estos Términos en cualquier momento. Cuando los cambios sean significativos,
+          notificaremos a los usuarios mediante un aviso en la app y/o por correo electrónico con al menos
+          <strong>15 días de anticipación</strong>. El uso continuado de la plataforma tras esa fecha implica
+          la aceptación de los nuevos términos.
+        </p>
+      </section>
+
+      <section class="last-section">
+        <h2><span class="section-num">12</span>Ley Aplicable y Jurisdicción</h2>
+        <p>
+          Estos Términos se rigen por las leyes de la <strong>República del Ecuador</strong>.
+          Cualquier controversia se someterá a los tribunales competentes del Ecuador, específicamente
+          en el domicilio del operador, renunciando expresamente a cualquier otra jurisdicción.
+        </p>
+        <p>Para consultas: <strong>contact&#64;tinko.app</strong></p>
+      </section>
+
+    </div>
+
+    <!-- ═══════════════════════════════════
+         POLÍTICA DE PRIVACIDAD
+    ════════════════════════════════════ -->
+    <div #privacyContent class="terms-content" (scroll)="onScroll($event)" [hidden]="activeTab !== 'privacy'">
+
+      <div class="legal-intro">
+        <p>
+          En <strong>Tinko</strong> tratamos tus datos personales con responsabilidad y transparencia, en cumplimiento de la
+          <strong>Ley Orgánica de Protección de Datos Personales del Ecuador (LOPDP)</strong> y su reglamento.
+          Esta política explica qué datos recopilamos, cómo los usamos y cuáles son tus derechos.
+        </p>
+      </div>
+
+      <section>
+        <h2><span class="section-num">01</span>Responsable del Tratamiento</h2>
+        <p>
+          El responsable del tratamiento de datos es el operador de Tinko, con domicilio en la República del Ecuador.
+          Contacto del Delegado de Protección de Datos: <strong>privacy&#64;tinko.app</strong>
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">02</span>Datos que Recopilamos</h2>
+        <p>Recopilamos las siguientes categorías de datos personales:</p>
+
+        <h3>Datos que tú nos proporcionas</h3>
+        <ul>
+          <li><strong>Identidad:</strong> nombre, apellido, nombre de usuario</li>
+          <li><strong>Contacto:</strong> dirección de correo electrónico</li>
+          <li><strong>Perfil:</strong> foto de perfil, biografía, sitio web, idioma nativo</li>
+          <li><strong>Ubicación:</strong> país de residencia (código de país ISO)</li>
+          <li><strong>Contenido:</strong> fotos, videos, textos, comentarios y mensajes que publicas</li>
+          <li><strong>Voz:</strong> muestras de audio de tus videos cuando activas la función de traducción con clonación de voz</li>
+        </ul>
+
+        <h3>Datos recopilados automáticamente</h3>
+        <ul>
+          <li>Dirección IP y datos de dispositivo (sistema operativo, navegador, versión)</li>
+          <li>Datos de uso: páginas visitadas, videos vistos, interacciones (likes, comentarios, follows)</li>
+          <li>Fechas y horarios de acceso</li>
+          <li>Datos de rendimiento y errores de la aplicación</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2><span class="section-num">03</span>Finalidad y Base Legal del Tratamiento</h2>
+        <table class="privacy-table">
+          <thead>
+            <tr>
+              <th>Finalidad</th>
+              <th>Base legal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Crear y gestionar tu cuenta</td>
+              <td>Ejecución del contrato (Art. 9 LOPDP)</td>
+            </tr>
+            <tr>
+              <td>Mostrar tu contenido a otros usuarios</td>
+              <td>Ejecución del contrato</td>
+            </tr>
+            <tr>
+              <td>Clonación de voz para traducción de videos</td>
+              <td>Consentimiento explícito (Art. 7 LOPDP)</td>
+            </tr>
+            <tr>
+              <td>Mostrar banderas de país en publicaciones</td>
+              <td>Consentimiento al registrar el país</td>
+            </tr>
+            <tr>
+              <td>Envío de notificaciones push</td>
+              <td>Consentimiento</td>
+            </tr>
+            <tr>
+              <td>Seguridad, prevención de fraude y moderación</td>
+              <td>Interés legítimo / obligación legal</td>
+            </tr>
+            <tr>
+              <td>Mejora del servicio y análisis de uso</td>
+              <td>Interés legítimo</td>
+            </tr>
+            <tr>
+              <td>Cumplimiento de obligaciones legales</td>
+              <td>Obligación legal (Art. 9 LOPDP)</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2><span class="section-num">04</span>Tratamiento de la Voz — Clonación con IA</h2>
+        <p>
+          La función de traducción de videos usa tecnología de clonación de voz proporcionada por
+          <strong>ElevenLabs</strong> (proveedor externo). Cuando activas esta función:
+        </p>
+        <ul>
+          <li>Se extrae una muestra de tu voz del video original (máximo 25 segundos)</li>
+          <li>Dicha muestra se envía a ElevenLabs para crear una voz sintética temporal</li>
+          <li>La voz sintética se usa exclusivamente para generar el audio traducido de tu video</li>
+          <li>La voz clonada temporal es <strong>eliminada automáticamente</strong> de los servidores de ElevenLabs tras completar el proceso</li>
+          <li>Tinko no almacena muestras de voz ni voces clonadas de forma permanente</li>
+        </ul>
+        <p>
+          Puedes no activar esta función y usar voces predefinidas alternativas.
+          El tratamiento de la voz se realiza únicamente con tu consentimiento explícito al activar la función.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">05</span>Transferencias Internacionales de Datos</h2>
+        <p>
+          Algunos de nuestros proveedores de servicios operan fuera del Ecuador. Las transferencias internacionales
+          de datos se realizan únicamente con proveedores que ofrecen garantías adecuadas de protección:
+        </p>
+        <ul>
+          <li><strong>ElevenLabs</strong> (EE.UU.) — síntesis y clonación de voz</li>
+          <li><strong>OpenAI</strong> (EE.UU.) — transcripción de audio (Whisper) y traducción de texto</li>
+        </ul>
+        <p>
+          Estas transferencias se realizan sobre la base de las cláusulas contractuales estándar y las políticas
+          de privacidad de cada proveedor.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">06</span>Conservación de Datos</h2>
+        <ul>
+          <li><strong>Datos de cuenta activa:</strong> mientras la cuenta esté activa</li>
+          <li><strong>Tras eliminar la cuenta:</strong> eliminación en 30 días hábiles, salvo obligación legal</li>
+          <li><strong>Muestras de voz:</strong> eliminadas inmediatamente tras completar la traducción</li>
+          <li><strong>Datos de seguridad y logs:</strong> hasta 12 meses para prevención de fraude</li>
+          <li><strong>Datos fiscales o legales:</strong> el período que exija la legislación ecuatoriana vigente</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2><span class="section-num">07</span>Tus Derechos (LOPDP Ecuador)</h2>
+        <p>Conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador, tienes los siguientes derechos:</p>
+        <ul>
+          <li><strong>Acceso:</strong> conocer qué datos tuyos tratamos</li>
+          <li><strong>Rectificación:</strong> corregir datos inexactos o incompletos</li>
+          <li><strong>Eliminación:</strong> solicitar la eliminación de tus datos ("derecho al olvido")</li>
+          <li><strong>Oposición:</strong> oponerte a ciertos tratamientos basados en interés legítimo</li>
+          <li><strong>Portabilidad:</strong> recibir tus datos en formato estructurado y legible</li>
+          <li><strong>Limitación:</strong> solicitar la restricción temporal del tratamiento</li>
+          <li><strong>Retirar el consentimiento</strong> en cualquier momento, sin que ello afecte la licitud del tratamiento anterior</li>
+        </ul>
+        <p>
+          Para ejercer tus derechos escríbenos a <strong>privacy&#64;tinko.app</strong> con el asunto
+          "Ejercicio de derechos LOPDP" indicando tu nombre de usuario y el derecho que deseas ejercer.
+          Responderemos en un plazo máximo de <strong>15 días hábiles</strong>.
+        </p>
+        <p>
+          Si consideras que tu solicitud no fue atendida adecuadamente, puedes presentar una reclamación ante
+          la <strong>Autoridad de Protección de Datos Personales del Ecuador</strong>.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">08</span>Seguridad de los Datos</h2>
+        <p>
+          Aplicamos medidas técnicas y organizativas apropiadas para proteger tus datos frente a acceso no
+          autorizado, pérdida, alteración o divulgación, incluyendo:
+        </p>
+        <ul>
+          <li>Comunicaciones cifradas mediante HTTPS / TLS</li>
+          <li>Contraseñas almacenadas con hash seguro (bcrypt)</li>
+          <li>Autenticación mediante tokens JWT con expiración</li>
+          <li>Acceso restringido a datos personales por parte del personal</li>
+          <li>Copias de seguridad periódicas de la base de datos</li>
+        </ul>
+        <p>
+          En caso de una brecha de seguridad que afecte tus datos, te notificaremos conforme lo exige la LOPDP.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">09</span>Cookies y Tecnologías Similares</h2>
+        <p>
+          Tinko utiliza cookies y almacenamiento local del navegador para:
+        </p>
+        <ul>
+          <li>Mantener tu sesión iniciada</li>
+          <li>Recordar tus preferencias (idioma, tema)</li>
+          <li>Seguridad y prevención de fraude</li>
+        </ul>
+        <p>
+          No utilizamos cookies de publicidad de terceros. Puedes configurar tu navegador para rechazar cookies,
+          aunque esto puede afectar el funcionamiento de la plataforma.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="section-num">10</span>Menores de Edad</h2>
+        <p>
+          Tinko no recopila intencionalmente datos de menores de 13 años. Si eres padre/madre o tutor y crees
+          que tu hijo/a menor de 13 años ha creado una cuenta, contáctanos a <strong>privacy&#64;tinko.app</strong>
+          y eliminaremos la cuenta y sus datos a la brevedad.
+        </p>
+        <p>
+          Los usuarios de entre 13 y 17 años deben contar con el consentimiento verificable de su representante legal.
+        </p>
+      </section>
+
+      <section class="last-section">
+        <h2><span class="section-num">11</span>Cambios en esta Política</h2>
+        <p>
+          Podemos actualizar esta Política de Privacidad periódicamente. Te notificaremos por correo electrónico
+          y dentro de la app con al menos <strong>15 días de anticipación</strong> ante cambios significativos.
+          La fecha de última actualización siempre estará visible en la cabecera de este documento.
+        </p>
+        <p>Contacto: <strong>privacy&#64;tinko.app</strong></p>
+      </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="terms-footer">
+      <div class="scroll-status" [class.reached]="scrolledToBottom">
+        <div class="status-icon">
+          <svg *ngIf="!scrolledToBottom" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+          <svg *ngIf="scrolledToBottom" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <span *ngIf="!scrolledToBottom">{{ 'terms.scroll.pending' | translate }}</span>
+        <span *ngIf="scrolledToBottom">{{ 'terms.scroll.done' | translate }}</span>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" [style.width.%]="scrollProgress"></div>
+      </div>
+
+      <div class="buttons">
+        <button class="btn-decline" (click)="declineTerms()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+          {{ 'terms.decline' | translate }}
+        </button>
+        <button
+          class="btn-accept"
+          (click)="acceptTerms()"
+          [disabled]="!scrolledToBottom"
+          [class.disabled]="!scrolledToBottom">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          {{ 'terms.accept' | translate }}
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

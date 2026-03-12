@@ -1,0 +1,26 @@
+<div class="upload-container">
+  <h2>{{ 'upload.title' | translate }}</h2>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <input type="file" (change)="onFileChange($event)" accept="video/*" />
+
+  <div *ngIf="previewUrl" class="preview">
+    <video [src]="previewUrl" controls></video>
+  </div>
+
+  <div class="fields">
+    <label>
+      {{ 'upload.titleField' | translate }}
+      <input type="text" [(ngModel)]="title" />
+    </label>
+    <label>
+      {{ 'upload.description' | translate }}
+      <textarea [(ngModel)]="description"></textarea>
+    </label>
+  </div>
+
+  <button (click)="submit()" [disabled]="isSubmitting">
+    {{ isSubmitting ? ('upload.submitting' | translate) : ('upload.submit' | translate) }}
+  </button>
+</div>

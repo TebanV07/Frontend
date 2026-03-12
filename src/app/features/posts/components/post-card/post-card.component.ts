@@ -1,165 +1,242 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { Post } from '../../../../core/models/post.model';
-import { PostsService } from '../../../../core/services/posts.service';  // ← AGREGAR IMPORT
+import { PostsService } from '../../../../core/services/posts.service';
 import { LikeButtonComponent } from '../../likes/likes-button/likes-button.component';
 import { LikeCountComponent } from '../../likes/likes-count/likes-count.component';
+import { FlagService } from '../../../../core/services/flag.service';
+import { ReportModalComponent } from '../../../../shared/components/report-modal/report-modal.component';
+import { TranslationService, ImageTranslationResponse } from '../../../../core/services/translation.service';
 
 @Component({
   selector: 'app-post-card',
   standalone: true,
-  imports: [CommonModule, RouterModule, LikeButtonComponent, LikeCountComponent],
+  imports: [CommonModule, RouterModule, LikeButtonComponent, LikeCountComponent, ReportModalComponent, TranslateModule],
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.scss']
 })
 export class PostCardComponent {
   @Input() post!: Post;
   @Input() currentUserId?: number;
-  @Output() postDeleted = new EventEmitter<number>();
-  @Output() postUpdated = new EventEmitter<Post>();
-  @Output() saveToggled = new EventEmitter<number>();
-  @Input() userLanguage = 'en';  // Idioma del usuario
-
-  // Estado de traducción
-  showTranslation = false;
-  translatedContent = '';
-  isTranslating = false;
+  @Input() userLanguage = 'en';
+  @Output() postDeleted  = new EventEmitter<number>();
+  @Output() postUpdated  = new EventEmitter<Post>();
+  @Output() saveToggled  = new EventEmitter<number>();
+  @Output() translatePost  = new EventEmitter<number>();
+  @Output() translateVideo = new EventEmitter<number>();
 
   showDropdown = false;
-  
+  isPlaying    = false;
+
+  // â”€â”€ TraducciÃ³n de TEXTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  showTranslation   = false;
+  translatedContent = '';
+  isTranslating     = false;
+
+  // â”€â”€ TraducciÃ³n de IMÃGENES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  imageTranslations:    { [imageId: number]: ImageTranslationResponse } = {};
+  showImageTranslation: { [imageId: number]: boolean }                  = {};
+  translatingImageId:   number | null = null;
+
+  // â”€â”€ Report / Delete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  showReportModal   = false;
+  showDeleteConfirm = false;
+  isDeleting        = false;
+  deleteError       = '';
+
   private readonly apiBaseUrl = 'http://localhost:8001';
 
-  // ✅ INYECTAR EL SERVICIO EN EL CONSTRUCTOR
-  constructor(private postsService: PostsService) {}
+  constructor(
+    public  flagService:        FlagService,
+    private postsService:       PostsService,
+    private translationService: TranslationService
+  ) {}
 
   get isOwnPost(): boolean {
     return this.currentUserId === this.post.user_id;
   }
 
   get formattedDate(): string {
-    const date = new Date(this.post.created_at);
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
+    const date    = new Date(this.post.created_at as string);
+    const now     = new Date();
+    const diffMs  = now.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / 60000);
-    const diffHours = Math.floor(diffMins / 60);
-    const diffDays = Math.floor(diffHours / 24);
-
-    if (diffMins < 1) return 'just now';
+    if (diffMins < 1)  return 'just now';
     if (diffMins < 60) return `${diffMins}m ago`;
+    const diffHours = Math.floor(diffMins / 60);
     if (diffHours < 24) return `${diffHours}h ago`;
-    if (diffDays < 7) return `${diffDays}d ago`;
-    
+    const diffDays = Math.floor(diffHours / 24);
+    if (diffDays < 7)  return `${diffDays}d ago`;
     return date.toLocaleDateString();
   }
 
-  getFullImageUrl(imageUrl: string): string {
+  // â”€â”€ URL helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+  getFullImageUrl(imageUrl: string | undefined | null): string {
     if (!imageUrl) return '';
-    if (imageUrl.startsWith('http')) return imageUrl;
-    return `${this.apiBaseUrl}${imageUrl}`;
+    return imageUrl.startsWith('http') ? imageUrl : `${this.apiBaseUrl}${imageUrl}`;
   }
 
-  getFullVideoUrl(videoUrl: string): string {
+  getFullVideoUrl(videoUrl: string | undefined | null): string {
     if (!videoUrl) return '';
-    if (videoUrl.startsWith('http')) return videoUrl;
-    return `${this.apiBaseUrl}${videoUrl}`;
+    return videoUrl.startsWith('http') ? videoUrl : `${this.apiBaseUrl}${videoUrl}`;
   }
+
+  getThumbnail(): string {
+    const candidates = [
+      (this.post as any).thumbnail_url,
+      (this.post as any).thumbnailUrl,
+      (this.post as any).image_url,
+      (this.post as any).images?.[0]?.image_url,
+      (this.post as any).video?.thumbnail_url
+    ];
+    const found = candidates.find((c: any) => !!c) as string | undefined;
+    return this.getFullImageUrl(found || '');
+  }
+
+  // â”€â”€ Video â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+  playInline(event?: Event): void {
+    if (event) event.stopPropagation();
+    this.isPlaying = true;
+    setTimeout(() => {
+      const videoEl = document.querySelector<HTMLVideoElement>(`#video-player-${this.post.id}`);
+      if (videoEl) videoEl.play().catch(() => {});
+    }, 50);
+  }
+
+  stopInline(event?: Event): void {
+    if (event) event.stopPropagation();
+    this.isPlaying = false;
+    const videoEl = document.querySelector<HTMLVideoElement>(`#video-player-${this.post.id}`);
+    if (videoEl) { videoEl.pause(); videoEl.currentTime = 0; }
+  }
+
+  onVideoError(_event: Event): void { this.isPlaying = false; }
 
   onImageError(event: Event): void {
-    const img = event.target as HTMLImageElement;
-    console.error('❌ Error loading image:', img.src);
+    (event.target as HTMLImageElement).src = '/assets/default-image.png';
   }
 
-  onVideoError(event: Event): void {
-    const video = event.target as HTMLVideoElement;
-    console.error('❌ Error loading video:', video.src);
+  // â”€â”€ Dropdown â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+  toggleDropdown(): void  { this.showDropdown = !this.showDropdown; }
+  closeDropdown(): void   { this.showDropdown = false; }
+
+  editPost(): void {
+    this.closeDropdown();
+    this.postUpdated.emit(this.post);
   }
 
-  toggleDropdown(): void {
-    this.showDropdown = !this.showDropdown;
+  // â”€â”€ Delete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+  openDeleteConfirm(): void {
+    this.closeDropdown();
+    this.showDeleteConfirm = true;
+    this.deleteError = '';
   }
+
+  cancelDelete(): void {
+    this.showDeleteConfirm = false;
+    this.deleteError = '';
+  }
+
+  confirmDelete(): void {
+    if (this.isDeleting) return;
+    this.isDeleting  = true;
+    this.deleteError = '';
+
+    this.postsService.deletePost(this.post.id.toString()).subscribe({
+      next: () => {
+        this.isDeleting        = false;
+        this.showDeleteConfirm = false;
+        this.postDeleted.emit(this.post.id);
+      },
+      error: (err) => {
+        this.isDeleting  = false;
+        this.deleteError = err.error?.detail || 'Error al eliminar el post.';
+      }
+    });
+  }
+
+  // â”€â”€ Report â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+  openReport(): void {
+    this.closeDropdown();
+    this.showReportModal = true;
+  }
+
+  onReportClosed(): void { this.showReportModal = false; }
+
+  // â”€â”€ TraducciÃ³n de TEXTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+  toggleTranslation(): void {
+    if (!this.post) return;
+    if (this.showTranslation) { this.showTranslation = false; return; }
+    if (this.translatedContent) { this.showTranslation = true; return; }
+
+    this.isTranslating = true;
+    this.translatePost.emit(this.post.id);
+
+    this.postsService.translatePost(this.post.id, this.userLanguage).subscribe({
+      next: (res: any) => {
+        this.translatedContent = res?.translated_content ?? res?.content ?? '';
+        this.showTranslation   = true;
+        this.isTranslating     = false;
+      },
+      error: () => {
+        this.translatedContent = `[Simulated translation] ${this.post.content}`;
+        this.showTranslation   = true;
+        this.isTranslating     = false;
+      }
+    });
+  }
+
+  // â”€â”€ TraducciÃ³n de IMÃGENES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+  translateImage(image: { id: number; image_url: string }): void {
+    if (this.translatingImageId === image.id) return;
+    this.translatingImageId = image.id;
+
+    this.translationService.translateImageFromUrl(
+      image.id,
+      image.image_url,
+      this.userLanguage
+    ).then(obs$ => {
+      obs$.subscribe({
+        next: (result) => {
+          this.imageTranslations[image.id]    = result;
+          this.showImageTranslation[image.id] = true;
+          this.translatingImageId             = null;
+        },
+        error: (err) => {
+          console.error('Error traduciendo imagen:', err);
+          this.translatingImageId = null;
+        }
+      });
+    }).catch(err => {
+      console.error('Error descargando imagen:', err);
+      this.translatingImageId = null;
+    });
+  }
+
+  toggleImageTranslation(imageId: number): void {
+    this.showImageTranslation[imageId] = !this.showImageTranslation[imageId];
+  }
+
+  // â”€â”€ Acciones generales â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+  sharePost(): void { console.log('Share post:', this.post.id); }
 
   onLikeToggled(event: { isLiked: boolean; likesCount: number }): void {
-    this.post.is_liked = event.isLiked;
+    this.post.is_liked    = event.isLiked;
     this.post.likes_count = event.likesCount;
   }
 
-  onSavePost(): void {
-    this.saveToggled.emit(this.post.id);
-  }
+  onSavePost(): void { this.saveToggled.emit(this.post.id); }
 
-  editPost(): void {
-    console.log('Edit post:', this.post.id);
-    this.showDropdown = false;
-  }
-
-  deletePost(): void {
-    if (confirm('Are you sure you want to delete this post?')) {
-      this.postDeleted.emit(this.post.id);
-    }
-    this.showDropdown = false;
-  }
-
-  sharePost(): void {
-    console.log('Share post:', this.post.id);
-  }
-
-  // ==================== TRADUCCIÓN ====================
-  
-  toggleTranslation(): void {
-    // Si ya está traducido, solo alternar vista
-    if (this.translatedContent) {
-      this.showTranslation = !this.showTranslation;
-      return;
-    }
-    
-    // Primera vez: llamar al backend
-    this.isTranslating = true;
-    
-    console.log('🌐 Traduciendo post:', {
-      postId: this.post.id,
-      targetLanguage: this.userLanguage
-    });
-    
-    this.postsService.translatePost(this.post.id, this.userLanguage)
-      .subscribe({
-        next: (response) => {
-          console.log('✅ Traducción recibida:', response);
-          this.translatedContent = response.translated_content;
-          this.showTranslation = true;
-          this.isTranslating = false;
-        },
-        error: (error) => {
-          console.error('❌ Error:', error);
-          alert('No se pudo traducir el contenido');
-          this.isTranslating = false;
-        }
-      });
-  }
-
-  /**
-   * Obtener bandera del idioma
-   */
-  getLanguageFlag(langCode: string): string {
-    const flags: { [key: string]: string } = {
-      'en': '🇺🇸', 'es': '🇪🇸', 'fr': '🇫🇷', 'de': '🇩🇪',
-      'it': '🇮🇹', 'pt': '🇵🇹', 'ru': '🇷🇺', 'zh': '🇨🇳',
-      'ja': '🇯🇵', 'ko': '🇰🇷', 'ar': '🇸🇦', 'hi': '🇮🇳',
-      'nl': '🇳🇱', 'pl': '🇵🇱', 'tr': '🇹🇷'
-    };
-    return flags[langCode?.toLowerCase()] || '🌐';
-  }
-
-  /**
-   * Obtener nombre del idioma
-   */
-  getLanguageName(code: string): string {
-    const languages: { [key: string]: string } = {
-      'en': 'English', 'es': 'Español', 'fr': 'Français', 'de': 'Deutsch',
-      'it': 'Italiano', 'pt': 'Português', 'ru': 'Русский', 'zh': '中文',
-      'ja': '日本語', 'ko': '한국어', 'ar': 'العربية', 'hi': 'हिन्दी',
-      'nl': 'Nederlands', 'pl': 'Polski', 'tr': 'Türkçe'
-    };
-    return languages[code] || code.toUpperCase();
-  }
+  requestTranslateVideo(): void { this.translateVideo.emit(this.post.id); }
 }
+

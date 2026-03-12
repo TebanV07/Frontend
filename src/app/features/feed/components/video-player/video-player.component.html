@@ -1,14 +1,71 @@
-<div class="video-player">
-  <video 
-    [src]="video.videoUrl"
-    [poster]="video.thumbnailUrl"
+<!-- app/features/feed/videos/video-player/video-player.component.html -->
+
+<div class="video-player-container">
+  <!-- Video element -->
+  <video
+    #videoElement
+    class="video-element"
+    [poster]="getThumbnailUrl()"
+    [muted]="false"
     playsinline
-    webkit-playsinline>
-    Tu navegador no soporta videos HTML5.
+    preload="metadata"
+    crossorigin="anonymous"
+    (click)="togglePlay()">
+
+    <source [src]="getVideoUrl()" type="video/mp4">
+
+    <!-- Los subtítulos se agregan dinámicamente desde el componente -->
+
+    {{ 'videoPlayer.noSupport' | translate }}
   </video>
-  <div class="video-controls">
-    <button class="play-btn" (click)="togglePlay()">
-      {{ isPlaying ? '⏸️' : '▶️' }}
+
+  <!-- Loading spinner -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="spinner-large"></div>
+    <p class="loading-text">{{ 'videoPlayer.loading' | translate }}</p>
+  </div>
+
+  <!-- Error state -->
+  <div class="error-overlay" *ngIf="hasError">
+    <div class="error-content">
+      <span class="error-icon">⚠️</span>
+      <h3>{{ 'videoPlayer.error.title' | translate }}</h3>
+      <p>{{ 'videoPlayer.error.subtitle' | translate }}</p>
+      <button class="retry-btn" (click)="retryLoad()">
+        {{ 'videoPlayer.error.retry' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Play/Pause overlay (tap to toggle) -->
+  <div class="play-pause-overlay" (click)="togglePlay()" *ngIf="!isLoading && !hasError">
+    <div class="play-icon" *ngIf="!isPlaying">
+      <svg width="80" height="80" viewBox="0 0 80 80" fill="white">
+        <circle cx="40" cy="40" r="40" fill="rgba(0,0,0,0.5)"/>
+        <path d="M30 20 L30 60 L60 40 Z" fill="white"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-bar-container" *ngIf="!isLoading && !hasError">
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="progress"></div>
+    </div>
+  </div>
+
+  <!-- Time display -->
+  <div class="time-display" *ngIf="!isLoading && !hasError">
+    <span class="current-time">{{ currentTimeFormatted }}</span>
+    <span class="time-separator">/</span>
+    <span class="duration-time">{{ durationFormatted }}</span>
+  </div>
+
+  <!-- Volume control -->
+  <div class="volume-control" *ngIf="!isLoading && !hasError">
+    <button class="volume-btn" (click)="toggleMute()">
+      <span *ngIf="!isMuted">🔊</span>
+      <span *ngIf="isMuted">🔇</span>
     </button>
   </div>
 </div>

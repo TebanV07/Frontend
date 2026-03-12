@@ -1,0 +1,70 @@
+<div class="country-setup-overlay">
+  <div class="country-setup-modal">
+
+    <div class="modal-header">
+      <div class="modal-icon">🌍</div>
+      <h2>{{ 'countrySetup.title' | translate }}</h2>
+      <p>{{ 'countrySetup.subtitle' | translate }}</p>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <span>{{ 'countrySetup.detecting' | translate }}</span>
+    </div>
+
+    <!-- País detectado -->
+    <div class="detected-country" *ngIf="!isLoading && (detectedCountryCode || selectedCountryCode)">
+      <span class="detection-label">{{ 'countrySetup.detected' | translate }}</span>
+      <div class="country-display">
+        <img
+          *ngIf="flagUrl"
+          [src]="flagUrl"
+          [alt]="flagService.getCountryName(selectedCountryCode || detectedCountryCode)"
+          class="country-flag"
+          (error)="$any($event.target).style.display='none'">
+        <span class="country-name">{{ flagService.getCountryName(selectedCountryCode || detectedCountryCode) }}</span>
+      </div>
+    </div>
+
+    <!-- No detectado -->
+    <div class="no-detection" *ngIf="!isLoading && !detectedCountryCode && !selectedCountryCode">
+      <span>{{ 'countrySetup.notDetected' | translate }}</span>
+    </div>
+
+    <!-- Selector manual -->
+    <div class="manual-select" *ngIf="showManualSelect || (!detectedCountryCode && !isLoading)">
+      <label class="select-label">{{ 'countrySetup.manualSelect' | translate }}</label>
+      <select class="country-select" [(ngModel)]="selectedCountryCode">
+        <option value="" disabled>{{ 'countrySetup.manualPlaceholder' | translate }}</option>
+        <option *ngFor="let country of countries" [value]="country.code">
+          {{ country.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Botón "No es mi país" si fue detectado automáticamente -->
+    <button
+      class="change-btn"
+      *ngIf="!showManualSelect && (detectedCountryCode || selectedCountryCode)"
+      (click)="showManualSelect = true">
+      {{ 'countrySetup.notMyCountry' | translate }}
+    </button>
+
+    <!-- Acciones -->
+    <div class="modal-actions">
+      <button
+        class="confirm-btn"
+        [disabled]="isSaving || (!detectedCountryCode && !selectedCountryCode)"
+        (click)="confirmCountry()">
+        <span *ngIf="!isSaving">{{ 'countrySetup.confirm' | translate }}</span>
+        <span *ngIf="isSaving">{{ 'countrySetup.saving' | translate }}</span>
+      </button>
+
+      <button class="skip-btn" (click)="skipSetup()">
+        {{ 'countrySetup.skip' | translate }}
+      </button>
+    </div>
+
+  </div>
+</div>

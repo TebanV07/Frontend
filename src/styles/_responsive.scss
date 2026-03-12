@@ -1,0 +1,85 @@
+/* Shared responsive utilities and component fallbacks */
+/* Apply variable-driven backgrounds and text so components follow dark theme */
+body {
+  background: var(--bg-gradient);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Generic card styling used by many components */
+.post-card,
+.comment-item,
+.message-bubble,
+.chat-window,
+.conversation-item,
+.create-post-card,
+.profile-card {
+  background: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+/* Make images & avatars scale nicely */
+img,
+.responsive-img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Flex helpers */
+.row { display: flex; gap: 12px; align-items: center; }
+.col { display: flex; flex-direction: column; gap: 8px; }
+.wrap { flex-wrap: wrap; }
+
+/* Message bubble specifics */
+.message-bubble {
+  max-width: 85%;
+  word-break: break-word;
+  line-height: 1.35;
+}
+
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Conversation list becomes horizontal on small screens */
+.conversation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Make the conversation list scroll horizontally on mobile */
+@media (max-width: 600px) {
+  .conversation-list { flex-direction: row; overflow-x: auto; gap: 10px; padding: 8px; }
+  .sidebar { display: none; }
+  .main-content { padding: 10px; }
+  .post-card, .comment-item { padding: 10px; }
+  .message-bubble { max-width: 100%; padding: 8px; font-size: 14px; }
+  .header .search-bar { display: none; }
+}
+
+@media (max-width: 900px) {
+  .two-column { display: block; }
+  .left-column, .right-column { width: 100%; }
+  .sidebar { width: 56px; }
+}
+
+/* Compact text utility */
+.muted { color: var(--muted-color); }
+
+.desktop-only { display: block; }
+.mobile-only { display: none; }
+
+@media (max-width: 600px) {
+  .desktop-only { display: none; }
+  .mobile-only { display: block; }
+}
+
+/* Ensure wide embeds and videos fit */
+.embed-responsive, .video-player { width: 100%; max-width: 100%; height: auto; }

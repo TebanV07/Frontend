@@ -7,13 +7,12 @@ import { Post } from '../models/post.model';
 export interface CreatePostRequest {
   content: string;
   target_language?: string;
-  video_url?: string;
+  // Si se ha subido un video mediante /videos, pasar el ID aquí.
+  video_id?: number;
 }
 
-export interface CreatePostResponse {
-  post: Post;
-  message: string;
-}
+// el endpoint de creación de posts devuelve directamente el objeto Post
+export type CreatePostResponse = Post;
 
 export interface GetPostsResponse {
   data: Post[];
@@ -63,11 +62,11 @@ export class PostsService {
    */
   private getAuthHeaders(): HttpHeaders {
     let token = '';
-    
+
     if (this.isBrowser) {
       token = localStorage.getItem('access_token') || '';
     }
-    
+
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
@@ -79,11 +78,11 @@ export class PostsService {
    */
   private getAuthHeadersForFormData(): HttpHeaders {
     let token = '';
-    
+
     if (this.isBrowser) {
       token = localStorage.getItem('access_token') || '';
     }
-    
+
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -93,6 +92,7 @@ export class PostsService {
    * Crear un nuevo post
    */
   createPost(postData: CreatePostRequest): Observable<CreatePostResponse> {
+    // backend acepta video_id dentro del cuerpo JSON
     return this.http.post<CreatePostResponse>(
       `${this.apiUrl}/posts`,
       postData,
@@ -100,23 +100,77 @@ export class PostsService {
     );
   }
 
-  createVideo(title: string, videoFile: File, description?: string, targetLanguage?: string): Observable<VideoResponse> {
+  // ==================== MÉTODO PARA UPLOAD INTELIGENTE ====================
+  smartUpload(
+    file: File,
+    content?: string,
+    title?: string,
+    description?: string,
+    originalLanguage: string = 'es',
+    category?: string,
+    tags?: string[],
+    isPublic: boolean = true
+  ): Observable<any> {
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('video_file', videoFile);
-    if (description) {
-      formData.append('description', description);
-    }
-    if (targetLanguage) {
-      formData.append('target_language', targetLanguage);
-    }
+    formData.append('file', file, file.name);
+    if (content !== undefined) formData.append('content', content);
+    if (title) formData.append('title', title);
+    if (description) formData.append('description', description);
+    formData.append('original_language', originalLanguage);
+    formData.append('is_public', String(isPublic));
+    if (category) formData.append('category', category);
+    if (tags && tags.length > 0) formData.append('tags', JSON.stringify(tags));
 
-    return this.http.post<VideoResponse>(
-      `${this.apiUrl}/videos/`,
+    return this.http.post<any>(
+      `${this.apiUrl}/upload`,
       formData,
       { headers: this.getAuthHeadersForFormData() }
     );
   }
+
+  // ==================== MÉTODO CORREGIDO ====================
+
+createVideo(
+  videoFile: File,
+  title?: string,
+  description?: string,
+  originalLanguage: string = 'es',
+  category?: string,
+  tags?: string[],
+  isPublic: boolean = true
+): Observable<VideoResponse> {
+  const formData = new FormData();
+
+  // Campo REQUERIDO con el nombre exacto que espera el backend
+  formData.append('video_file', videoFile, videoFile.name);
+
+  // Campos opcionales
+  if (title) formData.append('title', title);
+  if (description) formData.append('description', description);
+
+  // Campos REQUERIDOS con defaults
+  formData.append('original_language', originalLanguage);
+  formData.append('is_public', String(isPublic));
+
+  // Campos opcionales adicionales
+  if (category) formData.append('category', category);
+  if (tags && tags.length > 0) formData.append('tags', JSON.stringify(tags));
+
+  console.log('📤 Enviando FormData:', {
+    video_file: videoFile.name,
+    size: `${(videoFile.size / 1024 / 1024).toFixed(2)} MB`,
+    title,
+    description,
+    original_language: originalLanguage,
+    is_public: isPublic
+  });
+
+  return this.http.post<VideoResponse>(
+    `${this.apiUrl}/videos/`,
+    formData,
+    { headers: this.getAuthHeadersForFormData() }
+  );
+}
 
   // 👇 NUEVA FUNCIÓN: Obtener video por ID
   /**
@@ -264,6 +318,31 @@ export class PostsService {
   }
 
   /**
+   * Actualizar un post (puede incluir contenido, tags o visibilidad)
+   * Se envía como FormData porque el backend acepta form-data.
+   */
+  updatePost(
+    postId: string,
+    params: { content?: string; tags?: string[]; is_public?: boolean }
+  ): Observable<Post> {
+    const form = new FormData();
+    if (params.content !== undefined) {
+      form.append('content', params.content);
+    }
+    if (params.tags !== undefined) {
+      form.append('tags', JSON.stringify(params.tags));
+    }
+    if (params.is_public !== undefined) {
+      form.append('is_public', String(params.is_public));
+    }
+    return this.http.put<Post>(
+      `${this.apiUrl}/posts/${postId}`,
+      form,
+      { headers: this.getAuthHeadersForFormData() }
+    );
+  }
+
+  /**
    * Obtener posts de un usuario específico
    */
   getUserPosts(userId: number, page: number = 1, pageSize: number = 10): Observable<GetPostsResponse> {
@@ -306,8 +385,8 @@ export class PostsService {
     );
   }
   createPostWithMedia(
-  content: string, 
-  images?: File[], 
+  content: string,
+  images?: File[],
   video?: File,
   targetLanguage?: string,
   tags?: string[],
@@ -316,32 +395,32 @@ export class PostsService {
   country?: string
 ): Observable<Post> {
   const formData = new FormData();
-  
+
   // Contenido
   formData.append('content', content);
-  
+
   // Idioma
   if (targetLanguage) {
     formData.append('target_language', targetLanguage);
   }
-  
+
   // Múltiples imágenes
   if (images && images.length > 0) {
     images.forEach(image => {
       formData.append('images', image);
     });
   }
-  
+
   // Video
   if (video) {
     formData.append('video', video);
   }
-  
+
   // Tags (como JSON string)
   if (tags && tags.length > 0) {
     formData.append('tags', JSON.stringify(tags));
   }
-  
+
   // Location
   if (locationName) {
     formData.append('location_name', locationName);
@@ -352,7 +431,7 @@ export class PostsService {
   if (country) {
     formData.append('country', country);
   }
-  
+
   return this.http.post<Post>(
     `${this.apiUrl}/posts/`,
     formData,
@@ -383,10 +462,23 @@ sharePost(postId: number): Observable<any> {
 translatePost(postId: number, targetLanguage: string, forceRetranslate = false): Observable<any> {
   return this.http.post(
     `${this.apiUrl}/translations/posts/${postId}`,
-    { 
+    {
       target_language: targetLanguage,
       force_retranslate: forceRetranslate
     },
+    { headers: this.getAuthHeaders() }
+  );
+}
+deletePost(postId: string): Observable<void> {
+  return this.http.delete<void>(
+    `${this.apiUrl}/posts/${postId}`,
+    { headers: this.getAuthHeadersForFormData() }
+  );
+}
+reportPost(postId: number, reason: string, description?: string): Observable<any> {
+  return this.http.post(
+    `${this.apiUrl}/reports`,
+    { content_type: 'post', content_id: postId, reason, description },
     { headers: this.getAuthHeaders() }
   );
 }

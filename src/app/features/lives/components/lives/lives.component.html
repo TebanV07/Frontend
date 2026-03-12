@@ -1,8 +1,10 @@
+
+    <app-header></app-header>
     <div class="lives-container">
       <div class="lives-sidebar">
-        <div class="sidebar-header"><h2>En Vivo</h2></div>
+        <div class="sidebar-header"><h2>{{ 'lives.title' | translate }}</h2></div>
         <div class="live-list">
-          <div *ngFor="let live of liveStreams" 
+          <div *ngFor="let live of liveStreams"
                class="live-item"
                [class.active]="selectedLive?.id === live.id"
                (click)="selectLive(live)">
@@ -19,14 +21,14 @@
       <div class="live-player" *ngIf="selectedLive">
         <div class="stream" [style.background-image]="'url(' + selectedLive.thumbnailUrl + ')'">
           <div class="stream-info">
-            <span class="live-badge">LIVE</span>
+            <span class="live-badge">{{ 'lives.live' | translate }}</span>
             <span class="viewers">👁 {{ formatNumber(selectedLive.viewers) }}</span>
           </div>
         </div>
       </div>
 
       <div class="live-chat" *ngIf="selectedLive">
-        <div class="chat-header"><h3>Chat</h3></div>
+        <div class="chat-header"><h3>{{ 'lives.chat' | translate }}</h3></div>
         <div class="chat-messages">
           <div *ngFor="let msg of chatMessages" class="message">
             <img [src]="msg.avatar" [alt]="msg.username" class="avatar">
@@ -37,8 +39,8 @@
           </div>
         </div>
         <div class="chat-input">
-          <input [(ngModel)]="newMessage" placeholder="Say something..." (keyup.enter)="sendMessage()">
-          <button (click)="sendMessage()">Send</button>
+          <input [(ngModel)]="newMessage" [placeholder]="'lives.say' | translate" (keyup.enter)="sendMessage()">
+          <button (click)="sendMessage()">{{ 'lives.send' | translate }}</button>
         </div>
       </div>
     </div>

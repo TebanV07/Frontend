@@ -1,0 +1,51 @@
+<div class="follow-requests-container">
+  <div class="header">
+    <h3>{{ 'explore.followRequests.title' | translate }}</h3>
+    <span class="count-badge" *ngIf="requests.length > 0">{{ requests.length }}</span>
+  </div>
+
+  <div class="requests-list">
+    <div *ngFor="let request of requests" class="request-card">
+      <img
+        [src]="request.follower?.avatar || 'assets/default-avatar.png'"
+        [alt]="request.follower?.username"
+        class="user-avatar"
+        [routerLink]="['/profile', request.follower?.username]">
+
+      <div class="user-info">
+        <h4 [routerLink]="['/profile', request.follower?.username]">
+          {{ getDisplayName(request) }}
+        </h4>
+        <p class="username">{{ '@' + request.follower?.username }}</p>
+      </div>
+
+      <div class="actions">
+        <button
+          class="accept-btn"
+          [disabled]="isProcessing[request.id]"
+          (click)="acceptRequest(request)">
+          {{ isProcessing[request.id] ? '...' : ('explore.followRequests.accept' | translate) }}
+        </button>
+        <button
+          class="reject-btn"
+          [disabled]="isProcessing[request.id]"
+          (click)="rejectRequest(request)">
+          {{ isProcessing[request.id] ? '...' : ('explore.followRequests.reject' | translate) }}
+        </button>
+      </div>
+    </div>
+
+    <div class="no-requests" *ngIf="requests.length === 0">
+      <div class="empty-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="8.5" cy="7" r="4"/>
+          <line x1="20" y1="8" x2="20" y2="14"/>
+          <line x1="23" y1="11" x2="17" y2="11"/>
+        </svg>
+      </div>
+      <h4>{{ 'explore.followRequests.noPending.title' | translate }}</h4>
+      <p>{{ 'explore.followRequests.noPending.subtitle' | translate }}</p>
+    </div>
+  </div>
+</div>

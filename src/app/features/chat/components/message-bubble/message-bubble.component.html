@@ -1,42 +1,129 @@
-<div 
-  class="message-wrapper"
-  [class.sent]="isSent"
-  [class.received]="!isSent">
-  
-  <div class="message">
-    <div class="bubble">
-      <!-- Texto principal (traducido si existe, sino original) -->
-      <div class="text">
-        {{ message.translatedContent && message.aiTranslated ? message.translatedContent : message.content }}
-      </div>
-      
-      <!-- Texto original cuando está traducido -->
-      <div class="original-text" *ngIf="message.translatedContent && message.aiTranslated">
-        <span class="translation-label">Original ({{ message.originalLanguage }}):</span>
-        <span class="original-content">{{ message.content }}</span>
-      </div>
-      
-      <!-- Footer del mensaje -->
-      <div class="message-footer">
-        <span class="time">{{ getFormattedTime(message.timestamp) }}</span>
-        <span class="ai-badge" *ngIf="message.aiTranslated" title="Traducido por IA">🤖</span>
-        <span class="status-indicator" *ngIf="isSent">
-          {{ message.isRead ? '✓✓' : '✓' }}
-        </span>
-      </div>
-    </div>
-    
-    <!-- Botón de traducción (solo para mensajes recibidos) -->
-    <button 
-      *ngIf="!isSent" 
-      class="translate-btn" 
-      (click)="onTranslate()" 
-      [class.translating]="message.isTranslating"
-      [class.translated]="message.aiTranslated"
-      title="Traducir mensaje">
-      <span class="translate-icon">
-        {{ message.isTranslating ? '⏳' : (message.aiTranslated ? '✓' : '🌐') }}
-      </span>
-    </button>
+<div class="message-bubble" [ngClass]="{'sent': isSent, 'received': !isSent}"
+     (mousedown)="onMouseDown()" (mouseup)="onMouseUp()"
+     (touchstart)="onTouchStart()" (touchend)="onTouchEnd()"
+     (contextmenu)="onContextMenu($event)">
+
+  <!-- Menú de acciones (long press / clic derecho) -->
+  <div class="action-menu" *ngIf="showActions">
+    <button *ngIf="isSent" (click)="actionEdit()" class="action-item">✏️ {{ 'chat.bubble.edit' | translate }}</button>
+    <button (click)="actionDeleteForMe()" class="action-item">🗑️ {{ 'chat.bubble.deleteForMe' | translate }}</button>
+    <button (click)="actionDeleteForAll()" class="action-item">🚫 {{ 'chat.bubble.delete' | translate }}</button>
+    <button (click)="actionForward()" class="action-item">🔁 {{ 'chat.bubble.forward' | translate }}</button>
+    <button (click)="actionShare()" class="action-item">📤 {{ 'chat.bubble.share' | translate }}</button>
+    <button (click)="closeActions()" class="action-item close">✖️ {{ 'common.close' | translate }}</button>
   </div>
+
+  <!-- Contenedor del mensaje -->
+  <div class="message-content">
+
+    <!-- ✅ FIX: eliminada condición has_media para que funcione con URLs locales -->
+    <div *ngIf="message.media_urls?.length" class="media-container">
+      <ng-container *ngFor="let url of message.media_urls">
+        <img *ngIf="message.media_type === 'image'" [src]="url" class="media-image" (error)="$any($event.target).style.display='none'">
+        <video *ngIf="message.media_type === 'video'" [src]="url" controls class="media-video"></video>
+        <audio *ngIf="message.media_type === 'audio'" [src]="url" controls class="media-audio"></audio>
+        <a *ngIf="message.media_type === 'file'" [href]="url" target="_blank" class="file-link">📎 Archivo adjunto</a>
+      </ng-container>
+    </div>
+
+    <!-- ✅ FIX: eliminado el bloque .message-header con avatar (solo queda en el sidebar) -->
+
+    <!-- Controles de edición/eliminación (para mensajes propios) -->
+    <div class="message-controls" *ngIf="isSent && !message.media_urls?.length">
+      <button class="ctrl-btn edit" (click)="startEdit()" [title]="'chat.bubble.edit' | translate">✏️</button>
+      <button class="ctrl-btn delete" (click)="deleteMessage()" [title]="'chat.bubble.delete' | translate">🗑️</button>
+    </div>
+
+    <!-- Texto o formulario de edición del mensaje -->
+    <div class="message-text" *ngIf="message.content">
+      <ng-container *ngIf="!isEditing; else editForm">
+        <!-- Mostrar siempre el texto original -->
+        <p>{{ message.content }}</p>
+
+        <!-- Lista de idiomas traducidos guardados -->
+        <div class="translation-langs" *ngIf="translationLanguages.length > 0">
+          <span
+            *ngFor="let lang of translationLanguages"
+            class="saved-lang"
+            [class.selected]="currentTranslationLang === lang"
+            (click)="selectTranslation(lang)">
+            {{ lang.toUpperCase() }}
+          </span>
+        </div>
+
+        <!-- Mostrar traducción debajo si está activada y disponible -->
+        <p *ngIf="showTranslation && translatedContent" class="translated-text">
+          {{ translatedContent }}
+        </p>
+      </ng-container>
+
+      <ng-template #editForm>
+        <textarea [(ngModel)]="editContent" class="edit-textarea"></textarea>
+        <div class="edit-actions">
+          <button (click)="saveEdit()" class="save-btn">{{ 'common.save' | translate }}</button>
+          <button (click)="cancelEdit()" class="cancel-btn">{{ 'common.cancel' | translate }}</button>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Indicador de traducción (solo si existe traducción) -->
+    <div
+      *ngIf="hasTranslation()"
+      class="translation-indicator"
+      (click)="toggleTranslationView()"
+      role="button"
+      tabindex="0"
+      [attr.aria-label]="showTranslation ? 'Ver mensaje original' : 'Ver traducción'">
+      <span class="icon">🌐</span>
+      <span class="text">{{ showTranslation ? 'Ocultar traducción' : 'Mostrar traducción' }}</span>
+    </div>
+
+    <!-- Hora y estado del mensaje -->
+    <div class="message-time">
+      {{ getMessageTime() }}
+      <span *ngIf="isSent && message.is_read" class="read-indicator" title="Leído">✓✓</span>
+      <span *ngIf="isSent && !message.is_read" class="unread-indicator" title="Enviado">✓</span>
+    </div>
+  </div>
+
+  <!-- Botón de traducción (solo para mensajes recibidos) -->
+  <div class="message-actions" *ngIf="!isSent">
+    <button
+      class="translate-btn"
+      (click)="toggleLanguageMenu()"
+      [disabled]="isTranslating"
+      [class.active]="showLanguageMenu"
+      [title]="'chat.bubble.translate' | translate"
+      type="button"
+      [attr.aria-label]="'chat.bubble.translate' | translate">
+      <span *ngIf="!isTranslating">🌐</span>
+      <span *ngIf="isTranslating" class="spinner">⏳</span>
+    </button>
+
+    <!-- Menú desplegable de idiomas -->
+    <div
+      class="language-menu"
+      *ngIf="showLanguageMenu"
+      role="menu"
+      aria-label="Seleccionar idioma">
+      <div class="language-menu-header">Traducir a:</div>
+      <button
+        *ngFor="let lang of availableLanguages"
+        class="language-option"
+        (click)="onTranslate(lang.code)"
+        type="button"
+        role="menuitem"
+        [attr.aria-label]="'Traducir a ' + lang.name">
+        <span class="flag" aria-hidden="true">{{ lang.flag }}</span>
+        <span class="name">{{ lang.name }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mensaje de error de traducción -->
+  <div *ngIf="translationError" class="translation-error" role="alert">
+    <span class="icon" aria-hidden="true">⚠️</span>
+    <span class="text">{{ translationError }}</span>
+  </div>
+
 </div>

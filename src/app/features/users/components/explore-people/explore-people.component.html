@@ -1,0 +1,171 @@
+<div class="explore-people-container">
+  <div class="page-header">
+    <h1>{{ 'explore.title' | translate }}</h1>
+    <p>{{ 'explore.subtitle' | translate }}</p>
+  </div>
+
+  <!-- Barra de búsqueda -->
+  <div class="search-section">
+    <div class="search-box">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (keyup.enter)="onSearch()"
+        [placeholder]="'explore.search.placeholder' | translate"
+        class="search-input">
+      <button
+        *ngIf="searchQuery"
+        class="clear-btn"
+        (click)="clearSearch()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <button class="search-btn" (click)="onSearch()" [disabled]="isSearching">
+      {{ isSearching ? ('explore.search.searching' | translate) : ('explore.search.button' | translate) }}
+    </button>
+  </div>
+
+  <!-- Filtro por país -->
+  <div class="country-filter-section">
+    <label for="country-filter">{{ 'explore.filters.byCountry' | translate }}</label>
+    <select
+      id="country-filter"
+      class="country-filter-select"
+      [(ngModel)]="selectedCountry"
+      (change)="onCountryChange()">
+      <option value="ALL">{{ 'explore.filters.allCountries' | translate }}</option>
+      <option
+        *ngFor="let country of availableCountries"
+        [value]="country.country_code">
+        {{ country.country_name }} ({{ country.users_count }})
+      </option>
+    </select>
+  </div>
+
+  <div
+    *ngIf="actionFeedback"
+    class="feedback-message"
+    [class.error]="actionFeedbackType === 'error'">
+    {{ actionFeedback }}
+  </div>
+
+  <!-- Resultados de búsqueda -->
+  <div class="search-results" *ngIf="hasSearched">
+    <h3 *ngIf="searchResults.length > 0">{{ 'explore.search.results' | translate: { count: searchResults.length } }}</h3>
+    <div class="results-grid">
+      <div *ngFor="let user of searchResults" class="user-card">
+        <img
+          [src]="user.avatar || 'assets/default-avatar.png'"
+          [alt]="user.username"
+          class="user-avatar"
+          [routerLink]="['/profile', user.username]">
+        <h4 [routerLink]="['/profile', user.username]">{{ getDisplayName(user) }}</h4>
+        <p class="username">{{ '@' + user.username }}</p>
+        <p class="bio" *ngIf="user.bio">{{ user.bio }}</p>
+        <p class="country">{{ getCountryLabel(user) }}</p>
+
+        <div class="user-actions">
+          <button
+            class="follow-btn"
+            [class.following]="user.isFollowing"
+            [class.pending]="user.isPendingRequest"
+            [disabled]="actionLoading['follow-' + user.id]"
+            (click)="toggleFollow(user, $event)">
+            {{ getFollowButtonText(user) | translate }}
+          </button>
+          <button
+            class="talk-btn"
+            [disabled]="actionLoading['talk-' + user.id]"
+            (click)="requestConversation(user, $event)">
+            {{ 'explore.actions.talk' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="no-results" *ngIf="searchResults.length === 0 && !isSearching">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      <h3>{{ 'explore.search.noResults.title' | translate }}</h3>
+      <p>{{ 'explore.search.noResults.subtitle' | translate }}</p>
+    </div>
+  </div>
+
+  <!-- Explore people por país -->
+  <div class="country-groups-section">
+    <div class="country-groups-header">
+      <h3>{{ 'explore.byCountry.title' | translate }}</h3>
+      <span class="groups-count" *ngIf="!isLoadingExplore">{{ countryGroups.length }} {{ 'explore.byCountry.countries' | translate }}</span>
+    </div>
+
+    <div class="loading-country" *ngIf="isLoadingExplore">
+      {{ 'common.loading' | translate }}
+    </div>
+
+    <ng-container *ngIf="!isLoadingExplore && countryGroups.length > 0">
+      <div class="country-group" *ngFor="let group of countryGroups">
+        <div class="country-group-title">
+          <h4>{{ group.country_name }}</h4>
+          <span>{{ group.users_count }}</span>
+        </div>
+
+        <div class="results-grid">
+          <div *ngFor="let user of group.users" class="user-card">
+            <img
+              [src]="user.avatar || 'assets/default-avatar.png'"
+              [alt]="user.username"
+              class="user-avatar"
+              [routerLink]="['/profile', user.username]">
+            <h4 [routerLink]="['/profile', user.username]">{{ getDisplayName(user) }}</h4>
+            <p class="username">{{ '@' + user.username }}</p>
+            <p class="bio" *ngIf="user.bio">{{ user.bio }}</p>
+
+            <div class="user-actions">
+              <button
+                class="follow-btn"
+                [class.following]="user.isFollowing"
+                [class.pending]="user.isPendingRequest"
+                [disabled]="actionLoading['follow-' + user.id]"
+                (click)="toggleFollow(user, $event)">
+                {{ getFollowButtonText(user) | translate }}
+              </button>
+              <button
+                class="talk-btn"
+                [disabled]="actionLoading['talk-' + user.id]"
+                (click)="requestConversation(user, $event)">
+                {{ 'explore.actions.talk' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="no-results" *ngIf="!isLoadingExplore && countryGroups.length === 0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      <h3>{{ 'explore.byCountry.emptyTitle' | translate }}</h3>
+      <p>{{ 'explore.byCountry.emptySubtitle' | translate }}</p>
+    </div>
+  </div>
+
+  <!-- Solicitudes de seguimiento -->
+  <div class="section">
+    <app-follow-requests></app-follow-requests>
+  </div>
+
+  <!-- Sugerencias -->
+  <div class="section">
+    <app-suggested-users></app-suggested-users>
+  </div>
+</div>

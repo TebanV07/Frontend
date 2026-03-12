@@ -1,0 +1,27 @@
+<div class="verify-container">
+
+      <!-- Loading -->
+      <div class="verify-card" *ngIf="status === 'loading'">
+        <div class="spinner-lg"></div>
+        <p class="card-msg">{{ 'verify.loading' | translate }}</p>
+      </div>
+
+      <!-- Success -->
+      <div class="verify-card success" *ngIf="status === 'success'">
+        <div class="card-icon">✅</div>
+        <h2>{{ 'verify.success.title' | translate }}</h2>
+        <p class="card-msg">
+          {{ 'verify.success.message' | translate }}
+        </p>
+        <a routerLink="/home" class="btn-home">{{ 'verify.success.goHome' | translate }}</a>
+      </div>
+
+      <!-- Error -->
+      <div class="verify-card error" *ngIf="status === 'error'">
+        <div class="card-icon">❌</div>
+        <h2>{{ 'verify.error.title' | translate }}</h2>
+        <p class="card-msg">{{ errorMsg }}</p>
+        <a [routerLink]="retryRoute" class="btn-home">{{ 'verify.error.requestNew' | translate }}</a>
+      </div>
+
+    </div>

@@ -1,310 +1,243 @@
+$yellow: #fbbf24;
+$yellow-dim: rgba(251, 191, 36, 0.12);
+$bg: #0d0d14;
+$border: rgba(251, 191, 36, 0.1);
+$text-primary: #f1f5f9;
+$text-secondary: #94a3b8;
+$text-muted: #64748b;
+
 .profile-header {
   position: relative;
-  margin-bottom: 2.5rem;
+  margin-bottom: 0;
+}
 
-  .header-background {
-    width: 100%;
-    height: 240px;
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+// ===== COVER =====
+.cover-area {
+  height: 160px;
+  background: linear-gradient(135deg, #0d0d14 0%, #1a1020 40%, #0d1020 100%);
+  position: relative;
+  overflow: hidden;
 
-    .animated-gradient {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        45deg,
-        rgba(59, 130, 246, 0.3),
-        rgba(139, 92, 246, 0.3),
-        rgba(236, 72, 153, 0.3)
-      );
-      background-size: 200% 200%;
-      animation: gradient 15s ease infinite;
-    }
+  .cover-gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 20% 50%, rgba(251,191,36,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 80% 30%, rgba(251,191,36,0.05) 0%, transparent 60%);
+  }
+}
 
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: 
-        radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
-    }
+// ===== HEADER BODY =====
+.header-body {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0 2rem 1.5rem;
+  align-items: flex-start;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 0 1rem 1.5rem;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+// ===== AVATAR =====
+.avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+  margin-top: -48px;
+
+  .avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 3px solid $yellow;
+    object-fit: cover;
+    background: #1a1a26;
+    box-shadow: 0 0 0 4px rgba(251,191,36,0.12), 0 8px 24px rgba(0,0,0,0.5);
   }
 
-  @keyframes gradient {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
-  .profile-info-section {
+  .verified-badge {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 24px;
+    height: 24px;
+    background: $yellow;
+    border-radius: 50%;
+    border: 2px solid #0d0d14;
     display: flex;
-    padding: 0 2.5rem 2.5rem;
-    gap: 2.5rem;
-    position: relative;
-    z-index: 2;
-    margin-top: -100px;
+    align-items: center;
+    justify-content: center;
+    color: #0a0a0f;
+  }
+}
 
-    @media (max-width: 968px) {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 0 1.5rem 2rem;
-      margin-top: -80px;
+// ===== INFO =====
+.header-info {
+  flex: 1;
+  min-width: 0;
+  padding-top: 0.5rem;
+}
+
+.name-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.names {
+  .full-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: $text-primary;
+    margin: 0 0 0.2rem;
+    line-height: 1.2;
+  }
+  .username {
+    color: $text-muted;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+}
+
+// ===== ACCIONES =====
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) { justify-content: center; }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  letter-spacing: 0.01em;
+
+  &-primary {
+    background: $yellow;
+    color: #0a0a0f;
+    border-color: $yellow;
+
+    &:hover {
+      background: #f59e0b;
+      box-shadow: 0 4px 16px rgba(251,191,36,0.3);
+      transform: translateY(-1px);
+    }
+  }
+
+  &-outline {
+    background: transparent;
+    color: $yellow;
+    border-color: rgba(251,191,36,0.4);
+
+    &:hover {
+      background: $yellow-dim;
+      border-color: $yellow;
+    }
+  }
+
+  &-icon {
+    background: rgba(255,255,255,0.05);
+    color: $text-secondary;
+    border-color: $border;
+    padding: 0.5rem;
+
+    &:hover {
+      color: $yellow;
+      border-color: rgba(251,191,36,0.3);
+      background: $yellow-dim;
+    }
+  }
+}
+
+// ===== BIO =====
+.bio {
+  color: $text-secondary;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: 0 0 0.75rem;
+  max-width: 600px;
+}
+
+// ===== META =====
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  @media (max-width: 768px) { justify-content: center; }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: $text-muted;
+    font-size: 0.82rem;
+
+    svg { flex-shrink: 0; opacity: 0.7; }
+
+    a {
+      color: $yellow;
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+  }
+}
+
+// ===== STATS =====
+.stats-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+
+  @media (max-width: 768px) { justify-content: center; }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+
+    .stat-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: $yellow;
+      line-height: 1;
     }
 
-    .profile-avatar {
-      position: relative;
-      flex-shrink: 0;
-
-      .avatar-ring {
-        position: absolute;
-        inset: -8px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
-        opacity: 0.6;
-        filter: blur(12px);
-        animation: pulse 3s ease-in-out infinite;
-      }
-
-      @keyframes pulse {
-        0%, 100% { opacity: 0.6; transform: scale(1); }
-        50% { opacity: 0.8; transform: scale(1.05); }
-      }
-
-      img {
-        position: relative;
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        border: 6px solid rgba(15, 23, 42, 0.98);
-        object-fit: cover;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        transition: transform 0.3s ease;
-
-        &:hover {
-          transform: scale(1.05);
-        }
-
-        @media (max-width: 968px) {
-          width: 140px;
-          height: 140px;
-        }
-      }
+    .stat-label {
+      font-size: 0.75rem;
+      color: $text-muted;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
+  }
 
-    .profile-details {
-      flex: 1;
-      min-width: 0;
-
-      .profile-header-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 1rem;
-        gap: 1rem;
-
-        @media (max-width: 968px) {
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .profile-name {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          flex-wrap: wrap;
-
-          h1 {
-            margin: 0;
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
-            font-weight: 700;
-            background: linear-gradient(135deg, #fff, #cbd5e1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-          }
-
-          .verified-badge {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-
-            svg {
-              width: 18px;
-              height: 18px;
-            }
-          }
-        }
-
-        .profile-actions {
-          display: flex;
-          gap: 0.75rem;
-          flex-wrap: wrap;
-
-          @media (max-width: 968px) {
-            justify-content: center;
-          }
-
-          .action-btn {
-            background: rgba(30, 41, 59, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #cbd5e1;
-
-            &:hover {
-              background: rgba(51, 65, 85, 0.9);
-              border-color: rgba(148, 163, 184, 0.2);
-              transform: translateY(-2px);
-              box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            }
-
-            &:active {
-              transform: translateY(0);
-            }
-          }
-
-          .follow-btn, .edit-btn {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            border: none;
-            border-radius: 24px;
-            padding: 0.75rem 2rem;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-
-            &:hover {
-              transform: translateY(-2px);
-              box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
-            }
-
-            &:active {
-              transform: translateY(0);
-            }
-
-            &.following {
-              background: rgba(30, 41, 59, 0.8);
-              border: 1px solid rgba(148, 163, 184, 0.2);
-
-              &:hover {
-                background: rgba(220, 38, 38, 0.9);
-                border-color: rgba(220, 38, 38, 0.3);
-
-                .btn-text::after {
-                  content: 'Dejar de seguir';
-                }
-
-                .btn-text::before {
-                  content: '';
-                  display: none;
-                }
-              }
-            }
-          }
-        }
-      }
-
-      .profile-username {
-        color: #94a3b8;
-        font-size: 1.1rem;
-        margin-bottom: 1.5rem;
-        font-weight: 500;
-      }
-
-      .profile-stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 1.5rem;
-        padding: 1.5rem;
-        background: rgba(30, 41, 59, 0.5);
-        backdrop-filter: blur(10px);
-        border-radius: 16px;
-        border: 1px solid rgba(148, 163, 184, 0.1);
-
-        @media (max-width: 968px) {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 1rem;
-          padding: 1rem;
-        }
-
-        .stat-item {
-          display: flex;
-          flex-direction: column;
-          gap: 0.25rem;
-
-          .stat-value {
-            font-size: 1.75rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-          }
-
-          .stat-label {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 500;
-          }
-        }
-      }
-
-      .profile-bio {
-        color: #cbd5e1;
-        line-height: 1.6;
-        margin-bottom: 1.5rem;
-        font-size: 1rem;
-      }
-
-      .profile-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        color: #94a3b8;
-        font-size: 0.95rem;
-
-        @media (max-width: 968px) {
-          justify-content: center;
-        }
-
-        .meta-item {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          transition: color 0.3s ease;
-
-          &:hover {
-            color: #cbd5e1;
-          }
-
-          svg {
-            color: #64748b;
-          }
-        }
-      }
-    }
+  .stat-sep {
+    width: 1px;
+    height: 28px;
+    background: $border;
   }
 }

@@ -1,0 +1,192 @@
+$yellow: #f5c518;
+$yellow-bright: #ffd700;
+$yellow-glow: rgba(245, 197, 24, 0.3);
+$dark-bg: #111111;
+$dark-surface: #1c1c1c;
+$dark-card: #242424;
+$dark-border: #2e2e2e;
+$text-primary: #f0f0f0;
+$text-secondary: #a0a0a0;
+$text-muted: #5a5a5a;
+
+.suggested-users-container {
+  background: $dark-card;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid $dark-border;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.header {
+  margin-bottom: 20px;
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: $text-primary;
+  }
+}
+
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: $dark-surface;
+  }
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid $dark-border;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    border-color: $yellow;
+  }
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+
+  h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: $text-primary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $yellow;
+    }
+  }
+
+  .username {
+    margin: 2px 0;
+    font-size: 13px;
+    color: $text-secondary;
+  }
+
+  .bio {
+    margin: 4px 0 0 0;
+    font-size: 12px;
+    color: $text-secondary;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.4;
+  }
+
+  .mutual {
+    margin: 4px 0 0 0;
+    font-size: 12px;
+    color: $text-muted;
+  }
+}
+
+.follow-btn {
+  padding: 6px 16px;
+  background: $yellow;
+  color: $dark-bg;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background: $yellow-bright;
+    box-shadow: 0 4px 12px $yellow-glow;
+    transform: translateY(-1px);
+  }
+
+  &.following {
+    background: transparent;
+    color: $text-secondary;
+    border: 1px solid $dark-border;
+
+    &:hover {
+      border-color: $text-muted;
+      background: $dark-surface;
+      color: $text-primary;
+    }
+  }
+
+  &.pending {
+    background: transparent;
+    color: $text-muted;
+    border: 1px solid $dark-border;
+    cursor: default;
+
+    &:hover {
+      background: transparent;
+      border-color: $dark-border;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.no-suggestions {
+  text-align: center;
+  padding: 40px 20px;
+
+  .empty-icon {
+    margin-bottom: 16px;
+    color: $text-muted;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: $text-secondary;
+  }
+}
+
+.view-all-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 10px;
+  background: none;
+  border: 1px solid $dark-border;
+  color: $yellow;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: $dark-surface;
+    border-color: $yellow;
+    box-shadow: 0 0 8px $yellow-glow;
+  }
+}

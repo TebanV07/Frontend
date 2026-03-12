@@ -1,0 +1,485 @@
+﻿{
+    "brand":  {
+                  "name":  "TINKO",
+                  "tagline":  "AI-Powered Global Connection"
+              },
+    "auth":  {
+                 "login":  {
+                               "title":  "à¤µà¤¾à¤ªà¤¸à¥€ à¤ªà¤° à¤¸à¥à¤µà¤¾à¤—à¤¤ à¤¹à¥ˆ!",
+                               "subtitle":  "à¤…à¤ªà¤¨à¤¾ à¤µà¥ˆà¤¶à¥à¤µà¤¿à¤• à¤…à¤¨à¥à¤­à¤µ à¤œà¤¾à¤°à¥€ à¤°à¤–à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤ à¤²à¥‰à¤— à¤‡à¤¨ à¤•à¤°à¥‡à¤‚",
+                               "submit":  "à¤²à¥‰à¤— à¤‡à¤¨ à¤•à¤°à¥‡à¤‚",
+                               "submitting":  "à¤²à¥‰à¤— à¤‡à¤¨ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ...",
+                               "noAccount":  "à¤–à¤¾à¤¤à¤¾ à¤¨à¤¹à¥€à¤‚ à¤¹à¥ˆ?",
+                               "switchToRegister":  "à¤®à¥à¤«à¥à¤¤ à¤®à¥‡à¤‚ à¤¸à¤¾à¤‡à¤¨ à¤…à¤ª à¤•à¤°à¥‡à¤‚",
+                               "rememberMe":  "à¤®à¥à¤à¥‡ à¤¯à¤¾à¤¦ à¤°à¤–à¥‡à¤‚",
+                               "forgotPassword":  "à¤ªà¤¾à¤¸à¤µà¤°à¥à¤¡ à¤­à¥‚à¤² à¤—à¤?",
+                               "orContinueWith":  "à¤¯à¤¾ à¤‡à¤¸à¤¸à¥‡ à¤œà¤¾à¤°à¥€ à¤°à¤–à¥‡à¤‚",
+                               "google":  "Google"
+                           },
+                 "register":  {
+                                  "title":  "à¤•à¥à¤°à¤¾à¤‚à¤¤à¤¿ à¤®à¥‡à¤‚ à¤¶à¤¾à¤®à¤¿à¤² à¤¹à¥‹à¤‚!",
+                                  "subtitle":  "à¤­à¤¾à¤·à¤¾ à¤•à¥€ à¤¬à¤¾à¤§à¤¾à¤“à¤‚ à¤•à¥‡ à¤¬à¤¿à¤¨à¤¾ à¤¦à¥à¤¨à¤¿à¤¯à¤¾ à¤¸à¥‡ à¤œà¥à¤¡à¤¼à¥‡à¤‚",
+                                  "submit":  "à¤–à¤¾à¤¤à¤¾ à¤¬à¤¨à¤¾à¤à¤‚",
+                                  "submitting":  "à¤–à¤¾à¤¤à¤¾ à¤¬à¤¨ à¤°à¤¹à¤¾ à¤¹à¥ˆ...",
+                                  "hasAccount":  "à¤ªà¤¹à¤²à¥‡ à¤¸à¥‡ à¤–à¤¾à¤¤à¤¾ à¤¹à¥ˆ?",
+                                  "switchToLogin":  "à¤²à¥‰à¤— à¤‡à¤¨ à¤•à¤°à¥‡à¤‚",
+                                  "usernameHint":  "à¤¯à¤¦à¤¿ à¤¨à¤¹à¥€à¤‚ à¤­à¤°à¤¤à¥‡ à¤¹à¥ˆà¤‚, à¤¤à¥‹ à¤¸à¥à¤µà¤šà¤¾à¤²à¤¿à¤¤ à¤°à¥‚à¤ª à¤¸à¥‡ à¤¬à¤¨à¤¾à¤¯à¤¾ à¤œà¤¾à¤à¤—à¤¾",
+                                  "nativeLanguageHint":  "à¤®à¤¾à¤¤à¥ƒà¤­à¤¾à¤·à¤¾"
+                              },
+                 "fields":  {
+                                "firstName":  "à¤ªà¤¹à¤²à¤¾ à¤¨à¤¾à¤®",
+                                "lastName":  "à¤…à¤‚à¤¤à¤¿à¤® à¤¨à¤¾à¤®",
+                                "username":  "à¤‰à¤ªà¤¯à¥‹à¤—à¤•à¤°à¥à¤¤à¤¾ à¤¨à¤¾à¤® (à¤µà¥ˆà¤•à¤²à¥à¤ªà¤¿à¤•)",
+                                "email":  "à¤ˆà¤®à¥‡à¤² à¤ªà¤¤à¤¾",
+                                "password":  "à¤ªà¤¾à¤¸à¤µà¤°à¥à¤¡",
+                                "nativeLanguage":  "à¤®à¤¾à¤¤à¥ƒà¤­à¤¾à¤·à¤¾"
+                            },
+                 "features":  {
+                                  "title":  "ðŸš€ à¤†à¤ªà¤•à¤¾ à¤‡à¤‚à¤¤à¤œà¤¾à¤° à¤•à¥à¤¯à¤¾ à¤¹à¥ˆ:",
+                                  "videos":  "à¤°à¤¿à¤¯à¤² à¤Ÿà¤¾à¤‡à¤® à¤®à¥‡à¤‚ à¤…à¤¨à¥à¤µà¤¾à¤¦à¤¿à¤¤ à¤µà¥€à¤¡à¤¿à¤¯à¥‹",
+                                  "languages":  "24+ à¤­à¤¾à¤·à¤¾à¤“à¤‚ à¤®à¥‡à¤‚ à¤œà¥à¤¡à¤¼à¥‡à¤‚",
+                                  "ai":  "à¤‰à¤¨à¥à¤¨à¤¤ AI à¤…à¤¨à¥à¤µà¤¾à¤¦"
+                              }
+             },
+    "verify":  {
+                   "loading":  "à¤ˆà¤®à¥‡à¤² à¤¸à¤¤à¥à¤¯à¤¾à¤ªà¤¿à¤¤ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ...",
+                   "success":  {
+                                   "title":  "à¤ˆà¤®à¥‡à¤² à¤¸à¤¤à¥à¤¯à¤¾à¤ªà¤¿à¤¤!",
+                                   "message":  "à¤†à¤ªà¤•à¤¾ à¤–à¤¾à¤¤à¤¾ à¤¸à¤¤à¥à¤¯à¤¾à¤ªà¤¿à¤¤ à¤¹à¥‹ à¤—à¤¯à¤¾ à¤¹à¥ˆà¥¤ à¤¸à¤­à¥€ à¤¸à¥à¤µà¤¿à¤§à¤¾à¤“à¤‚ à¤•à¤¾ à¤†à¤¨à¤‚à¤¦ à¤²à¥‡à¤‚à¥¤",
+                                   "goHome":  "à¤¹à¥‹à¤® à¤ªà¤° à¤œà¤¾à¤à¤‚"
+                               },
+                   "error":  {
+                                 "title":  "à¤…à¤®à¤¾à¤¨à¥à¤¯ à¤²à¤¿à¤‚à¤•",
+                                 "requestNew":  "à¤¨à¤¯à¤¾ à¤²à¤¿à¤‚à¤• à¤…à¤¨à¥à¤°à¥‹à¤§ à¤•à¤°à¥‡à¤‚"
+                             }
+               },
+    "header":  {
+                   "search":  "à¤²à¥‹à¤—, à¤ªà¥‹à¤¸à¥à¤Ÿ à¤–à¥‹à¤œà¥‡à¤‚...",
+                   "nav":  {
+                               "home":  "à¤¹à¥‹à¤®",
+                               "trending":  "à¤Ÿà¥à¤°à¥‡à¤‚à¤¡à¤¿à¤‚à¤—",
+                               "videos":  "à¤µà¥€à¤¡à¤¿à¤¯à¥‹",
+                               "messages":  "à¤¸à¤‚à¤¦à¥‡à¤¶",
+                               "notifications":  "à¤¸à¥‚à¤šà¤¨à¤¾à¤à¤‚",
+                               "profile":  "à¤ªà¥à¤°à¥‹à¤«à¤¼à¤¾à¤‡à¤²",
+                               "settings":  "à¤¸à¥‡à¤Ÿà¤¿à¤‚à¤—à¥à¤¸"
+                           },
+                   "theme":  {
+                                 "light":  "à¤²à¤¾à¤‡à¤Ÿ à¤®à¥‹à¤¡",
+                                 "dark":  "à¤¡à¤¾à¤°à¥à¤• à¤®à¥‹à¤¡"
+                             },
+                   "menu":  "à¤®à¥‡à¤¨à¥‚"
+               },
+    "chat":  {
+                 "input":  {
+                               "placeholder":  "à¤¸à¤‚à¤¦à¥‡à¤¶ à¤²à¤¿à¤–à¥‡à¤‚...",
+                               "emojis":  "à¤‡à¤®à¥‹à¤œà¥€",
+                               "attach":  "à¤«à¤¼à¤¾à¤‡à¤² à¤¸à¤‚à¤²à¤—à¥à¤¨ à¤•à¤°à¥‡à¤‚",
+                               "camera":  "à¤«à¥‹à¤Ÿà¥‹ à¤²à¥‡à¤‚",
+                               "voice":  "à¤µà¥‰à¤¯à¤¸ à¤®à¥ˆà¤¸à¥‡à¤œ à¤°à¤¿à¤•à¥‰à¤°à¥à¤¡ à¤•à¤°à¥‡à¤‚",
+                               "send":  "à¤­à¥‡à¤œà¥‡à¤‚",
+                               "recording":  "à¤°à¤¿à¤•à¥‰à¤°à¥à¤¡ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ...",
+                               "stopRecording":  "à¤°à¥‹à¤•à¥‡à¤‚"
+                           },
+                 "window":  {
+                                "noName":  "à¤•à¥‹à¤ˆ à¤¨à¤¾à¤® à¤¨à¤¹à¥€à¤‚",
+                                "selectConversation":  "à¤¬à¤¾à¤¤à¤šà¥€à¤¤ à¤šà¥à¤¨à¥‡à¤‚",
+                                "selectConversationHint":  "à¤šà¥ˆà¤Ÿ à¤¶à¥à¤°à¥‚ à¤•à¤°à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤ à¤à¤• à¤¬à¤¾à¤¤à¤šà¥€à¤¤ à¤šà¥à¤¨à¥‡à¤‚",
+                                "uploading":  "à¤«à¤¼à¤¾à¤‡à¤² à¤…à¤ªà¤²à¥‹à¤¡ à¤¹à¥‹ à¤°à¤¹à¥€ à¤¹à¥ˆ...",
+                                "speaksLanguage":  "à¤¬à¥‹à¤²à¤¤à¤¾ à¤¹à¥ˆ "
+                            },
+                 "bubble":  {
+                                "edited":  "à¤¸à¤‚à¤ªà¤¾à¤¦à¤¿à¤¤",
+                                "edit":  "à¤¸à¤‚à¤ªà¤¾à¤¦à¤¿à¤¤ à¤•à¤°à¥‡à¤‚",
+                                "delete":  "à¤¹à¤Ÿà¤¾à¤à¤‚",
+                                "deleteForMe":  "à¤®à¥‡à¤°à¥‡ à¤²à¤¿à¤ à¤¹à¤Ÿà¤¾à¤à¤‚",
+                                "forward":  "à¤«à¥‰à¤°à¤µà¤°à¥à¤¡ à¤•à¤°à¥‡à¤‚",
+                                "share":  "à¤¸à¤¾à¤à¤¾ à¤•à¤°à¥‡à¤‚",
+                                "translate":  "à¤…à¤¨à¥à¤µà¤¾à¤¦ à¤•à¤°à¥‡à¤‚"
+                            }
+             },
+    "feed":  {
+                 "loading":  "à¤µà¥€à¤¡à¤¿à¤¯à¥‹ à¤²à¥‹à¤¡ à¤¹à¥‹ à¤°à¤¹à¥‡ à¤¹à¥ˆà¤‚...",
+                 "loadingMore":  "à¤”à¤° à¤µà¥€à¤¡à¤¿à¤¯à¥‹ à¤²à¥‹à¤¡ à¤¹à¥‹ à¤°à¤¹à¥‡ à¤¹à¥ˆà¤‚...",
+                 "empty":  {
+                               "title":  "à¤•à¥‹à¤ˆ à¤µà¥€à¤¡à¤¿à¤¯à¥‹ à¤‰à¤ªà¤²à¤¬à¥à¤§ à¤¨à¤¹à¥€à¤‚",
+                               "subtitle":  "AI à¤…à¤¨à¥à¤µà¤¾à¤¦ à¤•à¥‡ à¤¸à¤¾à¤¥ à¤ªà¤¹à¤²à¤¾ à¤µà¥€à¤¡à¤¿à¤¯à¥‹ à¤…à¤ªà¤²à¥‹à¤¡ à¤•à¤°à¥‡à¤‚",
+                               "upload":  "à¤µà¥€à¤¡à¤¿à¤¯à¥‹ à¤…à¤ªà¤²à¥‹à¤¡ à¤•à¤°à¥‡à¤‚"
+                           },
+                 "position":  "{{ current }} / {{ total }}",
+                 "aiActive":  "AI Translation Active",
+                 "aiDesc":  "All content automatically translated to your preferred language",
+                 "aiLanguages":  "Languages",
+                 "aiVideos":  "Videos",
+                 "suggestedTitle":  "People you may know",
+                 "suggestedSeeAll":  "See all",
+                 "suggestedFollowers":  "followers",
+                 "suggestedMutual":  "in common",
+                 "following":  "Following",
+                 "follow":  "Follow",
+                 "loadingPosts":  "Loading posts...",
+                 "noPosts":  "No posts yet",
+                 "noPostsSub":  "Be the first to share something!"
+             },
+    "videoPlayer":  {
+                        "loading":  "à¤µà¥€à¤¡à¤¿à¤¯à¥‹ à¤²à¥‹à¤¡ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ...",
+                        "error":  {
+                                      "title":  "à¤µà¥€à¤¡à¤¿à¤¯à¥‹ à¤²à¥‹à¤¡ à¤•à¤°à¤¨à¥‡ à¤®à¥‡à¤‚ à¤¤à¥à¤°à¥à¤Ÿà¤¿",
+                                      "subtitle":  "à¤¯à¤¹ à¤µà¥€à¤¡à¤¿à¤¯à¥‹ à¤¨à¤¹à¥€à¤‚ à¤šà¤²à¤¾ à¤¸à¤•à¤¾",
+                                      "retry":  "à¤ªà¥à¤¨à¤ƒ à¤ªà¥à¤°à¤¯à¤¾à¤¸ à¤•à¤°à¥‡à¤‚"
+                                  },
+                        "noSupport":  "à¤†à¤ªà¤•à¤¾ à¤¬à¥à¤°à¤¾à¤‰à¤œà¤¼à¤° à¤µà¥€à¤¡à¤¿à¤¯à¥‹ à¤Ÿà¥ˆà¤— à¤•à¤¾ à¤¸à¤®à¤°à¥à¤¥à¤¨ à¤¨à¤¹à¥€à¤‚ à¤•à¤°à¤¤à¤¾à¥¤"
+                    },
+    "comments":  {
+                     "title":  "à¤Ÿà¤¿à¤ªà¥à¤ªà¤£à¤¿à¤¯à¤¾à¤‚",
+                     "placeholder":  "à¤Ÿà¤¿à¤ªà¥à¤ªà¤£à¥€ à¤²à¤¿à¤–à¥‡à¤‚...",
+                     "submit":  "ðŸ’¬ à¤Ÿà¤¿à¤ªà¥à¤ªà¤£à¥€ à¤•à¤°à¥‡à¤‚",
+                     "submitting":  "à¤ªà¥‹à¤¸à¥à¤Ÿ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ...",
+                     "loading":  "à¤²à¥‹à¤¡ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ...",
+                     "empty":  "à¤ªà¤¹à¤²à¥€ à¤Ÿà¤¿à¤ªà¥à¤ªà¤£à¥€ à¤•à¤°à¥‡à¤‚",
+                     "loadMore":  "â†“ à¤”à¤° à¤Ÿà¤¿à¤ªà¥à¤ªà¤£à¤¿à¤¯à¤¾à¤‚ à¤¦à¥‡à¤–à¥‡à¤‚",
+                     "loadingMore":  "à¤²à¥‹à¤¡ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ...",
+                     "reply":  "à¤œà¤µà¤¾à¤¬ à¤¦à¥‡à¤‚",
+                     "replying":  "à¤ªà¥‹à¤¸à¥à¤Ÿ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ...",
+                     "cancel":  "à¤°à¤¦à¥à¤¦ à¤•à¤°à¥‡à¤‚",
+                     "save":  "à¤¸à¤¹à¥‡à¤œà¥‡à¤‚",
+                     "edit":  "âœï¸ à¤¸à¤‚à¤ªà¤¾à¤¦à¤¿à¤¤ à¤•à¤°à¥‡à¤‚",
+                     "delete":  "ðŸ—‘ï¸ à¤¹à¤Ÿà¤¾à¤à¤‚",
+                     "edited":  "Â· à¤¸à¤‚à¤ªà¤¾à¤¦à¤¿à¤¤",
+                     "replyTo":  "@ à¤•à¥‹ à¤œà¤µà¤¾à¤¬ à¤¦à¥‡à¤‚",
+                     "replies":  {
+                                     "one":  "à¤œà¤µà¤¾à¤¬",
+                                     "other":  "à¤œà¤µà¤¾à¤¬"
+                                 }
+                 },
+    "post":  {
+                 "edit":  {
+                              "title":  "à¤ªà¥‹à¤¸à¥à¤Ÿ à¤¸à¤‚à¤ªà¤¾à¤¦à¤¿à¤¤ à¤•à¤°à¥‡à¤‚",
+                              "content":  "à¤¸à¤¾à¤®à¤—à¥à¤°à¥€:",
+                              "tags":  "à¤Ÿà¥ˆà¤— (à¤•à¥‰à¤®à¤¾ à¤¸à¥‡ à¤…à¤²à¤— à¤•à¤°à¥‡à¤‚):",
+                              "public":  "à¤¸à¤¾à¤°à¥à¤µà¤œà¤¨à¤¿à¤•",
+                              "save":  "à¤¸à¤¹à¥‡à¤œà¥‡à¤‚",
+                              "skip":  "à¤›à¥‹à¤¡à¤¼à¥‡à¤‚"
+                          },
+                 "likes":  {
+                               "like":  "à¤ªà¤¸à¤‚à¤¦",
+                               "liked":  "à¤ªà¤¸à¤‚à¤¦ à¤•à¤¿à¤¯à¤¾",
+                               "likedBy":  "à¤•à¤¿à¤¸à¥‡ à¤ªà¤¸à¤‚à¤¦ à¤†à¤¯à¤¾",
+                               "noLikes":  "à¤…à¤­à¥€ à¤¤à¤• à¤•à¥‹à¤ˆ à¤ªà¤¸à¤‚à¤¦ à¤¨à¤¹à¥€à¤‚",
+                               "loading":  "à¤²à¥‹à¤¡ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ..."
+                           },
+                 "deleteConfirm":  "Delete this post?",
+                 "deleteBody":  "This action cannot be undone.",
+                 "editMenu":  "Edit",
+                 "deleteMenu":  "Delete",
+                 "reportMenu":  "Report",
+                 "shareMenu":  "Share",
+                 "comments":  "comments",
+                 "comment":  "Comment",
+                 "translateText":  "Translate text",
+                 "extracting":  "Extracting...",
+                 "showImage":  "Show image",
+                 "showText":  "Show text",
+                 "originalText":  "Original text",
+                 "noText":  "No text found in this image",
+                 "translatedTo":  "Translated to",
+                 "from":  "from",
+                 "showingTranslation":  "Showing translation",
+                 "translatePost":  "Translate this post",
+                 "translating":  "Translating...",
+                 "showOriginal":  "Show Original",
+                 "translate":  "Translate",
+                 "back":  "Back to feed",
+                 "close":  "Close"
+             },
+    "profile":  {
+                    "tabs":  {
+                                 "posts":  "à¤ªà¥‹à¤¸à¥à¤Ÿ",
+                                 "videos":  "à¤µà¥€à¤¡à¤¿à¤¯à¥‹",
+                                 "liked":  "à¤ªà¤¸à¤‚à¤¦",
+                                 "bookmarks":  "à¤¸à¤¹à¥‡à¤œà¥‡ à¤—à¤"
+                             },
+                    "content":  {
+                                    "noPosts":  "à¤…à¤­à¥€ à¤¤à¤• à¤•à¥‹à¤ˆ à¤ªà¥‹à¤¸à¥à¤Ÿ à¤¨à¤¹à¥€à¤‚",
+                                    "noVideos":  "à¤…à¤­à¥€ à¤¤à¤• à¤•à¥‹à¤ˆ à¤µà¥€à¤¡à¤¿à¤¯à¥‹ à¤¨à¤¹à¥€à¤‚",
+                                    "likedPosts":  "à¤†à¤ªà¤•à¥€ à¤ªà¤¸à¤‚à¤¦ à¤•à¥€ à¤ªà¥‹à¤¸à¥à¤Ÿ",
+                                    "savedPosts":  "à¤¸à¤¹à¥‡à¤œà¥€ à¤—à¤ˆ à¤ªà¥‹à¤¸à¥à¤Ÿ",
+                                    "loadMore":  "à¤”à¤° à¤¦à¥‡à¤–à¥‡à¤‚",
+                                    "loading":  "à¤²à¥‹à¤¡ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ..."
+                                }
+                },
+    "upload":  {
+                   "title":  "à¤µà¥€à¤¡à¤¿à¤¯à¥‹/à¤ªà¥‹à¤¸à¥à¤Ÿ à¤…à¤ªà¤²à¥‹à¤¡ à¤•à¤°à¥‡à¤‚",
+                   "titleField":  "à¤¶à¥€à¤°à¥à¤·à¤• (à¤µà¥ˆà¤•à¤²à¥à¤ªà¤¿à¤•)",
+                   "description":  "à¤µà¤¿à¤µà¤°à¤£ (à¤µà¥ˆà¤•à¤²à¥à¤ªà¤¿à¤•)",
+                   "submit":  "à¤…à¤ªà¤²à¥‹à¤¡ à¤•à¤°à¥‡à¤‚",
+                   "submitting":  "à¤…à¤ªà¤²à¥‹à¤¡ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ..."
+               },
+    "explore":  {
+                    "title":  "à¤²à¥‹à¤—à¥‹à¤‚ à¤•à¥€ à¤–à¥‹à¤œ à¤•à¤°à¥‡à¤‚",
+                    "subtitle":  "à¤¦à¥à¤¨à¤¿à¤¯à¤¾ à¤­à¤° à¤•à¥‡ à¤²à¥‹à¤—à¥‹à¤‚ à¤•à¥‹ à¤¢à¥‚à¤‚à¤¢à¥‡à¤‚ à¤”à¤° à¤œà¥à¤¡à¤¼à¥‡à¤‚",
+                    "search":  {
+                                   "placeholder":  "à¤¨à¤¾à¤® à¤¯à¤¾ à¤‰à¤ªà¤¯à¥‹à¤—à¤•à¤°à¥à¤¤à¤¾ à¤¨à¤¾à¤® à¤¸à¥‡ à¤–à¥‹à¤œà¥‡à¤‚...",
+                                   "button":  "à¤–à¥‹à¤œà¥‡à¤‚",
+                                   "searching":  "à¤–à¥‹à¤œ à¤°à¤¹à¥‡ à¤¹à¥ˆà¤‚...",
+                                   "results":  "à¤ªà¤°à¤¿à¤£à¤¾à¤® ({{ count }})",
+                                   "noResults":  {
+                                                     "title":  "à¤•à¥‹à¤ˆ à¤ªà¤°à¤¿à¤£à¤¾à¤® à¤¨à¤¹à¥€à¤‚ à¤®à¤¿à¤²à¤¾",
+                                                     "subtitle":  "à¤•à¤¿à¤¸à¥€ à¤…à¤¨à¥à¤¯ à¤¶à¤¬à¥à¤¦ à¤¸à¥‡ à¤–à¥‹à¤œà¥‡à¤‚"
+                                                 }
+                               },
+                    "followRequests":  {
+                                           "title":  "à¤«à¥‰à¤²à¥‹ à¤…à¤¨à¥à¤°à¥‹à¤§",
+                                           "noPending":  {
+                                                             "title":  "à¤•à¥‹à¤ˆ à¤²à¤‚à¤¬à¤¿à¤¤ à¤…à¤¨à¥à¤°à¥‹à¤§ à¤¨à¤¹à¥€à¤‚",
+                                                             "subtitle":  "à¤œà¤¬ à¤•à¥‹à¤ˆ à¤†à¤ªà¤•à¥‹ à¤«à¥‰à¤²à¥‹ à¤•à¤°à¤¨à¤¾ à¤šà¤¾à¤¹à¥‡à¤—à¤¾, à¤¯à¤¹à¤¾à¤‚ à¤¦à¤¿à¤–à¤¾à¤ˆ à¤¦à¥‡à¤—à¤¾"
+                                                         },
+                                           "accept":  "à¤¸à¥à¤µà¥€à¤•à¤¾à¤° à¤•à¤°à¥‡à¤‚",
+                                           "reject":  "à¤…à¤¸à¥à¤µà¥€à¤•à¤¾à¤° à¤•à¤°à¥‡à¤‚"
+                                       },
+                    "suggested":  {
+                                      "title":  "à¤œà¤¿à¤¨à¥à¤¹à¥‡à¤‚ à¤†à¤ª à¤œà¤¾à¤¨à¤¤à¥‡ à¤¹à¥‹à¤‚",
+                                      "empty":  "à¤…à¤­à¥€ à¤•à¥‹à¤ˆ à¤¸à¥à¤à¤¾à¤µ à¤¨à¤¹à¥€à¤‚",
+                                      "viewAll":  "à¤¸à¤­à¥€ à¤¸à¥à¤à¤¾à¤µ à¤¦à¥‡à¤–à¥‡à¤‚",
+                                      "viewLess":  "à¤•à¤® à¤¦à¥‡à¤–à¥‡à¤‚",
+                                      "mutual":  "{{ count }} à¤¸à¤¾à¤à¤¾ à¤«à¥‰à¤²à¥‹à¤µà¤°",
+                                      "follow":  "à¤«à¥‰à¤²à¥‹ à¤•à¤°à¥‡à¤‚",
+                                      "following":  "à¤«à¥‰à¤²à¥‹ à¤•à¤° à¤°à¤¹à¥‡ à¤¹à¥ˆà¤‚",
+                                      "pending":  "à¤²à¤‚à¤¬à¤¿à¤¤"
+                                  }
+                },
+    "countrySetup":  {
+                         "title":  "à¤†à¤ª à¤•à¤¹à¤¾à¤ à¤¸à¥‡ à¤¹à¥ˆà¤‚?",
+                         "subtitle":  "à¤†à¤ªà¤•à¤¾ à¤à¤‚à¤¡à¤¾ à¤†à¤ªà¤•à¥€ à¤ªà¥‹à¤¸à¥à¤Ÿ à¤”à¤° à¤¸à¤‚à¤¦à¥‡à¤¶à¥‹à¤‚ à¤ªà¤° à¤¦à¤¿à¤–à¥‡à¤—à¤¾ à¤¤à¤¾à¤•à¤¿ à¤²à¥‹à¤— à¤œà¤¾à¤¨ à¤¸à¤•à¥‡à¤‚ à¤†à¤ª à¤•à¤¹à¤¾à¤ à¤¸à¥‡ à¤¹à¥ˆà¤‚à¥¤",
+                         "detecting":  "à¤†à¤ªà¤•à¤¾ à¤¦à¥‡à¤¶ à¤ªà¤¤à¤¾ à¤²à¤—à¤¾à¤¯à¤¾ à¤œà¤¾ à¤°à¤¹à¤¾ à¤¹à¥ˆ...",
+                         "detected":  "à¤ªà¤¤à¤¾ à¤²à¤—à¤¾à¤¯à¤¾ à¤—à¤¯à¤¾ à¤¦à¥‡à¤¶:",
+                         "notDetected":  "à¤¹à¤® à¤†à¤ªà¤•à¤¾ à¤¦à¥‡à¤¶ à¤¸à¥à¤µà¤šà¤¾à¤²à¤¿à¤¤ à¤°à¥‚à¤ª à¤¸à¥‡ à¤¨à¤¹à¥€à¤‚ à¤ªà¤¹à¤šà¤¾à¤¨ à¤¸à¤•à¥‡à¥¤",
+                         "manualSelect":  "à¤…à¤ªà¤¨à¤¾ à¤¦à¥‡à¤¶ à¤šà¥à¤¨à¥‡à¤‚:",
+                         "manualPlaceholder":  "-- à¤…à¤ªà¤¨à¤¾ à¤¦à¥‡à¤¶ à¤šà¥à¤¨à¥‡à¤‚ --",
+                         "notMyCountry":  "à¤¯à¤¹ à¤®à¥‡à¤°à¤¾ à¤¦à¥‡à¤¶ à¤¨à¤¹à¥€à¤‚ à¤¹à¥ˆ â€” à¤¬à¤¦à¤²à¥‡à¤‚",
+                         "confirm":  "âœ… à¤ªà¥à¤·à¥à¤Ÿà¤¿ à¤•à¤°à¥‡à¤‚",
+                         "saving":  "à¤¸à¤¹à¥‡à¤œà¤¾ à¤œà¤¾ à¤°à¤¹à¤¾ à¤¹à¥ˆ...",
+                         "skip":  "à¤…à¤­à¥€ à¤•à¥‡ à¤²à¤¿à¤ à¤›à¥‹à¤¡à¤¼à¥‡à¤‚"
+                     },
+    "permissions":  {
+                        "welcome":  {
+                                        "title":  "à¤…à¤¨à¥à¤®à¤¤à¤¿à¤¯à¤¾à¤‚ à¤¸à¥‡à¤Ÿ à¤•à¤°à¥‡à¤‚",
+                                        "subtitle":  "à¤¸à¤°à¥à¤µà¥‹à¤¤à¥à¤¤à¤® à¤…à¤¨à¥à¤­à¤µ à¤¦à¥‡à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤ à¤¹à¤®à¥‡à¤‚ à¤•à¥à¤› à¤¡à¤¿à¤µà¤¾à¤‡à¤¸ à¤…à¤¨à¥à¤®à¤¤à¤¿à¤¯à¥‹à¤‚ à¤•à¥€ à¤œà¤°à¥‚à¤°à¤¤ à¤¹à¥ˆà¥¤",
+                                        "camera":  "à¤²à¤¾à¤‡à¤µ à¤¸à¥à¤Ÿà¥à¤°à¥€à¤® à¤•à¥‡ à¤²à¤¿à¤ à¤•à¥ˆà¤®à¤°à¤¾",
+                                        "microphone":  "à¤µà¥€à¤¡à¤¿à¤¯à¥‹ à¤•à¥‰à¤² à¤•à¥‡ à¤²à¤¿à¤ à¤®à¤¾à¤‡à¤•à¥à¤°à¥‹à¤«à¤¼à¥‹à¤¨",
+                                        "notifications":  "à¤¸à¤‚à¤¦à¥‡à¤¶ à¤¸à¥‚à¤šà¤¨à¤¾à¤à¤‚",
+                                        "later":  "à¤¬à¤¾à¤¦ à¤®à¥‡à¤‚ à¤¸à¥‡à¤Ÿ à¤•à¤°à¥‡à¤‚",
+                                        "continue":  "à¤œà¤¾à¤°à¥€ à¤°à¤–à¥‡à¤‚"
+                                    },
+                        "list":  {
+                                     "title":  "à¤†à¤µà¤¶à¥à¤¯à¤• à¤…à¤¨à¥à¤®à¤¤à¤¿à¤¯à¤¾à¤‚",
+                                     "subtitle":  "à¤ªà¥à¤°à¤¤à¥à¤¯à¥‡à¤• à¤…à¤¨à¥à¤®à¤¤à¤¿ à¤ªà¤° à¤•à¥à¤²à¤¿à¤• à¤•à¤°à¤•à¥‡ à¤‰à¤¸à¥‡ à¤…à¤¨à¥à¤°à¥‹à¤§ à¤•à¤°à¥‡à¤‚",
+                                     "granted":  "âœ“ à¤¦à¥€ à¤—à¤ˆ",
+                                     "required":  "âš  à¤†à¤µà¤¶à¥à¤¯à¤•",
+                                     "optional":  "â„¹ à¤µà¥ˆà¤•à¤²à¥à¤ªà¤¿à¤•",
+                                     "request":  "à¤à¤•à¥à¤¸à¥‡à¤¸ à¤•à¤¾ à¤…à¤¨à¥à¤°à¥‹à¤§ à¤•à¤°à¥‡à¤‚",
+                                     "requestAll":  "à¤¸à¤­à¥€ à¤•à¤¾ à¤…à¤¨à¥à¤°à¥‹à¤§ à¤•à¤°à¥‡à¤‚",
+                                     "back":  "à¤µà¤¾à¤ªà¤¸"
+                                 },
+                        "complete":  {
+                                         "title":  "à¤¸à¥‡à¤Ÿà¤…à¤ª à¤ªà¥‚à¤°à¥à¤£!",
+                                         "subtitle":  "à¤†à¤ªà¤•à¥€ à¤…à¤¨à¥à¤®à¤¤à¤¿à¤¯à¤¾à¤‚ à¤¸à¤¹à¥€ à¤¤à¤°à¤¹ à¤¸à¥‡ à¤•à¥‰à¤¨à¥à¤«à¤¼à¤¿à¤—à¤° à¤¹à¥‹ à¤—à¤ˆ à¤¹à¥ˆà¤‚à¥¤",
+                                         "grantedStatus":  "à¤¦à¥€ à¤—à¤ˆ",
+                                         "deniedStatus":  "à¤¨à¤¹à¥€à¤‚ à¤¦à¥€ à¤—à¤ˆ",
+                                         "redirect":  "à¤•à¥à¤› à¤¸à¥‡à¤•à¤‚à¤¡ à¤®à¥‡à¤‚ à¤¹à¥‹à¤® à¤ªà¤° à¤œà¤¾à¤à¤‚à¤—à¥‡...",
+                                         "goHome":  "à¤…à¤­à¥€ à¤¹à¥‹à¤® à¤ªà¤° à¤œà¤¾à¤à¤‚"
+                                     }
+                    },
+    "report":  {
+                   "title":  "ðŸš© à¤¸à¤¾à¤®à¤—à¥à¤°à¥€ à¤•à¥€ à¤°à¤¿à¤ªà¥‹à¤°à¥à¤Ÿ à¤•à¤°à¥‡à¤‚",
+                   "subtitle":  "à¤°à¤¿à¤ªà¥‹à¤°à¥à¤Ÿ à¤•à¤¾ à¤•à¤¾à¤°à¤£ à¤šà¥à¤¨à¥‡à¤‚",
+                   "descriptionLabel":  "à¤…à¤¤à¤¿à¤°à¤¿à¤•à¥à¤¤ à¤µà¤¿à¤µà¤°à¤£ (à¤µà¥ˆà¤•à¤²à¥à¤ªà¤¿à¤•)",
+                   "descriptionPlaceholder":  "à¤¸à¤®à¤¸à¥à¤¯à¤¾ à¤•à¥‡ à¤¬à¤¾à¤°à¥‡ à¤®à¥‡à¤‚ à¤”à¤° à¤¬à¤¤à¤¾à¤à¤‚...",
+                   "cancel":  "à¤°à¤¦à¥à¤¦ à¤•à¤°à¥‡à¤‚",
+                   "submit":  "à¤°à¤¿à¤ªà¥‹à¤°à¥à¤Ÿ à¤­à¥‡à¤œà¥‡à¤‚",
+                   "submitting":  "à¤­à¥‡à¤œà¤¾ à¤œà¤¾ à¤°à¤¹à¤¾ à¤¹à¥ˆ..."
+               },
+    "terms":  {
+                  "title":  "à¤¨à¤¿à¤¯à¤®, à¤¶à¤°à¥à¤¤à¥‡à¤‚ à¤”à¤° à¤—à¥‹à¤ªà¤¨à¥€à¤¯à¤¤à¤¾",
+                  "lastUpdated":  "à¤…à¤‚à¤¤à¤¿à¤® à¤…à¤ªà¤¡à¥‡à¤Ÿ: à¤œà¤¨à¤µà¤°à¥€ 2025 Â· à¤œà¤¾à¤°à¥€ à¤°à¤–à¤¨à¥‡ à¤¸à¥‡ à¤ªà¤¹à¤²à¥‡ à¤§à¥à¤¯à¤¾à¤¨ à¤¸à¥‡ à¤ªà¤¢à¤¼à¥‡à¤‚",
+                  "tabs":  {
+                               "terms":  "ðŸ“„ à¤¨à¤¿à¤¯à¤® à¤”à¤° à¤¶à¤°à¥à¤¤à¥‡à¤‚",
+                               "privacy":  "ðŸ”’ à¤—à¥‹à¤ªà¤¨à¥€à¤¯à¤¤à¤¾ à¤¨à¥€à¤¤à¤¿"
+                           },
+                  "scroll":  {
+                                 "pending":  "à¤œà¤¾à¤°à¥€ à¤°à¤–à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤ à¤¨à¥€à¤šà¥‡ à¤¸à¥à¤•à¥à¤°à¥‰à¤² à¤•à¤°à¥‡à¤‚",
+                                 "done":  "à¤†à¤ªà¤¨à¥‡ à¤ªà¥‚à¤°à¤¾ à¤¦à¤¸à¥à¤¤à¤¾à¤µà¥‡à¤œà¤¼ à¤ªà¤¢à¤¼ à¤²à¤¿à¤¯à¤¾ âœ“"
+                             },
+                  "decline":  "à¤…à¤¸à¥à¤µà¥€à¤•à¤¾à¤° à¤•à¤°à¥‡à¤‚",
+                  "accept":  "à¤¸à¥à¤µà¥€à¤•à¤¾à¤° à¤•à¤°à¥‡à¤‚ à¤”à¤° à¤œà¤¾à¤°à¥€ à¤°à¤–à¥‡à¤‚"
+              },
+    "common":  {
+                   "loading":  "à¤²à¥‹à¤¡ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ...",
+                   "error":  "à¤à¤• à¤¤à¥à¤°à¥à¤Ÿà¤¿ à¤¹à¥à¤ˆ",
+                   "retry":  "à¤ªà¥à¤¨à¤ƒ à¤ªà¥à¤°à¤¯à¤¾à¤¸ à¤•à¤°à¥‡à¤‚",
+                   "save":  "à¤¸à¤¹à¥‡à¤œà¥‡à¤‚",
+                   "cancel":  "à¤°à¤¦à¥à¤¦ à¤•à¤°à¥‡à¤‚",
+                   "confirm":  "à¤ªà¥à¤·à¥à¤Ÿà¤¿ à¤•à¤°à¥‡à¤‚",
+                   "delete":  "à¤¹à¤Ÿà¤¾à¤à¤‚",
+                   "edit":  "à¤¸à¤‚à¤ªà¤¾à¤¦à¤¿à¤¤ à¤•à¤°à¥‡à¤‚",
+                   "close":  "à¤¬à¤‚à¤¦ à¤•à¤°à¥‡à¤‚",
+                   "back":  "à¤µà¤¾à¤ªà¤¸",
+                   "next":  "à¤…à¤—à¤²à¤¾",
+                   "skip":  "à¤›à¥‹à¤¡à¤¼à¥‡à¤‚",
+                   "search":  "à¤–à¥‹à¤œà¥‡à¤‚",
+                   "share":  "à¤¸à¤¾à¤à¤¾ à¤•à¤°à¥‡à¤‚",
+                   "report":  "à¤°à¤¿à¤ªà¥‹à¤°à¥à¤Ÿ à¤•à¤°à¥‡à¤‚",
+                   "follow":  "à¤«à¥‰à¤²à¥‹ à¤•à¤°à¥‡à¤‚",
+                   "unfollow":  "à¤…à¤¨à¤«à¥‰à¤²à¥‹ à¤•à¤°à¥‡à¤‚",
+                   "following":  "à¤«à¥‰à¤²à¥‹ à¤•à¤° à¤°à¤¹à¥‡ à¤¹à¥ˆà¤‚",
+                   "followers":  "à¤«à¥‰à¤²à¥‹à¤µà¤°",
+                   "posts":  "à¤ªà¥‹à¤¸à¥à¤Ÿ",
+                   "videos":  "à¤µà¥€à¤¡à¤¿à¤¯à¥‹"
+               },
+    "settings":  {
+                     "title":  "Settings",
+                     "nav":  {
+                                 "profile":  "Profile",
+                                 "account":  "Account",
+                                 "notifications":  "Notifications",
+                                 "privacy":  "Privacy",
+                                 "logout":  "Log out"
+                             },
+                     "profile":  {
+                                     "title":  "Edit Profile",
+                                     "avatarHint":  "JPG, PNG or WebP · Max 5MB",
+                                     "savePhoto":  "Save photo",
+                                     "firstName":  "First name",
+                                     "lastName":  "Last name",
+                                     "bio":  "Bio",
+                                     "bioPlaceholder":  "Tell us something about you...",
+                                     "website":  "Website",
+                                     "websitePlaceholder":  "https://your-site.com",
+                                     "location":  "Location",
+                                     "locationPlaceholder":  "City, Country",
+                                     "nativeLanguage":  "Native language",
+                                     "saveChanges":  "Save changes"
+                                 },
+                     "account":  {
+                                     "title":  "Account",
+                                     "email":  "Email",
+                                     "username":  "Username",
+                                     "verified":  "Verified account",
+                                     "verifiedYes":  "Verified",
+                                     "verifiedNo":  "Not verified",
+                                     "changePassword":  "Change password",
+                                     "currentPassword":  "Current password",
+                                     "newPassword":  "New password",
+                                     "confirmPassword":  "Confirm new password",
+                                     "dangerZone":  "Danger zone",
+                                     "dangerDesc":  "These actions are permanent and cannot be undone.",
+                                     "deleteAccount":  "Delete account",
+                                     "deleteDesc":  "Permanently deletes your account, posts and all personal data."
+                                 },
+                     "deleteModal":  {
+                                         "title":  "Delete your account?",
+                                         "body":  "This action is permanent and irreversible. All your data, posts and videos will be deleted within 30 days.",
+                                         "confirmLabel":  "Confirm your password to continue",
+                                         "confirmBtn":  "Yes, delete my account"
+                                     },
+                     "notifications":  {
+                                           "title":  "Notifications",
+                                           "push":  "Push notifications",
+                                           "pushDesc":  "Receive activity alerts in the app",
+                                           "email":  "Email notifications",
+                                           "emailDesc":  "Receive a weekly summary and important alerts",
+                                           "save":  "Save"
+                                       },
+                     "privacy":  {
+                                     "title":  "Privacy and Preferences",
+                                     "privateAccount":  "Private account",
+                                     "privateDesc":  "Only your followers can see your content",
+                                     "autoTranslate":  "Auto-translate",
+                                     "autoTranslateDesc":  "Automatically translate content from other languages",
+                                     "prefLang":  "Preferred translation language",
+                                     "prefLangDefault":  "Same as native",
+                                     "theme":  "Theme",
+                                     "themeAuto":  "Automatic",
+                                     "themeDark":  "Dark",
+                                     "themeLight":  "Light",
+                                     "save":  "Save"
+                                 },
+                     "saved":  "Changes saved successfully"
+                 },
+    "notifications":  {
+                          "title":  "Notifications",
+                          "markAllRead":  "Mark all as read",
+                          "markingAllRead":  "Marking...",
+                          "clearAll":  "Clear all",
+                          "filterAll":  "All",
+                          "filterUnread":  "Unread",
+                          "loading":  "Loading notifications...",
+                          "emptyAll":  "No notifications",
+                          "emptyAllSub":  "Check back later for new notifications",
+                          "emptyUnread":  "No unread notifications",
+                          "emptyUnreadSub":  "You are up to date",
+                          "new":  "New",
+                          "markRead":  "Mark as read",
+                          "markUnread":  "Mark as unread",
+                          "delete":  "Delete"
+                      },
+    "sidebar":  {
+                    "following":  "Following",
+                    "followers":  "Followers",
+                    "posts":  "Posts",
+                    "navigation":  "Navigation",
+                    "aiTranslation":  "AI Translation",
+                    "active":  "Active",
+                    "realtimeTranslation":  "Real-time Translation",
+                    "realtimeDesc":  "Videos \u0026 Posts",
+                    "languages":  "24+ Languages",
+                    "languagesDesc":  "Global connectivity",
+                    "instant":  "Instant Processing",
+                    "instantDesc":  "Lightning fast"
+                },
+    "trending":  {
+                     "title":  "Trending",
+                     "loading":  "Loading trends...",
+                     "filterByCountry":  "Filter by country",
+                     "global":  "Global",
+                     "noTrending":  "No trending topics available",
+                     "videos":  "videos",
+                     "views":  "views",
+                     "onlyFrom":  "Only from",
+                     "sort":  "Sort:",
+                     "sortTrending":  "Most trending",
+                     "sortViews":  "Most views",
+                     "sortRecent":  "Most recent",
+                     "trendingBadge":  "Trending",
+                     "watchNow":  "Watch now",
+                     "gridView":  "Grid",
+                     "listView":  "List"
+                 },
+    "lives":  {
+                  "title":  "Live",
+                  "chat":  "Chat",
+                  "live":  "LIVE",
+                  "say":  "Say something...",
+                  "send":  "Send"
+              },
+    "videoOverlay":  {
+                         "follow":  "Follow",
+                         "subtitles":  "Subtitles:",
+                         "original":  "Original",
+                         "available":  "Available",
+                         "requestTranslation":  "Request translation",
+                         "translate":  "Translate",
+                         "translateVideo":  "Translate Video",
+                         "translateDesc":  "Generate AI translated subtitles for this video",
+                         "availableLangs":  "Available:",
+                         "requestLangs":  "Request translation:",
+                         "requesting":  "Requesting...",
+                         "request":  "Request",
+                         "translationPending":  "Translation requested! It will be available shortly.",
+                         "close":  "Close"
+                     },
+    "stories":  {
+                    "title":  "Stories",
+                    "add":  "Add"
+                }
+}

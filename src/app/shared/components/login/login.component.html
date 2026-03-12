@@ -1,25 +1,31 @@
 <div class="login-container">
+
+  <!-- Modal de configuración de país -->
+  <app-country-setup
+    *ngIf="showCountrySetup"
+    (completed)="onCountrySetupCompleted()">
+  </app-country-setup>
+
   <div class="login-background">
     <div class="floating-element element-1"></div>
     <div class="floating-element element-2"></div>
     <div class="floating-element element-3"></div>
     <div class="floating-element element-4"></div>
   </div>
-  
+
   <div class="login-content">
     <div class="login-card" [class.register-mode]="isRegisterMode">
       <div class="brand-section">
         <div class="brand-logo">
-          <div class="logo-icon">S</div>
+          <img class="logo" src="../../../../assets/tinko.jpg" alt="TINKO Logo">
           <h1 class="brand-name">TINKO</h1>
         </div>
         <div class="ai-tagline">
           <span class="ai-icon">✨</span>
-          <span>AI-Powered Global Connection</span>
+          <span>{{ 'brand.tagline' | translate }}</span>
         </div>
       </div>
 
-      <!-- Mensaje de error -->
       <div class="error-message" *ngIf="errorMessage">
         <span class="error-icon">⚠️</span>
         <span>{{ errorMessage }}</span>
@@ -27,24 +33,18 @@
 
       <div class="form-container">
         <div class="form-header">
-          <h2 class="form-title">{{ isRegisterMode ? '¡Únete a la revolución!' : '¡Bienvenido de vuelta!' }}</h2>
+          <h2 class="form-title">{{ isRegisterMode ? ('auth.register.title' | translate) : ('auth.login.title' | translate) }}</h2>
           <p class="form-subtitle">
-            {{ isRegisterMode ? 'Conecta con el mundo sin barreras de idioma' : 'Inicia sesión para continuar tu experiencia global' }}
+            {{ isRegisterMode ? ('auth.register.subtitle' | translate) : ('auth.login.subtitle' | translate) }}
           </p>
         </div>
 
         <form class="login-form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
-          <!-- Campos para registro -->
           <div class="form-group" *ngIf="isRegisterMode">
             <div class="input-container">
               <span class="input-icon">👤</span>
-              <input 
-                type="text" 
-                class="form-input" 
-                placeholder="Nombre"
-                [(ngModel)]="formData.firstName"
-                name="firstName"
-                required>
+              <input type="text" class="form-input" [placeholder]="'auth.fields.firstName' | translate"
+                [(ngModel)]="formData.firstName" name="firstName" required>
               <div class="input-line"></div>
             </div>
           </div>
@@ -52,13 +52,8 @@
           <div class="form-group" *ngIf="isRegisterMode">
             <div class="input-container">
               <span class="input-icon">👥</span>
-              <input 
-                type="text" 
-                class="form-input" 
-                placeholder="Apellido"
-                [(ngModel)]="formData.lastName"
-                name="lastName"
-                required>
+              <input type="text" class="form-input" [placeholder]="'auth.fields.lastName' | translate"
+                [(ngModel)]="formData.lastName" name="lastName" required>
               <div class="input-line"></div>
             </div>
           </div>
@@ -66,28 +61,18 @@
           <div class="form-group" *ngIf="isRegisterMode">
             <div class="input-container">
               <span class="input-icon">🔖</span>
-              <input 
-                type="text" 
-                class="form-input" 
-                placeholder="Nombre de usuario (opcional)"
-                [(ngModel)]="formData.username"
-                name="username">
+              <input type="text" class="form-input" [placeholder]="'auth.fields.username' | translate"
+                [(ngModel)]="formData.username" name="username">
               <div class="input-line"></div>
             </div>
-            <small class="input-hint">Si no ingresas uno, se generará automáticamente</small>
+            <small class="input-hint">{{ 'auth.register.usernameHint' | translate }}</small>
           </div>
 
-          <!-- Campos comunes -->
           <div class="form-group">
             <div class="input-container">
               <span class="input-icon">✉️</span>
-              <input 
-                type="email" 
-                class="form-input" 
-                placeholder="Correo electrónico"
-                [(ngModel)]="formData.email"
-                name="email"
-                required>
+              <input type="email" class="form-input" [placeholder]="'auth.fields.email' | translate"
+                [(ngModel)]="formData.email" name="email" required>
               <div class="input-line"></div>
             </div>
           </div>
@@ -95,13 +80,8 @@
           <div class="form-group">
             <div class="input-container">
               <span class="input-icon">🔒</span>
-              <input 
-                [type]="showPassword ? 'text' : 'password'" 
-                class="form-input" 
-                placeholder="Contraseña"
-                [(ngModel)]="formData.password"
-                name="password"
-                required>
+              <input [type]="showPassword ? 'text' : 'password'" class="form-input" [placeholder]="'auth.fields.password' | translate"
+                [(ngModel)]="formData.password" name="password" required>
               <button type="button" class="password-toggle" (click)="togglePassword()">
                 {{ showPassword ? '👁️' : '👁️‍🗨️' }}
               </button>
@@ -112,59 +92,51 @@
           <div class="form-group" *ngIf="isRegisterMode">
             <div class="input-container">
               <span class="input-icon">🌍</span>
-              <select class="form-input form-select" 
-                      [(ngModel)]="formData.nativeLanguage" 
-                      name="nativeLanguage"
-                      required>
-                <option value="es">🇪🇸 Español</option>
-                <option value="en">🇺🇸 English</option>
-                <option value="fr">🇫🇷 Français</option>
-                <option value="pt">🇧🇷 Português</option>
-                <option value="de">🇩🇪 Deutsch</option>
-                <option value="it">🇮🇹 Italiano</option>
-                <option value="ja">🇯🇵 日本語</option>
-                <option value="ko">🇰🇷 한국어</option>
-                <option value="zh">🇨🇳 中文</option>
+              <select class="form-input form-select" [(ngModel)]="formData.nativeLanguage"
+                name="nativeLanguage" required>
+                <option *ngFor="let lang of availableLanguages" [value]="lang.code">
+                  {{ lang.flag }} {{ lang.nativeName }}
+                </option>
               </select>
               <div class="input-line"></div>
             </div>
-            <small class="input-hint">Idioma nativo</small>
+            <small class="input-hint">{{ 'auth.register.nativeLanguageHint' | translate }}</small>
           </div>
 
           <div class="form-options" *ngIf="!isRegisterMode">
             <label class="checkbox-container">
               <input type="checkbox" [(ngModel)]="formData.rememberMe" name="rememberMe">
               <span class="checkmark"></span>
-              <span class="checkbox-text">Recordarme</span>
+              <span class="checkbox-text">{{ 'auth.login.rememberMe' | translate }}</span>
             </label>
-            <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+            <a routerLink="/forgot-password" class="forgot-password">{{ 'auth.login.forgotPassword' | translate }}</a>
           </div>
 
           <button type="submit" class="submit-btn" [class.loading]="isLoading" [disabled]="isLoading">
             <span class="btn-content" *ngIf="!isLoading">
-              <span class="btn-text">{{ isRegisterMode ? 'Crear cuenta' : 'Iniciar sesión' }}</span>
+              <span class="btn-text">{{ isRegisterMode ? ('auth.register.submit' | translate) : ('auth.login.submit' | translate) }}</span>
               <span class="btn-icon">✨</span>
             </span>
             <div class="loading-spinner" *ngIf="isLoading">
               <div class="spinner"></div>
-              <span>{{ isRegisterMode ? 'Creando cuenta...' : 'Iniciando sesión...' }}</span>
+              <span>{{ isRegisterMode ? ('auth.register.submitting' | translate) : ('auth.login.submitting' | translate) }}</span>
             </div>
           </button>
 
           <div class="ai-features-preview" *ngIf="isRegisterMode">
-            <h4 class="features-title">🚀 Lo que te espera:</h4>
+            <h4 class="features-title">{{ 'auth.features.title' | translate }}</h4>
             <div class="features-list">
               <div class="feature-item">
                 <span class="feature-icon">🎥</span>
-                <span class="feature-text">Videos traducidos en tiempo real</span>
+                <span class="feature-text">{{ 'auth.features.videos' | translate }}</span>
               </div>
               <div class="feature-item">
                 <span class="feature-icon">🌐</span>
-                <span class="feature-text">Conecta con 24+ idiomas</span>
+                <span class="feature-text">{{ 'auth.features.languages' | translate }}</span>
               </div>
               <div class="feature-item">
                 <span class="feature-icon">🤖</span>
-                <span class="feature-text">IA avanzada de traducción</span>
+                <span class="feature-text">{{ 'auth.features.ai' | translate }}</span>
               </div>
             </div>
           </div>
@@ -173,36 +145,27 @@
         <div class="form-footer">
           <div class="social-login">
             <div class="divider">
-              <span class="divider-text">o continúa con</span>
+              <span class="divider-text">{{ 'auth.login.orContinueWith' | translate }}</span>
             </div>
+
             <div class="social-buttons">
-              <button class="social-btn google-btn">
-                <span class="social-icon">🎯</span>
-                <span class="social-text">Google</span>
-              </button>
-              <button class="social-btn facebook-btn">
-                <span class="social-icon">📘</span>
-                <span class="social-text">Facebook</span>
-              </button>
-              <button class="social-btn apple-btn">
-                <span class="social-icon">🍎</span>
-                <span class="social-text">Apple</span>
-              </button>
+              <div id="google-btn-container" style="width: 100%;"></div>
             </div>
           </div>
 
           <div class="switch-mode">
             <span class="switch-text">
-              {{ isRegisterMode ? '¿Ya tienes una cuenta?' : '¿No tienes cuenta?' }}
+              {{ isRegisterMode ? ('auth.register.hasAccount' | translate) : ('auth.login.noAccount' | translate) }}
             </span>
             <button type="button" class="switch-btn" (click)="toggleMode()">
-              {{ isRegisterMode ? 'Inicia sesión' : 'Regístrate gratis' }}
+              {{ isRegisterMode ? ('auth.register.switchToLogin' | translate) : ('auth.login.switchToRegister' | translate) }}
             </button>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Sección de la derecha se mantiene -->
     <div class="demo-section">
       <div class="demo-video">
         <div class="video-placeholder">
@@ -217,7 +180,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="testimonials">
         <div class="testimonial active">
           <div class="testimonial-content">
@@ -225,7 +188,8 @@
               "¡Increíble! Ahora puedo ver videos de cualquier país y entenderlos perfectamente."
             </p>
             <div class="testimonial-author">
-              <img src="https://images.unsplash.com/photo-1494790108755-2616b612b05b?w=40&h=40&fit=crop&crop=face" alt="Usuario" class="author-avatar">
+              <img src="https://images.unsplash.com/photo-1494790108755-2616b612b05b?w=40&h=40&fit=crop&crop=face"
+                alt="Usuario" class="author-avatar">
               <div class="author-info">
                 <span class="author-name">María González</span>
                 <span class="author-role">Content Creator</span>

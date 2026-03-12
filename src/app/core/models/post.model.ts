@@ -31,11 +31,14 @@ export interface Post {
   has_images: boolean;
   has_video: boolean;
   has_audio: boolean;
-  
+
   // URLs de media
   image_url?: string;      // Primera imagen (compatibilidad)
   video_url?: string;
   images?: PostImage[];    // Array de imágenes
+
+  // Metadata of attached video (if any) – orientation etc.
+  video?: any;
 
   // Usuario
   user_id: number;

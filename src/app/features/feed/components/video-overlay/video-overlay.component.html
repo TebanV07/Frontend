@@ -1,41 +1,207 @@
-<div class="video-overlay">
-  <!-- Información del usuario -->
-  <div class="user-info">
-    <img [src]="video.user.avatar" [alt]="video.user.username" class="avatar">
-    <span class="username">@{{ video.user.username }}</span>
-    <button class="follow-btn">Seguir</button>
-  </div>
+<!-- app/features/feed/videos/video-overlay/video-overlay.component.html -->
 
-  <!-- Descripción del video -->
-  <div class="video-description">
-    <p>{{ video.description }}</p>
-    <div class="tags">
-      <span *ngFor="let tag of video.tags" class="tag">#{{ tag }}</span>
+<div class="video-overlay">
+  <!-- Información del usuario (izquierda abajo) -->
+  <div class="video-info">
+    <!-- Usuario -->
+    <div class="user-section">
+      <img
+        [src]="getUserAvatarUrl()"
+        [alt]="video.user?.username"
+        class="user-avatar"
+        (error)="$any($event.target).src = 'assets/default-avatar.png'">
+      <div class="user-details">
+        <div class="username-row">
+          <span class="username">@{{ video.user?.username }}</span>
+          <span class="verified-badge" *ngIf="video.user?.is_verified">✓</span>
+        </div>
+        <span
+  class="user-bio"
+  *ngIf="video.user as user"
+>
+  {{ user.bio }}
+</span>
+      </div>
+      <button class="follow-btn">{{ 'videoOverlay.follow' | translate }}</button>
+    </div>
+
+    <!-- Título y descripción -->
+    <div class="video-details">
+      <h3 class="video-title" *ngIf="video.title">{{ video.title }}</h3>
+      <p class="video-description" *ngIf="video.description">{{ video.description }}</p>
+
+      <!-- Tags -->
+      <div class="video-tags" *ngIf="video.tags && video.tags.length > 0">
+        <span class="tag" *ngFor="let tag of video.tags">#{{ tag }}</span>
+      </div>
+    </div>
+
+    <!-- Idioma original y selector de subtítulos -->
+    <div class="language-section">
+      <div class="original-language">
+        <span class="lang-icon">{{ getLanguageFlag(video.original_language) }}</span>
+        <span class="lang-text">{{ getLanguageName(video.original_language) }}</span>
+      </div>
+
+      <!-- Selector de subtítulos -->
+      <div class="subtitle-selector">
+        <label for="subtitle-lang">
+          <span class="selector-icon">💬</span>
+          {{ 'videoOverlay.subtitles' | translate }}
+        </label>
+        <select
+          id="subtitle-lang"
+          [(ngModel)]="selectedSubtitleLanguage"
+          (change)="onSubtitleLanguageChange($event)"
+          class="subtitle-select">
+          <!-- Idioma original -->
+          <option [value]="video.original_language">
+            {{ getLanguageFlag(video.original_language) }} {{ getLanguageName(video.original_language) }} {{ 'videoOverlay.original' | translate }}
+          </option>
+
+          <!-- Idiomas disponibles -->
+          <optgroup [label]="'videoOverlay.available' | translate" *ngIf="availableSubtitles.length > 0">
+            <option
+              *ngFor="let lang of availableSubtitles"
+              [value]="lang.code"
+              [disabled]="lang.code === video.original_language">
+              {{ lang.flag }} {{ lang.name }} ✓
+            </option>
+          </optgroup>
+
+          <!-- Idiomas no disponibles (solicitar traducción) -->
+          <optgroup [label]="'videoOverlay.requestTranslation' | translate" *ngIf="unavailableSubtitles.length > 0">
+            <option
+              *ngFor="let lang of unavailableSubtitles"
+              [value]="lang.code">
+              {{ lang.flag }} {{ lang.name }} {{ 'videoOverlay.request' | translate }}
+            </option>
+          </optgroup>
+        </select>
+      </div>
+
+      <!-- Badge de traducción AI -->
+      <div class="ai-translation-badge" *ngIf="video.available_languages && video.available_languages.length > 1">
+        <span class="ai-icon">✨</span>
+        <span class="ai-text">{{ 'feed.aiActive' | translate }}</span>
+      </div>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="video-stats">
+      <span class="stat-item">
+        <span class="stat-icon">👁️</span>
+        <span class="stat-value">{{ formatViews(video.views_count) }}</span>
+      </span>
+      <span class="stat-separator">•</span>
+      <span class="stat-item">
+        <span class="stat-icon">⏱️</span>
+        <span class="stat-value">{{ getRelativeTime(video.created_at) }}</span>
+      </span>
     </div>
   </div>
 
-  <!-- Botones de interacción -->
-  <div class="interaction-buttons">
-    <div class="button-group">
-      <button class="icon-btn" (click)="onLike()">
-        <span class="icon">{{ video.isLiked ? '❤️' : '🤍' }}</span>
-        <span class="count">{{ video.likesCount | shortNumber }}</span>
-      </button>
-      
-      <button class="icon-btn" (click)="comment.emit(video)">
-        <span class="icon">💬</span>
-        <span class="count">{{ video.commentsCount | shortNumber }}</span>
-      </button>
-      
-      <button class="icon-btn" (click)="share.emit(video)">
-        <span class="icon">↗️</span>
-        <span class="count">{{ video.sharesCount | shortNumber }}</span>
-      </button>
-      
-      <button class="icon-btn" (click)="onSave()">
-        <span class="icon">{{ video.isSaved ? '⭐' : '✩' }}</span>
-        <span class="count">{{ video.savesCount | shortNumber }}</span>
-      </button>
+  <!-- Acciones (derecha) -->
+  <div class="action-buttons">
+    <!-- Avatar del usuario (grande) -->
+    <div class="action-avatar">
+      <img
+        [src]="getUserAvatarUrl()"
+        [alt]="video.user?.username"
+        class="action-user-avatar"
+        (error)="$any($event.target).src = 'assets/default-avatar.png'">
+      <div class="avatar-plus">+</div>
+    </div>
+
+    <!-- Like -->
+    <button
+      class="action-btn like-btn"
+      [class.liked]="video.is_liked"
+      (click)="onLike()">
+      <span class="btn-icon">{{ video.is_liked ? '❤️' : '🤍' }}</span>
+      <span class="btn-count">{{ video.likes_count | shortNumber }}</span>
+    </button>
+
+    <!-- Comment -->
+    <button
+      class="action-btn comment-btn"
+      (click)="onComment()">
+      <span class="btn-icon">💬</span>
+      <span class="btn-count">{{ video.comments_count | shortNumber }}</span>
+    </button>
+
+    <!-- Save -->
+    <button
+      class="action-btn save-btn"
+      [class.saved]="video.is_saved"
+      (click)="onSave()">
+      <span class="btn-icon">{{ video.is_saved ? '🔖' : '📑' }}</span>
+      <span class="btn-count">{{ video.shares_count | shortNumber }}</span>
+    </button>
+
+    <!-- Share -->
+    <button
+      class="action-btn share-btn"
+      (click)="onShare()">
+      <span class="btn-icon">🔗</span>
+      <span class="btn-count">{{ video.shares_count | shortNumber }}</span>
+    </button>
+
+    <!-- Translation menu -->
+    <button
+      class="action-btn translate-btn"
+      [class.active]="showTranslationMenu"
+      (click)="toggleTranslationMenu()">
+      <span class="btn-icon">🌐</span>
+      <span class="btn-label">{{ 'videoOverlay.translate' | translate }}</span>
+    </button>
+
+    <!-- Translation menu dropdown -->
+    <div class="translation-menu" *ngIf="showTranslationMenu">
+      <div class="menu-header">
+        <h4>{{ 'videoOverlay.translateVideo' | translate }}</h4>
+        <button class="close-btn" (click)="toggleTranslationMenu()">{{ 'videoOverlay.close' | translate }}</button>
+      </div>
+      <div class="menu-content">
+        <p class="menu-description">{{ 'videoOverlay.translateDesc' | translate }}</p>
+
+        <!-- Idiomas disponibles -->
+        <div class="available-languages" *ngIf="video.available_languages && video.available_languages.length > 0">
+          <h5>{{ 'videoOverlay.availableLangs' | translate }}</h5>
+          <div class="language-chips">
+            <span
+              class="language-chip available"
+              *ngFor="let lang of video.available_languages">
+              {{ getLanguageFlag(lang) }} {{ getLanguageName(lang) }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Solicitar nuevas traducciones -->
+        <div class="request-languages">
+          <h5>{{ 'videoOverlay.requestLangs' | translate }}</h5>
+          <div class="language-chips">
+            <button
+              class="language-chip request"
+              *ngFor="let lang of unavailableSubtitles"
+              (click)="requestVideoTranslation(lang.code)">
+              {{ lang.flag }} {{ lang.name }}
+            </button>
+          </div>
+        </div>
+
+        <p class="translation-note">
+          {{ 'videoOverlay.translationPending' | translate }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicador de video procesándose -->
+  <div class="processing-indicator" *ngIf="video.processing_status !== 'ready'">
+    <div class="processing-content">
+      <span class="processing-icon">⏳</span>
+      <span class="processing-text">{{ 'common.loading' | translate }}</span>
     </div>
   </div>
 </div>

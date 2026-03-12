@@ -1,0 +1,57 @@
+<div class="report-overlay" (click)="onOverlayClick($event)">
+      <div class="report-modal" (click)="$event.stopPropagation()">
+
+        <div class="modal-header">
+          <h3 class="modal-title">{{ 'report.title' | translate }}</h3>
+          <button class="close-btn" (click)="cancel()">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <p class="modal-subtitle">{{ 'report.subtitle' | translate }}</p>
+
+          <div class="reason-list">
+            <label
+              *ngFor="let r of reasons"
+              class="reason-item"
+              [class.reason-selected]="selectedReason === r.value">
+              <input
+                type="radio"
+                name="report-reason"
+                [value]="r.value"
+                [(ngModel)]="selectedReason">
+              <span class="reason-icon">{{ r.icon }}</span>
+              <span class="reason-label">{{ r.label }}</span>
+            </label>
+          </div>
+
+          <div class="description-field" *ngIf="selectedReason">
+            <label class="desc-label">{{ 'report.descriptionLabel' | translate }}</label>
+            <textarea
+              [(ngModel)]="description"
+              [placeholder]="'report.descriptionPlaceholder' | translate"
+              maxlength="500"
+              rows="3"
+              class="desc-textarea">
+            </textarea>
+            <span class="char-count">{{ description.length }}/500</span>
+          </div>
+
+          <div class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</div>
+          <div class="success-msg" *ngIf="successMsg">{{ successMsg }}</div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-cancel" (click)="cancel()" [disabled]="isSubmitting">
+            {{ 'report.cancel' | translate }}
+          </button>
+          <button
+            class="btn-submit"
+            (click)="submit()"
+            [disabled]="!selectedReason || isSubmitting">
+            <span *ngIf="!isSubmitting">{{ 'report.submit' | translate }}</span>
+            <span *ngIf="isSubmitting">{{ 'report.submitting' | translate }}</span>
+          </button>
+        </div>
+
+      </div>
+    </div>

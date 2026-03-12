@@ -1,336 +1,579 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpEventType, HttpParams } from '@angular/common/http';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { UserBasic } from '../models/user.model';
 
-export interface User {
-  id: string;
-  username: string;
-  name: string;
-  avatar: string;
-  verified: boolean;
-  followers: number;
-  following: number;
-  bio?: string;
-  language: string;
-  country: string;
-}
+// ==================== INTERFACES ====================
+
+// reutilizamos UserBasic para representar al autor del video
 
 export interface Video {
+  id: number;
+  uuid: string;
+  user_id: number;
+  user?: UserBasic;
+  title?: string;
+  description?: string;
+  video_url: string;
+  orientation?: 'vertical' | 'horizontal' | 'square';
+  raw_video_url?: string;
+  thumbnail_url?: string;
+  duration?: number;
+  views_count: number;
+  likes_count: number;
+  comments_count: number;
+  shares_count: number;
+  original_language: string;
+  available_languages?: string[];
+  processing_status: string;
+  is_public: boolean;
+  category?: string;
+  tags?: string[];
+  created_at: string;
+  updated_at: string;
+
+  // Datos enriquecidos del usuario actual
+  is_liked?: boolean;
+  is_saved?: boolean;
+}
+
+export interface VideoUploadResponse {
+  id: number;
+  uuid: string;
+  message: string;
+  processing_status: string;
+  video_url: string;
+  thumbnail_url?: string;
+}
+
+export interface VideoListResponse {
+  videos: Video[];
+  total: number;
+  page: number;
+  page_size: number;
+  has_more: boolean;
+}
+
+export interface VideoTranslationJob {
+  job_id: number;
+  video_id: number;
+  status: string;
+  progress: number;
+  current_step: string;
+  completed_languages: string[];
+  failed_languages: string[];
+  error_message?: string;
+  actual_cost_usd?: number;
+  created_at: string;
+  completed_at?: string;
+}
+
+export interface VideoSubtitle {
+  video_id: number;
+  language: string;
+  subtitle_url: string;
+  is_ai_generated: boolean;
+  created_at?: string;
+}
+export interface DubbedVideoResponse {
+  video_id: number;
+  language: string;
+  translated_video_url: string;
+  audio_url: string;
+  voice_type: string;
+  created_at: string;
+}
+
+// Nueva interfaz para Trending (simplificada)
+export interface Trending {
   id: string;
-  user: User;
+  hashtag: string;
   title: string;
-  description: string;
-  videoUrl: string;
+  category: string;
   thumbnailUrl: string;
-  duration: number;
+  videosCount: number;
   views: number;
   likes: number;
   comments: number;
   shares: number;
-  originalLanguage: string;
-  translatedTitle?: string;
-  translatedDescription?: string;
-  hasAudioTranslation: boolean;
-  isLiked: boolean;
-  isBookmarked: boolean;
-  createdAt: Date;
-  category: string;
-  tags: string[];
+  trendScore: number;
 }
 
-export interface Live {
-  id: string;
-  user: User;
-  title: string;
-  description: string;
-  streamUrl: string;
-  thumbnailUrl: string;
-  viewers: number;
-  likes: number;
-  duration: number;
-  isLive: boolean;
-  startedAt: Date;
-  originalLanguage: string;
-  hasLiveTranslation: boolean;
-  category: string;
+interface TrendingApiResponse {
+  country_code?: string | null;
+  generated_at: string;
+  trends: Array<{
+    id: string;
+    hashtag: string;
+    title: string;
+    category?: string | null;
+    thumbnail_url?: string | null;
+    videos_count: number;
+    views: number;
+    likes: number;
+    comments: number;
+    shares: number;
+    trend_score: number;
+  }>;
 }
 
-export interface Trending {
-  id: string;
-  title: string;
-  videosCount: number;
-  views: number;
-  thumbnailUrl: string;
-  category: string;
-}
+// ==================== SERVICIO ====================
 
 @Injectable({
   providedIn: 'root'
 })
 export class VideoService {
+  private apiUrl = 'http://localhost:8001/api/v1';
   private currentVideo$ = new BehaviorSubject<Video | null>(null);
 
-  private mockUsers: User[] = [
-    {
-      id: '1',
-      username: '@techmaster',
-      name: 'Alex Chen',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop',
-      verified: true,
-      followers: 125000,
-      following: 342,
-      bio: 'Tech enthusiast & AI developer 🤖 | Sharing knowledge daily',
-      language: 'English',
-      country: 'USA'
-    },
-    {
-      id: '2',
-      username: '@mariachef',
-      name: 'María Rodríguez',
-      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b05b?w=150&h=150&fit=crop',
-      verified: true,
-      followers: 89000,
-      following: 156,
-      bio: 'Chef profesional 👩‍🍳 | Recetas internacionales',
-      language: 'Spanish',
-      country: 'Spain'
-    },
-    {
-      id: '3',
-      username: '@yuki_travels',
-      name: 'Yuki Tanaka',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop',
-      verified: false,
-      followers: 45000,
-      following: 289,
-      bio: '旅行者 ✈️ | Exploring the world',
-      language: 'Japanese',
-      country: 'Japan'
-    },
-    {
-      id: '4',
-      username: '@fitness_pro',
-      name: 'Marcus Johnson',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop',
-      verified: true,
-      followers: 210000,
-      following: 98,
-      bio: 'Fitness coach 💪 | Transform your life',
-      language: 'English',
-      country: 'UK'
-    }
-  ];
+  constructor(private http: HttpClient) {}
 
-  private mockVideos: Video[] = [
-    {
-      id: '1',
-      user: this.mockUsers[0],
-      title: 'AI Translation in Real-Time: The Future is Here!',
-      description: 'Exploring how AI is breaking language barriers in real-time communication. Amazing technology! 🚀',
-      videoUrl: 'https://example.com/video1.mp4',
-      thumbnailUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=700&fit=crop',
-      duration: 45,
-      views: 234000,
-      likes: 12500,
-      comments: 856,
-      shares: 1200,
-      originalLanguage: 'English',
-      translatedTitle: 'Traducción con IA en Tiempo Real: ¡El Futuro está Aquí!',
-      translatedDescription: 'Explorando cómo la IA está rompiendo las barreras del idioma en la comunicación en tiempo real. ¡Tecnología increíble! 🚀',
-      hasAudioTranslation: true,
-      isLiked: false,
-      isBookmarked: false,
-      createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000),
-      category: 'Technology',
-      tags: ['AI', 'Translation', 'Tech']
-    },
-    {
-      id: '2',
-      user: this.mockUsers[1],
-      title: 'Paella Española Auténtica - Receta Tradicional',
-      description: 'Aprende a hacer la mejor paella española con ingredientes frescos y técnicas tradicionales 🥘',
-      videoUrl: 'https://example.com/video2.mp4',
-      thumbnailUrl: 'https://images.unsplash.com/photo-1534080564583-6be75777b70a?w=400&h=700&fit=crop',
-      duration: 58,
-      views: 156000,
-      likes: 9800,
-      comments: 432,
-      shares: 890,
-      originalLanguage: 'Spanish',
-      translatedTitle: 'Authentic Spanish Paella - Traditional Recipe',
-      translatedDescription: 'Learn to make the best Spanish paella with fresh ingredients and traditional techniques 🥘',
-      hasAudioTranslation: true,
-      isLiked: true,
-      isBookmarked: false,
-      createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000),
-      category: 'Food',
-      tags: ['Cooking', 'Spanish', 'Recipe']
-    },
-    {
-      id: '3',
-      user: this.mockUsers[2],
-      title: '東京の隠れた名所 | Hidden Gems in Tokyo',
-      description: '観光客があまり知らない東京の素晴らしい場所を紹介します 🗼',
-      videoUrl: 'https://example.com/video3.mp4',
-      thumbnailUrl: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=700&fit=crop',
-      duration: 62,
-      views: 89000,
-      likes: 5600,
-      comments: 324,
-      shares: 456,
-      originalLanguage: 'Japanese',
-      translatedTitle: 'Hidden Gems in Tokyo | Secret Spots',
-      translatedDescription: 'Discover amazing places in Tokyo that tourists rarely know about 🗼',
-      hasAudioTranslation: true,
-      isLiked: false,
-      isBookmarked: true,
-      createdAt: new Date(Date.now() - 8 * 60 * 60 * 1000),
-      category: 'Travel',
-      tags: ['Tokyo', 'Travel', 'Japan']
-    },
-    {
-      id: '4',
-      user: this.mockUsers[3],
-      title: '10-Minute Full Body Workout - No Equipment Needed',
-      description: 'Get fit at home with this intense 10-minute workout routine! Perfect for busy people 💪🔥',
-      videoUrl: 'https://example.com/video4.mp4',
-      thumbnailUrl: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=700&fit=crop',
-      duration: 10,
-      views: 445000,
-      likes: 28000,
-      comments: 1234,
-      shares: 3400,
-      originalLanguage: 'English',
-      translatedTitle: 'Entrenamiento Completo de 10 Minutos - Sin Equipo',
-      translatedDescription: '¡Ponte en forma en casa con esta intensa rutina de 10 minutos! Perfecto para personas ocupadas 💪🔥',
-      hasAudioTranslation: true,
-      isLiked: true,
-      isBookmarked: true,
-      createdAt: new Date(Date.now() - 12 * 60 * 60 * 1000),
-      category: 'Fitness',
-      tags: ['Workout', 'Fitness', 'Health']
-    }
-  ];
+  // ==================== HELPERS ====================
 
-  private mockLiveStreams: Live[] = [
-    {
-      id: 'live1',
-      user: this.mockUsers[0],
-      title: 'Building AI Apps LIVE - Q&A Session',
-      description: 'Join me as I code and answer your questions about AI development!',
-      streamUrl: 'https://example.com/live1',
-      thumbnailUrl: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=225&fit=crop',
-      viewers: 3420,
-      likes: 1250,
-      duration: 45,
-      isLive: true,
-      startedAt: new Date(Date.now() - 45 * 60 * 1000),
-      originalLanguage: 'English',
-      hasLiveTranslation: true,
-      category: 'Technology'
-    },
-    {
-      id: 'live2',
-      user: this.mockUsers[1],
-      title: 'Cocinando en VIVO - Tapas Españolas',
-      description: '¡Únete para aprender a hacer deliciosas tapas! Traducción en tiempo real disponible 🍴',
-      streamUrl: 'https://example.com/live2',
-      thumbnailUrl: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=225&fit=crop',
-      viewers: 2180,
-      likes: 890,
-      duration: 32,
-      isLive: true,
-      startedAt: new Date(Date.now() - 32 * 60 * 1000),
-      originalLanguage: 'Spanish',
-      hasLiveTranslation: true,
-      category: 'Food'
-    },
-    {
-      id: 'live3',
-      user: this.mockUsers[3],
-      title: 'Morning Workout Session - Join Me!',
-      description: 'Start your day right with an energizing workout! All levels welcome 🌅💪',
-      streamUrl: 'https://example.com/live3',
-      thumbnailUrl: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=225&fit=crop',
-      viewers: 5240,
-      likes: 2100,
-      duration: 28,
-      isLive: true,
-      startedAt: new Date(Date.now() - 28 * 60 * 1000),
-      originalLanguage: 'English',
-      hasLiveTranslation: true,
-      category: 'Fitness'
+  private getHeaders(): HttpHeaders {
+  // Verificar si estamos en el navegador
+  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      return new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
     }
-  ];
-
-  private mockTrending: Trending[] = [
-    {
-      id: 't1',
-      title: '#AITranslation',
-      videosCount: 12500,
-      views: 45000000,
-      thumbnailUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=200&h=200&fit=crop',
-      category: 'Technology'
-    },
-    {
-      id: 't2',
-      title: '#WorldCuisine',
-      videosCount: 8900,
-      views: 32000000,
-      thumbnailUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&h=200&fit=crop',
-      category: 'Food'
-    },
-    {
-      id: 't3',
-      title: '#FitnessChallenge',
-      videosCount: 15600,
-      views: 67000000,
-      thumbnailUrl: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=200&h=200&fit=crop',
-      category: 'Fitness'
-    },
-    {
-      id: 't4',
-      title: '#TravelVlog',
-      videosCount: 9800,
-      views: 28000000,
-      thumbnailUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=200&h=200&fit=crop',
-      category: 'Travel'
-    }
-  ];
-
-  getVideos(): Observable<Video[]> {
-    return of(this.mockVideos);
   }
 
-  getLiveStreams(): Observable<Live[]> {
-    return of(this.mockLiveStreams);
+  // Si no hay token o estamos en SSR, retornar headers básicos
+  return new HttpHeaders();
+}
+
+  // ✅ DESPUÉS
+private getHeadersWithoutContentType(): HttpHeaders {
+  // Verificar si estamos en el navegador
+  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      return new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+    }
   }
 
-  getTrending(): Observable<Trending[]> {
-    return of(this.mockTrending);
+  // Si no hay token, retornar headers vacíos
+  return new HttpHeaders();
+}
+
+  // ==================== UPLOAD VIDEO ====================
+
+  uploadVideo(
+    videoFile: File,
+    title?: string,
+    description?: string,
+    originalLanguage: string = 'es',
+    category?: string,
+    tags?: string[],
+    isPublic: boolean = true
+  ): Observable<{progress: number, response?: VideoUploadResponse}> {
+
+    const formData = new FormData();
+    formData.append('video_file', videoFile, videoFile.name);
+
+    if (title) formData.append('title', title);
+    if (description) formData.append('description', description);
+    formData.append('original_language', originalLanguage);
+    if (category) formData.append('category', category);
+    if (tags && tags.length > 0) formData.append('tags', JSON.stringify(tags));
+    formData.append('is_public', String(isPublic));
+
+    return this.http.post<VideoUploadResponse>(
+      `${this.apiUrl}/videos/`,
+      formData,
+      {
+        headers: this.getHeadersWithoutContentType(),
+        reportProgress: true,
+        observe: 'events'
+      }
+    ).pipe(
+      map(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          const progress = event.total
+            ? Math.round(100 * event.loaded / event.total)
+            : 0;
+          return { progress };
+        } else if (event.type === HttpEventType.Response) {
+          return { progress: 100, response: event.body as VideoUploadResponse };
+        }
+        return { progress: 0 };
+      }),
+      catchError(error => {
+        console.error('Error uploading video:', error);
+        return throwError(() => error);
+      })
+    );
   }
+
+  // ==================== GET VIDEO BY ID ====================
+
+  getVideo(videoId: number): Observable<Video> {
+    return this.http.get<Video>(
+      `${this.apiUrl}/videos/${videoId}`,
+      { headers: this.getHeaders() }
+    ).pipe(
+      catchError(error => {
+        console.error('Error getting video:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ==================== GET VIDEO BY UUID ====================
+
+  getVideoByUuid(uuid: string): Observable<Video> {
+    return this.http.get<Video>(
+      `${this.apiUrl}/videos/uuid/${uuid}`,
+      { headers: this.getHeaders() }
+    ).pipe(
+      catchError(error => {
+        console.error('Error getting video by UUID:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ==================== GET VIDEOS FEED ====================
+
+  getVideosFeed(
+    page: number = 1,
+    pageSize: number = 20,
+    feedType: 'for_you' | 'following' | 'trending' = 'for_you',
+    category?: string,
+    userId?: number
+  ): Observable<VideoListResponse> {
+
+    let params: any = {
+      page: page.toString(),
+      page_size: pageSize.toString(),
+      feed_type: feedType
+    };
+
+    if (category) params['category'] = category;
+    if (userId) params['user_id'] = userId.toString();
+
+    return this.http.get<VideoListResponse>(
+      `${this.apiUrl}/videos/`,
+      {
+        headers: this.getHeaders(),
+        params
+      }
+    ).pipe(
+      catchError(error => {
+        console.error('Error getting videos feed:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ==================== NUEVO: GET VIDEOS (simplificado para componentes) ====================
+
+  getVideos(page: number = 1, pageSize: number = 20): Observable<Video[]> {
+    return this.getVideosFeed(page, pageSize, 'for_you').pipe(
+      map(response => response.videos),
+      catchError(error => {
+        console.error('Error getting videos:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ==================== NUEVO: GET TRENDING ====================
+
+  getTrending(countryCode?: string, limit: number = 12): Observable<Trending[]> {
+    let params = new HttpParams().set('limit', limit.toString());
+
+    if (countryCode) {
+      params = params.set('country_code', countryCode);
+    }
+
+    return this.http.get<TrendingApiResponse>(
+      `${this.apiUrl}/videos/trending/hashtags`,
+      {
+        headers: this.getHeaders(),
+        params
+      }
+    ).pipe(
+      map(response => response.trends.map(trend => ({
+        id: trend.id,
+        hashtag: trend.hashtag,
+        title: trend.title || `#${trend.hashtag}`,
+        category: trend.category || 'General',
+        thumbnailUrl: trend.thumbnail_url || 'assets/default-thumb.png',
+        videosCount: trend.videos_count || 0,
+        views: trend.views || 0,
+        likes: trend.likes || 0,
+        comments: trend.comments || 0,
+        shares: trend.shares || 0,
+        trendScore: trend.trend_score || 0,
+      }))),
+      catchError(error => {
+        console.error('Error getting trending:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getTrendingVideosByCountry(options: {
+    countryCode?: string | null;
+    category?: string;
+    hashtag?: string;
+    page?: number;
+    pageSize?: number;
+  }): Observable<VideoListResponse> {
+    let params = new HttpParams()
+      .set('page', String(options.page ?? 1))
+      .set('page_size', String(options.pageSize ?? 20));
+
+    if (options.countryCode) {
+      params = params.set('country_code', options.countryCode);
+    }
+
+    if (options.category) {
+      params = params.set('category', options.category);
+    }
+
+    if (options.hashtag) {
+      params = params.set('hashtag', options.hashtag);
+    }
+
+    return this.http.get<VideoListResponse>(
+      `${this.apiUrl}/videos/trending/by-country`,
+      {
+        headers: this.getHeaders(),
+        params
+      }
+    ).pipe(
+      catchError(error => {
+        console.error('Error getting trending videos by country:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ==================== UPDATE VIDEO ====================
+
+  updateVideo(
+    videoId: number,
+    updates: {
+      title?: string;
+      description?: string;
+      is_public?: boolean;
+      category?: string;
+      tags?: string[];
+    }
+  ): Observable<Video> {
+    return this.http.put<Video>(
+      `${this.apiUrl}/videos/${videoId}`,
+      updates,
+      { headers: this.getHeaders() }
+    ).pipe(
+      catchError(error => {
+        console.error('Error updating video:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ==================== DELETE VIDEO ====================
+
+  deleteVideo(videoId: number): Observable<void> {
+    return this.http.delete<void>(
+      `${this.apiUrl}/videos/${videoId}`,
+      { headers: this.getHeaders() }
+    ).pipe(
+      catchError(error => {
+        console.error('Error deleting video:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ==================== LIKE VIDEO ====================
+
+  toggleLike(videoId: number): Observable<{message: string, is_liked: boolean, likes_count: number}> {
+    return this.http.post<any>(
+      `${this.apiUrl}/videos/${videoId}/like`,
+      {},
+      { headers: this.getHeaders() }
+    ).pipe(
+      catchError(error => {
+        console.error('Error toggling like:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ==================== SAVE VIDEO (BOOKMARK) ====================
+
+  toggleSave(videoId: number): Observable<{message: string, is_saved: boolean, saves_count: number}> {
+    return this.http.post<any>(
+      `${this.apiUrl}/videos/${videoId}/save`,
+      {},
+      { headers: this.getHeaders() }
+    ).pipe(
+      catchError(error => {
+        console.error('Error toggling save:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ==================== NUEVO: ALIAS para toggleBookmark ====================
+
+  toggleBookmark(videoId: number): Observable<{message: string, is_saved: boolean, saves_count: number}> {
+    return this.toggleSave(videoId);
+  }
+
+  // ==================== SHARE VIDEO ====================
+
+  shareVideo(videoId: number): Observable<{message: string, shares_count: number}> {
+    return this.http.post<any>(
+      `${this.apiUrl}/videos/${videoId}/share`,
+      {},
+      { headers: this.getHeaders() }
+    ).pipe(
+      catchError(error => {
+        console.error('Error sharing video:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ==================== TRADUCCIÓN DE VIDEOS ====================
+
+requestVideoTranslation(
+  videoId: number,
+  targetLanguages: string[],
+  includeAudio: boolean = false,
+  subtitleFormat: 'srt' | 'vtt' | 'ass' = 'srt',
+  ttsProvider: 'openai' | 'elevenlabs' = 'openai',  // ✅ NUEVO
+  cloneVoice: boolean = false,  // ✅ NUEVO
+  useSyncedTTS: boolean = true  // ✅ NUEVO
+): Observable<{
+  message: string;
+  job_id: number;
+  video_id: number;
+  target_languages: string[];
+  estimated_time_minutes: number;
+}> {
+  const body = {
+    target_languages: targetLanguages,
+    include_audio: includeAudio,
+    subtitle_format: subtitleFormat,
+    tts_provider: ttsProvider,  // ✅ NUEVO
+    clone_voice: cloneVoice,    // ✅ NUEVO
+    use_synced_tts: useSyncedTTS  // ✅ NUEVO
+  };
+
+  console.log('📤 Request body:', JSON.stringify(body, null, 2));
+  console.log('🎙️ TTS Provider:', ttsProvider);
+  console.log('🎤 Clone Voice:', cloneVoice);
+
+  return this.http.post<any>(
+    `${this.apiUrl}/video_translations/videos/${videoId}/translate`,
+    body,
+    { headers: this.getHeaders() }
+  ).pipe(
+    catchError(error => {
+      console.error('❌ Error requesting translation:', error);
+      return throwError(() => error);
+    })
+  );
+}
+
+  // ==================== ESTADO DE TRADUCCIÓN ====================
+
+  getTranslationStatus(videoId: number, jobId: number): Observable<VideoTranslationJob> {
+    return this.http.get<VideoTranslationJob>(
+      `${this.apiUrl}/video_translations/videos/${videoId}/translation-status/${jobId}`,
+      { headers: this.getHeaders() }
+    ).pipe(
+      catchError(error => {
+        console.error('Error getting translation status:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ==================== GET SUBTITLES ====================
+
+getSubtitles(videoId: number, language: string): Observable<VideoSubtitle> {
+  return this.http.get<VideoSubtitle>(
+    `${this.apiUrl}/video_translations/videos/${videoId}/subtitles/${language}`,
+    { headers: this.getHeaders() }
+  ).pipe(
+    catchError(error => {
+      console.error('Error getting subtitles:', error);
+      return throwError(() => error);
+    })
+  );
+}
+  // ==================== GET AVAILABLE LANGUAGES ====================
+
+  getAvailableLanguages(videoId: number): Observable<{
+    video_id: number;
+    available_languages: VideoSubtitle[];
+  }> {
+    return this.http.get<any>(
+      `${this.apiUrl}/video_translations/videos/${videoId}/available-languages`,
+      { headers: this.getHeaders() }
+    ).pipe(
+      catchError(error => {
+        console.error('Error getting available languages:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ==================== GET MY TRANSLATION JOBS ====================
+
+  getMyTranslationJobs(limit: number = 10): Observable<{jobs: VideoTranslationJob[]}> {
+    return this.http.get<any>(
+      `${this.apiUrl}/video_translations/my-translation-jobs`,
+      {
+        headers: this.getHeaders(),
+        params: { limit: limit.toString() }
+      }
+    ).pipe(
+      catchError(error => {
+        console.error('Error getting my jobs:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // ==================== CURRENT VIDEO (STATE) ====================
 
   getCurrentVideo(): Observable<Video | null> {
     return this.currentVideo$.asObservable();
   }
 
-  setCurrentVideo(video: Video) {
+  setCurrentVideo(video: Video | null): void {
     this.currentVideo$.next(video);
   }
 
-  toggleLike(videoId: string): Observable<boolean> {
-    const video = this.mockVideos.find(v => v.id === videoId);
-    if (video) {
-      video.isLiked = !video.isLiked;
-      video.likes += video.isLiked ? 1 : -1;
-    }
-    return of(video?.isLiked || false);
+  clearCurrentVideo(): void {
+    this.currentVideo$.next(null);
   }
-
-  toggleBookmark(videoId: string): Observable<boolean> {
-    const video = this.mockVideos.find(v => v.id === videoId);
-    if (video) {
-      video.isBookmarked = !video.isBookmarked;
-    }
-    return of(video?.isBookmarked || false);
-  }
+  getDubbedVideo(
+  videoId: number,
+  language: string
+): Observable<DubbedVideoResponse> {
+  return this.http.get<DubbedVideoResponse>(
+    `${this.apiUrl}/video_translations/videos/${videoId}/dubbed/${language}`,
+    { headers: this.getHeaders() }
+  ).pipe(
+    catchError(error => {
+      console.error('🎙️ Error obteniendo video doblado:', error);
+      return throwError(() => error);
+    })
+  );
+}
 }

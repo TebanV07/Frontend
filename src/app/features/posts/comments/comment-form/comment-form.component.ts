@@ -1,18 +1,20 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
-import { PostCommentService } from '../../../../core/services/post-comment.service';
+import { CommentService } from '../../../../core/services/comment.service';
 import { CreateCommentDto, CommentResponse } from '../../../../core/models/comment.model';
 
 @Component({
   selector: 'app-comment-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './comment-form.component.html',
   styleUrls: ['./comment-form.component.scss']
 })
-export class CommentFormComponent {
-  @Input() postId!: number;
+export class CommentFormComponent implements AfterViewInit {
+  @Input() postId?: number;
+  @Input() videoId?: number;
   @Input() parentCommentId?: number;
   @Input() placeholder: string = 'Write a comment...';
   @Input() autoFocus: boolean = false;
@@ -25,7 +27,7 @@ export class CommentFormComponent {
   isSubmitting: boolean = false;
   error: string | null = null;
 
-  constructor(private commentService: PostCommentService) {}
+  constructor(private commentService: CommentService) {}
 
   ngAfterViewInit(): void {
     if (this.autoFocus && this.textarea) {
@@ -39,19 +41,23 @@ export class CommentFormComponent {
     this.isSubmitting = true;
     this.error = null;
 
-    const commentData: CreateCommentDto = {
+    const data: CreateCommentDto = {
       content: this.content.trim(),
       parent_comment_id: this.parentCommentId
     };
 
-    this.commentService.createComment(this.postId, commentData).subscribe({
+    const obs = this.videoId
+      ? this.commentService.createVideoComment(this.videoId, data)
+      : this.commentService.createComment(this.postId || 0, data);
+
+    obs.subscribe({
       next: (response) => {
-        this.commentCreated.emit(response);
+        this.commentCreated.emit(response as any);
         this.content = '';
         this.isSubmitting = false;
       },
-      error: (error) => {
-        this.error = error.error?.detail || 'Failed to post comment';
+      error: (error: any) => {
+        this.error = error.error?.detail || 'Error al publicar el comentario';
         this.isSubmitting = false;
       }
     });
@@ -59,6 +65,7 @@ export class CommentFormComponent {
 
   onCancel(): void {
     this.content = '';
+    this.error = null;
     this.cancelled.emit();
   }
 
@@ -68,3 +75,4 @@ export class CommentFormComponent {
     textarea.style.height = textarea.scrollHeight + 'px';
   }
 }
+
