@@ -35,14 +35,12 @@ $text-muted: #5a5a5a;
     align-items: flex-start;
     margin-bottom: 1rem;
 
-    // ← Clase real del HTML
     .author-info {
       display: flex;
       gap: 0.875rem;
       flex: 1;
       align-items: flex-start;
 
-      // Avatar del autor
       .avatar {
         width: 48px;
         height: 48px;
@@ -54,11 +52,9 @@ $text-muted: #5a5a5a;
         flex-shrink: 0;
       }
 
-      // ← Clase real del HTML
       .author-details {
         flex: 1;
 
-        // ← Fila nombre + bandera de país
         .author-name-row {
           display: flex;
           align-items: center;
@@ -72,11 +68,9 @@ $text-muted: #5a5a5a;
           font-weight: 600;
           color: $text-primary;
           text-decoration: none;
-
           &:hover { color: $yellow; }
         }
 
-        // ⭐ Bandera del país del autor
         .author-flag {
           width: 20px;
           height: auto;
@@ -99,7 +93,6 @@ $text-muted: #5a5a5a;
       }
     }
 
-    // Menú de 3 puntos
     .post-menu {
       position: relative;
 
@@ -111,11 +104,7 @@ $text-muted: #5a5a5a;
         padding: 0.25rem 0.5rem;
         border-radius: 8px;
         transition: all 0.2s ease;
-
-        &:hover {
-          background: rgba($yellow, 0.08);
-          color: $yellow;
-        }
+        &:hover { background: rgba($yellow, 0.08); color: $yellow; }
       }
 
       .dropdown-menu {
@@ -142,7 +131,6 @@ $text-muted: #5a5a5a;
           text-align: left;
           font-size: 0.875rem;
           transition: background 0.2s;
-
           &:hover { background: rgba($yellow, 0.08); color: $yellow; }
           &.danger { color: #ff6b6b; }
           &.danger:hover { background: rgba(255, 107, 107, 0.1); }
@@ -156,7 +144,6 @@ $text-muted: #5a5a5a;
   .post-content {
     margin-bottom: 1rem;
 
-    // ⭐ Badge del idioma original del post (bandera + nombre)
     .language-badge {
       display: inline-flex;
       align-items: center;
@@ -167,18 +154,8 @@ $text-muted: #5a5a5a;
       border-radius: 20px;
       margin-bottom: 0.75rem;
 
-      .lang-flag {
-        width: 18px;
-        height: auto;
-        border-radius: 2px;
-      }
-
-      .language-name {
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: rgba($yellow, 0.85);
-        text-transform: capitalize;
-      }
+      .lang-flag { width: 18px; height: auto; border-radius: 2px; }
+      .language-name { font-size: 0.75rem; font-weight: 600; color: rgba($yellow, 0.85); text-transform: capitalize; }
     }
 
     .content-text {
@@ -195,7 +172,6 @@ $text-muted: #5a5a5a;
       }
     }
 
-    // Media
     .media-container {
       .video-wrapper {
         position: relative;
@@ -204,11 +180,7 @@ $text-muted: #5a5a5a;
         background: #000;
         margin-top: 0.75rem;
 
-        .media-video {
-          width: 100%;
-          max-height: 500px;
-          display: block;
-        }
+        .media-video { width: 100%; max-height: 500px; display: block; }
 
         .media-image.poster {
           width: 100%;
@@ -227,7 +199,6 @@ $text-muted: #5a5a5a;
           background: rgba(0,0,0,0.3);
           cursor: pointer;
           transition: background 0.2s;
-
           &:hover { background: rgba(0,0,0,0.5); }
         }
 
@@ -245,23 +216,145 @@ $text-muted: #5a5a5a;
         }
       }
 
+      // ── Grid de imágenes ─────────────────────────────────
       .image-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 0.5rem;
         margin-top: 0.75rem;
 
-        .media-image {
-          width: 100%;
-          height: 280px;
-          object-fit: cover;
+        // ── Cada imagen dentro de su contenedor ──────────
+        .image-item {
+          position: relative;
           border-radius: 10px;
+          overflow: hidden;
+          background: $dark-card;
+
+          .media-image {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            background: $dark-card;
+          }
+
+          // ── Barra inferior con botón de traducir ─────────
+          .img-translate-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0.4rem 0.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+            display: flex;
+            justify-content: flex-end;
+
+            .btn-img-translate {
+              display: inline-flex;
+              align-items: center;
+              gap: 0.3rem;
+              padding: 0.3rem 0.65rem;
+              background: rgba($dark-card, 0.85);
+              border: 1px solid rgba($yellow, 0.25);
+              border-radius: 20px;
+              color: rgba($yellow, 0.85);
+              font-size: 0.72rem;
+              font-weight: 600;
+              cursor: pointer;
+              transition: all 0.2s ease;
+              backdrop-filter: blur(4px);
+
+              svg { flex-shrink: 0; }
+
+              &:hover {
+                background: rgba($yellow, 0.15);
+                border-color: rgba($yellow, 0.5);
+                color: $yellow;
+                transform: translateY(-1px);
+              }
+
+              &.active {
+                background: rgba($yellow, 0.12);
+                border-color: rgba($yellow, 0.4);
+                color: $yellow;
+              }
+
+              &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none;
+              }
+            }
+          }
+
+          // ── Panel de resultado OCR + traducción ───────────
+          .img-translation-panel {
+            position: absolute;
+            inset: 0;
+            background: rgba($dark-bg, 0.93);
+            backdrop-filter: blur(6px);
+            padding: 1rem;
+            overflow-y: auto;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+
+            .panel-original,
+            .panel-translated {
+              .panel-label {
+                display: flex;
+                align-items: center;
+                gap: 0.3rem;
+                font-size: 0.7rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: $text-muted;
+                margin-bottom: 0.35rem;
+
+                .panel-flag {
+                  width: 14px;
+                  height: auto;
+                  border-radius: 2px;
+                }
+              }
+
+              p {
+                font-size: 0.85rem;
+                line-height: 1.55;
+                color: $text-primary;
+                margin: 0;
+                white-space: pre-wrap;
+              }
+            }
+
+            .panel-original p { color: $text-secondary; }
+
+            .panel-translated p {
+              color: $text-primary;
+              font-weight: 500;
+            }
+
+            .panel-divider {
+              height: 1px;
+              background: $dark-border;
+            }
+
+            .no-text {
+              font-size: 0.82rem;
+              color: $text-muted;
+              text-align: center;
+              margin: auto 0;
+            }
+          }
         }
       }
     }
   }
 
-  // ⭐ Indicador de traducción activa con banderas
+  // ── Indicador de traducción activa ───────────────────────
   .translation-indicator {
     display: flex;
     align-items: center;
@@ -275,19 +368,8 @@ $text-muted: #5a5a5a;
     font-size: 0.8rem;
     color: $text-secondary;
 
-    .lang-flag-small {
-      width: 16px;
-      height: auto;
-      border-radius: 2px;
-      vertical-align: middle;
-    }
-
-    .original-lang {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      color: $text-muted;
-    }
+    .lang-flag-small { width: 16px; height: auto; border-radius: 2px; vertical-align: middle; }
+    .original-lang { display: inline-flex; align-items: center; gap: 0.3rem; color: $text-muted; }
   }
 
   // ==================== ESTADÍSTICAS ====================
@@ -336,8 +418,8 @@ $text-muted: #5a5a5a;
       }
 
       &.translate-button {
-        &:hover { color: #a78bfa; border-color: rgba(167, 139, 250, 0.3); background: rgba(167, 139, 250, 0.08); }
-        &.active { color: #a78bfa; border-color: rgba(167, 139, 250, 0.4); background: rgba(167, 139, 250, 0.1); }
+        &:hover  { color: #a78bfa; border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.08); }
+        &.active { color: #a78bfa; border-color: rgba(167,139,250,0.4); background: rgba(167,139,250,0.1); }
       }
 
       &:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
@@ -351,10 +433,7 @@ $text-muted: #5a5a5a;
   .post-card {
     padding: 1rem;
 
-    .post-header .author-info .avatar {
-      width: 40px;
-      height: 40px;
-    }
+    .post-header .author-info .avatar { width: 40px; height: 40px; }
 
     .post-actions {
       gap: 0.4rem;
@@ -364,6 +443,12 @@ $text-muted: #5a5a5a;
         padding: 0.5rem 0.5rem;
         font-size: 0.8rem;
       }
+    }
+
+    .post-content .media-container .image-grid {
+      grid-template-columns: 1fr;
+
+      .image-item .media-image { height: 220px; }
     }
   }
 }

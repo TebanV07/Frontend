@@ -1,16 +1,17 @@
-import {
+﻿import {
   Component, OnInit, AfterViewInit, OnDestroy,
   ViewChild, ViewChildren, ElementRef, QueryList,
   Inject, PLATFORM_ID
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-terms',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './terms.component.html',
   styleUrls: ['./terms.component.scss']
 })
@@ -25,10 +26,10 @@ export class TermsComponent implements OnInit, AfterViewInit, OnDestroy {
   scrollProgress = 0;
   scrolledToBottom = false;
 
-  // Guardamos si cada tab fue leído hasta el final
+  // Guardamos si cada tab fue leÃ­do hasta el final
   private tabRead: Record<string, boolean> = { terms: false, privacy: false };
 
-  // Ambos deben haberse leído para poder aceptar
+  // Ambos deben haberse leÃ­do para poder aceptar
   get bothRead(): boolean {
     return this.tabRead['terms'] && this.tabRead['privacy'];
   }
@@ -60,7 +61,7 @@ export class TermsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   switchTab(tab: 'terms' | 'privacy'): void {
     this.activeTab = tab;
-    // Pequeño delay para que el DOM muestre el nuevo panel
+    // PequeÃ±o delay para que el DOM muestre el nuevo panel
     setTimeout(() => this.updateScrollState(), 60);
   }
 
@@ -113,3 +114,4 @@ acceptTerms(): void {
     this.router.navigate(['/login']);
   }
 }
+

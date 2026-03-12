@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { PostsService } from '../../../../core/services/posts.service';
 import { Post } from '../../../../core/models/post.model';
@@ -18,8 +19,7 @@ import { FormsModule } from '@angular/forms';
     LikeButtonComponent,
     LikeCountComponent,
     CommentListComponent,
-    FormsModule
-  ],
+    FormsModule, TranslateModule],
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss']
 })
@@ -39,7 +39,7 @@ export class PostDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private postService: PostsService,
-    public flagService: FlagService    // ⭐ NUEVO
+    public flagService: FlagService    // â­ NUEVO
   ) {}
 
   ngOnInit(): void {
@@ -66,7 +66,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   onVideoError(event: Event): void {
-    console.error('❌ Error loading video:', (event.target as HTMLVideoElement)?.error);
+    console.error('âŒ Error loading video:', (event.target as HTMLVideoElement)?.error);
   }
 
   toggleTranslation(): void {
@@ -102,3 +102,4 @@ export class PostDetailComponent implements OnInit {
     });
   }
 }
+

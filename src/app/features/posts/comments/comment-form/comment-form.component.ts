@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { CommentService } from '../../../../core/services/comment.service';
 import { CreateCommentDto, CommentResponse } from '../../../../core/models/comment.model';
@@ -7,7 +8,7 @@ import { CreateCommentDto, CommentResponse } from '../../../../core/models/comme
 @Component({
   selector: 'app-comment-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './comment-form.component.html',
   styleUrls: ['./comment-form.component.scss']
 })
@@ -74,3 +75,4 @@ export class CommentFormComponent implements AfterViewInit {
     textarea.style.height = textarea.scrollHeight + 'px';
   }
 }
+

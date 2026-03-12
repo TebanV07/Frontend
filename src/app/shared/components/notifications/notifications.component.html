@@ -16,7 +16,7 @@
   <div class="notification-dropdown" *ngIf="showDropdown">
     <!-- Header -->
     <div class="dropdown-header">
-      <h3>Notificaciones</h3>
+      <h3>{{ 'notifications.title' | translate }}</h3>
       <button class="close-btn" (click)="closeDropdown()">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -28,10 +28,10 @@
     <!-- Acciones -->
     <div class="dropdown-actions" *ngIf="notifications.length > 0">
       <button class="action-text" (click)="markAllAsRead($event)" [disabled]="isMarkingAsRead || unreadCount === 0">
-        {{ isMarkingAsRead ? 'Marcando...' : 'Marcar todo como leído' }}
+        {{ (isMarkingAsRead ? 'notifications.markingAllRead' : 'notifications.markAllRead') | translate }}
       </button>
       <button class="action-delete" (click)="clearAll($event)" [disabled]="isLoading">
-        Limpiar todo
+        {{ 'notifications.clearAll' | translate }}
       </button>
     </div>
 
@@ -43,13 +43,13 @@
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
           <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
         </svg>
-        <p>No tienes notificaciones</p>
+        <p>{{ 'notifications.emptyAll' | translate }}</p>
       </div>
 
       <!-- Loading -->
       <div class="loading-state" *ngIf="isLoading">
         <div class="spinner"></div>
-        <p>Cargando...</p>
+        <p>{{ 'common.loading' | translate }}</p>
       </div>
 
       <!-- Notificaciones -->
@@ -90,7 +90,7 @@
           <div class="notification-actions">
             <button
               class="action-mark"
-              [title]="notification.is_read ? 'Marcar como no leído' : 'Marcar como leído'"
+              [title]="(notification.is_read ? 'notifications.markUnread' : 'notifications.markRead') | translate"
               (click)="markAsRead(notification, $event)">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="20 6 9 17 4 12"></polyline>
@@ -99,7 +99,7 @@
 
             <button
               class="action-delete"
-              title="Eliminar"
+              [title]="'notifications.delete' | translate"
               (click)="deleteNotification(notification, $event)">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="3 6 5 6 21 6"></polyline>

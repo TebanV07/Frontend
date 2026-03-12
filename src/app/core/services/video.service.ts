@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEventType, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { UserBasic } from '../models/user.model';
@@ -88,11 +88,34 @@ export interface DubbedVideoResponse {
 // Nueva interfaz para Trending (simplificada)
 export interface Trending {
   id: string;
+  hashtag: string;
   title: string;
   category: string;
   thumbnailUrl: string;
   videosCount: number;
   views: number;
+  likes: number;
+  comments: number;
+  shares: number;
+  trendScore: number;
+}
+
+interface TrendingApiResponse {
+  country_code?: string | null;
+  generated_at: string;
+  trends: Array<{
+    id: string;
+    hashtag: string;
+    title: string;
+    category?: string | null;
+    thumbnail_url?: string | null;
+    videos_count: number;
+    views: number;
+    likes: number;
+    comments: number;
+    shares: number;
+    trend_score: number;
+  }>;
 }
 
 // ==================== SERVICIO ====================
@@ -263,42 +286,72 @@ private getHeadersWithoutContentType(): HttpHeaders {
 
   // ==================== NUEVO: GET TRENDING ====================
 
-  getTrending(): Observable<Trending[]> {
-    // Por ahora, creamos trending desde los videos más vistos
-    // Puedes crear un endpoint específico en el backend más adelante
-    return this.getVideosFeed(1, 10, 'trending').pipe(
-      map(response => {
-        // Agrupar por categoría y crear trending
-        const categoriesMap = new Map<string, Video[]>();
+  getTrending(countryCode?: string, limit: number = 12): Observable<Trending[]> {
+    let params = new HttpParams().set('limit', limit.toString());
 
-        response.videos.forEach(video => {
-          const category = video.category || 'General';
-          if (!categoriesMap.has(category)) {
-            categoriesMap.set(category, []);
-          }
-          categoriesMap.get(category)!.push(video);
-        });
+    if (countryCode) {
+      params = params.set('country_code', countryCode);
+    }
 
-        // Convertir a formato Trending
-        const trending: Trending[] = Array.from(categoriesMap.entries()).map(([category, videos], index) => {
-          const totalViews = videos.reduce((sum, v) => sum + v.views_count, 0);
-          const firstVideo = videos[0];
-
-          return {
-            id: `trending-${category.toLowerCase()}`,
-            title: `#${category}`,
-            category: category,
-            thumbnailUrl: firstVideo.thumbnail_url || 'https://via.placeholder.com/300x200',
-            videosCount: videos.length,
-            views: totalViews
-          };
-        });
-
-        return trending;
-      }),
+    return this.http.get<TrendingApiResponse>(
+      `${this.apiUrl}/videos/trending/hashtags`,
+      {
+        headers: this.getHeaders(),
+        params
+      }
+    ).pipe(
+      map(response => response.trends.map(trend => ({
+        id: trend.id,
+        hashtag: trend.hashtag,
+        title: trend.title || `#${trend.hashtag}`,
+        category: trend.category || 'General',
+        thumbnailUrl: trend.thumbnail_url || 'assets/default-thumb.png',
+        videosCount: trend.videos_count || 0,
+        views: trend.views || 0,
+        likes: trend.likes || 0,
+        comments: trend.comments || 0,
+        shares: trend.shares || 0,
+        trendScore: trend.trend_score || 0,
+      }))),
       catchError(error => {
         console.error('Error getting trending:', error);
-        // Retornar array vacío en caso de error
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getTrendingVideosByCountry(options: {
+    countryCode?: string | null;
+    category?: string;
+    hashtag?: string;
+    page?: number;
+    pageSize?: number;
+  }): Observable<VideoListResponse> {
+    let params = new HttpParams()
+      .set('page', String(options.page ?? 1))
+      .set('page_size', String(options.pageSize ?? 20));
+
+    if (options.countryCode) {
+      params = params.set('country_code', options.countryCode);
+    }
+
+    if (options.category) {
+      params = params.set('category', options.category);
+    }
+
+    if (options.hashtag) {
+      params = params.set('hashtag', options.hashtag);
+    }
+
+    return this.http.get<VideoListResponse>(
+      `${this.apiUrl}/videos/trending/by-country`,
+      {
+        headers: this.getHeaders(),
+        params
+      }
+    ).pipe(
+      catchError(error => {
+        console.error('Error getting trending videos by country:', error);
         return throwError(() => error);
       })
     );

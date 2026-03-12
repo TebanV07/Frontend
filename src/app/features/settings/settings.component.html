@@ -4,11 +4,11 @@
   <div class="delete-overlay" *ngIf="showDeleteModal" (click)="cancelDelete()">
     <div class="delete-modal" (click)="$event.stopPropagation()">
       <div class="delete-modal-icon">⚠️</div>
-      <h2>¿Eliminar tu cuenta?</h2>
-      <p>Esta acción es <strong>permanente e irreversible</strong>. Se eliminarán todos tus datos, publicaciones y videos en un plazo de 30 días.</p>
+      <h2>{{ 'settings.deleteModal.title' | translate }}</h2>
+      <p>{{ 'settings.deleteModal.body' | translate }}</p>
 
       <div class="form-field" style="margin: 1.25rem 0 0">
-        <label>Confirma tu contraseña para continuar</label>
+        <label>{{ 'settings.deleteModal.confirmLabel' | translate }}</label>
         <input
           type="password"
           [(ngModel)]="deletePassword"
@@ -21,10 +21,10 @@
 
       <div class="delete-actions">
         <button class="btn-cancel" (click)="cancelDelete()" [disabled]="isDeletingAccount">
-          Cancelar
+          {{ 'common.cancel' | translate }}
         </button>
         <button class="btn-delete-confirm" (click)="confirmDelete()" [disabled]="isDeletingAccount || !deletePassword">
-          <span *ngIf="!isDeletingAccount">Sí, eliminar mi cuenta</span>
+          <span *ngIf="!isDeletingAccount">{{ 'settings.deleteModal.confirmBtn' | translate }}</span>
           <span *ngIf="isDeletingAccount" class="spinner"></span>
         </button>
       </div>
@@ -38,7 +38,7 @@
         <circle cx="12" cy="12" r="3"/>
         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
       </svg>
-      Configuración
+      {{ 'settings.title' | translate }}
     </h1>
   </div>
 
@@ -51,27 +51,27 @@
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
           <circle cx="12" cy="7" r="4"/>
         </svg>
-        Perfil
+        {{ 'settings.nav.profile' | translate }}
       </button>
       <button class="nav-item" [class.active]="activeTab === 'account'" (click)="activeTab = 'account'">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
           <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
-        Cuenta
+        {{ 'settings.nav.account' | translate }}
       </button>
       <button class="nav-item" [class.active]="activeTab === 'notifications'" (click)="activeTab = 'notifications'">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
           <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
         </svg>
-        Notificaciones
+        {{ 'settings.nav.notifications' | translate }}
       </button>
       <button class="nav-item" [class.active]="activeTab === 'privacy'" (click)="activeTab = 'privacy'">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
         </svg>
-        Privacidad
+        {{ 'settings.nav.privacy' | translate }}
       </button>
 
       <div class="nav-separator"></div>
@@ -82,7 +82,7 @@
           <polyline points="16 17 21 12 16 7"/>
           <line x1="21" y1="12" x2="9" y2="12"/>
         </svg>
-        Cerrar sesión
+        {{ 'settings.nav.logout' | translate }}
       </button>
     </nav>
 
@@ -94,7 +94,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <polyline points="20 6 9 17 4 12"/>
         </svg>
-        Cambios guardados correctamente
+        {{ 'settings.saved' | translate }}
       </div>
       <div class="toast error" *ngIf="saveError">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -105,12 +105,12 @@
 
       <!-- ===== TAB: PERFIL ===== -->
       <div class="panel-section" *ngIf="activeTab === 'profile'">
-        <h2>Editar perfil</h2>
+        <h2>{{ 'settings.profile.title' | translate }}</h2>
 
         <div class="avatar-section">
           <div class="avatar-preview-wrap">
             <img [src]="getAvatarUrl()" alt="Avatar" class="avatar-preview" (error)="onAvatarError($event)">
-            <label class="avatar-change-btn" title="Cambiar foto">
+            <label class="avatar-change-btn" [title]="'settings.profile.savePhoto' | translate">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
                 <circle cx="12" cy="13" r="4"/>
@@ -120,9 +120,9 @@
           </div>
           <div class="avatar-info">
             <p class="avatar-name">{{ currentUser?.first_name || currentUser?.firstName }} {{ currentUser?.last_name || currentUser?.lastName }}</p>
-            <p class="avatar-hint">JPG, PNG o WebP · Máx 5MB</p>
+            <p class="avatar-hint">{{ 'settings.profile.avatarHint' | translate }}</p>
             <button class="btn-save" *ngIf="avatarFile" (click)="uploadAvatar()" [disabled]="isUploadingAvatar">
-              <span *ngIf="!isUploadingAvatar">Guardar foto</span>
+              <span *ngIf="!isUploadingAvatar">{{ 'settings.profile.savePhoto' | translate }}</span>
               <span *ngIf="isUploadingAvatar" class="spinner"></span>
             </button>
           </div>
@@ -130,27 +130,27 @@
 
         <div class="form-grid">
           <div class="form-field">
-            <label>Nombre</label>
+            <label>{{ 'settings.profile.firstName' | translate }}</label>
             <input type="text" [(ngModel)]="profileForm.first_name" placeholder="Tu nombre">
           </div>
           <div class="form-field">
-            <label>Apellido</label>
+            <label>{{ 'settings.profile.lastName' | translate }}</label>
             <input type="text" [(ngModel)]="profileForm.last_name" placeholder="Tu apellido">
           </div>
           <div class="form-field full">
-            <label>Biografía</label>
-            <textarea [(ngModel)]="profileForm.bio" placeholder="Cuéntanos algo sobre ti..." rows="3" maxlength="500"></textarea>
+            <label>{{ 'settings.profile.bio' | translate }}</label>
+            <textarea [(ngModel)]="profileForm.bio" [placeholder]="'settings.profile.bioPlaceholder' | translate" rows="3" maxlength="500"></textarea>
           </div>
           <div class="form-field">
-            <label>Sitio web</label>
-            <input type="url" [(ngModel)]="profileForm.website" placeholder="https://tu-sitio.com">
+            <label>{{ 'settings.profile.website' | translate }}</label>
+            <input type="url" [(ngModel)]="profileForm.website" [placeholder]="'settings.profile.websitePlaceholder' | translate">
           </div>
           <div class="form-field">
-            <label>Ubicación</label>
-            <input type="text" [(ngModel)]="profileForm.location" placeholder="Ciudad, País">
+            <label>{{ 'settings.profile.location' | translate }}</label>
+            <input type="text" [(ngModel)]="profileForm.location" [placeholder]="'settings.profile.locationPlaceholder' | translate">
           </div>
           <div class="form-field">
-            <label>Idioma nativo</label>
+            <label>{{ 'settings.profile.nativeLanguage' | translate }}</label>
             <select [(ngModel)]="profileForm.native_language">
               <option *ngFor="let lang of languages" [value]="lang.code">{{ lang.name }}</option>
             </select>
@@ -159,7 +159,7 @@
 
         <div class="form-actions">
           <button class="btn-save" (click)="saveProfile()" [disabled]="isSaving">
-            <span *ngIf="!isSaving">Guardar cambios</span>
+            <span *ngIf="!isSaving">{{ 'settings.profile.saveChanges' | translate }}</span>
             <span *ngIf="isSaving" class="spinner"></span>
           </button>
         </div>
@@ -167,43 +167,43 @@
 
       <!-- ===== TAB: CUENTA ===== -->
       <div class="panel-section" *ngIf="activeTab === 'account'">
-        <h2>Cuenta</h2>
+        <h2>{{ 'settings.account.title' | translate }}</h2>
 
         <div class="info-card">
           <div class="info-row">
-            <span class="info-label">Email</span>
+            <span class="info-label">{{ 'settings.account.email' | translate }}</span>
             <span class="info-value">{{ currentUser?.email }}</span>
           </div>
           <div class="info-row">
-            <span class="info-label">Username</span>
+            <span class="info-label">{{ 'settings.account.username' | translate }}</span>
             <span class="info-value">{{'@' + currentUser?.username }}</span>
           </div>
           <div class="info-row">
-            <span class="info-label">Cuenta verificada</span>
+            <span class="info-label">{{ 'settings.account.verified' | translate }}</span>
             <span class="badge" [class.yes]="currentUser?.is_verified || currentUser?.isVerified">
-              {{ (currentUser?.is_verified || currentUser?.isVerified) ? 'Verificada' : 'No verificada' }}
+              {{ (currentUser?.is_verified || currentUser?.isVerified) ? ('settings.account.verifiedYes' | translate) : ('settings.account.verifiedNo' | translate) }}
             </span>
           </div>
         </div>
 
-        <h3>Cambiar contraseña</h3>
+        <h3>{{ 'settings.account.changePassword' | translate }}</h3>
         <div class="form-grid">
           <div class="form-field full">
-            <label>Contraseña actual</label>
+            <label>{{ 'settings.account.currentPassword' | translate }}</label>
             <input type="password" [(ngModel)]="accountForm.current_password" placeholder="••••••••">
           </div>
           <div class="form-field">
-            <label>Nueva contraseña</label>
+            <label>{{ 'settings.account.newPassword' | translate }}</label>
             <input type="password" [(ngModel)]="accountForm.new_password" placeholder="••••••••">
           </div>
           <div class="form-field">
-            <label>Confirmar nueva contraseña</label>
+            <label>{{ 'settings.account.confirmPassword' | translate }}</label>
             <input type="password" [(ngModel)]="accountForm.confirm_password" placeholder="••••••••">
           </div>
         </div>
         <div class="form-actions">
           <button class="btn-save" (click)="changePassword()" [disabled]="isSaving">
-            <span *ngIf="!isSaving">Cambiar contraseña</span>
+            <span *ngIf="!isSaving">{{ 'settings.account.changePassword' | translate }}</span>
             <span *ngIf="isSaving" class="spinner"></span>
           </button>
         </div>
@@ -211,17 +211,17 @@
         <!-- Zona de peligro -->
         <div class="danger-zone">
           <div class="danger-zone-header">
-            <h3>Zona de peligro</h3>
-            <p>Estas acciones son permanentes y no se pueden deshacer.</p>
+            <h3>{{ 'settings.account.dangerZone' | translate }}</h3>
+            <p>{{ 'settings.account.dangerDesc' | translate }}</p>
           </div>
           <div class="danger-zone-body">
             <div class="danger-item">
               <div class="danger-info">
-                <span class="danger-title">Eliminar cuenta</span>
-                <span class="danger-desc">Elimina permanentemente tu cuenta, publicaciones y todos tus datos personales conforme a la LOPDP.</span>
+                <span class="danger-title">{{ 'settings.account.deleteAccount' | translate }}</span>
+                <span class="danger-desc">{{ 'settings.account.deleteDesc' | translate }}</span>
               </div>
               <button class="btn-danger" (click)="openDeleteModal()">
-                Eliminar cuenta
+                {{ 'settings.account.deleteAccount' | translate }}
               </button>
             </div>
           </div>
@@ -230,13 +230,13 @@
 
       <!-- ===== TAB: NOTIFICACIONES ===== -->
       <div class="panel-section" *ngIf="activeTab === 'notifications'">
-        <h2>Notificaciones</h2>
+        <h2>{{ 'settings.notifications.title' | translate }}</h2>
 
         <div class="toggle-list">
           <div class="toggle-item">
             <div class="toggle-info">
-              <span class="toggle-label">Notificaciones push</span>
-              <span class="toggle-desc">Recibe alertas de actividad en la app</span>
+              <span class="toggle-label">{{ 'settings.notifications.push' | translate }}</span>
+              <span class="toggle-desc">{{ 'settings.notifications.pushDesc' | translate }}</span>
             </div>
             <label class="toggle-switch">
               <input type="checkbox" [(ngModel)]="notifSettings.notifications_enabled">
@@ -245,8 +245,8 @@
           </div>
           <div class="toggle-item">
             <div class="toggle-info">
-              <span class="toggle-label">Notificaciones por email</span>
-              <span class="toggle-desc">Recibe un resumen semanal y alertas importantes</span>
+              <span class="toggle-label">{{ 'settings.notifications.email' | translate }}</span>
+              <span class="toggle-desc">{{ 'settings.notifications.emailDesc' | translate }}</span>
             </div>
             <label class="toggle-switch">
               <input type="checkbox" [(ngModel)]="notifSettings.email_notifications">
@@ -257,7 +257,7 @@
 
         <div class="form-actions">
           <button class="btn-save" (click)="saveSettings()" [disabled]="isSaving">
-            <span *ngIf="!isSaving">Guardar</span>
+            <span *ngIf="!isSaving">{{ 'common.save' | translate }}</span>
             <span *ngIf="isSaving" class="spinner"></span>
           </button>
         </div>
@@ -265,13 +265,13 @@
 
       <!-- ===== TAB: PRIVACIDAD ===== -->
       <div class="panel-section" *ngIf="activeTab === 'privacy'">
-        <h2>Privacidad y preferencias</h2>
+        <h2>{{ 'settings.privacy.title' | translate }}</h2>
 
         <div class="toggle-list">
           <div class="toggle-item">
             <div class="toggle-info">
-              <span class="toggle-label">Cuenta privada</span>
-              <span class="toggle-desc">Solo tus seguidores pueden ver tu contenido</span>
+              <span class="toggle-label">{{ 'settings.privacy.privateAccount' | translate }}</span>
+              <span class="toggle-desc">{{ 'settings.privacy.privateDesc' | translate }}</span>
             </div>
             <label class="toggle-switch">
               <input type="checkbox" [(ngModel)]="privacySettings.private_account">
@@ -280,8 +280,8 @@
           </div>
           <div class="toggle-item">
             <div class="toggle-info">
-              <span class="toggle-label">Traducción automática</span>
-              <span class="toggle-desc">Traduce automáticamente el contenido de otros idiomas</span>
+              <span class="toggle-label">{{ 'settings.privacy.autoTranslate' | translate }}</span>
+              <span class="toggle-desc">{{ 'settings.privacy.autoTranslateDesc' | translate }}</span>
             </div>
             <label class="toggle-switch">
               <input type="checkbox" [(ngModel)]="privacySettings.auto_translate">
@@ -292,25 +292,25 @@
 
         <div class="form-grid" style="margin-top:1.5rem">
           <div class="form-field">
-            <label>Idioma de traducción preferido</label>
+            <label>{{ 'settings.privacy.prefLang' | translate }}</label>
             <select [(ngModel)]="privacySettings.preferred_translation_language">
-              <option value="">Mismo que el nativo</option>
+              <option value="">{{ 'settings.privacy.prefLangDefault' | translate }}</option>
               <option *ngFor="let lang of languages" [value]="lang.code">{{ lang.name }}</option>
             </select>
           </div>
           <div class="form-field">
-            <label>Tema</label>
+            <label>{{ 'settings.privacy.theme' | translate }}</label>
             <select [(ngModel)]="privacySettings.theme">
-              <option value="auto">Automático</option>
-              <option value="dark">Oscuro</option>
-              <option value="light">Claro</option>
+              <option value="auto">{{ 'settings.privacy.themeAuto' | translate }}</option>
+              <option value="dark">{{ 'settings.privacy.themeDark' | translate }}</option>
+              <option value="light">{{ 'settings.privacy.themeLight' | translate }}</option>
             </select>
           </div>
         </div>
 
         <div class="form-actions">
           <button class="btn-save" (click)="saveSettings()" [disabled]="isSaving">
-            <span *ngIf="!isSaving">Guardar</span>
+            <span *ngIf="!isSaving">{{ 'common.save' | translate }}</span>
             <span *ngIf="isSaving" class="spinner"></span>
           </button>
         </div>

@@ -1,0 +1,485 @@
+﻿{
+    "brand":  {
+                  "name":  "TINKO",
+                  "tagline":  "AI-Powered Global Connection"
+              },
+    "auth":  {
+                 "login":  {
+                               "title":  "æ¬¢è¿Žå›žæ¥ï¼",
+                               "subtitle":  "ç™»å½•ä»¥ç»§ç»­æ‚¨çš„å…¨çƒä½“éªŒ",
+                               "submit":  "ç™»å½•",
+                               "submitting":  "ç™»å½•ä¸­...",
+                               "noAccount":  "æ²¡æœ‰è´¦å·ï¼Ÿ",
+                               "switchToRegister":  "å…è´¹æ³¨å†Œ",
+                               "rememberMe":  "è®°ä½æˆ‘",
+                               "forgotPassword":  "å¿˜è®°å¯†ç ï¼Ÿ",
+                               "orContinueWith":  "æˆ–é€šè¿‡ä»¥ä¸‹æ–¹å¼ç»§ç»­",
+                               "google":  "Google"
+                           },
+                 "register":  {
+                                  "title":  "åŠ å…¥é©å‘½ï¼",
+                                  "subtitle":  "æ— è¯­è¨€éšœç¢åœ°è¿žæŽ¥å…¨ä¸–ç•Œ",
+                                  "submit":  "åˆ›å»ºè´¦å·",
+                                  "submitting":  "åˆ›å»ºä¸­...",
+                                  "hasAccount":  "å·²æœ‰è´¦å·ï¼Ÿ",
+                                  "switchToLogin":  "ç™»å½•",
+                                  "usernameHint":  "å¦‚ä¸å¡«å†™ï¼Œå°†è‡ªåŠ¨ç”Ÿæˆ",
+                                  "nativeLanguageHint":  "æ¯è¯­"
+                              },
+                 "fields":  {
+                                "firstName":  "å",
+                                "lastName":  "å§“",
+                                "username":  "ç”¨æˆ·åï¼ˆå¯é€‰ï¼‰",
+                                "email":  "ç”µå­é‚®ä»¶",
+                                "password":  "å¯†ç ",
+                                "nativeLanguage":  "æ¯è¯­"
+                            },
+                 "features":  {
+                                  "title":  "ðŸš€ ç­‰å¾…æ‚¨çš„ç²¾å½©ï¼š",
+                                  "videos":  "å®žæ—¶ç¿»è¯‘è§†é¢‘",
+                                  "languages":  "è¿žæŽ¥24+ç§è¯­è¨€",
+                                  "ai":  "å…ˆè¿›AIç¿»è¯‘"
+                              }
+             },
+    "verify":  {
+                   "loading":  "éªŒè¯æ‚¨çš„é‚®ç®±ä¸­...",
+                   "success":  {
+                                   "title":  "é‚®ç®±å·²éªŒè¯ï¼",
+                                   "message":  "æ‚¨çš„è´¦å·å·²éªŒè¯ã€‚å°½æƒ…äº«å—æ‰€æœ‰åŠŸèƒ½å§ã€‚",
+                                   "goHome":  "å‰å¾€é¦–é¡µ"
+                               },
+                   "error":  {
+                                 "title":  "æ— æ•ˆé“¾æŽ¥",
+                                 "requestNew":  "è¯·æ±‚æ–°é“¾æŽ¥"
+                             }
+               },
+    "header":  {
+                   "search":  "æœç´¢ç”¨æˆ·ã€å¸–å­...",
+                   "nav":  {
+                               "home":  "é¦–é¡µ",
+                               "trending":  "çƒ­é—¨",
+                               "videos":  "è§†é¢‘",
+                               "messages":  "æ¶ˆæ¯",
+                               "notifications":  "é€šçŸ¥",
+                               "profile":  "ä¸ªäººä¸»é¡µ",
+                               "settings":  "è®¾ç½®"
+                           },
+                   "theme":  {
+                                 "light":  "æµ…è‰²æ¨¡å¼",
+                                 "dark":  "æ·±è‰²æ¨¡å¼"
+                             },
+                   "menu":  "èœå•"
+               },
+    "chat":  {
+                 "input":  {
+                               "placeholder":  "è¾“å…¥æ¶ˆæ¯...",
+                               "emojis":  "è¡¨æƒ…",
+                               "attach":  "é™„åŠ æ–‡ä»¶",
+                               "camera":  "æ‹ç…§",
+                               "voice":  "å½•åˆ¶è¯­éŸ³æ¶ˆæ¯",
+                               "send":  "å‘é€",
+                               "recording":  "å½•éŸ³ä¸­...",
+                               "stopRecording":  "åœæ­¢"
+                           },
+                 "window":  {
+                                "noName":  "æ— åç§°",
+                                "selectConversation":  "é€‰æ‹©å¯¹è¯",
+                                "selectConversationHint":  "é€‰æ‹©ä¸€ä¸ªå¯¹è¯å¼€å§‹èŠå¤©",
+                                "uploading":  "ä¸Šä¼ æ–‡ä»¶ä¸­...",
+                                "speaksLanguage":  "è¯´ "
+                            },
+                 "bubble":  {
+                                "edited":  "å·²ç¼–è¾‘",
+                                "edit":  "ç¼–è¾‘",
+                                "delete":  "åˆ é™¤",
+                                "deleteForMe":  "ä»…å¯¹æˆ‘åˆ é™¤",
+                                "forward":  "è½¬å‘",
+                                "share":  "åˆ†äº«",
+                                "translate":  "ç¿»è¯‘"
+                            }
+             },
+    "feed":  {
+                 "loading":  "åŠ è½½è§†é¢‘ä¸­...",
+                 "loadingMore":  "åŠ è½½æ›´å¤šè§†é¢‘...",
+                 "empty":  {
+                               "title":  "æš‚æ— è§†é¢‘",
+                               "subtitle":  "æˆä¸ºç¬¬ä¸€ä¸ªä¸Šä¼ AIç¿»è¯‘è§†é¢‘çš„äºº",
+                               "upload":  "ä¸Šä¼ è§†é¢‘"
+                           },
+                 "position":  "{{ current }} / {{ total }}",
+                 "aiActive":  "AI Translation Active",
+                 "aiDesc":  "All content automatically translated to your preferred language",
+                 "aiLanguages":  "Languages",
+                 "aiVideos":  "Videos",
+                 "suggestedTitle":  "People you may know",
+                 "suggestedSeeAll":  "See all",
+                 "suggestedFollowers":  "followers",
+                 "suggestedMutual":  "in common",
+                 "following":  "Following",
+                 "follow":  "Follow",
+                 "loadingPosts":  "Loading posts...",
+                 "noPosts":  "No posts yet",
+                 "noPostsSub":  "Be the first to share something!"
+             },
+    "videoPlayer":  {
+                        "loading":  "åŠ è½½è§†é¢‘ä¸­...",
+                        "error":  {
+                                      "title":  "è§†é¢‘åŠ è½½å¤±è´¥",
+                                      "subtitle":  "æ— æ³•æ’­æ”¾æ­¤è§†é¢‘",
+                                      "retry":  "é‡è¯•"
+                                  },
+                        "noSupport":  "æ‚¨çš„æµè§ˆå™¨ä¸æ”¯æŒè§†é¢‘æ ‡ç­¾ã€‚"
+                    },
+    "comments":  {
+                     "title":  "è¯„è®º",
+                     "placeholder":  "å†™è¯„è®º...",
+                     "submit":  "ðŸ’¬ è¯„è®º",
+                     "submitting":  "å‘å¸ƒä¸­...",
+                     "loading":  "åŠ è½½ä¸­...",
+                     "empty":  "æˆä¸ºç¬¬ä¸€ä¸ªè¯„è®ºçš„äºº",
+                     "loadMore":  "â†“ æŸ¥çœ‹æ›´å¤šè¯„è®º",
+                     "loadingMore":  "åŠ è½½ä¸­...",
+                     "reply":  "å›žå¤",
+                     "replying":  "å‘å¸ƒä¸­...",
+                     "cancel":  "å–æ¶ˆ",
+                     "save":  "ä¿å­˜",
+                     "edit":  "âœï¸ ç¼–è¾‘",
+                     "delete":  "ðŸ—‘ï¸ åˆ é™¤",
+                     "edited":  "Â· å·²ç¼–è¾‘",
+                     "replyTo":  "å›žå¤@",
+                     "replies":  {
+                                     "one":  "æ¡å›žå¤",
+                                     "other":  "æ¡å›žå¤"
+                                 }
+                 },
+    "post":  {
+                 "edit":  {
+                              "title":  "ç¼–è¾‘å¸–å­",
+                              "content":  "å†…å®¹ï¼š",
+                              "tags":  "æ ‡ç­¾ï¼ˆç”¨é€—å·åˆ†éš”ï¼‰ï¼š",
+                              "public":  "å…¬å¼€",
+                              "save":  "ä¿å­˜",
+                              "skip":  "è·³è¿‡"
+                          },
+                 "likes":  {
+                               "like":  "ç‚¹èµž",
+                               "liked":  "å·²ç‚¹èµž",
+                               "likedBy":  "ç‚¹èµžè€…",
+                               "noLikes":  "æš‚æ— ç‚¹èµž",
+                               "loading":  "åŠ è½½ä¸­..."
+                           },
+                 "deleteConfirm":  "Delete this post?",
+                 "deleteBody":  "This action cannot be undone.",
+                 "editMenu":  "Edit",
+                 "deleteMenu":  "Delete",
+                 "reportMenu":  "Report",
+                 "shareMenu":  "Share",
+                 "comments":  "comments",
+                 "comment":  "Comment",
+                 "translateText":  "Translate text",
+                 "extracting":  "Extracting...",
+                 "showImage":  "Show image",
+                 "showText":  "Show text",
+                 "originalText":  "Original text",
+                 "noText":  "No text found in this image",
+                 "translatedTo":  "Translated to",
+                 "from":  "from",
+                 "showingTranslation":  "Showing translation",
+                 "translatePost":  "Translate this post",
+                 "translating":  "Translating...",
+                 "showOriginal":  "Show Original",
+                 "translate":  "Translate",
+                 "back":  "Back to feed",
+                 "close":  "Close"
+             },
+    "profile":  {
+                    "tabs":  {
+                                 "posts":  "å¸–å­",
+                                 "videos":  "è§†é¢‘",
+                                 "liked":  "ç‚¹èµž",
+                                 "bookmarks":  "æ”¶è—"
+                             },
+                    "content":  {
+                                    "noPosts":  "æš‚æ— å¸–å­",
+                                    "noVideos":  "æš‚æ— è§†é¢‘",
+                                    "likedPosts":  "æ‚¨ç‚¹èµžçš„å¸–å­",
+                                    "savedPosts":  "æ”¶è—çš„å¸–å­",
+                                    "loadMore":  "æŸ¥çœ‹æ›´å¤š",
+                                    "loading":  "åŠ è½½ä¸­..."
+                                }
+                },
+    "upload":  {
+                   "title":  "ä¸Šä¼ è§†é¢‘/å¸–å­",
+                   "titleField":  "æ ‡é¢˜ï¼ˆå¯é€‰ï¼‰",
+                   "description":  "æè¿°ï¼ˆå¯é€‰ï¼‰",
+                   "submit":  "ä¸Šä¼ ",
+                   "submitting":  "ä¸Šä¼ ä¸­..."
+               },
+    "explore":  {
+                    "title":  "å‘çŽ°ç”¨æˆ·",
+                    "subtitle":  "æ‰¾åˆ°å¹¶è¿žæŽ¥æ¥è‡ªä¸–ç•Œå„åœ°çš„äºº",
+                    "search":  {
+                                   "placeholder":  "æŒ‰å§“åæˆ–ç”¨æˆ·åæœç´¢...",
+                                   "button":  "æœç´¢",
+                                   "searching":  "æœç´¢ä¸­...",
+                                   "results":  "ç»“æžœï¼ˆ{{ count }}ï¼‰",
+                                   "noResults":  {
+                                                     "title":  "æœªæ‰¾åˆ°ç»“æžœ",
+                                                     "subtitle":  "è¯·å°è¯•å…¶ä»–æœç´¢è¯"
+                                                 }
+                               },
+                    "followRequests":  {
+                                           "title":  "å…³æ³¨è¯·æ±‚",
+                                           "noPending":  {
+                                                             "title":  "æš‚æ— å¾…å¤„ç†è¯·æ±‚",
+                                                             "subtitle":  "å½“æœ‰äººæƒ³å…³æ³¨æ‚¨æ—¶ï¼Œå°†æ˜¾ç¤ºåœ¨è¿™é‡Œ"
+                                                         },
+                                           "accept":  "æŽ¥å—",
+                                           "reject":  "æ‹’ç»"
+                                       },
+                    "suggested":  {
+                                      "title":  "æ‚¨å¯èƒ½è®¤è¯†çš„äºº",
+                                      "empty":  "æš‚æ— æŽ¨è",
+                                      "viewAll":  "æŸ¥çœ‹å…¨éƒ¨æŽ¨è",
+                                      "viewLess":  "æ”¶èµ·",
+                                      "mutual":  "{{ count }}ä½å…±åŒå…³æ³¨è€…",
+                                      "follow":  "å…³æ³¨",
+                                      "following":  "å·²å…³æ³¨",
+                                      "pending":  "å¾…ç¡®è®¤"
+                                  }
+                },
+    "countrySetup":  {
+                         "title":  "æ‚¨æ¥è‡ªå“ªé‡Œï¼Ÿ",
+                         "subtitle":  "æ‚¨çš„å›½æ——å°†æ˜¾ç¤ºåœ¨æ‚¨çš„å¸–å­å’Œæ¶ˆæ¯ä¸­ï¼Œè®©å¤§å®¶çŸ¥é“æ‚¨æ¥è‡ªå“ªé‡Œã€‚",
+                         "detecting":  "æ­£åœ¨æ£€æµ‹æ‚¨çš„å›½å®¶...",
+                         "detected":  "æ£€æµ‹åˆ°çš„å›½å®¶ï¼š",
+                         "notDetected":  "æ— æ³•è‡ªåŠ¨æ£€æµ‹æ‚¨çš„å›½å®¶ã€‚",
+                         "manualSelect":  "é€‰æ‹©æ‚¨çš„å›½å®¶ï¼š",
+                         "manualPlaceholder":  "-- é€‰æ‹©å›½å®¶ --",
+                         "notMyCountry":  "è¿™ä¸æ˜¯æˆ‘çš„å›½å®¶ â€” æ›´æ”¹",
+                         "confirm":  "âœ… ç¡®è®¤",
+                         "saving":  "ä¿å­˜ä¸­...",
+                         "skip":  "æš‚æ—¶è·³è¿‡"
+                     },
+    "permissions":  {
+                        "welcome":  {
+                                        "title":  "è®¾ç½®æƒé™",
+                                        "subtitle":  "ä¸ºäº†ç»™æ‚¨æä¾›æœ€ä½³ä½“éªŒï¼Œæˆ‘ä»¬éœ€è¦è®¿é—®éƒ¨åˆ†è®¾å¤‡æƒé™ã€‚",
+                                        "camera":  "ç›´æ’­ç”¨æ‘„åƒå¤´",
+                                        "microphone":  "è§†é¢‘é€šè¯ç”¨éº¦å…‹é£Ž",
+                                        "notifications":  "æ¶ˆæ¯é€šçŸ¥",
+                                        "later":  "ç¨åŽè®¾ç½®",
+                                        "continue":  "ç»§ç»­"
+                                    },
+                        "list":  {
+                                     "title":  "æ‰€éœ€æƒé™",
+                                     "subtitle":  "ç‚¹å‡»æ¯é¡¹æƒé™å‘è®¾å¤‡ç”³è¯·",
+                                     "granted":  "âœ“ å·²æŽˆæƒ",
+                                     "required":  "âš  å¿…è¦",
+                                     "optional":  "â„¹ å¯é€‰",
+                                     "request":  "ç”³è¯·è®¿é—®",
+                                     "requestAll":  "ç”³è¯·å…¨éƒ¨",
+                                     "back":  "è¿”å›ž"
+                                 },
+                        "complete":  {
+                                         "title":  "è®¾ç½®å®Œæˆï¼",
+                                         "subtitle":  "æ‚¨çš„æƒé™å·²æ­£ç¡®é…ç½®ã€‚",
+                                         "grantedStatus":  "å·²æŽˆæƒ",
+                                         "deniedStatus":  "æœªæŽˆæƒ",
+                                         "redirect":  "å‡ ç§’åŽå°†è·³è½¬åˆ°é¦–é¡µ...",
+                                         "goHome":  "ç«‹å³å‰å¾€é¦–é¡µ"
+                                     }
+                    },
+    "report":  {
+                   "title":  "ðŸš© ä¸¾æŠ¥å†…å®¹",
+                   "subtitle":  "é€‰æ‹©ä¸¾æŠ¥åŽŸå› ",
+                   "descriptionLabel":  "è¡¥å……è¯´æ˜Žï¼ˆå¯é€‰ï¼‰",
+                   "descriptionPlaceholder":  "å‘Šè¯‰æˆ‘ä»¬æ›´å¤šå…³äºŽè¯¥é—®é¢˜...",
+                   "cancel":  "å–æ¶ˆ",
+                   "submit":  "æäº¤ä¸¾æŠ¥",
+                   "submitting":  "æäº¤ä¸­..."
+               },
+    "terms":  {
+                  "title":  "æ¡æ¬¾ã€æ¡ä»¶ä¸Žéšç§",
+                  "lastUpdated":  "æœ€åŽæ›´æ–°ï¼š2025å¹´1æœˆ Â· è¯·åœ¨ç»§ç»­ä¹‹å‰ä»”ç»†é˜…è¯»",
+                  "tabs":  {
+                               "terms":  "ðŸ“„ æ¡æ¬¾ä¸Žæ¡ä»¶",
+                               "privacy":  "ðŸ”’ éšç§æ”¿ç­–"
+                           },
+                  "scroll":  {
+                                 "pending":  "å‘ä¸‹æ»šåŠ¨ä»¥ç»§ç»­",
+                                 "done":  "æ‚¨å·²é˜…è¯»å®Œæ•´æ–‡æ¡£ âœ“"
+                             },
+                  "decline":  "æ‹’ç»",
+                  "accept":  "åŒæ„å¹¶ç»§ç»­"
+              },
+    "common":  {
+                   "loading":  "åŠ è½½ä¸­...",
+                   "error":  "å‘ç”Ÿé”™è¯¯",
+                   "retry":  "é‡è¯•",
+                   "save":  "ä¿å­˜",
+                   "cancel":  "å–æ¶ˆ",
+                   "confirm":  "ç¡®è®¤",
+                   "delete":  "åˆ é™¤",
+                   "edit":  "ç¼–è¾‘",
+                   "close":  "å…³é—­",
+                   "back":  "è¿”å›ž",
+                   "next":  "ä¸‹ä¸€æ­¥",
+                   "skip":  "è·³è¿‡",
+                   "search":  "æœç´¢",
+                   "share":  "åˆ†äº«",
+                   "report":  "ä¸¾æŠ¥",
+                   "follow":  "å…³æ³¨",
+                   "unfollow":  "å–æ¶ˆå…³æ³¨",
+                   "following":  "å·²å…³æ³¨",
+                   "followers":  "ç²‰ä¸",
+                   "posts":  "å¸–å­",
+                   "videos":  "è§†é¢‘"
+               },
+    "settings":  {
+                     "title":  "Settings",
+                     "nav":  {
+                                 "profile":  "Profile",
+                                 "account":  "Account",
+                                 "notifications":  "Notifications",
+                                 "privacy":  "Privacy",
+                                 "logout":  "Log out"
+                             },
+                     "profile":  {
+                                     "title":  "Edit Profile",
+                                     "avatarHint":  "JPG, PNG or WebP · Max 5MB",
+                                     "savePhoto":  "Save photo",
+                                     "firstName":  "First name",
+                                     "lastName":  "Last name",
+                                     "bio":  "Bio",
+                                     "bioPlaceholder":  "Tell us something about you...",
+                                     "website":  "Website",
+                                     "websitePlaceholder":  "https://your-site.com",
+                                     "location":  "Location",
+                                     "locationPlaceholder":  "City, Country",
+                                     "nativeLanguage":  "Native language",
+                                     "saveChanges":  "Save changes"
+                                 },
+                     "account":  {
+                                     "title":  "Account",
+                                     "email":  "Email",
+                                     "username":  "Username",
+                                     "verified":  "Verified account",
+                                     "verifiedYes":  "Verified",
+                                     "verifiedNo":  "Not verified",
+                                     "changePassword":  "Change password",
+                                     "currentPassword":  "Current password",
+                                     "newPassword":  "New password",
+                                     "confirmPassword":  "Confirm new password",
+                                     "dangerZone":  "Danger zone",
+                                     "dangerDesc":  "These actions are permanent and cannot be undone.",
+                                     "deleteAccount":  "Delete account",
+                                     "deleteDesc":  "Permanently deletes your account, posts and all personal data."
+                                 },
+                     "deleteModal":  {
+                                         "title":  "Delete your account?",
+                                         "body":  "This action is permanent and irreversible. All your data, posts and videos will be deleted within 30 days.",
+                                         "confirmLabel":  "Confirm your password to continue",
+                                         "confirmBtn":  "Yes, delete my account"
+                                     },
+                     "notifications":  {
+                                           "title":  "Notifications",
+                                           "push":  "Push notifications",
+                                           "pushDesc":  "Receive activity alerts in the app",
+                                           "email":  "Email notifications",
+                                           "emailDesc":  "Receive a weekly summary and important alerts",
+                                           "save":  "Save"
+                                       },
+                     "privacy":  {
+                                     "title":  "Privacy and Preferences",
+                                     "privateAccount":  "Private account",
+                                     "privateDesc":  "Only your followers can see your content",
+                                     "autoTranslate":  "Auto-translate",
+                                     "autoTranslateDesc":  "Automatically translate content from other languages",
+                                     "prefLang":  "Preferred translation language",
+                                     "prefLangDefault":  "Same as native",
+                                     "theme":  "Theme",
+                                     "themeAuto":  "Automatic",
+                                     "themeDark":  "Dark",
+                                     "themeLight":  "Light",
+                                     "save":  "Save"
+                                 },
+                     "saved":  "Changes saved successfully"
+                 },
+    "notifications":  {
+                          "title":  "Notifications",
+                          "markAllRead":  "Mark all as read",
+                          "markingAllRead":  "Marking...",
+                          "clearAll":  "Clear all",
+                          "filterAll":  "All",
+                          "filterUnread":  "Unread",
+                          "loading":  "Loading notifications...",
+                          "emptyAll":  "No notifications",
+                          "emptyAllSub":  "Check back later for new notifications",
+                          "emptyUnread":  "No unread notifications",
+                          "emptyUnreadSub":  "You are up to date",
+                          "new":  "New",
+                          "markRead":  "Mark as read",
+                          "markUnread":  "Mark as unread",
+                          "delete":  "Delete"
+                      },
+    "sidebar":  {
+                    "following":  "Following",
+                    "followers":  "Followers",
+                    "posts":  "Posts",
+                    "navigation":  "Navigation",
+                    "aiTranslation":  "AI Translation",
+                    "active":  "Active",
+                    "realtimeTranslation":  "Real-time Translation",
+                    "realtimeDesc":  "Videos \u0026 Posts",
+                    "languages":  "24+ Languages",
+                    "languagesDesc":  "Global connectivity",
+                    "instant":  "Instant Processing",
+                    "instantDesc":  "Lightning fast"
+                },
+    "trending":  {
+                     "title":  "Trending",
+                     "loading":  "Loading trends...",
+                     "filterByCountry":  "Filter by country",
+                     "global":  "Global",
+                     "noTrending":  "No trending topics available",
+                     "videos":  "videos",
+                     "views":  "views",
+                     "onlyFrom":  "Only from",
+                     "sort":  "Sort:",
+                     "sortTrending":  "Most trending",
+                     "sortViews":  "Most views",
+                     "sortRecent":  "Most recent",
+                     "trendingBadge":  "Trending",
+                     "watchNow":  "Watch now",
+                     "gridView":  "Grid",
+                     "listView":  "List"
+                 },
+    "lives":  {
+                  "title":  "Live",
+                  "chat":  "Chat",
+                  "live":  "LIVE",
+                  "say":  "Say something...",
+                  "send":  "Send"
+              },
+    "videoOverlay":  {
+                         "follow":  "Follow",
+                         "subtitles":  "Subtitles:",
+                         "original":  "Original",
+                         "available":  "Available",
+                         "requestTranslation":  "Request translation",
+                         "translate":  "Translate",
+                         "translateVideo":  "Translate Video",
+                         "translateDesc":  "Generate AI translated subtitles for this video",
+                         "availableLangs":  "Available:",
+                         "requestLangs":  "Request translation:",
+                         "requesting":  "Requesting...",
+                         "request":  "Request",
+                         "translationPending":  "Translation requested! It will be available shortly.",
+                         "close":  "Close"
+                     },
+    "stories":  {
+                    "title":  "Stories",
+                    "add":  "Add"
+                }
+}

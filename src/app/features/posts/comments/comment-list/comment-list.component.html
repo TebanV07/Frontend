@@ -4,7 +4,7 @@
   <div class="new-comment-form">
     <textarea
       [(ngModel)]="newCommentText"
-      placeholder="Escribe un comentario..."
+      [placeholder]="'comments.placeholder' | translate"
       rows="2"
       class="comment-textarea"
       [disabled]="isSubmitting">
@@ -14,7 +14,7 @@
         class="submit-btn"
         (click)="submitComment()"
         [disabled]="!newCommentText.trim() || isSubmitting">
-        {{ isSubmitting ? 'Publicando...' : '💬 Comentar' }}
+        {{ isSubmitting ? ('comments.submitting' | translate) : ('comments.submit' | translate) }}
       </button>
     </div>
   </div>
@@ -22,14 +22,14 @@
   <!-- Header -->
   <h3 class="comments-title">
     <span>💬</span>
-    Comentarios
+    {{ 'comments.title' | translate }}
     <span class="count" *ngIf="!isLoading">({{ comments.length }})</span>
   </h3>
 
   <!-- Loading -->
   <div *ngIf="isLoading" class="loading-state">
     <div class="spinner"></div>
-    <span>Cargando...</span>
+    <span>{{ 'comments.loading' | translate }}</span>
   </div>
 
   <!-- Error -->
@@ -38,7 +38,7 @@
   <!-- Vacío -->
   <div *ngIf="!isLoading && !error && comments.length === 0" class="empty-state">
     <div class="empty-icon">💭</div>
-    <p>Sé el primero en comentar</p>
+    <p>{{ 'comments.empty' | translate }}</p>
   </div>
 
   <!-- Lista -->
@@ -58,7 +58,7 @@
       class="load-more-btn"
       (click)="loadMore()"
       [disabled]="isLoadingMore">
-      {{ isLoadingMore ? 'Cargando...' : '↓ Ver más comentarios' }}
+      {{ isLoadingMore ? ('comments.loadingMore' | translate) : ('comments.loadMore' | translate) }}
     </button>
   </div>
 

@@ -13,7 +13,6 @@
         <div class="name-row">
           <h4 class="user-name">{{ post.user?.username }}</h4>
 
-          <!-- ⭐ Bandera del PAÍS del autor -->
           <img
             *ngIf="post.user?.country_code"
             [src]="flagService.getCountryFlagUrl(post.user?.country_code, 20)"
@@ -22,7 +21,6 @@
             class="country-flag"
             (error)="$any($event.target).style.display='none'">
 
-          <!-- Badge idioma original del post -->
           <span class="language-badge" *ngIf="post.original_language">
             <img
               [src]="flagService.getLanguageFlagUrl(post.original_language, 20)"
@@ -35,44 +33,45 @@
         <span class="timestamp">{{ getRelativeTime(post.created_at) }}</span>
       </div>
     </div>
-<!-- DROPDOWN MENU -->
-<div class="post-menu">
-  <button class="more-options" (click)="toggleDropdown($event)">⋯</button>
 
-  <div class="dropdown-menu" *ngIf="showDropdown" (click)="$event.stopPropagation()">
-    <ng-container *ngIf="isOwnPost">
-      <button (click)="openDeleteConfirm()">🗑️ Eliminar</button>
-    </ng-container>
-    <ng-container *ngIf="!isOwnPost">
-      <button (click)="openReport()">🚩 Denunciar</button>
-    </ng-container>
-  </div>
-</div>
+    <!-- DROPDOWN MENU -->
+    <div class="post-menu">
+      <button class="more-options" (click)="toggleDropdown($event)">⋯</button>
 
-<!-- DELETE MODAL -->
-<div class="delete-overlay" *ngIf="showDeleteConfirm" (click)="cancelDelete()">
-  <div class="delete-confirm" (click)="$event.stopPropagation()">
-    <div class="confirm-icon">🗑️</div>
-    <h4>¿Eliminar este post?</h4>
-    <p>Esta acción no se puede deshacer.</p>
-    <div class="delete-error" *ngIf="deleteError">{{ deleteError }}</div>
-    <div class="confirm-actions">
-      <button class="btn-cancel-del" (click)="cancelDelete()" [disabled]="isDeleting">Cancelar</button>
-      <button class="btn-delete-confirm" (click)="confirmDelete()" [disabled]="isDeleting">
-        <span *ngIf="!isDeleting">Eliminar</span>
-        <span *ngIf="isDeleting" class="spinner-sm"></span>
-      </button>
+      <div class="dropdown-menu" *ngIf="showDropdown" (click)="$event.stopPropagation()">
+        <ng-container *ngIf="isOwnPost">
+          <button (click)="openDeleteConfirm()">🗑️ {{ 'post.deleteMenu' | translate }}</button>
+        </ng-container>
+        <ng-container *ngIf="!isOwnPost">
+          <button (click)="openReport()">🚩 {{ 'post.reportMenu' | translate }}</button>
+        </ng-container>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- REPORT MODAL -->
-<app-report-modal
-  *ngIf="showReportModal"
-  [contentType]="'post'"
-  [contentId]="post.id"
-  (closed)="onReportClosed()">
-</app-report-modal>
+    <!-- DELETE MODAL -->
+    <div class="delete-overlay" *ngIf="showDeleteConfirm" (click)="cancelDelete()">
+      <div class="delete-confirm" (click)="$event.stopPropagation()">
+        <div class="confirm-icon">🗑️</div>
+        <h4>{{ 'post.deleteConfirm' | translate }}</h4>
+        <p>{{ 'post.deleteBody' | translate }}</p>
+        <div class="delete-error" *ngIf="deleteError">{{ deleteError }}</div>
+        <div class="confirm-actions">
+          <button class="btn-cancel-del" (click)="cancelDelete()" [disabled]="isDeleting">{{ 'common.cancel' | translate }}</button>
+          <button class="btn-delete-confirm" (click)="confirmDelete()" [disabled]="isDeleting">
+            <span *ngIf="!isDeleting">{{ 'common.delete' | translate }}</span>
+            <span *ngIf="isDeleting" class="spinner-sm"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPORT MODAL -->
+    <app-report-modal
+      *ngIf="showReportModal"
+      [contentType]="'post'"
+      [contentId]="post.id"
+      (closed)="onReportClosed()">
+    </app-report-modal>
   </div>
 
   <!-- ====== CONTENIDO ====== -->
@@ -83,7 +82,7 @@
       <div class="translation-info">
         <span class="translation-icon">🌐</span>
         <span class="translation-text">
-          Post in {{ flagService.getLanguageName(post.original_language) }}
+          {{ flagService.getLanguageName(post.original_language) }}
         </span>
       </div>
       <div class="translation-controls">
@@ -93,7 +92,7 @@
           class="language-selector"
           [disabled]="isTranslating">
           <option *ngFor="let lang of availableLanguages" [value]="lang.code">
-            {{ lang.flag }} {{ lang.name }}
+            {{ lang.flag }} {{ lang.nativeName }}
           </option>
         </select>
         <button
@@ -101,9 +100,9 @@
           [disabled]="isTranslating"
           [class.active]="showTranslation"
           (click)="toggleTranslation()">
-          <span *ngIf="!isTranslating && !showTranslation">🌐 Traducir</span>
-          <span *ngIf="!isTranslating && showTranslation">📝 Ver Original</span>
-          <span *ngIf="isTranslating">⏳ Traduciendo...</span>
+          <span *ngIf="!isTranslating && !showTranslation">🌐 {{ 'post.translate' | translate }}</span>
+          <span *ngIf="!isTranslating && showTranslation">📝 {{ 'post.showOriginal' | translate }}</span>
+          <span *ngIf="isTranslating">⏳ {{ 'post.translating' | translate }}</span>
         </button>
       </div>
     </div>
@@ -113,15 +112,15 @@
       {{ showTranslation ? translatedContent : post.content }}
     </p>
 
-    <!-- ⭐ Badge de traducción activa con banderas -->
+    <!-- Badge traducción activa -->
     <div class="translation-badge" *ngIf="showTranslation">
       <img
         [src]="flagService.getLanguageFlagUrl(selectedTranslationLanguage, 20)"
         class="badge-flag"
         (error)="$any($event.target).style.display='none'">
-      <span>Traducido por IA a {{ flagService.getLanguageName(selectedTranslationLanguage) }}</span>
+      <span>{{ 'post.translatedTo' | translate }} {{ flagService.getLanguageName(selectedTranslationLanguage) }}</span>
       <span *ngIf="post.original_language" class="from-lang">
-        · desde
+        · {{ 'post.from' | translate }}
         <img
           [src]="flagService.getLanguageFlagUrl(post.original_language, 20)"
           class="badge-flag"
@@ -140,27 +139,57 @@
       </video>
     </div>
 
-    <!-- Imágenes -->
+    <!-- ====== IMÁGENES ====== -->
     <div
       *ngIf="post.has_images && post.images && post.images.length > 0"
       class="image-container"
       [class.single-image]="post.images.length === 1"
       [class.double-image]="post.images.length === 2"
       [class.grid-images]="post.images.length > 2">
+
       <div
         *ngFor="let image of post.images; let i = index"
         class="image-wrapper"
         [class.hidden]="i >= 4">
+
+        <!-- Imagen -->
         <img
           [src]="getFullImageUrl(image.image_url)"
           class="post-image"
           [alt]="image.alt_text || 'Post image'"
           (error)="onImageError($event)"/>
+
+        <!-- Overlay "+N más" -->
         <div class="more-images-overlay" *ngIf="i === 3 && post.images.length > 4">
           <span class="more-count">+{{ post.images.length - 4 }}</span>
         </div>
+
+        <!-- Panel OCR — aparece automáticamente al traducir el post -->
+        <div
+          class="image-translation-result"
+          *ngIf="showTranslation && imageTranslations[image.id]">
+
+          <div class="ocr-section" *ngIf="imageTranslations[image.id].extracted_text">
+            <span class="ocr-label">{{ 'post.originalText' | translate }}</span>
+            <p class="ocr-text">{{ imageTranslations[image.id].extracted_text }}</p>
+          </div>
+
+          <div class="translated-section" *ngIf="imageTranslations[image.id].translated_text">
+            <span class="translated-label">
+              🌐 {{ flagService.getLanguageName(imageTranslations[image.id].target_language) }}:
+            </span>
+            <p class="translated-text">{{ imageTranslations[image.id].translated_text }}</p>
+          </div>
+
+          <div class="no-text-msg" *ngIf="!imageTranslations[image.id].extracted_text">
+            <span>{{ 'post.noText' | translate }}</span>
+          </div>
+
+        </div>
+
       </div>
     </div>
+
   </div>
 
   <!-- ====== ACCIONES ====== -->

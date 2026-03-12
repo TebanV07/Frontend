@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { Comment } from '../../../../core/models/comment.model';
 import { CommentService } from '../../../../core/services/comment.service';
@@ -8,7 +9,7 @@ import { CommentFormComponent } from '../comment-form/comment-form.component';
 @Component({
   selector: 'app-comment-item',
   standalone: true,
-  imports: [CommonModule, FormsModule, CommentFormComponent],
+  imports: [CommonModule, FormsModule, CommentFormComponent, TranslateModule],
   templateUrl: './comment-item.component.html',
   styleUrls: ['./comment-item.component.scss']
 })
@@ -25,7 +26,7 @@ export class CommentItemComponent implements OnInit {
   showReplies: boolean = false;
   formattedDate: string = '';
   showMenu = false;
-  // edición
+  // ediciÃ³n
   isEditing: boolean = false;
   editContent: string = '';
 
@@ -77,7 +78,7 @@ startEdit(): void {
 
   saveEdit(): void {
     if (!this.editContent.trim()) return;
-    // elegir endpoint según contexto
+    // elegir endpoint segÃºn contexto
     const update$ = this.videoId
       ? this.commentService.updateVideoComment(this.comment.id, { content: this.editContent.trim() })
       : this.commentService.updatePostComment(this.comment.id, { content: this.editContent.trim() });
@@ -94,7 +95,7 @@ startEdit(): void {
 deleteThisComment(): void {
   if (this.currentUserId !== this.comment.user_id) return;
   this.showMenu = false;
-  if (!confirm('¿Eliminar este comentario?')) return;
+  if (!confirm('Â¿Eliminar este comentario?')) return;
   const delete$ = this.videoId
     ? this.commentService.deleteVideoComment(this.comment.id)
     : this.commentService.deletePostComment(this.comment.id);
@@ -118,7 +119,7 @@ onDocumentClick(): void {
 
   toggleCommentLike(): void {
     if (this.comment.is_liked) {
-      // usar método según contexto de post o video
+      // usar mÃ©todo segÃºn contexto de post o video
       const unlike$ = this.videoId
         ? this.commentService.unlikeVideoComment(this.comment.id)
         : this.commentService.unlikePostComment(this.comment.id);
@@ -159,4 +160,5 @@ onDocumentClick(): void {
   }
 
 }
+
 

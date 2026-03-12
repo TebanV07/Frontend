@@ -15,7 +15,7 @@
             {{ activeConversation.other_user?.name
               || activeConversation.other_user?.username
               || activeConversation.name
-              || 'Sin nombre' }}
+              || ('chat.window.noName' | translate) }}
           </h3>
 
           <!-- ⭐ Bandera del país del contacto en el header -->
@@ -32,7 +32,7 @@
             *ngIf="activeConversation.other_user?.native_language"
             [src]="flagService.getLanguageFlagUrl(activeConversation.other_user?.native_language, 20)"
             [alt]="flagService.getLanguageName(activeConversation.other_user?.native_language)"
-            [title]="'Habla ' + flagService.getLanguageName(activeConversation.other_user?.native_language)"
+            [title]="('chat.window.speaksLanguage' | translate) + flagService.getLanguageName(activeConversation.other_user?.native_language)"
             class="contact-lang-flag"
             (error)="$any($event.target).style.display='none'">
         </div>
@@ -68,7 +68,7 @@
     <!-- Indicador de subida de archivo -->
     <div class="upload-indicator" *ngIf="isUploadingFile">
       <span class="upload-spinner">⏳</span>
-      <span class="upload-text">Subiendo archivo...</span>
+      <span class="upload-text">{{ 'chat.window.uploading' | translate }}</span>
     </div>
 
     <!-- Error de subida -->
@@ -90,8 +90,8 @@
   <!-- Estado vacío -->
   <div class="empty-state" *ngIf="!activeConversation">
     <div class="empty-icon">💬</div>
-    <h3>Selecciona una conversación</h3>
-    <p>Elige una conversación para empezar a chatear</p>
+    <h3>{{ 'chat.window.selectConversation' | translate }}</h3>
+    <p>{{ 'chat.window.selectConversationHint' | translate }}</p>
   </div>
 
 </div>

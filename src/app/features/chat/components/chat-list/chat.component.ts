@@ -1,5 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { ChatWindowComponent } from '../chat-window/chat-window.component';
 import { ChatService, OnlineUser } from '../../../../core/services/chat.service';
@@ -18,8 +20,7 @@ import type {
   imports: [
     CommonModule,
     ChatWindowComponent,
-    HeaderComponent
-  ],
+    HeaderComponent, TranslateModule],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
@@ -30,15 +31,20 @@ export class ChatComponent implements OnInit, OnDestroy {
   messages: Message[] = [];
   typingUsers: Record<number, number[]> = {};
 
-  // 🆕 Usuarios online
+  // Usuarios online
   onlineUsers: OnlineUser[] = [];
+  private pendingConversationId: number | null = null;
+  private conversationsLoaded = false;
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private chatService: ChatService) {}
+  constructor(
+    private chatService: ChatService,
+    private route: ActivatedRoute
+  ) {}
 
   /**
-   * Devuelve idioma preferido de traducción del usuario (si existe).
+  * Devuelve idioma preferido de traduccion del usuario (si existe).
    * Se usa desde la plantilla para evitar accesos directos a propiedades
    * que a veces el verificador de plantillas no reconoce correctamente.
    */
@@ -52,10 +58,24 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.chatService.conversations$.subscribe(convs => {
         this.conversations = convs;
+        this.tryOpenPendingConversation();
       })
     );
 
-    // Conversación activa
+    // Abrir conversación desde query param (?conversation=ID)
+    this.subscriptions.push(
+      this.route.queryParamMap.subscribe(params => {
+        const conversationParam = params.get('conversation');
+        const conversationId = conversationParam ? Number(conversationParam) : NaN;
+
+        if (Number.isInteger(conversationId) && conversationId > 0) {
+          this.pendingConversationId = conversationId;
+          this.tryOpenPendingConversation();
+        }
+      })
+    );
+
+    // Conversacion activa
     this.subscriptions.push(
       this.chatService.activeConversation$.subscribe(conv => {
         this.activeConversation = conv;
@@ -76,7 +96,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       })
     );
 
-    // 🆕 Usuarios online
+    // Usuarios online
     this.subscriptions.push(
       this.chatService.onlineUsers$.subscribe(users => {
         this.onlineUsers = users;
@@ -84,7 +104,15 @@ export class ChatComponent implements OnInit, OnDestroy {
     );
 
     // Carga inicial
-    this.chatService.getConversations().subscribe();
+    this.chatService.getConversations().subscribe({
+      next: () => {
+        this.conversationsLoaded = true;
+        this.tryOpenPendingConversation();
+      },
+      error: () => {
+        this.conversationsLoaded = true;
+      }
+    });
     this.chatService.loadOnlineUsers();
   }
 
@@ -110,12 +138,12 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatService.sendTypingIndicator(conversationId, isTyping);
   }
 
-  // 🆕 Abrir conversación desde un usuario online
+  // Abrir conversacion desde un usuario online
   onOnlineUserClick(user: OnlineUser): void {
     this.chatService.createConversation(user.id).subscribe({
       next: (conv) => this.chatService.setActiveConversation(conv),
       error: () => {
-        // Si ya existe la conversación, buscarla en la lista
+        // Si ya existe la conversacion, buscarla en la lista
         const existing = this.conversations.find(
           c => c.other_user?.id === user.id
         );
@@ -149,7 +177,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     return !!typing && typing.length > 0;
   }
 
-  // 🆕 Verificar si un contacto específico está online
+  // Verificar si un contacto especifico esta online
   isContactOnline(userId?: number): boolean {
     if (!userId) return false;
     return this.onlineUsers.some(u => u.id === userId);
@@ -174,13 +202,44 @@ export class ChatComponent implements OnInit, OnDestroy {
       })
       .filter(Boolean);
 
-    if (typingNames.length === 1) return `${typingNames[0]} está escribiendo...`;
-    if (typingNames.length === 2) return `${typingNames[0]} y ${typingNames[1]} están escribiendo...`;
-    if (typingNames.length > 2) return 'Varios usuarios están escribiendo...';
+    if (typingNames.length === 1) return `${typingNames[0]} esta escribiendo...`;
+    if (typingNames.length === 2) return `${typingNames[0]} y ${typingNames[1]} estan escribiendo...`;
+    if (typingNames.length > 2) return 'Varios usuarios estan escribiendo...';
     return '';
   }
   getOnlineUserDisplayName(user: OnlineUser): string {
   const name = user.name || user.username;
   return name.split(' ')[0];
 }
+
+  private tryOpenPendingConversation(): void {
+    if (!this.pendingConversationId) {
+      return;
+    }
+
+    const pendingId = this.pendingConversationId;
+    const targetConversation = this.conversations.find(c => c.id === pendingId);
+
+    if (targetConversation) {
+      this.pendingConversationId = null;
+      this.onConversationSelected(targetConversation);
+      return;
+    }
+
+    if (!this.conversationsLoaded) {
+      return;
+    }
+
+    // Fallback: intentar abrir por ID incluso si no vino en la lista local aún
+    this.pendingConversationId = null;
+    this.chatService.getConversationDetail(pendingId).subscribe({
+      next: () => {
+        this.chatService.markConversationAsRead(pendingId).subscribe();
+      },
+      error: (error) => {
+        console.warn('No se pudo abrir la conversación desde notificación:', error);
+      }
+    });
+  }
 }
+

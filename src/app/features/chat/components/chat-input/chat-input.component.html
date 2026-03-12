@@ -2,7 +2,7 @@
   <!-- Emoji Picker -->
   <div class="emoji-picker" *ngIf="showEmojiPicker">
     <div class="emoji-picker-header">
-      <h4>Emojis</h4>
+      <h4>{{ 'chat.input.emojis' | translate }}</h4>
       <button class="close-btn" (click)="toggleEmojiPicker()">✕</button>
     </div>
     <div class="emoji-grid">
@@ -21,14 +21,14 @@
     <button
       class="attach-btn"
       (click)="onAttachFile()"
-      title="Adjuntar archivo">
+      [title]="'chat.input.attach' | translate">
       📎
     </button>
     <!-- Botón Cámara -->
     <button
       class="camera-btn"
       (click)="onTakePhoto()"
-      title="Tomar foto">
+      [title]="'chat.input.camera' | translate">
       📷
     </button>
     <!-- Input oculto para seleccionar archivo general -->
@@ -39,7 +39,7 @@
     <!-- Input de texto -->
     <input
       type="text"
-      placeholder="Escribe un mensaje..."
+      [placeholder]="'chat.input.placeholder' | translate"
       [(ngModel)]="newMessage"
       (ngModelChange)="onInputChange()"
       (keyup.enter)="sendMessage()"
@@ -51,7 +51,7 @@
       class="emoji-btn"
       (click)="toggleEmojiPicker()"
       [class.active]="showEmojiPicker"
-      title="Emojis">
+      [title]="'chat.input.emojis' | translate">
       😊
     </button>
 
@@ -61,7 +61,7 @@
       class="voice-btn"
       (click)="toggleVoiceRecording()"
       [class.recording]="isRecording"
-      title="Grabar mensaje de voz">
+      [title]="'chat.input.voice' | translate">
       <span class="voice-icon">🎤</span>
     </button>
 
@@ -71,7 +71,7 @@
       class="send-btn"
       (click)="sendMessage()"
       [class.active]="newMessage.trim()"
-      title="Enviar mensaje">
+      [title]="'chat.input.send' | translate">
       <span class="send-icon">➤</span>
     </button>
   </div>
@@ -79,9 +79,9 @@
   <!-- Indicador de grabación -->
   <div class="recording-indicator" *ngIf="isRecording">
     <span class="recording-pulse"></span>
-    <span class="recording-text">Grabando...</span>
+    <span class="recording-text">{{ 'chat.input.recording' | translate }}</span>
     <button class="stop-recording-btn" (click)="toggleVoiceRecording()">
-      Detener
+      {{ 'chat.input.stopRecording' | translate }}
     </button>
   </div>
 </div>

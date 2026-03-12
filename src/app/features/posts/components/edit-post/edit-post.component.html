@@ -1,20 +1,20 @@
 <div class="edit-post-container" *ngIf="post">
-  <h2>Editar Post</h2>
+  <h2>{{ 'post.edit.title' | translate }}</h2>
 
   <div *ngIf="error" class="error">{{ error }}</div>
 
   <label>
-    Contenido:
+    {{ 'post.edit.content' | translate }}
     <textarea [(ngModel)]="content"></textarea>
   </label>
 
   <label>
-    Tags (separados por coma):
+    {{ 'post.edit.tags' | translate }}
     <input type="text" [(ngModel)]="tagsText" />
   </label>
 
   <label>
-    <input type="checkbox" [(ngModel)]="isPublic" /> Público
+    <input type="checkbox" [(ngModel)]="isPublic" /> {{ 'post.edit.public' | translate }}
   </label>
 
   <div class="actions">

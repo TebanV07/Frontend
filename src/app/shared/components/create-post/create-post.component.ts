@@ -1,5 +1,6 @@
-import { Component, Output, EventEmitter, ViewChild, ElementRef, OnInit } from '@angular/core';
+﻿import { Component, Output, EventEmitter, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { Post, PostsService } from '../../../core/services/posts.service';
 import { AuthService } from '../../../core/services/auth.service';
@@ -7,7 +8,7 @@ import { AuthService } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-create-post',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './create-post.component.html',
   styleUrl: './create-post.component.scss'
 })
@@ -18,7 +19,7 @@ export class CreatePostComponent implements OnInit {
   @ViewChild('imageInput') imageInput!: ElementRef<HTMLInputElement>;
   @ViewChild('videoInput') videoInput!: ElementRef<HTMLInputElement>;
 
-  // ✅ Datos del usuario actual
+  // âœ… Datos del usuario actual
   currentUser: any = null;
   readonly defaultAvatar = 'assets/default-avatar.png';
 
@@ -38,17 +39,17 @@ export class CreatePostComponent implements OnInit {
 
   constructor(
     private postsService: PostsService,
-    private authService: AuthService   // ✅ Inyectado
+    private authService: AuthService   // âœ… Inyectado
   ) {}
 
   ngOnInit(): void {
-    // ✅ Suscribirse al usuario actual para obtener avatar y idioma nativo
+    // âœ… Suscribirse al usuario actual para obtener avatar y idioma nativo
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
     });
   }
 
-  // ✅ Avatar real del usuario
+  // âœ… Avatar real del usuario
   getAvatarUrl(): string {
     const avatar = this.currentUser?.avatar || this.currentUser?.profile_image;
     if (!avatar) return this.defaultAvatar;
@@ -60,19 +61,19 @@ export class CreatePostComponent implements OnInit {
     (event.target as HTMLImageElement).src = this.defaultAvatar;
   }
 
-  // ✅ Idioma nativo del usuario (fallback a 'es')
+  // âœ… Idioma nativo del usuario (fallback a 'es')
   get userLanguage(): string {
     return this.currentUser?.native_language
       || this.currentUser?.nativeLanguage
       || 'es';
   }
 
-  // ==================== SELECCIÓN DE MEDIA ====================
+  // ==================== SELECCIÃ“N DE MEDIA ====================
 
   onSelectImages() { this.imageInput.nativeElement.click(); }
   onSelectVideo()  { this.videoInput.nativeElement.click(); }
 
-  // ==================== MANEJO DE IMÁGENES ====================
+  // ==================== MANEJO DE IMÃGENES ====================
 
   onImagesSelected(event: Event) {
     const files = Array.from((event.target as HTMLInputElement).files || []);
@@ -81,7 +82,7 @@ export class CreatePostComponent implements OnInit {
     const invalidFiles = files.filter(f => !f.type.startsWith('image/'));
     if (invalidFiles.length > 0) { alert('Por favor selecciona solo archivos de imagen'); return; }
 
-    if (this.selectedImages.length + files.length > 10) { alert('Máximo 10 imágenes permitidas'); return; }
+    if (this.selectedImages.length + files.length > 10) { alert('Maximo 10 imagenes permitidas'); return; }
 
     const oversized = files.filter(f => f.size > 10 * 1024 * 1024);
     if (oversized.length > 0) { alert('Cada imagen debe ser menor a 10MB'); return; }
@@ -110,7 +111,7 @@ export class CreatePostComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
-    if (!file.type.startsWith('video/')) { alert('Por favor selecciona un archivo de video válido'); return; }
+    if (!file.type.startsWith('video/')) { alert('Por favor selecciona un archivo de video valido'); return; }
     if (file.size > 100 * 1024 * 1024)  { alert('El video debe ser menor a 100MB'); return; }
 
     this.selectedImages = [];
@@ -150,7 +151,7 @@ export class CreatePostComponent implements OnInit {
 
   onShare() {
     if (!this.postContent.trim() && this.selectedImages.length === 0 && !this.selectedVideo) {
-      alert('Por favor agrega contenido, imágenes o video');
+      alert('Por favor agrega contenido, imagenes o video');
       return;
     }
 
@@ -166,7 +167,7 @@ export class CreatePostComponent implements OnInit {
         this.postContent.trim(),
         title,
         description,
-        this.userLanguage,   // ✅ Usa el idioma nativo del usuario
+        this.userLanguage,   // âœ… Usa el idioma nativo del usuario
         undefined,
         [],
         true
@@ -178,16 +179,16 @@ export class CreatePostComponent implements OnInit {
           if (response.content_type === 'post' && response.id) {
             this.postsService.getPostById(response.id).subscribe({
               next:  (post) => this.postCreated.emit(post),
-              error: (err)  => console.error('❌ No se pudo obtener el post creado:', err)
+              error: (err)  => console.error('No se pudo obtener el post creado:', err)
             });
           }
           this.resetForm();
         },
         error: (error) => {
           let msg = 'Error subiendo el video.';
-          if      (error.status === 401) msg = 'No estás autenticado. Por favor inicia sesión.';
-          else if (error.status === 413) msg = 'El video es demasiado grande. Máximo 100MB.';
-          else if (error.status === 400) msg = error.error?.detail || 'Datos inválidos.';
+          if      (error.status === 401) msg = 'No estas autenticado. Por favor inicia sesion.';
+          else if (error.status === 413) msg = 'El video es demasiado grande. Maximo 100MB.';
+          else if (error.status === 400) msg = error.error?.detail || 'Datos invalidos.';
           else if (error.status === 500) msg = 'Error en el servidor. Intenta de nuevo.';
           else if (error.error?.detail)  msg = error.error.detail;
           alert(msg);
@@ -202,16 +203,16 @@ export class CreatePostComponent implements OnInit {
         this.postContent.trim(),
         this.selectedImages.length > 0 ? this.selectedImages : undefined,
         undefined,
-        this.userLanguage   // ✅ Usa el idioma nativo del usuario (antes era 'en' hardcodeado)
+        this.userLanguage   // âœ… Usa el idioma nativo del usuario (antes era 'en' hardcodeado)
       ).subscribe({
         next: (response) => {
-          alert('¡Post publicado exitosamente!');
+          alert('Post publicado exitosamente');
           this.resetForm();
           this.postCreated.emit(response);
         },
         error: (error) => {
           let msg = 'Error creando el post.';
-          if      (error.status === 401)  msg = 'No estás autenticado. Por favor inicia sesión.';
+          if      (error.status === 401)  msg = 'No estas autenticado. Por favor inicia sesion.';
           else if (error.error?.detail)   msg = error.error.detail;
           alert(msg);
           this.isPosting = false;
@@ -248,3 +249,4 @@ export class CreatePostComponent implements OnInit {
     return 'Procesando...';
   }
 }
+

@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -9,7 +10,7 @@ import { AuthService } from '../../core/services/auth.service';
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })
@@ -30,7 +31,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   avatarFile: File | null = null;
   isUploadingAvatar = false;
 
-  // ── Eliminar cuenta ──────────────────────────────────────
+  // â”€â”€ Eliminar cuenta â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   showDeleteModal = false;
   deletePassword = '';
   deleteError = '';
@@ -69,17 +70,17 @@ export class SettingsComponent implements OnInit, OnDestroy {
   };
 
   languages = [
-    { code: 'es', name: 'Español' },
+    { code: 'es', name: 'Espanol' },
     { code: 'en', name: 'English' },
-    { code: 'fr', name: 'Français' },
-    { code: 'pt', name: 'Português' },
+    { code: 'fr', name: 'Frances' },
+    { code: 'pt', name: 'Portugues' },
     { code: 'de', name: 'Deutsch' },
     { code: 'it', name: 'Italiano' },
-    { code: 'ja', name: '日本語' },
-    { code: 'ko', name: '한국어' },
-    { code: 'zh-cn', name: '中文' },
-    { code: 'ar', name: 'العربية' },
-    { code: 'ru', name: 'Русский' }
+    { code: 'ja', name: 'Japanese' },
+    { code: 'ko', name: 'Korean' },
+    { code: 'zh-cn', name: 'Chinese' },
+    { code: 'ar', name: 'Arabic' },
+    { code: 'ru', name: 'Russian' }
   ];
 
   constructor(
@@ -215,22 +216,22 @@ export class SettingsComponent implements OnInit, OnDestroy {
       next: () => { this.isSaving = false; this.showSuccess(); },
       error: (err) => {
         this.isSaving = false;
-        this.saveError = err.error?.detail || 'Error al guardar la configuración.';
+        this.saveError = err.error?.detail || 'Error al guardar la configuracion.';
       }
     });
   }
 
   changePassword() {
     if (!this.accountForm.current_password || !this.accountForm.new_password) {
-      this.saveError = 'Completa todos los campos de contraseña.';
+      this.saveError = 'Completa todos los campos de contrasena.';
       return;
     }
     if (this.accountForm.new_password !== this.accountForm.confirm_password) {
-      this.saveError = 'Las contraseñas nuevas no coinciden.';
+      this.saveError = 'Las contrasenas nuevas no coinciden.';
       return;
     }
     if (this.accountForm.new_password.length < 8) {
-      this.saveError = 'La nueva contraseña debe tener al menos 8 caracteres.';
+      this.saveError = 'La nueva contrasena debe tener al menos 8 caracteres.';
       return;
     }
     this.isSaving = true;
@@ -248,12 +249,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         this.isSaving = false;
-        this.saveError = err.error?.detail || 'Error al cambiar la contraseña.';
+        this.saveError = err.error?.detail || 'Error al cambiar la contrasena.';
       }
     });
   }
 
-  // ── Eliminar cuenta ──────────────────────────────────────
+  // â”€â”€ Eliminar cuenta â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   openDeleteModal() {
     this.deletePassword = '';
@@ -289,15 +290,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
       error: (err) => {
         this.isDeletingAccount = false;
         if (err.status === 400) {
-          this.deleteError = 'Contraseña incorrecta. Intenta de nuevo.';
+          this.deleteError = 'Contrasena incorrecta. Intenta de nuevo.';
         } else {
-          this.deleteError = 'Error al eliminar la cuenta. Intenta más tarde.';
+          this.deleteError = 'Error al eliminar la cuenta. Intenta mas tarde.';
         }
       }
     });
   }
 
-  // ── Helpers ──────────────────────────────────────────────
+  // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   private showSuccess() {
     this.saveSuccess = true;
@@ -313,3 +314,4 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 }
+

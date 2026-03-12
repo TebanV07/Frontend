@@ -7,17 +7,17 @@
     <div class="banner-content">
       <div class="banner-icon">🤖✨</div>
       <div class="banner-text">
-        <h3>AI Translation Active</h3>
-        <p>All content automatically translated to your preferred language</p>
+        <h3>{{ 'feed.aiActive' | translate }}</h3>
+        <p>{{ 'feed.aiDesc' | translate }}</p>
       </div>
       <div class="banner-stats">
         <span class="stat-item">
           <span class="stat-number">24</span>
-          <span class="stat-label">Languages</span>
+          <span class="stat-label">{{ 'feed.aiLanguages' | translate }}</span>
         </span>
         <span class="stat-item">
           <span class="stat-number">∞</span>
-          <span class="stat-label">Videos</span>
+          <span class="stat-label">{{ 'feed.aiVideos' | translate }}</span>
         </span>
       </div>
     </div>
@@ -33,10 +33,10 @@
           <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
           <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
         </svg>
-        Personas que quizás conozcas
+        {{ 'feed.suggestedTitle' | translate }}
       </h3>
       <button (click)="navigateToExplorePeople()" class="see-all-btn">
-        Ver todo
+        {{ 'feed.suggestedSeeAll' | translate }}
       </button>
     </div>
 
@@ -53,7 +53,7 @@
           <button
             class="close-btn"
             (click)="removeSuggestedUser(user.id); $event.stopPropagation()"
-            title="Ocultar sugerencia">
+            [title]="'explore.suggested.hide' | translate">
             ✕
           </button>
         </div>
@@ -68,10 +68,10 @@
 
           <div class="user-stats">
             <span class="stat">
-              <strong>{{ user.followers_count || 0 }}</strong> seguidores
+              <strong>{{ user.followers_count || 0 }}</strong> {{ 'feed.suggestedFollowers' | translate }}
             </span>
             <span class="mutual" *ngIf="user.mutualFollowersCount && user.mutualFollowersCount > 0">
-              • {{ user.mutualFollowersCount }} en común
+              • {{ user.mutualFollowersCount }} {{ 'feed.suggestedMutual' | translate }}
             </span>
           </div>
         </div>
@@ -82,7 +82,7 @@
           [class.following]="followingUsers[user.id]"
           [disabled]="isProcessingFollow[user.id]"
           (click)="toggleFollowUser(user); $event.stopPropagation()">
-          {{ followingUsers[user.id] ? 'Siguiendo' : 'Seguir' }}
+          {{ (followingUsers[user.id] ? 'feed.following' : 'feed.follow') | translate }}
         </button>
       </div>
     </div>
@@ -91,7 +91,7 @@
   <!-- 🔄 Estado de carga -->
   <div *ngIf="isLoading" class="loading-container">
     <div class="loading-spinner"></div>
-    <p>Cargando posts...</p>
+    <p>{{ 'feed.loadingPosts' | translate }}</p>
   </div>
 
   <!-- 🧩 Contenedor de posts -->
@@ -120,8 +120,8 @@
       *ngIf="validPosts.length === 0 && invalidPosts.length === 0"
     >
       <div class="empty-icon">📝</div>
-      <h3>No hay posts aún</h3>
-      <p>¡Sé el primero en compartir algo!</p>
+      <h3>{{ 'feed.noPosts' | translate }}</h3>
+      <p>{{ 'feed.noPostsSub' | translate }}</p>
     </div>
 
     <!-- 📥 Cargar más -->

@@ -57,12 +57,12 @@
       <input
         type="text"
         class="video-title-input"
-        placeholder="Título del video (opcional)"
+        [placeholder]="'upload.titleField' | translate"
         [(ngModel)]="videoTitle"
         maxlength="100">
       <textarea
         class="video-description-input"
-        placeholder="Descripción (opcional)"
+        [placeholder]="'upload.description' | translate"
         [(ngModel)]="videoDescription"
         rows="2"
         maxlength="500">
@@ -108,7 +108,7 @@
             (click)="onShare()"
             [disabled]="!canShare || isPosting">
       <span class="post-btn-text">
-        <ng-container *ngIf="!isPosting">Share</ng-container>
+        <ng-container *ngIf="!isPosting">{{ 'common.share' | translate }}</ng-container>
         <ng-container *ngIf="isPosting && !isUploadingVideo">Posting...</ng-container>
         <ng-container *ngIf="isUploadingVideo">Uploading {{uploadProgress}}%</ng-container>
       </span>

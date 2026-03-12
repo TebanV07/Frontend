@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule, Router } from '@angular/router';
 import { NotificationService, Notification } from '../../../core/services/notification.service';
 import { Subject } from 'rxjs';
@@ -8,7 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss']
 })
@@ -92,7 +93,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Marcar notificación como leída
+  * Marcar notificacion como leida
    */
   markAsRead(notification: Notification, event?: Event): void {
     if (event) {
@@ -105,12 +106,12 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     this.notificationService.markAsRead(notification.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        error: (error) => console.error('Error marcando como leída:', error)
+        error: (error) => console.error('Error marcando como leida:', error)
       });
   }
 
   /**
-   * Marcar todas como leídas
+   * Marcar todas como leidas
    */
   markAllAsRead(event: Event): void {
     event.preventDefault();
@@ -132,7 +133,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Eliminar notificación
+  * Eliminar notificacion
    */
   deleteNotification(notification: Notification, event: Event): void {
     event.preventDefault();
@@ -152,7 +153,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     event.preventDefault();
     event.stopPropagation();
 
-    if (confirm('¿Estás seguro de que deseas eliminar todas las notificaciones?')) {
+    if (confirm('Estas seguro de que deseas eliminar todas las notificaciones?')) {
       this.notificationService.clearAll()
         .pipe(takeUntil(this.destroy$))
         .subscribe({
@@ -166,14 +167,14 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Navegar a la página relevante según el tipo de notificación
+  * Navegar a la pagina relevante segun el tipo de notificacion
    */
   handleNotificationClick(notification: Notification): void {
     this.markAsRead(notification);
 
     switch (notification.type) {
       case 'follow_request':
-        this.router.navigate(['/profile', 'follow-requests']);
+        this.router.navigate(['/explore/people']);
         break;
 
       case 'follow_accepted':
@@ -186,7 +187,19 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
       case 'new_message':
         if (notification.data && notification.data['conversation_id']) {
-          this.router.navigate(['/chat', notification.data['conversation_id']]);
+          this.router.navigate(['/chat'], {
+            queryParams: { conversation: notification.data['conversation_id'] }
+          });
+        }
+        break;
+
+      case 'conversation_request':
+        if (notification.data && notification.data['conversation_id']) {
+          this.router.navigate(['/chat'], {
+            queryParams: { conversation: notification.data['conversation_id'] }
+          });
+        } else {
+          this.router.navigate(['/chat']);
         }
         break;
 
@@ -198,14 +211,14 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         break;
 
       default:
-        console.log('Tipo de notificación no manejado:', notification.type);
+        console.debug('Tipo de notificacion no manejado:', notification.type);
     }
 
     this.closeDropdown();
   }
 
   /**
-   * Obtener icono según tipo de notificación
+   * Obtener icono segÃºn tipo de notificaciÃ³n
    */
   getNotificationIcon(notification: Notification): string {
     switch (notification.type) {
@@ -215,6 +228,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         return '✅'; // Aprobado
       case 'new_message':
         return '💬'; // Mensaje
+      case 'conversation_request':
+        return '🗨️'; // Solicitud de conversar
       case 'post_from_follow':
       case 'repost_from_follow':
         return '📝'; // Post
@@ -243,3 +258,4 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     return notificationDate.toLocaleDateString();
   }
 }
+

@@ -11,6 +11,6 @@ export const guestGuard: CanActivateFn = () => {
   }
 
   // Ya está logueado → fuera del login
-  router.navigate(['/home']);
+  router.navigate([authService.isCurrentUserVerified() ? '/home' : '/verify-email-required']);
   return false;
 };

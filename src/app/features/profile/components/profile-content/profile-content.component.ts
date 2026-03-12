@@ -1,12 +1,13 @@
-import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+﻿import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { UserProfile, ProfileService, PostsPage, VideosPage } from '../../../../core/services/profile.service';
 
 @Component({
   selector: 'app-profile-content',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './profile-content.component.html',
   styleUrl: './profile-content.component.scss'
 })
@@ -31,7 +32,7 @@ export class ProfileContentComponent implements OnChanges {
     const profileChanged = changes['profile'] && this.profile?.id !== this.loadedForUserId;
     const tabChanged = changes['selectedTab'];
 
-    // Si cambió el perfil, resetear todo
+    // Si cambiÃ³ el perfil, resetear todo
     if (profileChanged) {
       this.posts = [];
       this.videos = [];
@@ -42,7 +43,7 @@ export class ProfileContentComponent implements OnChanges {
 
     if (!this.profile?.id) return;
 
-    // Cargar según el tab activo
+    // Cargar segÃºn el tab activo
     if (this.selectedTab === 'posts' && (profileChanged || tabChanged) && this.posts.length === 0) {
       this.loadPosts();
     }
@@ -110,10 +111,11 @@ export class ProfileContentComponent implements OnChanges {
 
   onVideoClick(videoId: number) {
     console.log('Video clicked:', videoId);
-    // aquí puedes navegar: this.router.navigate(['/videos', videoId])
+    // aquÃ­ puedes navegar: this.router.navigate(['/videos', videoId])
   }
 
   onImageError(event: Event) {
     (event.target as HTMLImageElement).src = 'assets/default-avatar.png';
   }
 }
+

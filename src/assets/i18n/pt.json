@@ -1,0 +1,485 @@
+﻿{
+    "brand":  {
+                  "name":  "TINKO",
+                  "tagline":  "AI-Powered Global Connection"
+              },
+    "auth":  {
+                 "login":  {
+                               "title":  "Bem-vindo de volta!",
+                               "subtitle":  "Entre para continuar sua experiÃªncia global",
+                               "submit":  "Entrar",
+                               "submitting":  "Entrando...",
+                               "noAccount":  "NÃ£o tem uma conta?",
+                               "switchToRegister":  "Cadastre-se grÃ¡tis",
+                               "rememberMe":  "Lembrar de mim",
+                               "forgotPassword":  "Esqueceu sua senha?",
+                               "orContinueWith":  "ou continue com",
+                               "google":  "Google"
+                           },
+                 "register":  {
+                                  "title":  "Junte-se Ã  revoluÃ§Ã£o!",
+                                  "subtitle":  "Conecte-se ao mundo sem barreiras de idioma",
+                                  "submit":  "Criar conta",
+                                  "submitting":  "Criando conta...",
+                                  "hasAccount":  "JÃ¡ tem uma conta?",
+                                  "switchToLogin":  "Entrar",
+                                  "usernameHint":  "Se nÃ£o preencher, um serÃ¡ gerado automaticamente",
+                                  "nativeLanguageHint":  "Idioma nativo"
+                              },
+                 "fields":  {
+                                "firstName":  "Nome",
+                                "lastName":  "Sobrenome",
+                                "username":  "Nome de usuÃ¡rio (opcional)",
+                                "email":  "E-mail",
+                                "password":  "Senha",
+                                "nativeLanguage":  "Idioma nativo"
+                            },
+                 "features":  {
+                                  "title":  "ðŸš€ O que te espera:",
+                                  "videos":  "VÃ­deos traduzidos em tempo real",
+                                  "languages":  "Conecte-se com 24+ idiomas",
+                                  "ai":  "TraduÃ§Ã£o avanÃ§ada com IA"
+                              }
+             },
+    "verify":  {
+                   "loading":  "Verificando seu e-mail...",
+                   "success":  {
+                                   "title":  "E-mail verificado!",
+                                   "message":  "Sua conta foi verificada. Aproveite todos os recursos.",
+                                   "goHome":  "Ir para o inÃ­cio"
+                               },
+                   "error":  {
+                                 "title":  "Link invÃ¡lido",
+                                 "requestNew":  "Solicitar novo link"
+                             }
+               },
+    "header":  {
+                   "search":  "Buscar pessoas, publicaÃ§Ãµes...",
+                   "nav":  {
+                               "home":  "InÃ­cio",
+                               "trending":  "TendÃªncias",
+                               "videos":  "VÃ­deos",
+                               "messages":  "Mensagens",
+                               "notifications":  "NotificaÃ§Ãµes",
+                               "profile":  "Perfil",
+                               "settings":  "ConfiguraÃ§Ãµes"
+                           },
+                   "theme":  {
+                                 "light":  "Modo Claro",
+                                 "dark":  "Modo Escuro"
+                             },
+                   "menu":  "Menu"
+               },
+    "chat":  {
+                 "input":  {
+                               "placeholder":  "Escreva uma mensagem...",
+                               "emojis":  "Emojis",
+                               "attach":  "Anexar arquivo",
+                               "camera":  "Tirar foto",
+                               "voice":  "Gravar mensagem de voz",
+                               "send":  "Enviar mensagem",
+                               "recording":  "Gravando...",
+                               "stopRecording":  "Parar"
+                           },
+                 "window":  {
+                                "noName":  "Sem nome",
+                                "selectConversation":  "Selecione uma conversa",
+                                "selectConversationHint":  "Escolha uma conversa para comeÃ§ar a conversar",
+                                "uploading":  "Enviando arquivo...",
+                                "speaksLanguage":  "Fala "
+                            },
+                 "bubble":  {
+                                "edited":  "editado",
+                                "edit":  "Editar",
+                                "delete":  "Excluir",
+                                "deleteForMe":  "Excluir para mim",
+                                "forward":  "Encaminhar",
+                                "share":  "Compartilhar",
+                                "translate":  "Traduzir"
+                            }
+             },
+    "feed":  {
+                 "loading":  "Carregando vÃ­deos...",
+                 "loadingMore":  "Carregando mais vÃ­deos...",
+                 "empty":  {
+                               "title":  "Nenhum vÃ­deo disponÃ­vel",
+                               "subtitle":  "Seja o primeiro a enviar um vÃ­deo com traduÃ§Ã£o IA",
+                               "upload":  "Enviar VÃ­deo"
+                           },
+                 "position":  "{{ current }} / {{ total }}",
+                 "aiActive":  "AI Translation Active",
+                 "aiDesc":  "All content automatically translated to your preferred language",
+                 "aiLanguages":  "Languages",
+                 "aiVideos":  "Videos",
+                 "suggestedTitle":  "People you may know",
+                 "suggestedSeeAll":  "See all",
+                 "suggestedFollowers":  "followers",
+                 "suggestedMutual":  "in common",
+                 "following":  "Following",
+                 "follow":  "Follow",
+                 "loadingPosts":  "Loading posts...",
+                 "noPosts":  "No posts yet",
+                 "noPostsSub":  "Be the first to share something!"
+             },
+    "videoPlayer":  {
+                        "loading":  "Carregando vÃ­deo...",
+                        "error":  {
+                                      "title":  "Erro ao carregar vÃ­deo",
+                                      "subtitle":  "Este vÃ­deo nÃ£o pÃ´de ser reproduzido",
+                                      "retry":  "Tentar novamente"
+                                  },
+                        "noSupport":  "Seu navegador nÃ£o suporta a tag de vÃ­deo."
+                    },
+    "comments":  {
+                     "title":  "ComentÃ¡rios",
+                     "placeholder":  "Escreva um comentÃ¡rio...",
+                     "submit":  "ðŸ’¬ Comentar",
+                     "submitting":  "Publicando...",
+                     "loading":  "Carregando...",
+                     "empty":  "Seja o primeiro a comentar",
+                     "loadMore":  "â†“ Ver mais comentÃ¡rios",
+                     "loadingMore":  "Carregando...",
+                     "reply":  "Responder",
+                     "replying":  "Publicando...",
+                     "cancel":  "Cancelar",
+                     "save":  "Salvar",
+                     "edit":  "âœï¸ Editar",
+                     "delete":  "ðŸ—‘ï¸ Excluir",
+                     "edited":  "Â· editado",
+                     "replyTo":  "Responder a @",
+                     "replies":  {
+                                     "one":  "resposta",
+                                     "other":  "respostas"
+                                 }
+                 },
+    "post":  {
+                 "edit":  {
+                              "title":  "Editar Post",
+                              "content":  "ConteÃºdo:",
+                              "tags":  "Tags (separadas por vÃ­rgula):",
+                              "public":  "PÃºblico",
+                              "save":  "Salvar",
+                              "skip":  "Pular"
+                          },
+                 "likes":  {
+                               "like":  "Curtir",
+                               "liked":  "Curtido",
+                               "likedBy":  "Curtido por",
+                               "noLikes":  "Nenhuma curtida ainda",
+                               "loading":  "Carregando..."
+                           },
+                 "deleteConfirm":  "Delete this post?",
+                 "deleteBody":  "This action cannot be undone.",
+                 "editMenu":  "Edit",
+                 "deleteMenu":  "Delete",
+                 "reportMenu":  "Report",
+                 "shareMenu":  "Share",
+                 "comments":  "comments",
+                 "comment":  "Comment",
+                 "translateText":  "Translate text",
+                 "extracting":  "Extracting...",
+                 "showImage":  "Show image",
+                 "showText":  "Show text",
+                 "originalText":  "Original text",
+                 "noText":  "No text found in this image",
+                 "translatedTo":  "Translated to",
+                 "from":  "from",
+                 "showingTranslation":  "Showing translation",
+                 "translatePost":  "Translate this post",
+                 "translating":  "Translating...",
+                 "showOriginal":  "Show Original",
+                 "translate":  "Translate",
+                 "back":  "Back to feed",
+                 "close":  "Close"
+             },
+    "profile":  {
+                    "tabs":  {
+                                 "posts":  "Posts",
+                                 "videos":  "VÃ­deos",
+                                 "liked":  "Curtidos",
+                                 "bookmarks":  "Salvos"
+                             },
+                    "content":  {
+                                    "noPosts":  "Nenhum post ainda",
+                                    "noVideos":  "Nenhum vÃ­deo ainda",
+                                    "likedPosts":  "Posts que vocÃª curtiu",
+                                    "savedPosts":  "Posts salvos",
+                                    "loadMore":  "Ver mais",
+                                    "loading":  "Carregando..."
+                                }
+                },
+    "upload":  {
+                   "title":  "Enviar vÃ­deo/post",
+                   "titleField":  "TÃ­tulo (opcional)",
+                   "description":  "DescriÃ§Ã£o (opcional)",
+                   "submit":  "Enviar",
+                   "submitting":  "Enviando..."
+               },
+    "explore":  {
+                    "title":  "Descobrir pessoas",
+                    "subtitle":  "Encontre e conecte-se com pessoas de todo o mundo",
+                    "search":  {
+                                   "placeholder":  "Buscar pessoas por nome ou usuÃ¡rio...",
+                                   "button":  "Buscar",
+                                   "searching":  "Buscando...",
+                                   "results":  "Resultados ({{ count }})",
+                                   "noResults":  {
+                                                     "title":  "Nenhum resultado encontrado",
+                                                     "subtitle":  "Tente outro termo de busca"
+                                                 }
+                               },
+                    "followRequests":  {
+                                           "title":  "SolicitaÃ§Ãµes de seguir",
+                                           "noPending":  {
+                                                             "title":  "Nenhuma solicitaÃ§Ã£o pendente",
+                                                             "subtitle":  "Quando alguÃ©m quiser te seguir, aparecerÃ¡ aqui"
+                                                         },
+                                           "accept":  "Aceitar",
+                                           "reject":  "Recusar"
+                                       },
+                    "suggested":  {
+                                      "title":  "Pessoas que vocÃª pode conhecer",
+                                      "empty":  "Sem sugestÃµes no momento",
+                                      "viewAll":  "Ver todas as sugestÃµes",
+                                      "viewLess":  "Ver menos",
+                                      "mutual":  "{{ count }} seguidores em comum",
+                                      "follow":  "Seguir",
+                                      "following":  "Seguindo",
+                                      "pending":  "Pendente"
+                                  }
+                },
+    "countrySetup":  {
+                         "title":  "De onde vocÃª Ã©?",
+                         "subtitle":  "Sua bandeira aparecerÃ¡ nos seus posts e mensagens para que as pessoas saibam de onde vocÃª Ã©.",
+                         "detecting":  "Detectando seu paÃ­s...",
+                         "detected":  "PaÃ­s detectado:",
+                         "notDetected":  "NÃ£o conseguimos detectar seu paÃ­s automaticamente.",
+                         "manualSelect":  "Selecione seu paÃ­s:",
+                         "manualPlaceholder":  "-- Escolha seu paÃ­s --",
+                         "notMyCountry":  "NÃ£o Ã© meu paÃ­s â€” alterar",
+                         "confirm":  "âœ… Confirmar",
+                         "saving":  "Salvando...",
+                         "skip":  "Pular por agora"
+                     },
+    "permissions":  {
+                        "welcome":  {
+                                        "title":  "Configurar PermissÃµes",
+                                        "subtitle":  "Para oferecer a melhor experiÃªncia, precisamos de acesso a algumas permissÃµes do dispositivo.",
+                                        "camera":  "CÃ¢mera para transmissÃµes ao vivo",
+                                        "microphone":  "Microfone para videochamadas",
+                                        "notifications":  "NotificaÃ§Ãµes de mensagens",
+                                        "later":  "Configurar depois",
+                                        "continue":  "Continuar"
+                                    },
+                        "list":  {
+                                     "title":  "PermissÃµes NecessÃ¡rias",
+                                     "subtitle":  "Clique em cada permissÃ£o para solicitÃ¡-la ao seu dispositivo",
+                                     "granted":  "âœ“ Concedida",
+                                     "required":  "âš  ObrigatÃ³ria",
+                                     "optional":  "â„¹ Opcional",
+                                     "request":  "Solicitar Acesso",
+                                     "requestAll":  "Solicitar Todas",
+                                     "back":  "Voltar"
+                                 },
+                        "complete":  {
+                                         "title":  "ConfiguraÃ§Ã£o ConcluÃ­da!",
+                                         "subtitle":  "Suas permissÃµes foram configuradas corretamente.",
+                                         "grantedStatus":  "Concedida",
+                                         "deniedStatus":  "NÃ£o concedida",
+                                         "redirect":  "Redirecionando para o inÃ­cio em alguns segundos...",
+                                         "goHome":  "Ir para o InÃ­cio Agora"
+                                     }
+                    },
+    "report":  {
+                   "title":  "ðŸš© Denunciar conteÃºdo",
+                   "subtitle":  "Selecione o motivo da sua denÃºncia",
+                   "descriptionLabel":  "DescriÃ§Ã£o adicional (opcional)",
+                   "descriptionPlaceholder":  "Conte-nos mais sobre o problema...",
+                   "cancel":  "Cancelar",
+                   "submit":  "Enviar denÃºncia",
+                   "submitting":  "Enviando..."
+               },
+    "terms":  {
+                  "title":  "Termos, CondiÃ§Ãµes e Privacidade",
+                  "lastUpdated":  "Ãšltima atualizaÃ§Ã£o: janeiro de 2025 Â· Leia com atenÃ§Ã£o antes de continuar",
+                  "tabs":  {
+                               "terms":  "ðŸ“„ Termos e CondiÃ§Ãµes",
+                               "privacy":  "ðŸ”’ PolÃ­tica de Privacidade"
+                           },
+                  "scroll":  {
+                                 "pending":  "Role atÃ© o final para continuar",
+                                 "done":  "VocÃª leu o documento completo âœ“"
+                             },
+                  "decline":  "Recusar",
+                  "accept":  "Aceitar e Continuar"
+              },
+    "common":  {
+                   "loading":  "Carregando...",
+                   "error":  "Ocorreu um erro",
+                   "retry":  "Tentar novamente",
+                   "save":  "Salvar",
+                   "cancel":  "Cancelar",
+                   "confirm":  "Confirmar",
+                   "delete":  "Excluir",
+                   "edit":  "Editar",
+                   "close":  "Fechar",
+                   "back":  "Voltar",
+                   "next":  "PrÃ³ximo",
+                   "skip":  "Pular",
+                   "search":  "Buscar",
+                   "share":  "Compartilhar",
+                   "report":  "Denunciar",
+                   "follow":  "Seguir",
+                   "unfollow":  "Deixar de seguir",
+                   "following":  "Seguindo",
+                   "followers":  "Seguidores",
+                   "posts":  "Posts",
+                   "videos":  "VÃ­deos"
+               },
+    "settings":  {
+                     "title":  "Settings",
+                     "nav":  {
+                                 "profile":  "Profile",
+                                 "account":  "Account",
+                                 "notifications":  "Notifications",
+                                 "privacy":  "Privacy",
+                                 "logout":  "Log out"
+                             },
+                     "profile":  {
+                                     "title":  "Edit Profile",
+                                     "avatarHint":  "JPG, PNG or WebP · Max 5MB",
+                                     "savePhoto":  "Save photo",
+                                     "firstName":  "First name",
+                                     "lastName":  "Last name",
+                                     "bio":  "Bio",
+                                     "bioPlaceholder":  "Tell us something about you...",
+                                     "website":  "Website",
+                                     "websitePlaceholder":  "https://your-site.com",
+                                     "location":  "Location",
+                                     "locationPlaceholder":  "City, Country",
+                                     "nativeLanguage":  "Native language",
+                                     "saveChanges":  "Save changes"
+                                 },
+                     "account":  {
+                                     "title":  "Account",
+                                     "email":  "Email",
+                                     "username":  "Username",
+                                     "verified":  "Verified account",
+                                     "verifiedYes":  "Verified",
+                                     "verifiedNo":  "Not verified",
+                                     "changePassword":  "Change password",
+                                     "currentPassword":  "Current password",
+                                     "newPassword":  "New password",
+                                     "confirmPassword":  "Confirm new password",
+                                     "dangerZone":  "Danger zone",
+                                     "dangerDesc":  "These actions are permanent and cannot be undone.",
+                                     "deleteAccount":  "Delete account",
+                                     "deleteDesc":  "Permanently deletes your account, posts and all personal data."
+                                 },
+                     "deleteModal":  {
+                                         "title":  "Delete your account?",
+                                         "body":  "This action is permanent and irreversible. All your data, posts and videos will be deleted within 30 days.",
+                                         "confirmLabel":  "Confirm your password to continue",
+                                         "confirmBtn":  "Yes, delete my account"
+                                     },
+                     "notifications":  {
+                                           "title":  "Notifications",
+                                           "push":  "Push notifications",
+                                           "pushDesc":  "Receive activity alerts in the app",
+                                           "email":  "Email notifications",
+                                           "emailDesc":  "Receive a weekly summary and important alerts",
+                                           "save":  "Save"
+                                       },
+                     "privacy":  {
+                                     "title":  "Privacy and Preferences",
+                                     "privateAccount":  "Private account",
+                                     "privateDesc":  "Only your followers can see your content",
+                                     "autoTranslate":  "Auto-translate",
+                                     "autoTranslateDesc":  "Automatically translate content from other languages",
+                                     "prefLang":  "Preferred translation language",
+                                     "prefLangDefault":  "Same as native",
+                                     "theme":  "Theme",
+                                     "themeAuto":  "Automatic",
+                                     "themeDark":  "Dark",
+                                     "themeLight":  "Light",
+                                     "save":  "Save"
+                                 },
+                     "saved":  "Changes saved successfully"
+                 },
+    "notifications":  {
+                          "title":  "Notifications",
+                          "markAllRead":  "Mark all as read",
+                          "markingAllRead":  "Marking...",
+                          "clearAll":  "Clear all",
+                          "filterAll":  "All",
+                          "filterUnread":  "Unread",
+                          "loading":  "Loading notifications...",
+                          "emptyAll":  "No notifications",
+                          "emptyAllSub":  "Check back later for new notifications",
+                          "emptyUnread":  "No unread notifications",
+                          "emptyUnreadSub":  "You are up to date",
+                          "new":  "New",
+                          "markRead":  "Mark as read",
+                          "markUnread":  "Mark as unread",
+                          "delete":  "Delete"
+                      },
+    "sidebar":  {
+                    "following":  "Following",
+                    "followers":  "Followers",
+                    "posts":  "Posts",
+                    "navigation":  "Navigation",
+                    "aiTranslation":  "AI Translation",
+                    "active":  "Active",
+                    "realtimeTranslation":  "Real-time Translation",
+                    "realtimeDesc":  "Videos \u0026 Posts",
+                    "languages":  "24+ Languages",
+                    "languagesDesc":  "Global connectivity",
+                    "instant":  "Instant Processing",
+                    "instantDesc":  "Lightning fast"
+                },
+    "trending":  {
+                     "title":  "Trending",
+                     "loading":  "Loading trends...",
+                     "filterByCountry":  "Filter by country",
+                     "global":  "Global",
+                     "noTrending":  "No trending topics available",
+                     "videos":  "videos",
+                     "views":  "views",
+                     "onlyFrom":  "Only from",
+                     "sort":  "Sort:",
+                     "sortTrending":  "Most trending",
+                     "sortViews":  "Most views",
+                     "sortRecent":  "Most recent",
+                     "trendingBadge":  "Trending",
+                     "watchNow":  "Watch now",
+                     "gridView":  "Grid",
+                     "listView":  "List"
+                 },
+    "lives":  {
+                  "title":  "Live",
+                  "chat":  "Chat",
+                  "live":  "LIVE",
+                  "say":  "Say something...",
+                  "send":  "Send"
+              },
+    "videoOverlay":  {
+                         "follow":  "Follow",
+                         "subtitles":  "Subtitles:",
+                         "original":  "Original",
+                         "available":  "Available",
+                         "requestTranslation":  "Request translation",
+                         "translate":  "Translate",
+                         "translateVideo":  "Translate Video",
+                         "translateDesc":  "Generate AI translated subtitles for this video",
+                         "availableLangs":  "Available:",
+                         "requestLangs":  "Request translation:",
+                         "requesting":  "Requesting...",
+                         "request":  "Request",
+                         "translationPending":  "Translation requested! It will be available shortly.",
+                         "close":  "Close"
+                     },
+    "stories":  {
+                    "title":  "Stories",
+                    "add":  "Add"
+                }
+}

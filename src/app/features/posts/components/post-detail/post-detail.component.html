@@ -2,12 +2,12 @@
 
   <div class="loading-state" *ngIf="isLoading">
     <div class="spinner"></div>
-    <span>Loading post...</span>
+    <span>{{ 'common.loading' | translate }}</span>
   </div>
 
   <div class="error-state" *ngIf="error">
     <p>{{ error }}</p>
-    <button routerLink="/feed" class="btn-back">Go back to feed</button>
+    <button routerLink="/feed" class="btn-back">{{ 'post.back' | translate }}</button>
   </div>
 
   <div class="post-detail" *ngIf="!isLoading && !error && post">
@@ -18,7 +18,7 @@
           fill="none" stroke="currentColor" stroke-width="2">
           <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
-        Back
+        {{ 'common.back' | translate }}
       </button>
     </div>
 
@@ -97,7 +97,7 @@
         <div class="translation-bar">
           <div class="translation-info">
             <span>🌐</span>
-            <span>{{ showTranslation ? 'Showing translation' : 'Translate this post' }}</span>
+            <span>{{ (showTranslation ? 'post.showingTranslation' : 'post.translatePost') | translate }}</span>
           </div>
           <div class="translation-controls">
             <select [(ngModel)]="selectedTranslationLanguage" [disabled]="isTranslating">
@@ -117,7 +117,7 @@
               [disabled]="isTranslating"
               (click)="toggleTranslation()">
               <span>{{ isTranslating ? '⏳' : '🌐' }}</span>
-              <span>{{ isTranslating ? 'Translating...' : (showTranslation ? 'Show Original' : 'Translate') }}</span>
+              <span>{{ (isTranslating ? 'post.translating' : (showTranslation ? 'post.showOriginal' : 'post.translate')) | translate }}</span>
             </button>
           </div>
         </div>
@@ -128,9 +128,9 @@
             [src]="flagService.getLanguageFlagUrl(selectedTranslationLanguage, 20)"
             class="lang-flag-small"
             (error)="$any($event.target).style.display='none'">
-          <span>Translated to {{ flagService.getLanguageName(selectedTranslationLanguage) }}</span>
+          <span>{{ 'post.translatedTo' | translate }} {{ flagService.getLanguageName(selectedTranslationLanguage) }}</span>
           <span *ngIf="post.original_language">
-            · from
+            · {{ 'post.from' | translate }}
             <img
               [src]="flagService.getLanguageFlagUrl(post.original_language, 20)"
               class="lang-flag-small"
@@ -144,7 +144,7 @@
       <!-- STATS -->
       <div class="post-stats">
         <app-like-count [postId]="post.id" [likesCount]="post.likes_count"></app-like-count>
-        <span class="comment-count">{{ post.comments_count }} comments</span>
+        <span class="comment-count">{{ post.comments_count }} {{ 'post.comments' | translate }}</span>
       </div>
 
       <!-- ACTIONS -->

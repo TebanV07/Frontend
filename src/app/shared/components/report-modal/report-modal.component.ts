@@ -1,6 +1,7 @@
-// src/app/shared/components/report-modal/report-modal.component.ts
+﻿// src/app/shared/components/report-modal/report-modal.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -14,7 +15,7 @@ export interface ReportPayload {
 @Component({
   selector: 'app-report-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './report-modal.component.html',
   styleUrls: ['./report-modal.component.scss']
 })
@@ -33,9 +34,9 @@ export class ReportModalComponent {
 
   reasons = [
     { value: 'spam',           icon: '📢', label: 'Spam o contenido repetitivo' },
-    { value: 'harassment',     icon: '😡', label: 'Acoso o intimidación' },
+    { value: 'harassment',     icon: '😡', label: 'Acoso o intimidacion' },
     { value: 'inappropriate',  icon: '🔞', label: 'Contenido inapropiado o sexual' },
-    { value: 'misinformation', icon: '❌', label: 'Información falsa o engañosa' },
+    { value: 'misinformation', icon: '❌', label: 'Informacion falsa o enganosa' },
     { value: 'violence',       icon: '⚠️', label: 'Violencia o contenido peligroso' },
     { value: 'hate_speech',    icon: '🚫', label: 'Discurso de odio' },
     { value: 'other',          icon: '📝', label: 'Otro motivo' }
@@ -45,7 +46,7 @@ export class ReportModalComponent {
 
   onOverlayClick(event: MouseEvent): void {
     // El inner .report-modal tiene (click)="$event.stopPropagation()"
-    // así que este handler solo se dispara cuando se hace clic en el fondo
+    // asi que este handler solo se dispara cuando se hace clic en el fondo
     this.cancel();
   }
 
@@ -83,3 +84,4 @@ export class ReportModalComponent {
     });
   }
 }
+

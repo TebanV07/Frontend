@@ -1,8 +1,9 @@
 import { Injectable, Inject, PLATFORM_ID, Injector } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap, BehaviorSubject } from 'rxjs';
+import { Observable, tap, BehaviorSubject, EMPTY } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 export interface LoginResponse {
   user: {
@@ -59,25 +60,30 @@ export interface SocialLoginResponse {
   message: string;
 }
 
+export interface PasswordResetRequestResponse {
+  message: string;
+}
+
+export interface PasswordResetConfirmResponse {
+  message: string;
+}
+
+export interface VerificationEmailResponse {
+  message: string;
+  dev_token?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   refreshCurrentUser(): void {
-  const token = this.getToken();
-  if (!token || !this.isBrowser) return;
+    this.syncCurrentUser().subscribe({
+      error: () => { /* silencioso */ }
+    });
+  }
 
-  this.http.get<any>(`${this.apiUrl}/users/me`, {
-    headers: { Authorization: `Bearer ${token}` }
-  }).subscribe({
-    next: (user) => {
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      this.currentUserSubject.next(user);
-    },
-    error: () => { /* silencioso */ }
-  });
-}
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = environment.apiUrl;
   private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
   private isBrowser: boolean;
@@ -130,6 +136,36 @@ export class AuthService {
     native_language: string;
   }): Observable<RegisterResponse> {
     return this.http.post<RegisterResponse>(`${this.apiUrl}/auth/register`, userData);
+  }
+
+  requestPasswordReset(email: string): Observable<PasswordResetRequestResponse> {
+    return this.http.post<PasswordResetRequestResponse>(`${this.apiUrl}/auth/forgot-password`, { email });
+  }
+
+  confirmPasswordReset(token: string, newPassword: string): Observable<PasswordResetConfirmResponse> {
+    return this.http.post<PasswordResetConfirmResponse>(`${this.apiUrl}/auth/reset-password/confirm`, {
+      token,
+      new_password: newPassword
+    });
+  }
+
+  resendVerificationEmail(): Observable<VerificationEmailResponse> {
+    return this.http.post<VerificationEmailResponse>(
+      `${this.apiUrl}/users/me/verify-email/send`,
+      {},
+      this._getAuthRequestOptions()
+    );
+  }
+
+  syncCurrentUser(): Observable<any> {
+    if (!this.isBrowser || !this.getToken()) {
+      return EMPTY;
+    }
+
+    return this.http.get<any>(`${this.apiUrl}/users/me`, this._getAuthRequestOptions())
+      .pipe(
+        tap(user => this._updateCurrentUser(user))
+      );
   }
 
   // ============================================
@@ -266,6 +302,15 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  isCurrentUserVerified(): boolean {
+    const user = this.getCurrentUser();
+    return Boolean(user?.is_verified ?? user?.isVerified ?? false);
+  }
+
+  needsEmailVerification(): boolean {
+    return this.isLoggedIn() && !this.isCurrentUserVerified();
+  }
+
   isLoggedIn(): boolean {
     return !!this.getCurrentUser() &&
       (this.isBrowser ? !!localStorage.getItem('access_token') : false);
@@ -288,9 +333,20 @@ export class AuthService {
     if (this.isBrowser) {
       localStorage.setItem('access_token', accessToken);
       localStorage.setItem('refresh_token', refreshToken);
+    }
+    this._updateCurrentUser(user);
+  }
+
+  private _updateCurrentUser(user: any): void {
+    if (this.isBrowser) {
       localStorage.setItem('currentUser', JSON.stringify(user));
     }
     this.currentUserSubject.next(user);
+  }
+
+  private _getAuthRequestOptions(): { headers?: { Authorization: string } } {
+    const token = this.getToken();
+    return token ? { headers: { Authorization: `Bearer ${token}` } } : {};
   }
 
   /** Acciones post-login: cargar datos de follows y detectar país */

@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { FollowService, FollowUser } from '../../../../core/services/follow.service';
 
 @Component({
   selector: 'app-suggested-users',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './suggested-user.component.html',
   styleUrl: './suggested-user.component.scss'
 })
@@ -25,7 +26,6 @@ export class SuggestedUserComponent implements OnInit {
     this.followService.getSuggestedUsers(10).subscribe({
       next: (users) => {
         this.suggestedUsers = users;
-        console.log('✅ Sugerencias cargadas:', users);
       },
       error: (error) => {
         console.error('Error cargando sugerencias:', error);
@@ -42,7 +42,7 @@ export class SuggestedUserComponent implements OnInit {
           user.isFollowing = false;
           user.isPendingRequest = false;
           this.isLoading[user.id] = false;
-          // Recargar sugerencias después de dejar de seguir
+          // Recargar sugerencias despues de dejar de seguir
           setTimeout(() => this.loadSuggestions(), 300);
         },
         error: (error) => {
@@ -55,7 +55,7 @@ export class SuggestedUserComponent implements OnInit {
         next: () => {
           user.isFollowing = true;
           this.isLoading[user.id] = false;
-          // ⭐ MEJORADO: Eliminar usuario seguido de la lista y recargar sugerencias
+          // Eliminar usuario seguido de la lista y recargar sugerencias
           this.suggestedUsers = this.suggestedUsers.filter(u => u.id !== user.id);
           // Cargar nuevas sugerencias para reemplazar el usuario seguido
           setTimeout(() => this.loadSuggestions(), 300);
@@ -69,9 +69,9 @@ export class SuggestedUserComponent implements OnInit {
   }
 
   getButtonText(user: FollowUser): string {
-    if (user.isFollowing) return 'Siguiendo';
-    if (user.isPendingRequest) return 'Solicitado';
-    return 'Seguir';
+    if (user.isFollowing) return 'explore.suggested.following';
+    if (user.isPendingRequest) return 'explore.suggested.pending';
+    return 'explore.suggested.follow';
   }
 
   getDisplayedUsers(): FollowUser[] {
@@ -81,4 +81,12 @@ export class SuggestedUserComponent implements OnInit {
   toggleShowAll() {
     this.showAll = !this.showAll;
   }
+
+  getDisplayName(user: FollowUser): string {
+    const fullName = `${user.firstName || ''} ${user.lastName || ''}`.trim();
+    if (fullName) return fullName;
+    if (user.name && user.name.trim()) return user.name.trim();
+    return user.username;
+  }
 }
+

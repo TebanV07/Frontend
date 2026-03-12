@@ -1,6 +1,6 @@
 <div class="suggested-users-container">
   <div class="header">
-    <h3>Personas que quizás conozcas</h3>
+    <h3>{{ 'explore.suggested.title' | translate }}</h3>
   </div>
 
   <div class="users-list">
@@ -13,12 +13,12 @@
 
       <div class="user-info">
         <h4 [routerLink]="['/profile', user.username]">
-          {{ user.name || user.firstName + ' ' + user.lastName || user.username }}
+          {{ getDisplayName(user) }}
         </h4>
         <p class="username">{{ '@' + user.username }}</p>
         <p class="bio" *ngIf="user.bio">{{ user.bio }}</p>
         <p class="mutual" *ngIf="user.mutualFollowersCount && user.mutualFollowersCount > 0">
-          {{ user.mutualFollowersCount }} seguidores en común
+          {{ 'explore.suggested.mutual' | translate: { count: user.mutualFollowersCount } }}
         </p>
       </div>
 
@@ -28,7 +28,7 @@
         [class.pending]="user.isPendingRequest"
         [disabled]="isLoading[user.id]"
         (click)="toggleFollow(user)">
-        {{ getButtonText(user) }}
+        {{ getButtonText(user) | translate }}
       </button>
     </div>
 
@@ -41,7 +41,7 @@
           <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
         </svg>
       </div>
-      <p>No hay sugerencias en este momento</p>
+      <p>{{ 'explore.suggested.empty' | translate }}</p>
     </div>
   </div>
 
@@ -49,6 +49,6 @@
     *ngIf="suggestedUsers.length > 5"
     class="view-all-btn"
     (click)="toggleShowAll()">
-    {{ showAll ? 'Ver menos' : 'Ver todas las sugerencias' }}
+    {{ showAll ? ('explore.suggested.viewLess' | translate) : ('explore.suggested.viewAll' | translate) }}
   </button>
 </div>

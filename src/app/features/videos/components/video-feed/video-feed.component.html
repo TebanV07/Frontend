@@ -2,7 +2,7 @@
 
 <div class="loading-state" *ngIf="isLoading">
   <div class="spinner">⏳</div>
-  <p>Cargando videos...</p>
+  <p>{{ 'feed.loading' | translate }}</p>
 </div>
 
 <div class="feed-container" *ngIf="!isLoading">
@@ -28,7 +28,7 @@
         [alt]="flagService.getCountryName(video.user?.country_code)"
         class="country-flag"
         (error)="$any($event.target).style.display='none'"/>
-      <button class="follow-btn" (click)="followUser(video.user)">Seguir</button>
+      <button class="follow-btn" (click)="followUser(video.user)">{{ 'common.follow' | translate }}</button>
     </div>
 
     <!-- Video wrapper -->
@@ -63,10 +63,10 @@
       <div class="top-controls" *ngIf="i === currentVideoIndex">
         <div class="video-badges">
           <span class="lang-badge" *ngIf="video.available_languages && video.available_languages.length > 1">
-            🌐 {{ video.available_languages.length }} idiomas
+            🌐 {{ video.available_languages.length }} {{ 'feed.aiLanguages' | translate }}
           </span>
           <span class="translating-badge" *ngIf="isTranslating">
-            ⏳ Traduciendo {{ translationProgress }}%
+            ⏳ {{ 'post.translating' | translate }} {{ translationProgress }}%
           </span>
         </div>
         <button class="mute-btn" (click)="toggleMute(videoElem)">
@@ -90,7 +90,7 @@
 
         <button class="action-btn" [class.saved]="video.is_saved" (click)="toggleBookmark(video)">
           <span>{{ video.is_saved ? '🔖' : '📑' }}</span>
-          <span class="count">Guardar</span>
+          <span class="count">{{ 'common.save' | translate }}</span>
         </button>
 
         <button class="action-btn" (click)="shareVideo(video)">
@@ -110,7 +110,7 @@
 
           <div class="language-menu" *ngIf="showLanguageMenu" (click)="$event.stopPropagation()">
             <div class="language-menu-header">
-              <h4>Seleccionar idioma</h4>
+              <h4>{{ 'videoOverlay.translateVideo' | translate }}</h4>
               <button (click)="showLanguageMenu = false">✕</button>
             </div>
             <div class="language-list">
@@ -123,7 +123,7 @@
                 <span class="flag">{{ getLanguageFlag(lang) }}</span>
                 <span class="lang-name">
                   {{ getLanguageName(lang) }}
-                  <span *ngIf="lang === video.original_language">(Original)</span>
+                  <span *ngIf="lang === video.original_language">{{ 'videoOverlay.original' | translate }}</span>
                 </span>
                 <span *ngIf="currentLanguage === lang">✓</span>
               </button>
@@ -132,7 +132,7 @@
               <div class="progress-bar">
                 <div class="progress-fill" [style.width.%]="translationProgress"></div>
               </div>
-              <p>Traduciendo... {{ translationProgress }}%</p>
+              <p>{{ 'post.translating' | translate }} {{ translationProgress }}%</p>
             </div>
           </div>
         </div>
@@ -140,7 +140,7 @@
 
       <!-- Info del video -->
       <div class="video-info">
-        <h2 class="video-title">{{ video.title || 'Sin título' }}</h2>
+        <h2 class="video-title">{{ video.title || '-' }}</h2>
         <p class="video-desc" *ngIf="video.description">{{ video.description }}</p>
         <div class="video-meta">
           <span>👁️ {{ formatNumber(video.views_count) }}</span>
@@ -161,7 +161,7 @@
         <!-- Barra superior del drawer -->
         <div class="drawer-header">
           <div class="drawer-handle"></div>
-          <span class="drawer-title">Comentarios</span>
+          <span class="drawer-title">{{ 'comments.title' | translate }}</span>
           <button class="drawer-close" (click)="toggleComments()">✕</button>
         </div>
 
@@ -185,6 +185,6 @@
 
 <div class="no-videos" *ngIf="!isLoading && videos.length === 0">
   <span>🎥</span>
-  <h3>No hay videos disponibles</h3>
-  <p>Sube el primer video o vuelve más tarde</p>
+  <h3>{{ 'feed.empty.title' | translate }}</h3>
+  <p>{{ 'feed.empty.subtitle' | translate }}</p>
 </div>

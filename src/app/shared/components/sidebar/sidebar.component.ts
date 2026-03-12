@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -8,14 +9,14 @@ import { AuthService } from '../../../core/services/auth.service';
 
 interface QuickAccessItem {
   icon: string;
-  text: string;
+  labelKey: string;
   route?: string;
 }
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
@@ -32,11 +33,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   quickAccessItems: QuickAccessItem[] = [
-    { icon: 'trending', text: 'Tendencias', route: '/trending' },
-    { icon: 'videos',   text: 'Videos',     route: '/videos' },
-    { icon: 'chat',     text: 'Mensajes',   route: '/chat' },
-    { icon: 'profile',  text: 'Mi Perfil',  route: '/profile' },
-    { icon: 'settings', text: 'Configuración', route: '/settings' }
+    { icon: 'trending', labelKey: 'header.nav.trending', route: '/trending' },
+    { icon: 'videos',   labelKey: 'header.nav.videos', route: '/videos' },
+    { icon: 'chat',     labelKey: 'header.nav.messages', route: '/chat' },
+    { icon: 'profile',  labelKey: 'header.nav.profile', route: '/profile' },
+    { icon: 'settings', labelKey: 'header.nav.settings', route: '/settings' }
   ];
 
   constructor(
@@ -61,7 +62,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  // ✅ CORREGIDO: incluye el token en el header
+  // âœ… CORREGIDO: incluye el token en el header
   private getHeaders(): HttpHeaders {
     const token = this.authService.getToken();
     return token
@@ -75,11 +76,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (userData) => {
-          // ✅ El schema usa serialization_alias, por eso el JSON devuelve:
-          //    followers_count → "followers"
-          //    following_count → "following"
-          //    posts_count     → "postsCount"
-          // Soportamos ambas variantes por si cambia la configuración
+          // âœ… El schema usa serialization_alias, por eso el JSON devuelve:
+          //    followers_count â†’ "followers"
+          //    following_count â†’ "following"
+          //    posts_count     â†’ "postsCount"
+          // Soportamos ambas variantes por si cambia la configuraciÃ³n
           this.profileStats.followers_count = userData.followers      ?? userData.followers_count ?? 0;
           this.profileStats.following_count = userData.following      ?? userData.following_count ?? 0;
           this.profileStats.posts_count     = userData.postsCount     ?? userData.posts_count     ?? 0;
@@ -138,3 +139,4 @@ export class SidebarComponent implements OnInit, OnDestroy {
     return icons[iconType] || '';
   }
 }
+

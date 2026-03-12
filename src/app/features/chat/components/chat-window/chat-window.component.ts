@@ -1,8 +1,9 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter,
   OnChanges, SimpleChanges, ViewChildren, QueryList
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import type { Conversation, Message } from '../../../../core/models';
@@ -16,7 +17,7 @@ import { FlagService } from '../../../../core/services/flag.service';
 @Component({
   selector: 'app-chat-window',
   standalone: true,
-  imports: [CommonModule, MessageBubbleComponent, ChatInputComponent],
+  imports: [CommonModule, MessageBubbleComponent, ChatInputComponent, TranslateModule],
   templateUrl: './chat-window.component.html',
   styleUrl: './chat-window.component.scss'
 })
@@ -42,7 +43,7 @@ export class ChatWindowComponent implements OnChanges {
     private wsService: WebSocketService,
     private chatService: ChatService,
     private authService: AuthService,
-    public flagService: FlagService       // ⭐ NUEVO
+    public flagService: FlagService
   ) {
     this.chatService.loadOnlineUsers();
     this.chatService.onlineUsers$.subscribe(list => { this.onlineUsers = list; });
@@ -62,7 +63,7 @@ export class ChatWindowComponent implements OnChanges {
   getStatusText(): string {
     const typing = this.getTypingUserNames();
     if (typing) return typing;
-    return this.isOtherUserOnline() ? 'En línea' : 'Desconectado';
+    return this.isOtherUserOnline() ? 'En linea' : 'Desconectado';
   }
 
   onMessageSent(content: string): void {
@@ -122,7 +123,7 @@ export class ChatWindowComponent implements OnChanges {
       },
       error: (err) => {
         this.isUploadingFile = false;
-        if (err.status === 413) this.uploadError = 'El archivo supera el límite de 10 MB.';
+        if (err.status === 413) this.uploadError = 'El archivo supera el limite de 10 MB.';
         else if (err.status === 400) this.uploadError = 'Tipo de archivo no permitido.';
         else this.uploadError = 'Error al subir el archivo. Intenta de nuevo.';
         setTimeout(() => this.uploadError = null, 4000);
@@ -135,7 +136,7 @@ export class ChatWindowComponent implements OnChanges {
   onDeleteForMe(messageId: number): void { this.chatService.removeMessageLocally(messageId); }
 
   onForward(message: Message): void {
-    const target = prompt('Escribe el ID de la conversación destino');
+    const target = prompt('Escribe el ID de la conversacion destino');
     const convId = target ? parseInt(target, 10) : NaN;
     if (convId && !isNaN(convId)) {
       this.chatService.sendMessage(convId, message.content || '');
@@ -151,7 +152,7 @@ export class ChatWindowComponent implements OnChanges {
     }
   }
 
-  // ==================== TRADUCCIÓN ====================
+  // ==================== TRADUCCIÃ“N ====================
 
   onTranslateMessage(event: { message: Message, language: string }): void {
     const { message, language } = event;
@@ -173,21 +174,22 @@ export class ChatWindowComponent implements OnChanges {
 
   onMessageEdited(event: { id: number; content: string }): void {
     this.chatService.updateMessage(event.id, event.content).subscribe({
-      next: (msg) => console.log('✏️ Mensaje editado:', msg.id),
-      error: (err) => console.error('❌ Error editando:', err)
+      next: (msg) => console.debug('Mensaje editado:', msg.id),
+      error: (err) => console.error('Error editando:', err)
     });
   }
 
   onMessageDeleted(messageId: number): void {
     this.chatService.deleteMessage(messageId).subscribe({
-      next: () => console.log('🗑️ Mensaje eliminado:', messageId),
-      error: (err) => console.error('❌ Error eliminando:', err)
+      next: () => console.debug('Mensaje eliminado:', messageId),
+      error: (err) => console.error('Error eliminando:', err)
     });
   }
 
   getTypingUserNames(): string {
     if (!this.activeConversation || this.typingUsers.length === 0) return '';
     if (!this.activeConversation.other_user) return 'Escribiendo...';
-    return `${this.activeConversation.other_user.name} está escribiendo...`;
+    return `${this.activeConversation.other_user.name} esta escribiendo...`;
   }
 }
+

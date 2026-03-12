@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UploadService, UploadResponse } from '../../core/services/upload.service';
@@ -7,7 +8,7 @@ import { UploadService, UploadResponse } from '../../core/services/upload.servic
 @Component({
   selector: 'app-upload',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss']
 })
@@ -61,3 +62,4 @@ export class UploadComponent {
     });
   }
 }
+

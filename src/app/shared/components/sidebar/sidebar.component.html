@@ -15,21 +15,21 @@
     <div class="profile-stats">
       <div class="stat-item" (click)="navigateTo('/profile')">
         <span class="stat-number">{{ formatNumber(profileStats.followers_count) }}</span>
-        <span class="stat-label">Seguidores</span>
+        <span class="stat-label">{{ 'sidebar.followers' | translate }}</span>
       </div>
       <div class="stat-item" (click)="navigateTo('/profile')">
         <span class="stat-number">{{ formatNumber(profileStats.following_count) }}</span>
-        <span class="stat-label">Siguiendo</span>
+        <span class="stat-label">{{ 'sidebar.following' | translate }}</span>
       </div>
       <div class="stat-item" (click)="navigateTo('/profile')">
         <span class="stat-number">{{ formatNumber(profileStats.posts_count) }}</span>
-        <span class="stat-label">Posts</span>
+        <span class="stat-label">{{ 'sidebar.posts' | translate }}</span>
       </div>
     </div>
   </div>
 
   <div class="quick-access">
-    <h4 class="section-title">Navegación</h4>
+    <h4 class="section-title">{{ 'sidebar.navigation' | translate }}</h4>
     <div class="access-menu">
       <div
         *ngFor="let item of quickAccessItems"
@@ -40,7 +40,7 @@
             <path [attr.d]="getIconPath(item.icon)"></path>
           </svg>
         </div>
-        <span class="menu-text">{{ item.text }}</span>
+        <span class="menu-text">{{ item.labelKey | translate }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="menu-arrow">
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
@@ -50,12 +50,12 @@
 
   <div class="ai-translation-panel">
     <div class="panel-header">
-      <h4 class="section-title">AI Translation</h4>
+      <h4 class="section-title">{{ 'sidebar.aiTranslation' | translate }}</h4>
       <div class="ai-badge">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
         </svg>
-        <span>Activo</span>
+        <span>{{ 'sidebar.active' | translate }}</span>
       </div>
     </div>
     <div class="translation-info">
@@ -67,8 +67,8 @@
           </svg>
         </div>
         <div class="info-content">
-          <span class="info-title">Real-time Translation</span>
-          <span class="info-desc">Videos & Posts</span>
+          <span class="info-title">{{ 'sidebar.realtimeTranslation' | translate }}</span>
+          <span class="info-desc">{{ 'sidebar.realtimeDesc' | translate }}</span>
         </div>
       </div>
       <div class="info-item">
@@ -80,8 +80,8 @@
           </svg>
         </div>
         <div class="info-content">
-          <span class="info-title">24+ Languages</span>
-          <span class="info-desc">Global connectivity</span>
+          <span class="info-title">{{ 'sidebar.languages' | translate }}</span>
+          <span class="info-desc">{{ 'sidebar.languagesDesc' | translate }}</span>
         </div>
       </div>
       <div class="info-item">
@@ -91,8 +91,8 @@
           </svg>
         </div>
         <div class="info-content">
-          <span class="info-title">Instant Processing</span>
-          <span class="info-desc">Lightning fast</span>
+          <span class="info-title">{{ 'sidebar.instant' | translate }}</span>
+          <span class="info-desc">{{ 'sidebar.instantDesc' | translate }}</span>
         </div>
       </div>
     </div>

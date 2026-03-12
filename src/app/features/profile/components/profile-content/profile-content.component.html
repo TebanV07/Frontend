@@ -10,7 +10,7 @@
     <!-- Sin posts -->
     <div *ngIf="!isLoadingPosts && posts.length === 0" class="empty-state">
       <span class="empty-icon">📝</span>
-      <p>No hay posts aún</p>
+      <p>{{ 'profile.content.noPosts' | translate }}</p>
     </div>
 
     <!-- Grid de posts -->
@@ -49,7 +49,7 @@
     <!-- Load more -->
     <div class="load-more" *ngIf="hasMorePosts">
       <button (click)="loadPosts(true)" [disabled]="isLoadingPosts">
-        {{ isLoadingPosts ? 'Cargando...' : 'Ver más' }}
+        {{ isLoadingPosts ? ('profile.content.loading' | translate) : ('profile.content.loadMore' | translate) }}
       </button>
     </div>
   </div>
@@ -64,7 +64,7 @@
     <!-- Sin videos -->
     <div *ngIf="!isLoadingVideos && videos.length === 0" class="empty-state">
       <span class="empty-icon">🎬</span>
-      <p>No hay videos aún</p>
+      <p>{{ 'profile.content.noVideos' | translate }}</p>
     </div>
 
     <!-- Grid de videos -->
@@ -93,7 +93,7 @@
     <!-- Load more -->
     <div class="load-more" *ngIf="hasMoreVideos">
       <button (click)="loadVideos(true)" [disabled]="isLoadingVideos">
-        {{ isLoadingVideos ? 'Cargando...' : 'Ver más' }}
+        {{ isLoadingVideos ? ('profile.content.loading' | translate) : ('profile.content.loadMore' | translate) }}
       </button>
     </div>
   </div>
@@ -101,13 +101,13 @@
   <!-- ===== TAB: LIKED ===== -->
   <div *ngIf="selectedTab === 'liked'" class="empty-state">
     <span class="empty-icon">❤️</span>
-    <p>Posts que te gustaron</p>
+    <p>{{ 'profile.content.likedPosts' | translate }}</p>
   </div>
 
   <!-- ===== TAB: BOOKMARKS ===== -->
   <div *ngIf="selectedTab === 'bookmarks'" class="empty-state">
     <span class="empty-icon">🔖</span>
-    <p>Posts guardados</p>
+    <p>{{ 'profile.content.savedPosts' | translate }}</p>
   </div>
 
 </div>

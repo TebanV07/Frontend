@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostsService } from '../../../../core/services/posts.service';
@@ -8,7 +9,7 @@ import { Post } from '../../../../core/models/post.model';
 @Component({
   selector: 'app-edit-post',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './edit-post.component.html',
   styleUrls: ['./edit-post.component.scss']
 })
@@ -76,3 +77,4 @@ export class EditPostComponent implements OnInit {
     }
   }
 }
+

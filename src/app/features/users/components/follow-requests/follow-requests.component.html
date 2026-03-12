@@ -1,6 +1,6 @@
 <div class="follow-requests-container">
   <div class="header">
-    <h3>Solicitudes de seguimiento</h3>
+    <h3>{{ 'explore.followRequests.title' | translate }}</h3>
     <span class="count-badge" *ngIf="requests.length > 0">{{ requests.length }}</span>
   </div>
 
@@ -14,7 +14,7 @@
 
       <div class="user-info">
         <h4 [routerLink]="['/profile', request.follower?.username]">
-          {{ request.follower?.name || request.follower?.firstName + ' ' + request.follower?.lastName || request.follower?.username }}
+          {{ getDisplayName(request) }}
         </h4>
         <p class="username">{{ '@' + request.follower?.username }}</p>
       </div>
@@ -24,13 +24,13 @@
           class="accept-btn"
           [disabled]="isProcessing[request.id]"
           (click)="acceptRequest(request)">
-          {{ isProcessing[request.id] ? '...' : 'Aceptar' }}
+          {{ isProcessing[request.id] ? '...' : ('explore.followRequests.accept' | translate) }}
         </button>
         <button
           class="reject-btn"
           [disabled]="isProcessing[request.id]"
           (click)="rejectRequest(request)">
-          {{ isProcessing[request.id] ? '...' : 'Rechazar' }}
+          {{ isProcessing[request.id] ? '...' : ('explore.followRequests.reject' | translate) }}
         </button>
       </div>
     </div>
@@ -44,8 +44,8 @@
           <line x1="23" y1="11" x2="17" y2="11"/>
         </svg>
       </div>
-      <h4>No tienes solicitudes pendientes</h4>
-      <p>Cuando alguien quiera seguirte, aparecerá aquí</p>
+      <h4>{{ 'explore.followRequests.noPending.title' | translate }}</h4>
+      <p>{{ 'explore.followRequests.noPending.subtitle' | translate }}</p>
     </div>
   </div>
 </div>

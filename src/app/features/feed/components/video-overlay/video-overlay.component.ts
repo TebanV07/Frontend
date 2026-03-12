@@ -1,7 +1,8 @@
-// app/features/feed/videos/video-overlay/video-overlay.component.ts
+﻿// app/features/feed/videos/video-overlay/video-overlay.component.ts
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { Video } from '../../../../core/services/video.service';
 import { ShortNumberPipe } from "../../../../shared/pipes/short-number.pipe";
@@ -9,7 +10,7 @@ import { ShortNumberPipe } from "../../../../shared/pipes/short-number.pipe";
 @Component({
   selector: 'app-video-overlay',
   standalone: true,
-  imports: [CommonModule, FormsModule, ShortNumberPipe],
+  imports: [CommonModule, FormsModule, ShortNumberPipe, TranslateModule],
   templateUrl: './video-overlay.component.html',
   styleUrls: ['./video-overlay.component.scss']
 })
@@ -25,21 +26,21 @@ export class VideoOverlayComponent {
   showTranslationMenu = false;
   selectedSubtitleLanguage: string = '';
 
-  // Idiomas disponibles para traducción
+  // Idiomas disponibles para traduccion
   availableTranslationLanguages = [
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'es', name: 'Espanol', flag: '🇪🇸' },
     { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'fr', name: 'Frances', flag: '🇫🇷' },
     { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-    { code: 'pt', name: 'Português', flag: '🇧🇷' },
+    { code: 'pt', name: 'Portugues', flag: '🇵🇹' },
     { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-    { code: 'ja', name: '日本語', flag: '🇯🇵' },
-    { code: 'zh', name: '中文', flag: '🇨🇳' },
-    { code: 'ko', name: '한국어', flag: '🇰🇷' },
+    { code: 'ja', name: 'Japones', flag: '🇯🇵' },
+    { code: 'zh', name: 'Chino', flag: '🇨🇳' },
+    { code: 'ko', name: 'Coreano', flag: '🇰🇷' },
   ];
 
   ngOnInit() {
-    // Establecer idioma de subtítulo por defecto (original)
+    // Establecer idioma de subtitulo por defecto (original)
     this.selectedSubtitleLanguage = this.video?.original_language || 'es';
   }
 
@@ -61,7 +62,7 @@ export class VideoOverlayComponent {
     this.save.emit(this.video);
   }
 
-  // ==================== TRADUCCIÓN ====================
+  // ==================== TRADUCCION ====================
 
   toggleTranslationMenu() {
     this.showTranslationMenu = !this.showTranslationMenu;
@@ -70,22 +71,20 @@ export class VideoOverlayComponent {
   onSubtitleLanguageChange(event: Event) {
     const select = event.target as HTMLSelectElement;
     const newLanguage = select.value;
-    
-    console.log('🌐 Cambiar subtítulos a:', newLanguage);
-    
-    // Si el idioma ya está disponible, cambiar subtítulos
+
+    // Si el idioma ya esta disponible, cambiar subtitulos
     if (this.video.available_languages?.includes(newLanguage)) {
       this.selectedSubtitleLanguage = newLanguage;
-      // TODO: Actualizar track de subtítulos en el video player
+      // TODO: Actualizar track de subtitulos en el video player
     } else {
-      // Si no está disponible, solicitar traducción
-      if (confirm(`Los subtítulos en ${this.getLanguageName(newLanguage)} no están disponibles. ¿Deseas solicitarlos? (puede tardar unos minutos)`)) {
+      // Si no esta disponible, solicitar traduccion
+      if (confirm(`Los subtitulos en ${this.getLanguageName(newLanguage)} no estan disponibles. Deseas solicitarlos? (puede tardar unos minutos)`)) {
         this.requestTranslation.emit({
           video: this.video,
           language: newLanguage
         });
       } else {
-        // Revertir selección
+        // Revertir seleccion
         select.value = this.selectedSubtitleLanguage;
       }
     }
@@ -112,13 +111,13 @@ export class VideoOverlayComponent {
   }
 
   get availableSubtitles() {
-    return this.availableTranslationLanguages.filter(lang => 
+    return this.availableTranslationLanguages.filter(lang =>
       this.video.available_languages?.includes(lang.code)
     );
   }
 
   get unavailableSubtitles() {
-    return this.availableTranslationLanguages.filter(lang => 
+    return this.availableTranslationLanguages.filter(lang =>
       !this.video.available_languages?.includes(lang.code) &&
       lang.code !== this.video.original_language
     );
@@ -140,17 +139,17 @@ export class VideoOverlayComponent {
     const now = new Date();
     const diffMs = now.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / 60000);
-    
+
     if (diffMins < 1) return 'Ahora';
     if (diffMins < 60) return `${diffMins}m`;
-    
+
     const diffHours = Math.floor(diffMins / 60);
     if (diffHours < 24) return `${diffHours}h`;
-    
+
     const diffDays = Math.floor(diffHours / 24);
     if (diffDays < 7) return `${diffDays}d`;
     if (diffDays < 30) return `${Math.floor(diffDays / 7)}w`;
-    
+
     return date.toLocaleDateString();
   }
 }

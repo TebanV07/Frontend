@@ -1,4 +1,4 @@
-<!-- post-card.component.html — UPDATED with delete + report -->
+<!-- post-card.component.html -->
 <article class="post-card" (click)="closeDropdown()">
 
   <!-- ===== DELETE CONFIRMATION OVERLAY ===== -->
@@ -6,15 +6,15 @@
        (click)="cancelDelete(); $event.stopPropagation()">
     <div class="delete-confirm" (click)="$event.stopPropagation()">
       <div class="confirm-icon">🗑️</div>
-      <h4>¿Eliminar este post?</h4>
-      <p>Esta acción no se puede deshacer.</p>
+      <h4>{{ 'post.deleteConfirm' | translate }}</h4>
+      <p>{{ 'post.deleteBody' | translate }}</p>
       <div class="delete-error" *ngIf="deleteError">{{ deleteError }}</div>
       <div class="confirm-actions">
         <button class="btn-cancel-del" (click)="cancelDelete()" [disabled]="isDeleting">
-          Cancelar
+          {{ 'common.cancel' | translate }}
         </button>
         <button class="btn-delete-confirm" (click)="confirmDelete()" [disabled]="isDeleting">
-          <span *ngIf="!isDeleting">Eliminar</span>
+          <span *ngIf="!isDeleting">{{ 'common.delete' | translate }}</span>
           <span *ngIf="isDeleting" class="spinner-sm"></span>
         </button>
       </div>
@@ -57,7 +57,7 @@
       </div>
     </div>
 
-    <!-- ===== DROPDOWN MENU (UPDATED) ===== -->
+    <!-- DROPDOWN MENU -->
     <div class="post-menu">
       <button class="menu-button" (click)="$event.stopPropagation(); toggleDropdown()">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -67,7 +67,6 @@
       </button>
 
       <div class="dropdown-menu" *ngIf="showDropdown" (click)="$event.stopPropagation()">
-        <!-- Opciones del DUEÑO -->
         <ng-container *ngIf="isOwnPost">
           <button (click)="editPost()">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
@@ -75,7 +74,7 @@
               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
               <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
             </svg>
-            Editar
+            {{ 'post.editMenu' | translate }}
           </button>
           <button class="danger" (click)="openDeleteConfirm()">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
@@ -85,11 +84,10 @@
               <path d="M10 11v6M14 11v6"/>
               <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
             </svg>
-            Eliminar
+            {{ 'post.deleteMenu' | translate }}
           </button>
         </ng-container>
 
-        <!-- Opciones para OTROS usuarios -->
         <ng-container *ngIf="!isOwnPost">
           <button (click)="openReport()">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
@@ -97,7 +95,7 @@
               <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
               <line x1="4" y1="22" x2="4" y2="15"/>
             </svg>
-            Denunciar
+            {{ 'post.reportMenu' | translate }}
           </button>
         </ng-container>
 
@@ -109,7 +107,7 @@
             <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
             <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
           </svg>
-          Compartir
+          {{ 'post.shareMenu' | translate }}
         </button>
       </div>
     </div>
@@ -129,7 +127,10 @@
     <p class="content-text" *ngIf="!showTranslation">{{ post.content }}</p>
     <p class="content-text translated-text" *ngIf="showTranslation">{{ translatedContent }}</p>
 
+    <!-- MEDIA -->
     <div class="media-container">
+
+      <!-- Video -->
       <div *ngIf="post.has_video && post.video_url" class="video-wrapper">
         <ng-container *ngIf="isPlaying; else posterTpl">
           <video
@@ -140,7 +141,7 @@
             (error)="onVideoError($event)">
             <source [src]="getFullVideoUrl(post.video_url)" type="video/mp4"/>
           </video>
-          <button class="stop-btn" (click)="stopInline($event)">Cerrar</button>
+          <button class="stop-btn" (click)="stopInline($event)">{{ 'post.close' | translate }}</button>
         </ng-container>
         <ng-template #posterTpl>
           <img class="media-image poster" [src]="getThumbnail()" alt="thumbnail"
@@ -153,14 +154,85 @@
         </ng-template>
       </div>
 
+      <!-- ====== IMÁGENES CON TRADUCCIÓN ====== -->
       <div *ngIf="post.has_images && post.images?.length" class="image-grid">
-        <img
+        <div
           *ngFor="let image of post.images"
-          [src]="getFullImageUrl(image.image_url)"
-          [alt]="image.alt_text || 'Post image'"
-          class="media-image"
-          (error)="onImageError($event)">
+          class="image-item">
+
+          <!-- Imagen -->
+          <img
+            [src]="getFullImageUrl(image.image_url)"
+            [alt]="image.alt_text || 'Post image'"
+            class="media-image"
+            (error)="onImageError($event)">
+
+          <!-- Botón traducir imagen -->
+          <div class="img-translate-bar">
+            <ng-container *ngIf="!imageTranslations[image.id]">
+              <button
+                class="btn-img-translate"
+                [disabled]="translatingImageId === image.id"
+                (click)="$event.stopPropagation(); translateImage(image)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/>
+                  <path d="M2 5h12"/><path d="M7 2h1"/>
+                  <path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>
+                </svg>
+                <span *ngIf="translatingImageId !== image.id">{{ 'post.translateText' | translate }}</span>
+                <span *ngIf="translatingImageId === image.id">{{ 'post.extracting' | translate }}</span>
+              </button>
+            </ng-container>
+
+            <ng-container *ngIf="imageTranslations[image.id]">
+              <button
+                class="btn-img-translate active"
+                (click)="$event.stopPropagation(); toggleImageTranslation(image.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <span>{{ (showImageTranslation[image.id] ? 'post.showImage' : 'post.showText') | translate }}</span>
+              </button>
+            </ng-container>
+          </div>
+
+          <!-- Panel resultado OCR + traducción -->
+          <div
+            class="img-translation-panel"
+            *ngIf="imageTranslations[image.id] && showImageTranslation[image.id]"
+            (click)="$event.stopPropagation()">
+
+            <ng-container *ngIf="imageTranslations[image.id].extracted_text; else noTextTpl">
+              <div class="panel-original">
+                <span class="panel-label">{{ 'post.originalText' | translate }}</span>
+                <p>{{ imageTranslations[image.id].extracted_text }}</p>
+              </div>
+              <div class="panel-divider"></div>
+              <div class="panel-translated">
+                <span class="panel-label">
+                  <img
+                    [src]="flagService.getLanguageFlagUrl(imageTranslations[image.id].target_language, 20)"
+                    class="panel-flag"
+                    (error)="$any($event.target).style.display='none'">
+                  {{ flagService.getLanguageName(imageTranslations[image.id].target_language) }}
+                </span>
+                <p>{{ imageTranslations[image.id].translated_text }}</p>
+              </div>
+            </ng-container>
+
+            <ng-template #noTextTpl>
+              <p class="no-text">{{ 'post.noText' | translate }}</p>
+            </ng-template>
+
+          </div>
+
+        </div>
       </div>
+      <!-- fin image-grid -->
+
     </div>
   </div>
 
@@ -170,9 +242,9 @@
       [src]="flagService.getLanguageFlagUrl(userLanguage, 20)"
       class="lang-flag-small"
       (error)="$any($event.target).style.display='none'">
-    <span>Translated to {{ flagService.getLanguageName(userLanguage) }}</span>
+    <span>{{ 'post.translatedTo' | translate }} {{ flagService.getLanguageName(userLanguage) }}</span>
     <span class="original-lang" *ngIf="post.original_language">
-      (from
+      {{ 'post.from' | translate }}
       <img
         [src]="flagService.getLanguageFlagUrl(post.original_language, 20)"
         class="lang-flag-small"
@@ -184,7 +256,7 @@
   <!-- STATS -->
   <div class="post-stats">
     <app-like-count [postId]="post.id" [likesCount]="post.likes_count"></app-like-count>
-    <span class="comment-count">{{ post.comments_count }} comments</span>
+    <span class="comment-count">{{ post.comments_count }} {{ 'post.comments' | translate }}</span>
   </div>
 
   <!-- ACTIONS -->
@@ -201,7 +273,7 @@
         fill="none" stroke="currentColor" stroke-width="2">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
       </svg>
-      <span>Comment</span>
+      <span>{{ 'post.comment' | translate }}</span>
     </button>
 
     <button class="action-button" (click)="sharePost()">

@@ -1,11 +1,14 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+﻿import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { Post } from '../../../core/models/post.model';
 import { PostsService } from '../../../core/services/posts.service';
 import { Comment } from '../../../core/models/comment.model';
 import { CommentService } from '../../../core/services/comment.service';
 import { FormsModule } from '@angular/forms';
 import { FlagService } from '../../../core/services/flag.service';
+import { TranslationService, ImageTranslationResponse } from '../../../core/services/translation.service';
+import { Language, LanguageService } from '../../../core/services/language.service';
 
 import { CommentListComponent } from '../../../features/posts/comments/comment-list/comment-list.component';
 import { LikeButtonComponent } from '../../../features/posts/likes/likes-button/likes-button.component';
@@ -23,8 +26,7 @@ import { ReportModalComponent } from '../report-modal/report-modal.component';
     CommentListComponent,
     LikeButtonComponent,
     LikeCountComponent,
-    ReportModalComponent
-  ],
+    ReportModalComponent, TranslateModule],
 })
 export class PostComponent implements OnInit {
   @Input() post!: Post;
@@ -35,64 +37,55 @@ export class PostComponent implements OnInit {
   comments: Comment[] = [];
   loadingComments = false;
 
-  // ── Dropdown ──────────────────────────────────────────────
+  // â”€â”€ Dropdown â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   showDropdown = false;
 
-  // ── Delete ────────────────────────────────────────────────
+  // â”€â”€ Delete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   showDeleteConfirm = false;
   isDeleting = false;
   deleteError = '';
 
-  // ── Report ────────────────────────────────────────────────
+  // â”€â”€ Report â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   showReportModal = false;
 
-  // ── Translation ───────────────────────────────────────────
+  // â”€â”€ TraducciÃ³n de TEXTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   showTranslation = false;
   translatedContent = '';
   isTranslating = false;
-  userLanguage = 'en';
   selectedTranslationLanguage = 'es';
   lastTranslatedLanguage = '';
 
-  availableLanguages = [
-    { code: 'es', name: 'Español',    flag: '🇪🇸' },
-    { code: 'en', name: 'English',    flag: '🇺🇸' },
-    { code: 'fr', name: 'Français',   flag: '🇫🇷' },
-    { code: 'de', name: 'Deutsch',    flag: '🇩🇪' },
-    { code: 'pt', name: 'Português',  flag: '🇧🇷' },
-    { code: 'it', name: 'Italiano',   flag: '🇮🇹' },
-    { code: 'ja', name: '日本語',      flag: '🇯🇵' },
-    { code: 'zh', name: '中文',        flag: '🇨🇳' },
-    { code: 'ko', name: '한국어',      flag: '🇰🇷' },
-    { code: 'ru', name: 'Русский',    flag: '🇷🇺' },
-    { code: 'ar', name: 'العربية',    flag: '🇸🇦' },
-    { code: 'hi', name: 'हिन्दी',     flag: '🇮🇳' },
-    { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
-    { code: 'pl', name: 'Polski',     flag: '🇵🇱' },
-    { code: 'tr', name: 'Türkçe',     flag: '🇹🇷' }
-  ];
+  // â”€â”€ TraducciÃ³n de IMÃGENES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  imageTranslations: { [imageId: number]: ImageTranslationResponse } = {};
+  showImageTranslation: { [imageId: number]: boolean } = {};
+  translatingImageId: number | null = null;
+
+  availableLanguages: Language[] = [];
 
   private readonly apiBaseUrl = 'http://localhost:8001';
 
   constructor(
     private postsService: PostsService,
     private commentService: CommentService,
-    public flagService: FlagService
+    public flagService: FlagService,
+    private translationService: TranslationService,
+    private languageService: LanguageService
   ) {}
 
-ngOnInit(): void {
-  if (!this.currentUserId) {
-    const stored = localStorage.getItem('currentUser');
-    if (stored) {
-      const user = JSON.parse(stored);
-      this.currentUserId = user?.id;
-    }
-  }
+  ngOnInit(): void {
+    this.availableLanguages = this.languageService.SUPPORTED_LANGUAGES;
 
-    this.userLanguage = localStorage.getItem('userLanguage') || 'en';
-    const browserLang = navigator.language.split('-')[0];
-    if (this.availableLanguages.some(l => l.code === browserLang)) {
-      this.selectedTranslationLanguage = browserLang;
+    if (!this.currentUserId) {
+      const stored = localStorage.getItem('currentUser');
+      if (stored) {
+        const user = JSON.parse(stored);
+        this.currentUserId = user?.id;
+      }
+    }
+
+    const currentLanguage = this.languageService.getCurrentLanguage();
+    if (this.availableLanguages.some(lang => lang.code === currentLanguage)) {
+      this.selectedTranslationLanguage = currentLanguage;
     }
   }
 
@@ -154,7 +147,7 @@ ngOnInit(): void {
     this.showReportModal = false;
   }
 
-  // ==================== TRADUCCIÓN ====================
+  // ==================== TRADUCCIÃ“N ====================
 
   onTranslationLanguageChange(event: Event): void {
     const newLanguage = (event.target as HTMLSelectElement).value;
@@ -163,34 +156,64 @@ ngOnInit(): void {
       this.translatedContent = '';
       this.lastTranslatedLanguage = '';
       this.showTranslation = false;
+      this.imageTranslations = {};
       this.toggleTranslation();
     }
   }
 
   toggleTranslation(): void {
-    if (this.showTranslation) { this.showTranslation = false; return; }
+    // Si ya estÃ¡ mostrando traducciÃ³n â†’ ocultar todo
+    if (this.showTranslation) {
+      this.showTranslation = false;
+      return;
+    }
 
+    // Si ya tenemos la traducciÃ³n del texto en el mismo idioma â†’ solo mostrar
     if (this.translatedContent && this.lastTranslatedLanguage === this.selectedTranslationLanguage) {
       this.showTranslation = true;
       return;
     }
 
     this.isTranslating = true;
+
+    // Traducir texto del post
     this.postsService.translatePost(this.post.id, this.selectedTranslationLanguage).subscribe({
       next: (response) => {
-        this.translatedContent = response?.translated_content || response?.content || (typeof response === 'string' ? response : '');
+        this.translatedContent = response?.translated_content || response?.content || '';
         this.lastTranslatedLanguage = this.selectedTranslationLanguage;
         this.showTranslation = true;
         this.isTranslating = false;
       },
-      error: (error) => {
-        if (error?.status === 404 || error?.status === 501) {
-          this.simulateTranslation();
-        } else {
-          this.isTranslating = false;
-        }
+      error: () => {
+        this.simulateTranslation();
       }
     });
+
+    // Traducir imÃ¡genes en paralelo
+    if (this.post.images?.length) {
+      this.post.images.forEach(image => {
+        // Si ya existe traducciÃ³n para este idioma, no volver a llamar
+        if (
+          this.imageTranslations[image.id] &&
+          this.imageTranslations[image.id].target_language === this.selectedTranslationLanguage
+        ) {
+          return;
+        }
+
+        this.translationService.translateImageFromUrl(
+          image.id,
+          image.image_url,
+          this.selectedTranslationLanguage
+        ).then(obs$ => {
+          obs$.subscribe({
+            next: (result) => {
+              this.imageTranslations[image.id] = result;
+            },
+            error: (err) => console.error('Error traduciendo imagen:', err)
+          });
+        }).catch(err => console.error('Error descargando imagen:', err));
+      });
+    }
   }
 
   private simulateTranslation(): void {
@@ -219,7 +242,7 @@ ngOnInit(): void {
   }
 
   onVideoError(event: Event): void {
-    console.error('❌ Error loading video');
+    console.error('Error loading video');
   }
 
   // ==================== COMENTARIOS ====================
@@ -252,3 +275,4 @@ ngOnInit(): void {
     return `${Math.floor(diffHours / 24)}d`;
   }
 }
+

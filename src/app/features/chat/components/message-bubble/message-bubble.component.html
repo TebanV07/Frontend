@@ -5,12 +5,12 @@
 
   <!-- Menú de acciones (long press / clic derecho) -->
   <div class="action-menu" *ngIf="showActions">
-    <button *ngIf="isSent" (click)="actionEdit()" class="action-item">✏️ Editar</button>
-    <button (click)="actionDeleteForMe()" class="action-item">🗑️ Eliminar para mí</button>
-    <button (click)="actionDeleteForAll()" class="action-item">🚫 Eliminar para todos</button>
-    <button (click)="actionForward()" class="action-item">🔁 Reenviar</button>
-    <button (click)="actionShare()" class="action-item">📤 Compartir</button>
-    <button (click)="closeActions()" class="action-item close">✖️ Cerrar</button>
+    <button *ngIf="isSent" (click)="actionEdit()" class="action-item">✏️ {{ 'chat.bubble.edit' | translate }}</button>
+    <button (click)="actionDeleteForMe()" class="action-item">🗑️ {{ 'chat.bubble.deleteForMe' | translate }}</button>
+    <button (click)="actionDeleteForAll()" class="action-item">🚫 {{ 'chat.bubble.delete' | translate }}</button>
+    <button (click)="actionForward()" class="action-item">🔁 {{ 'chat.bubble.forward' | translate }}</button>
+    <button (click)="actionShare()" class="action-item">📤 {{ 'chat.bubble.share' | translate }}</button>
+    <button (click)="closeActions()" class="action-item close">✖️ {{ 'common.close' | translate }}</button>
   </div>
 
   <!-- Contenedor del mensaje -->
@@ -30,8 +30,8 @@
 
     <!-- Controles de edición/eliminación (para mensajes propios) -->
     <div class="message-controls" *ngIf="isSent && !message.media_urls?.length">
-      <button class="ctrl-btn edit" (click)="startEdit()" title="Editar mensaje">✏️</button>
-      <button class="ctrl-btn delete" (click)="deleteMessage()" title="Eliminar mensaje">🗑️</button>
+      <button class="ctrl-btn edit" (click)="startEdit()" [title]="'chat.bubble.edit' | translate">✏️</button>
+      <button class="ctrl-btn delete" (click)="deleteMessage()" [title]="'chat.bubble.delete' | translate">🗑️</button>
     </div>
 
     <!-- Texto o formulario de edición del mensaje -->
@@ -60,8 +60,8 @@
       <ng-template #editForm>
         <textarea [(ngModel)]="editContent" class="edit-textarea"></textarea>
         <div class="edit-actions">
-          <button (click)="saveEdit()" class="save-btn">Guardar</button>
-          <button (click)="cancelEdit()" class="cancel-btn">Cancelar</button>
+          <button (click)="saveEdit()" class="save-btn">{{ 'common.save' | translate }}</button>
+          <button (click)="cancelEdit()" class="cancel-btn">{{ 'common.cancel' | translate }}</button>
         </div>
       </ng-template>
     </div>
@@ -93,9 +93,9 @@
       (click)="toggleLanguageMenu()"
       [disabled]="isTranslating"
       [class.active]="showLanguageMenu"
-      title="Traducir mensaje"
+      [title]="'chat.bubble.translate' | translate"
       type="button"
-      aria-label="Traducir mensaje">
+      [attr.aria-label]="'chat.bubble.translate' | translate">
       <span *ngIf="!isTranslating">🌐</span>
       <span *ngIf="isTranslating" class="spinner">⏳</span>
     </button>

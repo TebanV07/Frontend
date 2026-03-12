@@ -1,5 +1,6 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+﻿import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { VideoService, Video } from '../../../../core/services/video.service';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
@@ -8,7 +9,7 @@ import { CommentListComponent } from '../../../posts/comments/comment-list/comme
 @Component({
   selector: 'app-videos',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, CommentListComponent],
+  imports: [CommonModule, RouterModule, HeaderComponent, CommentListComponent, TranslateModule],
   templateUrl: './videos.component.html',
   styleUrls: ['./videos.component.scss']
 })
@@ -19,7 +20,7 @@ export class VideosComponent implements OnInit, AfterViewInit {
   currentVideoIndex = 0;
   showTranslation = false;
   isPlaying = false;
-  isMuted = true; // Empezar muted por política de navegadores
+  isMuted = true; // Empezar muted por politica de navegadores
   isLoading = true;
   currentSubtitleUrl?: string;
   ttsProvider: 'openai' | 'elevenlabs' = 'openai';
@@ -28,7 +29,7 @@ export class VideosComponent implements OnInit, AfterViewInit {
   showCommentsPanel = false;
 currentUserId: number | null = null;
 
-  // Traducción
+  // Traduccion
   showLanguageMenu = false;
   availableLanguages: string[] = [];
   currentLanguage = 'es';
@@ -44,7 +45,7 @@ currentUserId: number | null = null;
     if (typeof window !== 'undefined' && typeof alert !== 'undefined') {
       alert(message);
     } else {
-      console.log(message);
+      console.debug(message);
     }
   }
 
@@ -58,11 +59,10 @@ currentUserId: number | null = null;
 
 
   ngAfterViewInit() {
-    // Configurar el video player después de que la vista se inicialice
+    // Configurar el video player despues de que la vista se inicialice
     if (this.videoPlayer) {
       const video = this.videoPlayer.nativeElement;
-      video.volume = 1.0; // Volumen al máximo
-      console.log('🔊 Video player inicializado. Volume:', video.volume, 'Muted:', video.muted);
+      video.volume = 1.0; // Volumen al maximo
     }
   }
 
@@ -88,27 +88,22 @@ currentUserId: number | null = null;
   // ==================== CONTROL DE VIDEO ====================
 
   onVideoLoaded(event: Event) {
-    console.log('✅ Video cargado correctamente');
     const video = event.target as HTMLVideoElement;
 
-    // Establecer volumen
     video.volume = 1.0;
-    console.log('🔊 Volumen establecido:', video.volume);
 
-    // Intentar reproducir
     video.play().catch((error: any) => {
-      console.error('⚠️ Autoplay bloqueado por el navegador:', error);
+      console.warn('Autoplay bloqueado por el navegador:', error);
       this.isPlaying = false;
-      // Mostrar indicador visual para que el usuario haga clic
     });
   }
 
   onVideoError(event: Event) {
-    console.error('❌ Error al cargar video');
+    console.error('Error al cargar video');
     const video = event.target as HTMLVideoElement;
 
     if (video.error) {
-      console.error('Código de error:', video.error.code);
+      console.error('Codigo de error:', video.error.code);
       console.error('Mensaje:', video.error.message);
 
       switch (video.error.code) {
@@ -117,7 +112,7 @@ currentUserId: number | null = null;
           break;
         case 2:
           console.error('Error de red');
-          this.showMessage('Error de red. Verifica tu conexión.');
+          this.showMessage('Error de red. Verifica tu conexion.');
           break;
         case 3:
           console.error('Error al decodificar');
@@ -133,12 +128,10 @@ currentUserId: number | null = null;
 
   onVideoPlay() {
     this.isPlaying = true;
-    console.log('▶️ Video reproduciendo');
   }
 
   onVideoPause() {
     this.isPlaying = false;
-    console.log('⏸️ Video pausado');
   }
 
   togglePlay() {
@@ -163,22 +156,15 @@ currentUserId: number | null = null;
     this.isMuted = !this.isMuted;
     video.muted = this.isMuted;
 
-    console.log(this.isMuted ? '🔇 Audio silenciado' : '🔊 Audio activado');
-    console.log('Volume:', video.volume, 'Muted:', video.muted);
-
-    // Verificar que el video tenga audio
     if (!this.isMuted && video.volume === 0) {
       video.volume = 1.0;
-      console.log('🔊 Volumen restaurado a:', video.volume);
     }
 
-    // Feedback visual temporal
-    this.showTemporaryFeedback(this.isMuted ? '🔇' : '🔊');
+    this.showTemporaryFeedback(this.isMuted ? 'Audio silenciado' : 'Audio activado');
   }
 
-  private showTemporaryFeedback(emoji: string) {
-    // Puedes implementar un toast o notificación visual aquí
-    console.log('Feedback:', emoji);
+  private showTemporaryFeedback(message: string) {
+    console.debug(message);
   }
 
   private pauseCurrentVideo() {
@@ -189,7 +175,7 @@ currentUserId: number | null = null;
     }
   }
 
-  // ==================== NAVEGACIÓN ====================
+  // ==================== NAVEGACION ====================
 
   @HostListener('wheel', ['$event'])
   onScroll(event: WheelEvent) {
@@ -244,7 +230,7 @@ currentUserId: number | null = null;
     });
   }
 
-  // ==================== TRADUCCIÓN ====================
+  // ==================== TRADUCCION ====================
 
   loadAvailableLanguages(video: Video) {
     if (video.available_languages && video.available_languages.length > 0) {
@@ -272,12 +258,9 @@ requestTranslation(targetLanguage: string) {
   const video = this.currentVideo;
   if (!video) return;
 
-  // 🔄 RESET para pruebas
   this.includeAudioDubbing = false;
   this.ttsProvider = 'openai';
   this.cloneVoice = false;
-
-  console.log(`🌐 Solicitando traducción a: ${targetLanguage}`);
 
   // Si el idioma es el original, no traducir
   if (targetLanguage === video.original_language) {
@@ -287,18 +270,17 @@ requestTranslation(targetLanguage: string) {
     return;
   }
 
-  // Verificar si ya existe la traducción
+  // Verificar si ya existe la traducciÃ³n
   if (video.available_languages?.includes(targetLanguage)) {
-    console.log('✅ Traducción ya disponible');
     this.switchToLanguage(targetLanguage);
     return;
   }
 
   // PASO 1: Preguntar si quiere audio
-  const wantAudio = confirm('¿Deseas incluir doblaje de audio? (más costoso y lento)');
+  const wantAudio = confirm('Deseas incluir doblaje de audio? (mas costoso y lento)');
 
   if (!wantAudio) {
-    // SOLO SUBTÍTULOS (3 parámetros)
+    // SOLO SUBTITULOS
     this.isTranslating = true;
     this.translationProgress = 0;
 
@@ -320,26 +302,22 @@ requestTranslation(targetLanguage: string) {
   this.includeAudioDubbing = true;
 
   // PASO 2: Preguntar tipo de voz
-  const wantPremium = confirm('¿Usar voz premium (ElevenLabs)?\n\n• Estándar (OpenAI): Rápido y económico\n• Premium (ElevenLabs): Mejor calidad, puede clonar voz');
+  const wantPremium = confirm('Usar voz premium (ElevenLabs)?\n\n- Estandar (OpenAI): Rapido y economico\n- Premium (ElevenLabs): Mejor calidad, puede clonar voz');
 
   if (wantPremium) {
     this.ttsProvider = 'elevenlabs';
 
-    // PASO 3: Preguntar por clonación
-    const wantClone = confirm('¿Quieres CLONAR la voz del video original?\n\n(Calidad superior - Requiere API Key de ElevenLabs)');
+    // PASO 3: Preguntar por clonacion
+    const wantClone = confirm('Quieres clonar la voz del video original?\n\n(Calidad superior - Requiere API Key de ElevenLabs)');
     this.cloneVoice = wantClone;
   } else {
     this.ttsProvider = 'openai';
     this.cloneVoice = false;
   }
 
-  // ENVIAR CON LOS 7 PARÁMETROS
+  // ENVIAR CON LOS PARAMETROS COMPLETOS
   this.isTranslating = true;
   this.translationProgress = 0;
-
-  console.log('🎙️ Configuración final:');
-  console.log('  - TTS Provider:', this.ttsProvider);
-  console.log('  - Clone Voice:', this.cloneVoice);
 
   this.videoService.requestVideoTranslation(
     video.id,
@@ -357,7 +335,6 @@ requestTranslation(targetLanguage: string) {
 requestTranslationSubtitlesOnly(video: Video, targetLanguage: string) {
   this.isTranslating = true;
   this.translationProgress = 0;
-  console.log('📝 Solicitando solo subtítulos...');
 
   this.videoService.requestVideoTranslation(
     video.id,
@@ -369,15 +346,14 @@ requestTranslationSubtitlesOnly(video: Video, targetLanguage: string) {
     false      // useSyncedTTS
   ).subscribe({
     next: (response) => {
-      console.log('✅ Solo subtítulos solicitados:', response);
       this.translationJobId = response.job_id;
-      this.showMessage(`Subtítulos en trámite. Tiempo estimado: ${response.estimated_time_minutes} min`);
+      this.showMessage(`Subtitulos en tramite. Tiempo estimado: ${response.estimated_time_minutes} min`);
       this.pollTranslationStatus(video.id, response.job_id, targetLanguage);
     },
     error: (error) => {
-      console.error('❌ Error:', error);
+      console.error('Error:', error);
       this.isTranslating = false;
-      this.showMessage('Error al solicitar traducción');
+      this.showMessage('Error al solicitar traduccion');
     }
   });
 }
@@ -385,11 +361,6 @@ requestTranslationSubtitlesOnly(video: Video, targetLanguage: string) {
 sendTranslationWithOptions(video: Video, targetLanguage: string) {
   this.isTranslating = true;
   this.translationProgress = 0;
-
-  console.log('📤 Enviando solicitud de traducción completa...');
-  console.log('🎙️ TTS Provider:', this.ttsProvider);
-  console.log('🎤 Clone Voice:', this.cloneVoice);
-  console.log('🔊 Include Audio:', this.includeAudioDubbing);
 
   this.videoService.requestVideoTranslation(
     video.id,
@@ -401,17 +372,16 @@ sendTranslationWithOptions(video: Video, targetLanguage: string) {
     true  // useSyncedTTS
   ).subscribe({
     next: (response) => {
-      console.log('✅ Traducción solicitada:', response);
       this.translationJobId = response.job_id;
 
-      // Mensaje personalizado según opciones
+      // Mensaje personalizado segun opciones
       let message = '';
       if (this.ttsProvider === 'openai') {
-        message = `Traducción estándar iniciada. Tiempo estimado: ${response.estimated_time_minutes} min`;
+        message = `Traduccion estandar iniciada. Tiempo estimado: ${response.estimated_time_minutes} min`;
       } else if (this.ttsProvider === 'elevenlabs' && !this.cloneVoice) {
-        message = `Traducción premium iniciada. Tiempo estimado: ${response.estimated_time_minutes} min`;
+        message = `Traduccion premium iniciada. Tiempo estimado: ${response.estimated_time_minutes} min`;
       } else if (this.ttsProvider === 'elevenlabs' && this.cloneVoice) {
-        message = `🎙️ ¡CLONACIÓN DE VOZ ACTIVADA! Tiempo estimado: ${response.estimated_time_minutes} min`;
+        message = `Clonacion de voz activada. Tiempo estimado: ${response.estimated_time_minutes} min`;
       }
 
       this.showMessage(message);
@@ -420,11 +390,11 @@ sendTranslationWithOptions(video: Video, targetLanguage: string) {
       this.pollTranslationStatus(video.id, response.job_id, targetLanguage);
     },
     error: (error) => {
-      console.error('❌ Error solicitando traducción:', error);
+      console.error('Error solicitando traduccion:', error);
       this.isTranslating = false;
       this.showDubbingOption = false;
 
-      let errorMsg = 'Error al solicitar traducción.';
+      let errorMsg = 'Error al solicitar traduccion.';
       if (error.error?.detail) {
         errorMsg = error.error.detail;
       }
@@ -435,7 +405,7 @@ sendTranslationWithOptions(video: Video, targetLanguage: string) {
 
   private pollTranslationStatus(videoId: number, jobId: number, targetLanguage: string) {
     let pollCount = 0;
-    const maxPolls = 200; // Máximo 10 minutos (200 * 3 segundos)
+    const maxPolls = 200; // Maximo 10 minutos (200 * 3 segundos)
 
     const interval = setInterval(() => {
       pollCount++;
@@ -443,41 +413,30 @@ sendTranslationWithOptions(video: Video, targetLanguage: string) {
       if (pollCount > maxPolls) {
         clearInterval(interval);
         this.isTranslating = false;
-        this.showMessage('Tiempo de espera agotado. La traducción puede seguir procesándose.');
+        this.showMessage('Tiempo de espera agotado. La traduccion puede seguir procesandose.');
         return;
       }
 
  this.videoService.getTranslationStatus(videoId, jobId).subscribe({
   next: (job) => {
-    console.log(`📊 Progreso de traducción: ${job.progress}% - Estado: ${job.status}`);
-    console.log('🔍 JOB COMPLETO:', JSON.stringify(job, null, 2));
     this.translationProgress = job.progress;
 
     if (job.status === 'completed') {
       clearInterval(interval);
       this.isTranslating = false;
-      console.log('✅ Traducción completada!');
-      console.log('🌍 Completed languages:', job.completed_languages);
-      console.log('❌ Failed languages:', job.failed_languages);
-      this.showMessage('¡Traducción completada!');
+      this.showMessage('Traduccion completada');
 
       // Actualizar idiomas disponibles en el video
       if (this.currentVideo) {
-        console.log('🔄 Actualizando idiomas del video...');
-        console.log('📋 Idiomas actuales:', this.currentVideo.available_languages);
-
-        // ✅ AGREGAR MANUALMENTE si completed_languages está vacío
+        // Agregar manualmente si completed_languages esta vacio
         if (job.completed_languages && job.completed_languages.length > 0) {
-          // Usar los idiomas del job
           this.currentVideo.available_languages = [
             ...(this.currentVideo.available_languages || []),
             ...job.completed_languages
           ];
-          // Eliminar duplicados
           this.currentVideo.available_languages = [...new Set(this.currentVideo.available_languages)];
         } else {
-          // Fallback: agregar manualmente el idioma traducido
-          console.warn('⚠️ completed_languages está vacío, agregando manualmente');
+          console.warn('completed_languages esta vacio, agregando manualmente');
           if (!this.currentVideo.available_languages) {
             this.currentVideo.available_languages = [];
           }
@@ -485,25 +444,22 @@ sendTranslationWithOptions(video: Video, targetLanguage: string) {
             this.currentVideo.available_languages.push(targetLanguage);
           }
         }
-
-        console.log('✅ Idiomas actualizados:', this.currentVideo.available_languages);
       }
 
       // Cambiar al idioma traducido
-      console.log(`🔄 Cambiando a idioma: ${targetLanguage}`);
       this.switchToLanguage(targetLanguage);
     } else if (job.status === 'failed') {
       clearInterval(interval);
       this.isTranslating = false;
-      console.error('❌ Traducción fallida:', job.error_message);
-      this.showMessage(`Error: ${job.error_message || 'Traducción fallida'}`);
+      console.error('Traduccion fallida:', job.error_message);
+      this.showMessage(`Error: ${job.error_message || 'Traduccion fallida'}`);
     }
   },
   error: (error) => {
-    console.error('Error obteniendo estado de traducción:', error);
+    console.error('Error obteniendo estado de traduccion:', error);
     clearInterval(interval);
     this.isTranslating = false;
-    this.showMessage('Error al verificar el estado de la traducción');
+    this.showMessage('Error al verificar el estado de la traduccion');
   }
 });
 }, 3000); // Polling cada 3 segundos
@@ -513,76 +469,56 @@ switchToLanguage(language: string) {
   const video = this.currentVideo;
   if (!video || !this.videoPlayer) return;
 
-  console.log(`🌐 Cambiando a idioma: ${language}`);
-  console.log('📋 Video ID:', video.id);
-  console.log('🎯 Idioma objetivo:', language);
-
   this.currentLanguage = language;
   this.showLanguageMenu = false;
   this.showDubbingOption = false;
 
   const videoElement = this.videoPlayer.nativeElement;
 
-  // 🧪 1️⃣ PROBAR SI EXISTE VIDEO DOBLADO (TTS)
-  console.log('🔍 Buscando video doblado...');
+  // Probar si existe video doblado (TTS)
   this.videoService.getDubbedVideo(video.id, language).subscribe({
     next: (dubbed) => {
-      console.log('🎙️ ✅ Doblaje encontrado:', dubbed);
-      console.log('🎬 URL video doblado:', dubbed.translated_video_url);
-
       const wasPlaying = !videoElement.paused;
       const currentTime = videoElement.currentTime;
 
-      console.log('⏸️ Pausando video actual...');
       videoElement.pause();
 
-      console.log('🔄 Cargando video doblado:', dubbed.translated_video_url);
       videoElement.src = dubbed.translated_video_url;
       videoElement.load();
 
       videoElement.onloadedmetadata = () => {
-        console.log('✅ Metadata cargada del video doblado');
         videoElement.currentTime = currentTime;
         videoElement.muted = false;
         videoElement.volume = 1.0;
-        console.log('🔊 Audio activado - Volume:', videoElement.volume);
 
         if (wasPlaying) {
-          console.log('▶️ Reproduciendo video doblado...');
-          videoElement.play();
+          videoElement.play().catch(() => {});
         }
       };
 
-      this.showMessage(`🎙️ Reproduciendo doblaje en ${this.getLanguageName(language)}`);
+      this.showMessage(`Reproduciendo doblaje en ${this.getLanguageName(language)}`);
     },
 
-    // ❌ 2️⃣ SI NO HAY DOBLAJE → USAR SUBTÍTULOS
+    // Si no hay doblaje, usar subtitulos
     error: (err) => {
-      console.log('ℹ️ No hay doblaje disponible, buscando subtítulos...');
-      console.log('🔍 Error del doblaje:', err.status, err.statusText);
+      console.debug('No hay doblaje disponible, buscando subtitulos...', err?.status, err?.statusText);
 
       this.videoService.getSubtitles(video.id, language).subscribe({
         next: (subtitles) => {
-          console.log('📝 ✅ Subtítulos encontrados:', subtitles);
-          console.log('📄 URL subtítulos:', subtitles.subtitle_url);
-
           if (subtitles.subtitle_url) {
             this.currentSubtitleUrl = subtitles.subtitle_url;
-            console.log('✅ currentSubtitleUrl actualizado:', this.currentSubtitleUrl);
 
             // Forzar recarga de tracks
-            console.log('🔄 Recargando tracks de subtítulos...');
             setTimeout(() => {
               videoElement.load();
-              console.log('✅ Tracks recargados');
             }, 100);
           }
 
-          this.showMessage(`📝 Subtítulos en ${this.getLanguageName(language)}`);
+          this.showMessage(`Subtitulos en ${this.getLanguageName(language)}`);
         },
         error: (subErr) => {
-          console.error('❌ Error obteniendo subtítulos:', subErr);
-          this.showMessage('No hay doblaje ni subtítulos disponibles');
+          console.error('Error obteniendo subtitulos:', subErr);
+          this.showMessage('No hay doblaje ni subtitulos disponibles');
         }
       });
     }
@@ -595,7 +531,6 @@ switchToLanguage(language: string) {
       next: (response) => {
         video.is_liked = response.is_liked;
         video.likes_count = response.likes_count;
-        console.log(response.is_liked ? '❤️ Like agregado' : '💔 Like removido');
       },
       error: (error) => {
         console.error('Error toggling like:', error);
@@ -608,7 +543,7 @@ switchToLanguage(language: string) {
     this.videoService.toggleBookmark(video.id).subscribe({
       next: (response) => {
         video.is_saved = response.is_saved;
-        this.showMessage(response.is_saved ? '¡Video guardado!' : 'Video eliminado de guardados');
+        this.showMessage(response.is_saved ? 'Video guardado' : 'Video eliminado de guardados');
       },
       error: (error) => {
         console.error('Error toggling bookmark:', error);
@@ -623,7 +558,7 @@ switchToLanguage(language: string) {
         video.shares_count = response.shares_count;
         const shareUrl = `${window.location.origin}/videos/${video.uuid}`;
         navigator.clipboard.writeText(shareUrl).then(() => {
-          this.showMessage('¡Enlace copiado al portapapeles!');
+          this.showMessage('Enlace copiado al portapapeles');
         }).catch(() => {
           this.showMessage(`Comparte este enlace: ${shareUrl}`);
         });
@@ -640,7 +575,6 @@ openComments(video: Video): void {
 }
 
   followUser(user: any) {
-    console.log('Following user:', user?.username);
     this.showMessage('Sistema de seguir usuarios en desarrollo');
   }
 
@@ -668,7 +602,7 @@ openComments(video: Video): void {
   }
 
   getVideoTitle(video: Video): string {
-    return video.title || 'Sin título';
+    return video.title || 'Sin titulo';
   }
 
   getVideoDescription(video: Video): string {
@@ -718,57 +652,55 @@ getUserAvatar(video: Video): string {
 
   getLanguageName(lang: string): string {
     const names: { [key: string]: string } = {
-      'es': 'Español',
+      'es': 'Espanol',
       'en': 'English',
-      'fr': 'Français',
+      'fr': 'Frances',
       'de': 'Deutsch',
-      'pt': 'Português',
+      'pt': 'Portugues',
       'it': 'Italiano',
-      'ru': 'Русский',
-      'zh-cn': '中文',
-      'ja': '日本語',
-      'ko': '한국어',
-      'ar': 'العربية',
-      'hi': 'हिन्दी',
+      'ru': 'Russian',
+      'zh-cn': 'Chinese',
+      'ja': 'Japanese',
+      'ko': 'Korean',
+      'ar': 'Arabic',
+      'hi': 'Hindi',
       'nl': 'Nederlands',
       'pl': 'Polski',
-      'tr': 'Türkçe'
+      'tr': 'Turkish'
     };
     return names[lang] || lang.toUpperCase();
   }
-  // Prueba mínima - agrega esto temporalmente para ver si compila:
+  // Prueba minima - helper temporal para validar clonacion
 testClonacion() {
-  console.log('🔧 Probando clonación...');
+  console.debug('Probando clonacion...');
   const video = this.currentVideo;
   if (!video) return;
 
-  // Prueba directa
   this.videoService.requestVideoTranslation(
     video.id,
     ['en'],
     true,
     'vtt',
     'elevenlabs',
-    true,  // ← CLONACIÓN ACTIVADA
+    true,
     true
   ).subscribe(response => {
-    console.log('✅ Test clonación OK:', response);
+    console.debug('Test clonacion OK:', response);
   });
 }
 private handleTranslationResponse(response: any, video: Video, targetLanguage: string) {
-  console.log('✅ Traducción solicitada:', response);
   this.translationJobId = response.job_id;
 
-  // Mensaje según configuración
+  // Mensaje segun configuracion
   let message = '';
   if (!this.includeAudioDubbing) {
-    message = `Subtítulos en trámite. Tiempo: ${response.estimated_time_minutes} min`;
+    message = `Subtitulos en tramite. Tiempo: ${response.estimated_time_minutes} min`;
   } else if (this.ttsProvider === 'openai') {
-    message = `Traducción estándar iniciada. Tiempo: ${response.estimated_time_minutes} min`;
+    message = `Traduccion estandar iniciada. Tiempo: ${response.estimated_time_minutes} min`;
   } else if (this.ttsProvider === 'elevenlabs' && !this.cloneVoice) {
-    message = `Traducción premium iniciada. Tiempo: ${response.estimated_time_minutes} min`;
+    message = `Traduccion premium iniciada. Tiempo: ${response.estimated_time_minutes} min`;
   } else {
-    message = `🎙️ ¡CLONACIÓN DE VOZ ACTIVADA! Tiempo: ${response.estimated_time_minutes} min`;
+    message = `Clonacion de voz activada. Tiempo: ${response.estimated_time_minutes} min`;
   }
 
   this.showMessage(message);
@@ -776,14 +708,15 @@ private handleTranslationResponse(response: any, video: Video, targetLanguage: s
 }
 
 private handleTranslationError(error: any) {
-  console.error('❌ Error solicitando traducción:', error);
+  console.error('Error solicitando traduccion:', error);
   this.isTranslating = false;
   this.showDubbingOption = false;
 
-  let errorMsg = 'Error al solicitar traducción.';
+  let errorMsg = 'Error al solicitar traduccion.';
   if (error.error?.detail) {
     errorMsg = error.error.detail;
   }
   this.showMessage(errorMsg);
 }
 }
+

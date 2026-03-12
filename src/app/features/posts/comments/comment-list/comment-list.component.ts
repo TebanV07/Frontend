@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+﻿import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { CommentService } from '../../../../core/services/comment.service';
 import { Comment } from '../../../../core/models/comment.model';
@@ -8,7 +9,7 @@ import { CommentItemComponent } from '../comment-item/comment-item.component';
 @Component({
   selector: 'app-comment-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, CommentItemComponent],
+  imports: [CommonModule, FormsModule, CommentItemComponent, TranslateModule],
   templateUrl: './comment-list.component.html',
   styleUrls: ['./comment-list.component.scss']
 })
@@ -102,3 +103,4 @@ export class CommentListComponent implements OnInit {
     return comment.id;
   }
 }
+

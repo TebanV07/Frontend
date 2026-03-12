@@ -1,9 +1,6 @@
-// ============================================================
-// UPDATED: post-card.component.ts
-// Changes: delete post, report post, dropdown menu improvements
-// ============================================================
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { Post } from '../../../../core/models/post.model';
 import { PostsService } from '../../../../core/services/posts.service';
@@ -11,11 +8,12 @@ import { LikeButtonComponent } from '../../likes/likes-button/likes-button.compo
 import { LikeCountComponent } from '../../likes/likes-count/likes-count.component';
 import { FlagService } from '../../../../core/services/flag.service';
 import { ReportModalComponent } from '../../../../shared/components/report-modal/report-modal.component';
+import { TranslationService, ImageTranslationResponse } from '../../../../core/services/translation.service';
 
 @Component({
   selector: 'app-post-card',
   standalone: true,
-  imports: [CommonModule, RouterModule, LikeButtonComponent, LikeCountComponent, ReportModalComponent],
+  imports: [CommonModule, RouterModule, LikeButtonComponent, LikeCountComponent, ReportModalComponent, TranslateModule],
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.scss']
 })
@@ -23,31 +21,37 @@ export class PostCardComponent {
   @Input() post!: Post;
   @Input() currentUserId?: number;
   @Input() userLanguage = 'en';
-  @Output() postDeleted = new EventEmitter<number>();
-  @Output() postUpdated = new EventEmitter<Post>();
-  @Output() saveToggled = new EventEmitter<number>();
-  @Output() translatePost = new EventEmitter<number>();
+  @Output() postDeleted  = new EventEmitter<number>();
+  @Output() postUpdated  = new EventEmitter<Post>();
+  @Output() saveToggled  = new EventEmitter<number>();
+  @Output() translatePost  = new EventEmitter<number>();
   @Output() translateVideo = new EventEmitter<number>();
 
   showDropdown = false;
-  isPlaying = false;
-  showTranslation = false;
+  isPlaying    = false;
+
+  // â”€â”€ TraducciÃ³n de TEXTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  showTranslation   = false;
   translatedContent = '';
-  isTranslating = false;
+  isTranslating     = false;
 
-  // ── NUEVO: Report ──────────────────────────────────────────
-  showReportModal = false;
+  // â”€â”€ TraducciÃ³n de IMÃGENES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  imageTranslations:    { [imageId: number]: ImageTranslationResponse } = {};
+  showImageTranslation: { [imageId: number]: boolean }                  = {};
+  translatingImageId:   number | null = null;
 
-  // ── NUEVO: Delete confirmation ─────────────────────────────
+  // â”€â”€ Report / Delete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  showReportModal   = false;
   showDeleteConfirm = false;
-  isDeleting = false;
-  deleteError = '';
+  isDeleting        = false;
+  deleteError       = '';
 
   private readonly apiBaseUrl = 'http://localhost:8001';
 
   constructor(
-    public flagService: FlagService,
-    private postsService: PostsService
+    public  flagService:        FlagService,
+    private postsService:       PostsService,
+    private translationService: TranslationService
   ) {}
 
   get isOwnPost(): boolean {
@@ -55,20 +59,21 @@ export class PostCardComponent {
   }
 
   get formattedDate(): string {
-    const date = new Date(this.post.created_at as string);
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
+    const date    = new Date(this.post.created_at as string);
+    const now     = new Date();
+    const diffMs  = now.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / 60000);
-    if (diffMins < 1) return 'just now';
+    if (diffMins < 1)  return 'just now';
     if (diffMins < 60) return `${diffMins}m ago`;
     const diffHours = Math.floor(diffMins / 60);
     if (diffHours < 24) return `${diffHours}h ago`;
     const diffDays = Math.floor(diffHours / 24);
-    if (diffDays < 7) return `${diffDays}d ago`;
+    if (diffDays < 7)  return `${diffDays}d ago`;
     return date.toLocaleDateString();
   }
 
-  // ================= VIDEO / IMAGE HELPERS =================
+  // â”€â”€ URL helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
   getFullImageUrl(imageUrl: string | undefined | null): string {
     if (!imageUrl) return '';
     return imageUrl.startsWith('http') ? imageUrl : `${this.apiBaseUrl}${imageUrl}`;
@@ -91,7 +96,8 @@ export class PostCardComponent {
     return this.getFullImageUrl(found || '');
   }
 
-  // ================= PLAY / STOP =================
+  // â”€â”€ Video â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
   playInline(event?: Event): void {
     if (event) event.stopPropagation();
     this.isPlaying = true;
@@ -108,26 +114,24 @@ export class PostCardComponent {
     if (videoEl) { videoEl.pause(); videoEl.currentTime = 0; }
   }
 
-  onVideoError(event: Event): void { this.isPlaying = false; }
+  onVideoError(_event: Event): void { this.isPlaying = false; }
+
   onImageError(event: Event): void {
     (event.target as HTMLImageElement).src = '/assets/default-image.png';
   }
 
-  // ================= DROPDOWN =================
-  toggleDropdown(): void {
-    this.showDropdown = !this.showDropdown;
-  }
+  // â”€â”€ Dropdown â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-  closeDropdown(): void {
-    this.showDropdown = false;
-  }
+  toggleDropdown(): void  { this.showDropdown = !this.showDropdown; }
+  closeDropdown(): void   { this.showDropdown = false; }
 
   editPost(): void {
     this.closeDropdown();
     this.postUpdated.emit(this.post);
   }
 
-  // ================= DELETE (NUEVO) =================
+  // â”€â”€ Delete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
   openDeleteConfirm(): void {
     this.closeDropdown();
     this.showDeleteConfirm = true;
@@ -141,43 +145,33 @@ export class PostCardComponent {
 
   confirmDelete(): void {
     if (this.isDeleting) return;
-    this.isDeleting = true;
+    this.isDeleting  = true;
     this.deleteError = '';
 
     this.postsService.deletePost(this.post.id.toString()).subscribe({
       next: () => {
-        this.isDeleting = false;
+        this.isDeleting        = false;
         this.showDeleteConfirm = false;
         this.postDeleted.emit(this.post.id);
       },
       error: (err) => {
-        this.isDeleting = false;
+        this.isDeleting  = false;
         this.deleteError = err.error?.detail || 'Error al eliminar el post.';
       }
     });
   }
 
-  // ================= REPORT (NUEVO) =================
+  // â”€â”€ Report â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
   openReport(): void {
     this.closeDropdown();
     this.showReportModal = true;
   }
 
-  onReportClosed(): void {
-    this.showReportModal = false;
-  }
+  onReportClosed(): void { this.showReportModal = false; }
 
-  // ================= ACTIONS =================
-  sharePost(): void { console.log('Share post:', this.post.id); }
+  // â”€â”€ TraducciÃ³n de TEXTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-  onLikeToggled(event: { isLiked: boolean; likesCount: number }): void {
-    this.post.is_liked = event.isLiked;
-    this.post.likes_count = event.likesCount;
-  }
-
-  onSavePost(): void { this.saveToggled.emit(this.post.id); }
-
-  // ================= TRANSLATION =================
   toggleTranslation(): void {
     if (!this.post) return;
     if (this.showTranslation) { this.showTranslation = false; return; }
@@ -189,19 +183,60 @@ export class PostCardComponent {
     this.postsService.translatePost(this.post.id, this.userLanguage).subscribe({
       next: (res: any) => {
         this.translatedContent = res?.translated_content ?? res?.content ?? '';
-        this.showTranslation = true;
-        this.isTranslating = false;
+        this.showTranslation   = true;
+        this.isTranslating     = false;
       },
       error: () => {
         this.translatedContent = `[Simulated translation] ${this.post.content}`;
-        this.showTranslation = true;
-        this.isTranslating = false;
+        this.showTranslation   = true;
+        this.isTranslating     = false;
       }
     });
   }
 
-  // Emite evento al padre para que gestione la traducción del video adjunto
-  requestTranslateVideo(): void {
-    this.translateVideo.emit(this.post.id);
+  // â”€â”€ TraducciÃ³n de IMÃGENES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+  translateImage(image: { id: number; image_url: string }): void {
+    if (this.translatingImageId === image.id) return;
+    this.translatingImageId = image.id;
+
+    this.translationService.translateImageFromUrl(
+      image.id,
+      image.image_url,
+      this.userLanguage
+    ).then(obs$ => {
+      obs$.subscribe({
+        next: (result) => {
+          this.imageTranslations[image.id]    = result;
+          this.showImageTranslation[image.id] = true;
+          this.translatingImageId             = null;
+        },
+        error: (err) => {
+          console.error('Error traduciendo imagen:', err);
+          this.translatingImageId = null;
+        }
+      });
+    }).catch(err => {
+      console.error('Error descargando imagen:', err);
+      this.translatingImageId = null;
+    });
   }
+
+  toggleImageTranslation(imageId: number): void {
+    this.showImageTranslation[imageId] = !this.showImageTranslation[imageId];
+  }
+
+  // â”€â”€ Acciones generales â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+  sharePost(): void { console.log('Share post:', this.post.id); }
+
+  onLikeToggled(event: { isLiked: boolean; likesCount: number }): void {
+    this.post.is_liked    = event.isLiked;
+    this.post.likes_count = event.likesCount;
+  }
+
+  onSavePost(): void { this.saveToggled.emit(this.post.id); }
+
+  requestTranslateVideo(): void { this.translateVideo.emit(this.post.id); }
 }
+

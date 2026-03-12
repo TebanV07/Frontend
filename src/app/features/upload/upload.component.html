@@ -1,5 +1,5 @@
 <div class="upload-container">
-  <h2>Subir video/post</h2>
+  <h2>{{ 'upload.title' | translate }}</h2>
 
   <div *ngIf="error" class="error">{{ error }}</div>
 
@@ -11,16 +11,16 @@
 
   <div class="fields">
     <label>
-      Título (opcional)
+      {{ 'upload.titleField' | translate }}
       <input type="text" [(ngModel)]="title" />
     </label>
     <label>
-      Descripción (opcional)
+      {{ 'upload.description' | translate }}
       <textarea [(ngModel)]="description"></textarea>
     </label>
   </div>
 
   <button (click)="submit()" [disabled]="isSubmitting">
-    {{ isSubmitting ? 'Subiendo...' : 'Subir' }}
+    {{ isSubmitting ? ('upload.submitting' | translate) : ('upload.submit' | translate) }}
   </button>
 </div>

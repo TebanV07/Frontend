@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { NotificationService, Notification } from '../../../core/services/notification.service';
 import { Subject } from 'rxjs';
@@ -8,7 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-notifications-page',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './notifications-page.component.html',
   styleUrls: ['./notifications-page.component.scss']
 })
@@ -37,7 +38,7 @@ export class NotificationsPageComponent implements OnInit, OnDestroy {
         this.loadNotifications();
       });
 
-    // Cargar contador de no leídas
+    // Cargar contador de no leidas
     this.notificationService.unreadCount$
       .pipe(takeUntil(this.destroy$))
       .subscribe((count: number) => {
@@ -86,7 +87,7 @@ export class NotificationsPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Marcar notificación como leída
+  * Marcar notificacion como leida
    */
   markAsRead(notification: Notification): void {
     if (notification.is_read) return;
@@ -99,7 +100,7 @@ export class NotificationsPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Marcar todas como leídas
+  * Marcar todas como leidas
    */
   markAllAsRead(): void {
     if (this.unreadCount === 0) return;
@@ -116,7 +117,7 @@ export class NotificationsPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Eliminar notificación
+  * Eliminar notificacion
    */
   deleteNotification(notification: Notification): void {
     this.notificationService.deleteNotification(notification.id)
@@ -134,7 +135,7 @@ export class NotificationsPageComponent implements OnInit, OnDestroy {
    * Limpiar todas
    */
   clearAll(): void {
-    if (confirm('¿Estás seguro de que deseas eliminar todas las notificaciones?')) {
+    if (confirm('Estas seguro de que deseas eliminar todas las notificaciones?')) {
       this.notificationService.clearAll()
         .pipe(takeUntil(this.destroy$))
         .subscribe({
@@ -149,7 +150,7 @@ export class NotificationsPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Ir a página
+  * Ir a pagina
    */
   goToPage(page: number): void {
     if (page >= 1 && page <= this.getTotalPages()) {
@@ -159,14 +160,14 @@ export class NotificationsPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Obtener total de páginas
+  * Obtener total de paginas
    */
   getTotalPages(): number {
     return Math.ceil(this.totalNotifications / this.pageSize);
   }
 
   /**
-   * Obtener páginas disponibles para paginación
+  * Obtener paginas disponibles para paginacion
    */
   getPageNumbers(): number[] {
     const total = this.getTotalPages();
@@ -205,6 +206,7 @@ export class NotificationsPageComponent implements OnInit, OnDestroy {
       'follow_request': '👤',
       'follow_accepted': '✅',
       'new_message': '💬',
+      'conversation_request': '🗨️',
       'post_from_follow': '📝',
       'repost_from_follow': '🔄',
       'like_on_post': '❤️',
@@ -215,3 +217,4 @@ export class NotificationsPageComponent implements OnInit, OnDestroy {
     return icons[notification.type] || icons['default'];
   }
 }
+

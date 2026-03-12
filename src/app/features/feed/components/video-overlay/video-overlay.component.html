@@ -6,7 +6,7 @@
     <!-- Usuario -->
     <div class="user-section">
       <img
-        [src]="video.user?.profile_picture_url || 'https://ui-avatars.com/api/?name=' + (video.user?.username || 'User')"
+        [src]="video.user?.avatar || $any(video.user)?.profile_picture_url || 'https://ui-avatars.com/api/?name=' + (video.user?.username || 'User')"
         [alt]="video.user?.username"
         class="user-avatar">
       <div class="user-details">
@@ -21,7 +21,7 @@
   {{ user.bio }}
 </span>
       </div>
-      <button class="follow-btn">Seguir</button>
+      <button class="follow-btn">{{ 'videoOverlay.follow' | translate }}</button>
     </div>
 
     <!-- Título y descripción -->
@@ -46,7 +46,7 @@
       <div class="subtitle-selector">
         <label for="subtitle-lang">
           <span class="selector-icon">💬</span>
-          Subtítulos:
+          {{ 'videoOverlay.subtitles' | translate }}
         </label>
         <select
           id="subtitle-lang"
@@ -55,11 +55,11 @@
           class="subtitle-select">
           <!-- Idioma original -->
           <option [value]="video.original_language">
-            {{ getLanguageFlag(video.original_language) }} {{ getLanguageName(video.original_language) }} (Original)
+            {{ getLanguageFlag(video.original_language) }} {{ getLanguageName(video.original_language) }} {{ 'videoOverlay.original' | translate }}
           </option>
 
           <!-- Idiomas disponibles -->
-          <optgroup label="Disponibles" *ngIf="availableSubtitles.length > 0">
+          <optgroup [label]="'videoOverlay.available' | translate" *ngIf="availableSubtitles.length > 0">
             <option
               *ngFor="let lang of availableSubtitles"
               [value]="lang.code"
@@ -69,11 +69,11 @@
           </optgroup>
 
           <!-- Idiomas no disponibles (solicitar traducción) -->
-          <optgroup label="Solicitar traducción" *ngIf="unavailableSubtitles.length > 0">
+          <optgroup [label]="'videoOverlay.requestTranslation' | translate" *ngIf="unavailableSubtitles.length > 0">
             <option
               *ngFor="let lang of unavailableSubtitles"
               [value]="lang.code">
-              {{ lang.flag }} {{ lang.name }} (solicitar)
+              {{ lang.flag }} {{ lang.name }} {{ 'videoOverlay.request' | translate }}
             </option>
           </optgroup>
         </select>
@@ -82,7 +82,7 @@
       <!-- Badge de traducción AI -->
       <div class="ai-translation-badge" *ngIf="video.available_languages && video.available_languages.length > 1">
         <span class="ai-icon">✨</span>
-        <span class="ai-text">AI Translated</span>
+        <span class="ai-text">{{ 'feed.aiActive' | translate }}</span>
       </div>
     </div>
 
@@ -105,7 +105,7 @@
     <!-- Avatar del usuario (grande) -->
     <div class="action-avatar">
       <img
-        [src]="video.user?.profile_picture_url || 'https://ui-avatars.com/api/?name=' + (video.user?.username || 'User')"
+        [src]="video.user?.avatar || $any(video.user)?.profile_picture_url || 'https://ui-avatars.com/api/?name=' + (video.user?.username || 'User')"
         [alt]="video.user?.username"
         class="action-user-avatar">
       <div class="avatar-plus">+</div>
@@ -151,23 +151,21 @@
       [class.active]="showTranslationMenu"
       (click)="toggleTranslationMenu()">
       <span class="btn-icon">🌐</span>
-      <span class="btn-label">Traducir</span>
+      <span class="btn-label">{{ 'videoOverlay.translate' | translate }}</span>
     </button>
 
     <!-- Translation menu dropdown -->
     <div class="translation-menu" *ngIf="showTranslationMenu">
       <div class="menu-header">
-        <h4>Traducir Video</h4>
-        <button class="close-btn" (click)="toggleTranslationMenu()">✕</button>
+        <h4>{{ 'videoOverlay.translateVideo' | translate }}</h4>
+        <button class="close-btn" (click)="toggleTranslationMenu()">{{ 'videoOverlay.close' | translate }}</button>
       </div>
       <div class="menu-content">
-        <p class="menu-description">
-          Genera subtítulos traducidos con IA para este video
-        </p>
+        <p class="menu-description">{{ 'videoOverlay.translateDesc' | translate }}</p>
 
         <!-- Idiomas disponibles -->
         <div class="available-languages" *ngIf="video.available_languages && video.available_languages.length > 0">
-          <h5>✅ Disponibles:</h5>
+          <h5>{{ 'videoOverlay.availableLangs' | translate }}</h5>
           <div class="language-chips">
             <span
               class="language-chip available"
@@ -179,7 +177,7 @@
 
         <!-- Solicitar nuevas traducciones -->
         <div class="request-languages">
-          <h5>🌐 Solicitar traducción:</h5>
+          <h5>{{ 'videoOverlay.requestLangs' | translate }}</h5>
           <div class="language-chips">
             <button
               class="language-chip request"
@@ -191,7 +189,7 @@
         </div>
 
         <p class="translation-note">
-          ⏱️ La traducción puede tardar 2-5 minutos
+          {{ 'videoOverlay.translationPending' | translate }}
         </p>
       </div>
     </div>
@@ -201,7 +199,7 @@
   <div class="processing-indicator" *ngIf="video.processing_status !== 'ready'">
     <div class="processing-content">
       <span class="processing-icon">⏳</span>
-      <span class="processing-text">Procesando video...</span>
+      <span class="processing-text">{{ 'common.loading' | translate }}</span>
     </div>
   </div>
 </div>

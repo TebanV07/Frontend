@@ -611,6 +611,10 @@ $text-muted: #5a5a5a;
   p { font-size: 0.95em; }
 }
 
+.videos-loading {
+  height: 240px;
+}
+
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

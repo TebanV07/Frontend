@@ -6,7 +6,7 @@ export const environment = {
   production: true,
 
   // ⭐ CONFIGURA TU GOOGLE CLIENT ID PARA PRODUCCIÓN
-  googleClientId: process.env['GOOGLE_CLIENT_ID'] || 'REPLACE_WITH_PRODUCTION_GOOGLE_CLIENT_ID',
+  googleClientId: process.env['GOOGLE_CLIENT_ID'] || '259954016870-carbome69mftn4pcfirb31qbc6uqq08v.apps.googleusercontent.com',
 
   // API Backend
   apiUrl: process.env['API_URL'] || 'https://api.tudominio.com/api/v1',

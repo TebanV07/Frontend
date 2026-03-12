@@ -22,6 +22,19 @@ export interface FollowUser {
   following_count?: number;
   is_verified?: boolean;
   country_code?: string;  // ⭐ NUEVO: País del usuario
+  private_account?: boolean;
+}
+
+export interface ExploreCountryGroup {
+  country_code: string;
+  country_name: string;
+  users_count: number;
+  users: FollowUser[];
+}
+
+export interface ExplorePeopleResponse {
+  countries: ExploreCountryGroup[];
+  total_users: number;
 }
 
 export interface Follow {
@@ -46,6 +59,14 @@ export interface FollowStats {
   following_count: number;
   is_following?: boolean;
   is_followed_by?: boolean;
+}
+
+interface FollowActionResponse {
+  message?: string;
+  is_following?: boolean;
+  isFollowing?: boolean;
+  is_pending_request?: boolean;
+  isPendingRequest?: boolean;
 }
 
 @Injectable({
@@ -78,13 +99,18 @@ export class FollowService {
    * ✅ CORREGIDO: Usar /users/{user_id}/follow
    */
   followUser(userId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users/${userId}/follow`, {})
+    return this.http.post<FollowActionResponse>(`${this.apiUrl}/users/${userId}/follow`, {})
       .pipe(
         tap((response) => {
           console.log('✅ Usuario seguido:', response);
-          const current = this.followingIdsSubject.value;
-          if (!current.includes(userId)) {
-            this.followingIdsSubject.next([...current, userId]);
+          const isFollowing = Boolean(response?.is_following ?? response?.isFollowing ?? true);
+          const isPending = Boolean(response?.is_pending_request ?? response?.isPendingRequest ?? false);
+
+          if (isFollowing && !isPending) {
+            const current = this.followingIdsSubject.value;
+            if (!current.includes(userId)) {
+              this.followingIdsSubject.next([...current, userId]);
+            }
           }
         }),
         catchError(error => {
@@ -92,7 +118,7 @@ export class FollowService {
 
           // Manejo específico de errores
           if (error.status === 400) {
-            if (error.error?.detail?.includes('Ya sigues')) {
+              if (error.error?.detail?.includes('Ya sigues')) {
               console.warn('⚠️ Ya sigues a este usuario');
               return of({ error: false, message: 'Ya sigues a este usuario' });
             }
@@ -205,8 +231,11 @@ export class FollowService {
   getFollowRequests(): Observable<FollowRequest[]> {
     return this.http.get<any>(`${this.apiUrl}/follows/requests/pending`)
       .pipe(
-        tap(response => {
+        map(response => {
           const requests = Array.isArray(response) ? response : (response.requests || []);
+          return requests.map((request: any) => this.mapFollowRequest(request));
+        }),
+        tap((requests) => {
           this.followRequestsSubject.next(requests);
         }),
         catchError(error => {
@@ -314,6 +343,57 @@ export class FollowService {
       );
   }
 
+  getExploreCountries(): Observable<Array<{ country_code: string; country_name: string; users_count: number }>> {
+    return this.http.get<any>(`${this.apiUrl}/users/explore/countries`).pipe(
+      map((response) => {
+        const countries = Array.isArray(response) ? response : (response?.countries || []);
+        return countries.map((country: any) => ({
+          country_code: String(country.country_code || 'OT').toUpperCase(),
+          country_name: country.country_name || country.countryCode || 'Otros',
+          users_count: Number(country.users_count || country.usersCount || 0),
+        }));
+      }),
+      catchError((error) => {
+        console.error('Error obteniendo países para explore:', error);
+        return of([]);
+      })
+    );
+  }
+
+  getExplorePeople(countryCode?: string, limit: number = 80, perCountry: number = 12, query?: string): Observable<ExplorePeopleResponse> {
+    let params = new HttpParams()
+      .set('limit', String(limit))
+      .set('per_country', String(perCountry));
+
+    if (countryCode && countryCode !== 'ALL') {
+      params = params.set('country_code', countryCode);
+    }
+
+    if (query?.trim()) {
+      params = params.set('q', query.trim());
+    }
+
+    return this.http.get<any>(`${this.apiUrl}/users/explore/people`, { params }).pipe(
+      map((response) => {
+        const countries = Array.isArray(response?.countries) ? response.countries : [];
+
+        return {
+          countries: countries.map((group: any) => ({
+            country_code: String(group.country_code || 'OT').toUpperCase(),
+            country_name: group.country_name || 'Otros',
+            users_count: Number(group.users_count || 0),
+            users: this.mapUsers(group.users || []),
+          })),
+          total_users: Number(response?.total_users || 0),
+        } as ExplorePeopleResponse;
+      }),
+      catchError((error) => {
+        console.error('Error obteniendo personas para explore:', error);
+        return of({ countries: [], total_users: 0 });
+      })
+    );
+  }
+
   // ============== UTILIDADES ==============
 
   isFollowing(userId: number): boolean {
@@ -357,8 +437,30 @@ export class FollowService {
       followers_count: Number(user.followers_count ?? user.followers ?? 0),
       following_count: Number(user.following_count ?? user.following ?? 0),
       is_verified: Boolean(user.is_verified ?? user.isVerified ?? false),
-      country_code: user.country_code ?? user.countryCode ?? undefined  // ⭐ NUEVO: Mapear país
+      country_code: user.country_code ?? user.countryCode ?? undefined,  // ⭐ NUEVO: Mapear país
+      private_account: Boolean(user.private_account ?? user.privateAccount ?? false),
     }));
+  }
+
+  private mapFollowRequest(request: any): FollowRequest {
+    const followerRaw = request?.follower || {
+      id: request?.requester_id,
+      username: request?.username,
+      first_name: request?.first_name,
+      last_name: request?.last_name,
+      avatar: request?.avatar,
+      bio: request?.bio,
+      followers_count: request?.followers_count,
+    };
+
+    return {
+      id: Number(request?.id ?? request?.request_id ?? 0),
+      follower_id: Number(request?.follower_id ?? request?.requester_id ?? followerRaw?.id ?? 0),
+      following_id: Number(request?.following_id ?? request?.receiver_id ?? 0),
+      status: request?.status ?? 'pending',
+      created_at: request?.created_at ?? request?.createdAt ?? new Date().toISOString(),
+      follower: followerRaw ? this.mapUsers([followerRaw])[0] : undefined,
+    };
   }
 
   loadInitialData(userId: number): void {

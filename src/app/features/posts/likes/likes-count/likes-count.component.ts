@@ -1,12 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+﻿import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { PostLikeService } from '../../../../core/services/post-like.service';
 import { LikeUser } from '../../../../core/models/like.model';
 
 @Component({
   selector: 'app-like-count',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './likes-count.component.html',
   styleUrls: ['./likes-count.component.scss']
 })
@@ -49,3 +50,4 @@ export class LikeCountComponent implements OnInit {
     });
   }
 }
+

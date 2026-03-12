@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 
 export interface Permission {
@@ -14,7 +15,7 @@ export interface Permission {
 @Component({
   selector: 'app-permissions',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './permissions.component.html',
   styleUrls: ['./permissions.component.scss']
 })
@@ -66,7 +67,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-   * Solicitar permiso específico
+    * Solicitar permiso específico.
    */
   async requestPermission(permission: Permission): Promise<void> {
     try {
@@ -90,7 +91,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-   * Solicitar permiso de cámara
+    * Solicitar permiso de cámara.
    */
   private async requestCameraPermission(permission: Permission): Promise<void> {
     try {
@@ -105,7 +106,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-   * Solicitar permiso de micrófono
+    * Solicitar permiso de micrófono.
    */
   private async requestMicrophonePermission(permission: Permission): Promise<void> {
     try {
@@ -120,7 +121,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-   * Solicitar permiso de ubicación
+    * Solicitar permiso de ubicación.
    */
   private async requestGeolocationPermission(permission: Permission): Promise<void> {
     return new Promise((resolve) => {
@@ -156,14 +157,14 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-   * Guardar preferencia de permiso en localStorage
+   * Guardar preferencia de permiso en localStorage.
    */
   private savePermissionPreference(permissionId: string, granted: boolean): void {
     localStorage.setItem(`permission_${permissionId}`, granted ? 'true' : 'false');
   }
 
   /**
-   * Solicitar todos los permisos
+   * Solicitar todos los permisos.
    */
   async requestAllPermissions(): Promise<void> {
     for (const permission of this.permissions) {
@@ -173,7 +174,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-   * Saltar permisos opcionales
+    * Saltar permisos opcionales.
    */
   skipOptionalPermissions(): void {
     // Marcar solo los obligatorios como solicitados
@@ -185,7 +186,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-   * Completar y guardar
+    * Completar y guardar.
    */
   completePermissions(): void {
     localStorage.setItem('permissions_granted', 'true');
@@ -195,3 +196,4 @@ export class PermissionsComponent implements OnInit {
     }, 2000);
   }
 }
+

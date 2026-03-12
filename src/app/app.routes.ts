@@ -14,6 +14,7 @@ import { PermissionsComponent } from './shared/components/permissions/permission
 import { TermsGuard } from './core/guards/terms.guard';
 import { PermissionsGuard } from './core/guards/permissions.guard';
 import { authGuard } from './core/guards/auth.guard';
+import { guestGuard } from './core/guards/guest.guard';
 import { UploadComponent } from './features/upload/upload.component';
 import { VideoFeedComponent } from './features/videos/components/video-feed/video-feed.component';
 import { EditPostComponent } from './features/posts/components/edit-post/edit-post.component';
@@ -22,9 +23,16 @@ import { NotificationsPageComponent } from './features/settings/notifications-pa
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [guestGuard] },
   { path: 'terms', component: TermsComponent },
   { path: 'permissions', component: PermissionsComponent },
+
+  {
+    path: 'verify-email-required',
+    loadComponent: () =>
+      import('./features/auth/verify-email-required/verify-email-required.component')
+        .then(m => m.VerifyEmailRequiredComponent)
+  },
 
   // Verificación de email — página pública sin layout
   {
@@ -35,9 +43,23 @@ export const routes: Routes = [
   },
 
   {
+    path: 'forgot-password',
+    loadComponent: () =>
+      import('./features/auth/forgot-password/forgot-password.component')
+        .then(m => m.ForgotPasswordComponent)
+  },
+
+  {
+    path: 'reset-password/:token',
+    loadComponent: () =>
+      import('./features/auth/reset-password/reset-password.component')
+        .then(m => m.ResetPasswordComponent)
+  },
+
+  {
     path: '',
     component: MainLayoutComponent,
-    canActivate: [TermsGuard, PermissionsGuard],
+    canActivate: [authGuard, TermsGuard, PermissionsGuard],
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'chat', component: ChatComponent },

@@ -13,7 +13,7 @@
           <span class="language-badge" *ngIf="comment.user?.native_language">
             🌐 {{ comment.user?.native_language }}
           </span>
-          <span class="edited-badge" *ngIf="comment.is_edited">· editado</span>
+          <span class="edited-badge" *ngIf="comment.is_edited">{{ 'comments.edited' | translate }}</span>
         </div>
 
         <div class="header-right">
@@ -24,10 +24,10 @@
             <button class="options-btn" (click)="toggleMenu($event)">⋯</button>
             <div class="options-dropdown" *ngIf="showMenu">
               <button class="option-item" (click)="startEdit()">
-                ✏️ Editar
+                {{ 'comments.edit' | translate }}
               </button>
               <button class="option-item danger" (click)="deleteThisComment()">
-                🗑️ Eliminar
+                {{ 'comments.delete' | translate }}
               </button>
             </div>
           </div>
@@ -42,8 +42,8 @@
         <ng-template #editForm>
           <textarea [(ngModel)]="editContent" class="edit-textarea" rows="2"></textarea>
           <div class="edit-actions">
-            <button (click)="saveEdit()" class="save-btn">Guardar</button>
-            <button (click)="cancelEdit()" class="cancel-btn">Cancelar</button>
+            <button (click)="saveEdit()" class="save-btn">{{ 'comments.save' | translate }}</button>
+            <button (click)="cancelEdit()" class="cancel-btn">{{ 'comments.cancel' | translate }}</button>
           </div>
         </ng-template>
       </div>
@@ -58,12 +58,12 @@
 
       <button class="action-btn reply-btn" (click)="toggleReplyForm()" [class.active]="isReplying">
         <span>💬</span>
-        <span>Responder</span>
+        <span>{{ 'comments.reply' | translate }}</span>
       </button>
 
       <button *ngIf="hasReplies" class="action-btn replies-btn" (click)="toggleReplies()">
         <span>{{ showReplies ? '▼' : '▶' }}</span>
-        <span>{{ comment.replies_count }} {{ comment.replies_count === 1 ? 'respuesta' : 'respuestas' }}</span>
+        <span>{{ comment.replies_count }} {{ comment.replies_count === 1 ? ('comments.replies.one' | translate) : ('comments.replies.other' | translate) }}</span>
       </button>
     </div>
 
@@ -73,7 +73,7 @@
         [postId]="postId"
         [videoId]="videoId"
         [parentCommentId]="comment.id"
-        [placeholder]="'Responder a @' + comment.user?.username"
+        [placeholder]="('comments.replyTo' | translate) + comment.user?.username"
         (commentCreated)="onReplyCreated($any($event))"
         (cancelled)="toggleReplyForm()">
       </app-comment-form>

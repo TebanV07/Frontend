@@ -3,7 +3,7 @@
   <!-- Loading -->
   <div class="loading-state" *ngIf="isLoading">
     <div class="spinner">⏳</div>
-    <p>Cargando tendencias...</p>
+    <p>{{ 'trending.loading' | translate }}</p>
   </div>
 
   <ng-container *ngIf="!isLoading">
@@ -12,18 +12,18 @@
     <div class="trending-sidebar">
 
       <div class="sidebar-header">
-        <h2>🔥 Tendencias</h2>
+        <h2>🔥 {{ 'trending.title' | translate }}</h2>
       </div>
 
       <!-- Filtro por país -->
       <div class="country-filter" *ngIf="availableCountries.length > 0">
-        <div class="filter-label">🌍 Filtrar por país</div>
+        <div class="filter-label">🌍 {{ 'trending.filterByCountry' | translate }}</div>
         <div class="country-scroll">
 
           <!-- Global -->
           <button class="country-btn" [class.active]="selectedCountry === null" (click)="selectCountry(null)">
             <span class="flag-emoji">🌐</span>
-            <span class="country-label">Global</span>
+            <span class="country-label">{{ 'trending.global' | translate }}</span>
           </button>
 
           <!-- Por país -->
@@ -61,8 +61,8 @@
           <div class="trending-info">
             <h3>{{ trending.title }}</h3>
             <div class="trending-meta">
-              <span class="videos-count">{{ formatNumber(trending.videosCount) }} videos</span>
-              <span class="category-badge">{{ trending.category }}</span>
+              <span class="videos-count">{{ formatNumber(trending.videosCount) }} {{ 'trending.videos' | translate }}</span>
+              <span *ngIf="trending.category" class="category-badge">{{ trending.category }}</span>
             </div>
             <div class="trending-views">👁️ {{ formatNumber(trending.views) }} views</div>
           </div>
@@ -72,7 +72,7 @@
       </div>
 
       <div class="empty-sidebar" *ngIf="trendingTopics.length === 0">
-        <p>No hay tendencias disponibles</p>
+        <p>{{ 'trending.noTrending' | translate }}</p>
       </div>
 
     </div>
@@ -80,10 +80,10 @@
     <!-- ═══ MAIN ═══ -->
     <div class="trending-main">
 
-      <div class="trending-header" *ngIf="selectedTrending">
+      <div class="trending-header" *ngIf="selectedTrending || hasDisplayedVideosSection">
         <div class="header-content">
           <h1>
-            {{ selectedTrending.title }}
+            {{ selectedTrending?.title || ('trending.title' | translate) }}
             <span *ngIf="selectedCountry" class="country-tag">
               <img
                 class="header-flag"
@@ -93,33 +93,38 @@
             </span>
           </h1>
           <p class="category-description">
-            {{ selectedTrending.videosCount }} videos
-            · {{ formatNumber(selectedTrending.views) }} visualizaciones
-            <span *ngIf="selectedCountry">· Solo de {{ getSelectedCountryName() }}</span>
+            {{ formatNumber(displayedVideosCount) }} {{ 'trending.videos' | translate }}
+            <span *ngIf="selectedTrending">· {{ formatNumber(selectedTrending.views) }} {{ 'trending.views' | translate }}</span>
+            <span *ngIf="selectedCountry">· {{ 'trending.onlyFrom' | translate }} {{ getSelectedCountryName() }}</span>
           </p>
         </div>
 
         <div class="trending-controls">
           <div class="view-controls">
-            <button class="view-btn" [class.active]="selectedView === 'grid'" (click)="toggleView('grid')" title="Cuadrícula">⊞</button>
-            <button class="view-btn" [class.active]="selectedView === 'list'" (click)="toggleView('list')" title="Lista">≡</button>
+            <button class="view-btn" [class.active]="selectedView === 'grid'" (click)="toggleView('grid')" [title]="'trending.gridView' | translate">⊞</button>
+            <button class="view-btn" [class.active]="selectedView === 'list'" (click)="toggleView('list')" [title]="'trending.listView' | translate">≡</button>
           </div>
           <div class="sort-controls">
-            <label>Ordenar:</label>
+            <label>{{ 'trending.sort' | translate }}</label>
             <select [(ngModel)]="sortBy" (change)="setSortBy(sortBy)" class="sort-select">
-              <option value="trending">Más tendencia</option>
-              <option value="views">Más vistas</option>
-              <option value="recent">Más recientes</option>
+              <option value="trending">{{ 'trending.sortTrending' | translate }}</option>
+              <option value="views">{{ 'trending.sortViews' | translate }}</option>
+              <option value="recent">{{ 'trending.sortRecent' | translate }}</option>
             </select>
           </div>
         </div>
       </div>
 
       <!-- Videos -->
-      <div class="videos-section" *ngIf="selectedTrending">
+      <div class="videos-section" *ngIf="hasDisplayedVideosSection">
+        <div class="loading-state videos-loading" *ngIf="isLoadingDisplayedVideos">
+          <div class="spinner">⏳</div>
+          <p>{{ 'trending.loading' | translate }}</p>
+        </div>
+
         <div class="videos-grid" [class.list-view]="selectedView === 'list'">
 
-          <div *ngFor="let video of selectedTrending.videos" class="video-card">
+          <div *ngFor="let video of displayedVideos" class="video-card">
 
             <div class="video-thumbnail">
               <img [src]="getVideoThumbnail(video)" [alt]="getVideoTitle(video)">
@@ -127,7 +132,7 @@
                 <div class="play-icon">▶</div>
               </div>
               <div class="duration">{{ getVideoDuration(video) }}s</div>
-              <div class="trending-badge">🔥 Tendencia</div>
+              <div class="trending-badge">🔥 {{ 'trending.trendingBadge' | translate }}</div>
               <!-- Bandera del creador sobre el thumbnail -->
               <img
                 *ngIf="getUserCountryCode(video)"
@@ -159,7 +164,7 @@
                   <div class="video-tags" *ngIf="getVideoTags(video).length > 0">
                     <span *ngFor="let tag of getVideoTags(video)" class="tag">#{{ tag }}</span>
                   </div>
-                  <button class="watch-btn" [routerLink]="['/videos', video.uuid]">Ver ahora →</button>
+                  <button class="watch-btn" [routerLink]="['/videos', video.uuid]">{{ 'trending.watchNow' | translate }} →</button>
                 </div>
               </div>
 
@@ -173,17 +178,17 @@
           </div>
         </div>
 
-        <div class="empty-videos" *ngIf="selectedTrending.videos.length === 0">
+        <div class="empty-videos" *ngIf="!isLoadingDisplayedVideos && displayedVideos.length === 0">
           <div class="empty-icon">🎥</div>
           <h3>No hay videos{{ selectedCountry ? ' de este país' : '' }} aquí</h3>
           <p>{{ selectedCountry ? 'Prueba con "Global" u otro país' : 'Sé el primero en subir contenido' }}</p>
         </div>
       </div>
 
-      <div class="no-selection" *ngIf="!selectedTrending">
+      <div class="no-selection" *ngIf="!selectedTrending && !hasDisplayedVideosSection">
         <div class="empty-icon">🔥</div>
-        <h3>Selecciona una tendencia</h3>
-        <p>Elige una categoría de la izquierda para ver los videos</p>
+        <h3>No hay tendencias disponibles</h3>
+        <p>Cambia de país o sube videos con hashtags para que aparezcan aquí</p>
       </div>
 
     </div>

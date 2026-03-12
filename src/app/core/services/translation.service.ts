@@ -52,6 +52,17 @@ export interface TranslationResponse {
   estimated_cost_usd?: number;
 }
 
+export interface ImageTranslationResponse {
+  image_id: number;
+  extracted_text: string;
+  translated_text: string;
+  source_language: string;
+  target_language: string;
+  processing_time_ms: number;
+  cost_usd: number;
+  from_cache: boolean;
+}
+
 // ==================== SERVICIO ====================
 
 @Injectable({
@@ -74,9 +85,17 @@ export class TranslationService {
         });
       }
     }
-    return new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
+    return new HttpHeaders({ 'Content-Type': 'application/json' });
+  }
+
+  private getHeadersForFormData(): HttpHeaders {
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      const token = localStorage.getItem('access_token');
+      if (token) {
+        return new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+      }
+    }
+    return new HttpHeaders();
   }
 
   // ==================== SOLICITAR TRADUCCIÓN ====================
@@ -198,5 +217,57 @@ export class TranslationService {
         return throwError(() => error);
       })
     );
+  }
+
+  // ==================== OCR + TRADUCCIÓN DE IMAGEN ====================
+
+  translateImage(
+    imageId: number,
+    imageFile: File,
+    targetLanguage: string,
+    sourceLanguage?: string
+  ): Observable<ImageTranslationResponse> {
+    const formData = new FormData();
+    formData.append('file', imageFile);
+    formData.append('target_language', targetLanguage);
+    if (sourceLanguage) {
+      formData.append('source_language', sourceLanguage);
+    }
+
+    return this.http.post<ImageTranslationResponse>(
+      `${this.apiUrl}/translations/images/${imageId}`,
+      formData,
+      { headers: this.getHeadersForFormData() }
+    ).pipe(
+      catchError(error => {
+        console.error('Error translating image:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  /**
+   * Descarga la imagen usando HttpClient (respeta token y CORS)
+   * y llama al endpoint de traducción.
+   */
+  async translateImageFromUrl(
+    imageId: number,
+    imageUrl: string,
+    targetLanguage: string,
+    sourceLanguage?: string
+  ): Promise<Observable<ImageTranslationResponse>> {
+    const fullUrl = imageUrl.startsWith('http')
+      ? imageUrl
+      : `http://localhost:8001${imageUrl}`;
+
+    const blob = await this.http.get(fullUrl, {
+      headers: this.getHeadersForFormData(),
+      responseType: 'blob'
+    }).toPromise();
+
+    const fileName = imageUrl.split('/').pop() || 'image.jpg';
+    const file = new File([blob!], fileName, { type: blob!.type });
+
+    return this.translateImage(imageId, file, targetLanguage, sourceLanguage);
   }
 }

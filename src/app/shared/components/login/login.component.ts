@@ -1,15 +1,17 @@
-import { Component, NgZone } from '@angular/core';
+﻿import { Component, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService, LoginResponse, RegisterResponse } from '../../../core/services/auth.service';
+import { Language, LanguageService } from '../../../core/services/language.service';
 import { CountrySetupComponent } from '../index';
 import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, CountrySetupComponent],
+  imports: [CommonModule, FormsModule, CountrySetupComponent, TranslateModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -18,8 +20,9 @@ export class LoginComponent {
   isLoading = false;
   showPassword = false;
   errorMessage = '';
+  readonly availableLanguages: Language[];
 
-  // ⭐ NUEVO: mostrar modal de país después del login
+  // Nuevo: mostrar modal de país después del login
   showCountrySetup = false;
 
   formData = {
@@ -35,28 +38,26 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private languageService: LanguageService
   ) {
+    this.availableLanguages = [...this.languageService.SUPPORTED_LANGUAGES];
     this.initializeGoogleSignIn();
   }
 
   /** Configurar Google Sign-In con el nuevo SDK */
   private initializeGoogleSignIn(): void {
-    // Esperar a que el SDK de Google esté disponible
     const checkGoogleSDK = setInterval(() => {
       const google = (window as any).google;
       if (google?.accounts?.id) {
         clearInterval(checkGoogleSDK);
 
-        // Obtener CLIENT_ID desde environment o variable global
-        const clientId = (window as any)['GOOGLE_CLIENT_ID'] || this.getGoogleClientIdFromEnv();
-
-        if (!clientId || clientId === 'REPLACE_WITH_YOUR_GOOGLE_CLIENT_ID') {
-          console.warn('⚠️ GOOGLE_CLIENT_ID no está configurado. Configúralo en environment o como variable global.');
+        const clientId = this.getGoogleClientIdFromEnv();
+        if (!clientId) {
+          console.warn('GOOGLE_CLIENT_ID no configurado');
           return;
         }
 
-        // Inicializar Google Sign-In
         google.accounts.id.initialize({
           client_id: clientId,
           callback: (response: any) => {
@@ -66,19 +67,22 @@ export class LoginComponent {
               }
             });
           },
-          // Auto-prompt en navegadores que lo soportan
-          auto_select: false
+          auto_select: false,
+          use_fedcm_for_prompt: true
         });
 
-        // Renderizar el botón de Google si quisiéramos usarlo
-        // google.accounts.id.renderButton(
-        //   document.getElementById('google-signin-button'),
-        //   { theme: 'outline', size: 'large' }
-        // );
+        const btnContainer = document.getElementById('google-btn-container');
+        if (btnContainer) {
+          google.accounts.id.renderButton(btnContainer, {
+            theme: 'outline',
+            size: 'large',
+            width: btnContainer.offsetWidth || 300,
+            text: 'signin_with'
+          });
+        }
       }
     }, 100);
 
-    // Timeout de 5 segundos para evitar loops infinitos
     setTimeout(() => clearInterval(checkGoogleSDK), 5000);
   }
 
@@ -200,41 +204,19 @@ export class LoginComponent {
       },
       error: (err) => {
         this.isLoading = false;
-        this.errorMessage = 'Error al iniciar sesión con Google. Asegúrate de configurar GOOGLE_CLIENT_ID en el backend.';
-        console.error('Google login error:', err);
+        this.errorMessage = 'Error al iniciar sesion con Google. Verifica el client ID y el origen permitido en Google Cloud Console.';
+        console.error('Error de login con Google:', err);
       }
     });
   }
-
-  /**
-   * Dispara el Google Sign-In cuando el usuario hace click en el botón.
-   * Muestra el selector de cuentas de Google.
-   */
-  triggerGoogleSignIn(): void {
-    const google = (window as any).google;
-    if (google?.accounts?.id) {
-      // Mostrar el selector de cuentas de Google
-      google.accounts.id.prompt((notification: any) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          // Si el prompt automático no se puede mostrar, usa el flujo manual
-          // En este caso mostraríamos un diálogo o reduciríamos el flujo
-          console.log('Google prompt no disponible, intentando flujo alternativo');
-        }
-      });
-    } else {
-      this.errorMessage = 'Google Sign-In no está disponible. Revisa tu configuración.';
-      console.warn('Google SDK no disponible');
-    }
-  }
-  
 
   // ============================================
   // FACEBOOK OAUTH
   // ============================================
 
   /**
-   * Llama este método desde el botón de Facebook.
-   * Requiere que el SDK de Facebook esté cargado en index.html:
+    * Llama este método desde el botón de Facebook.
+    * Requiere que el SDK de Facebook esté cargado en index.html:
    *   <script async defer crossorigin="anonymous"
    *     src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v19.0&appId=TU_APP_ID">
    *   </script>
@@ -271,11 +253,11 @@ export class LoginComponent {
   // ============================================
 
   /**
-   * Llama este método desde el botón de Apple.
+    * Llama este método desde el botón de Apple.
    * Requiere el JS SDK de Apple:
    *   <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
    *
-   * Y configuración en ngOnInit:
+    * Y configuración en ngOnInit:
    *   AppleID.auth.init({
    *     clientId: 'com.tuapp.service',
    *     scope: 'name email',
@@ -320,11 +302,16 @@ export class LoginComponent {
   /**
    * Después de cualquier login exitoso:
    * - Esperar a que se detecte el país
-   * - Si el usuario no tiene país → mostrar modal
-   * - Si ya tiene país → ir directo al home
+   * - Si el usuario no tiene país -> mostrar modal
+   * - Si ya tiene país -> ir directo al home
    */
   private async _afterLogin(): Promise<void> {
-    // ⭐ ESPERAR a que detectCountry() termine (máx 3 segundos)
+    if (this.authService.needsEmailVerification()) {
+      this.router.navigate(['/verify-email-required']);
+      return;
+    }
+
+    // Esperar a que detectCountry() termine.
     await this.authService.waitForCountryDetection();
 
     if (this.authService.needsCountrySetup()) {
@@ -340,3 +327,4 @@ export class LoginComponent {
     this.router.navigate(['/home']);
   }
 }
+

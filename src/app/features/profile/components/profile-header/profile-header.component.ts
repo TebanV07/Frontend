@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { UserProfile } from '../../../../core/services/profile.service';
 import { ChatService } from '../../../../core/services/chat.service';
@@ -7,7 +8,7 @@ import { ChatService } from '../../../../core/services/chat.service';
 @Component({
   selector: 'app-profile-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './profile-header.component.html',
   styleUrl: './profile-header.component.scss'
 })
@@ -45,16 +46,17 @@ export class ProfileHeaderComponent {
   onSendMessage(): void {
     if (!this.profile?.id) return;
 
-    // Crear o buscar conversación con este usuario
+    // Crear o buscar conversaciÃ³n con este usuario
     this.chatService.createConversation(this.profile.id).subscribe({
       next: (conversation) => {
-        // Redirigir al chat con la conversación activa
+        // Redirigir al chat con la conversaciÃ³n activa
         this.chatService.setActiveConversation(conversation);
         this.router.navigate(['/chat']);
       },
       error: (error) => {
-        console.error('Error al crear conversación:', error);
+        console.error('Error al crear conversaciÃ³n:', error);
       }
     });
   }
 }
+

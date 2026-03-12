@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { FollowService, FollowRequest } from '../../../../core/services/follow.service';
 
 @Component({
   selector: 'app-follow-requests',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './follow-requests.component.html',
   styleUrl: './follow-requests.component.scss'
 })
@@ -76,4 +77,14 @@ export class FollowRequestsComponent implements OnInit {
     if (days < 7) return `Hace ${days}d`;
     return `Hace ${weeks}sem`;
   }
+
+  getDisplayName(request: FollowRequest): string {
+    const follower = request.follower;
+    if (!follower) return '';
+    const fullName = `${follower.firstName || ''} ${follower.lastName || ''}`.trim();
+    if (fullName) return fullName;
+    if (follower.name && follower.name.trim()) return follower.name.trim();
+    return follower.username;
+  }
 }
+

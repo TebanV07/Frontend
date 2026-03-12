@@ -37,10 +37,10 @@
         <button class="control-btn back-btn" routerLink="/home">←</button>
         <div class="video-info-top">
           <span class="live-badge" *ngIf="currentVideo.available_languages && currentVideo.available_languages.length > 1">
-            🌐 {{ currentVideo.available_languages.length }} idiomas
+            🌐 {{ currentVideo.available_languages.length }} {{ 'feed.aiLanguages' | translate }}
           </span>
           <span class="translation-badge" *ngIf="isTranslating">
-            ⏳ Traduciendo {{ translationProgress }}%
+            ⏳ {{ 'post.translating' | translate }} {{ translationProgress }}%
           </span>
         </div>
         <button class="control-btn mute-btn" (click)="toggleMute()">
@@ -57,9 +57,9 @@
               <h3>{{ getUserName(currentVideo) }}</h3>
               <span class="verified-badge" *ngIf="isUserVerified(currentVideo)">✓</span>
             </div>
-            <p class="username">&#64;{{ currentVideo.user?.username || 'usuario' }}</p>
+            <p class="username">&#64;{{ currentVideo.user?.username || '' }}</p>
           </div>
-          <button class="follow-btn">Seguir</button>
+          <button class="follow-btn">{{ 'common.follow' | translate }}</button>
         </div>
 
         <div class="video-description">
@@ -90,7 +90,7 @@
 
         <button class="action-btn bookmark-btn" [class.active]="currentVideo.is_saved" (click)="toggleBookmark(currentVideo)">
           <span class="icon">{{ currentVideo.is_saved ? '🔖' : '📑' }}</span>
-          <span class="count">Guardar</span>
+          <span class="count">{{ 'common.save' | translate }}</span>
         </button>
 
         <button class="action-btn share-btn" (click)="shareVideo(currentVideo)">
@@ -107,7 +107,7 @@
 
           <div class="language-menu" *ngIf="showLanguageMenu" (click)="$event.stopPropagation()">
             <div class="language-menu-header">
-              <h4>Seleccionar idioma</h4>
+              <h4>{{ 'videoOverlay.translateVideo' | translate }}</h4>
               <button class="close-btn" (click)="showLanguageMenu = false">✕</button>
             </div>
             <div class="language-list">
@@ -120,7 +120,7 @@
                 <span class="flag">{{ getLanguageFlag(lang) }}</span>
                 <span class="lang-name">
                   {{ getLanguageName(lang) }}
-                  <span class="original-badge" *ngIf="lang === currentVideo.original_language">(Original)</span>
+                  <span class="original-badge" *ngIf="lang === currentVideo.original_language">{{ 'videoOverlay.original' | translate }}</span>
                 </span>
                 <span class="check" *ngIf="currentLanguage === lang">✓</span>
               </button>
@@ -129,7 +129,7 @@
               <div class="progress-bar">
                 <div class="progress-fill" [style.width.%]="translationProgress"></div>
               </div>
-              <p>Traduciendo... {{ translationProgress }}%</p>
+              <p>{{ 'post.translating' | translate }} {{ translationProgress }}%</p>
             </div>
           </div>
         </div>
@@ -138,7 +138,7 @@
       <!-- ===== PANEL DE COMENTARIOS ===== -->
       <div class="comments-panel" *ngIf="showCommentsPanel" (click)="$event.stopPropagation()">
         <div class="comments-panel-header">
-          <h3>💬 Comentarios</h3>
+          <h3>💬 {{ 'comments.title' | translate }}</h3>
           <button class="close-panel-btn" (click)="showCommentsPanel = false">✕</button>
         </div>
         <div class="comments-panel-body">

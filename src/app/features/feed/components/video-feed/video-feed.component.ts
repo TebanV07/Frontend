@@ -1,7 +1,8 @@
-// app/features/feed/videos/video-feed/video-feed.component.ts
+﻿// app/features/feed/videos/video-feed/video-feed.component.ts
 
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { VideoService, Video } from '../../../../core/services/video.service';
 import { VideoPlayerComponent } from '../video-player/video-player.component';
 import { VideoOverlayComponent } from '../video-overlay/video-overlay.component';
@@ -9,20 +10,20 @@ import { VideoOverlayComponent } from '../video-overlay/video-overlay.component'
 @Component({
   selector: 'app-video-feed',
   standalone: true,
-  imports: [CommonModule, VideoPlayerComponent, VideoOverlayComponent],
+  imports: [CommonModule, VideoPlayerComponent, VideoOverlayComponent, TranslateModule],
   templateUrl: './video-feed.component.html',
   styleUrls: ['./video-feed.component.scss']
 })
 export class VideoFeedComponent implements OnInit {
   @ViewChild('feedContainer') feedContainer!: ElementRef;
-  
+
   videos: Video[] = [];
   currentVideoIndex = 0;
   isPlaying = true;
   isLoading = false;
   hasMore = true;
-  
-  // Paginación
+
+  // Paginacion
   private currentPage = 1;
   private pageSize = 10;
 
@@ -33,12 +34,11 @@ export class VideoFeedComponent implements OnInit {
   }
 
   // ==================== CARGAR VIDEOS DESDE BACKEND ====================
-  
+
   loadVideos(append: boolean = false) {
     if (this.isLoading) return;
-    
+
     this.isLoading = true;
-    console.log('📹 Cargando videos desde backend...');
 
     this.videoService.getVideosFeed(
       this.currentPage,
@@ -46,26 +46,22 @@ export class VideoFeedComponent implements OnInit {
       'for_you' // Puedes cambiar a 'trending' o 'following'
     ).subscribe({
       next: (response) => {
-        console.log('✅ Videos cargados:', response);
-        
         if (append) {
           this.videos = [...this.videos, ...response.videos];
         } else {
           this.videos = response.videos;
         }
-        
+
         this.hasMore = response.has_more;
         this.isLoading = false;
-        
-        console.log(`📊 Total videos: ${this.videos.length}`);
       },
       error: (error) => {
-        console.error('❌ Error cargando videos:', error);
+        console.error('Error cargando videos:', error);
         this.isLoading = false;
-        
+
         // Fallback a datos mock solo si falla
         if (this.videos.length === 0) {
-          console.warn('⚠️ Usando datos mock como fallback');
+          console.warn('Usando datos mock como fallback');
           this.loadMockVideos();
         }
       }
@@ -73,28 +69,25 @@ export class VideoFeedComponent implements OnInit {
   }
 
   // ==================== SCROLL INFINITO ====================
-  
+
   @HostListener('window:scroll', [])
   onScroll() {
-    // Detectar cuando el usuario llega al final
     const scrollPosition = window.pageYOffset + window.innerHeight;
     const pageHeight = document.documentElement.scrollHeight;
-    
+
     if (scrollPosition >= pageHeight - 500 && this.hasMore && !this.isLoading) {
-      console.log('📜 Cargando más videos...');
       this.currentPage++;
       this.loadVideos(true);
     }
   }
 
-  // ==================== NAVEGACIÓN ====================
-  
+  // ==================== NAVEGACION ====================
+
   onVideoEnded() {
-    console.log('🎬 Video terminado, siguiente...');
     if (this.currentVideoIndex < this.videos.length - 1) {
       this.currentVideoIndex++;
     } else {
-      // Cargar más videos si llegamos al final
+      // Cargar mas videos si llegamos al final
       if (this.hasMore) {
         this.currentPage++;
         this.loadVideos(true);
@@ -104,7 +97,7 @@ export class VideoFeedComponent implements OnInit {
 
   @HostListener('wheel', ['$event'])
   onWheel(event: WheelEvent) {
-    // Navegación con scroll del mouse
+    // Navegacion con scroll del mouse
     if (event.deltaY > 0) {
       this.nextVideo();
     } else if (event.deltaY < 0) {
@@ -133,81 +126,66 @@ export class VideoFeedComponent implements OnInit {
   }
 
   // ==================== ACCIONES DE VIDEO ====================
-  
+
   onLike(video: Video) {
-    console.log('❤️ Like video:', video.id);
-    
     this.videoService.toggleLike(video.id).subscribe({
       next: (response) => {
-        console.log('✅ Like toggled:', response);
         video.is_liked = response.is_liked;
         video.likes_count = response.likes_count;
       },
       error: (error) => {
-        console.error('❌ Error al dar like:', error);
+        console.error('Error al dar like:', error);
       }
     });
   }
 
   onComment(video: Video) {
-    console.log('💬 Abrir comentarios de video:', video.id);
     // TODO: Implementar modal de comentarios
   }
 
   onShare(video: Video) {
-    console.log('🔗 Compartir video:', video.id);
-    
     this.videoService.shareVideo(video.id).subscribe({
       next: (response) => {
-        console.log('✅ Video compartido:', response);
         video.shares_count = response.shares_count;
-        
-        // Copiar link al clipboard
+
         const link = `${window.location.origin}/videos/${video.uuid}`;
         navigator.clipboard.writeText(link).then(() => {
-          alert('¡Link copiado al portapapeles!');
+          alert('Link copiado al portapapeles');
         });
       },
       error: (error) => {
-        console.error('❌ Error al compartir:', error);
+        console.error('Error al compartir:', error);
       }
     });
   }
 
   onSave(video: Video) {
-    console.log('💾 Guardar video:', video.id);
-    
     this.videoService.toggleSave(video.id).subscribe({
       next: (response) => {
-        console.log('✅ Save toggled:', response);
         video.is_saved = response.is_saved;
         video.shares_count = response.saves_count;
       },
       error: (error) => {
-        console.error('❌ Error al guardar:', error);
+        console.error('Error al guardar:', error);
       }
     });
   }
 
-  // ==================== TRADUCCIÓN DE VIDEO ====================
-  
+  // ==================== TRADUCCION DE VIDEO ====================
+
   onRequestTranslation(video: Video, targetLanguage: string) {
-    console.log('🌐 Solicitar traducción:', { videoId: video.id, targetLanguage });
-    
     this.videoService.requestVideoTranslation(
       video.id,
       [targetLanguage]
     ).subscribe({
       next: (response) => {
-        console.log('✅ Traducción solicitada:', response);
-        alert(`Traducción iniciada!\nJob ID: ${response.job_id}\nTiempo estimado: ${response.estimated_time_minutes} minutos`);
-        
-        // Polling del estado
+        alert(`Traduccion iniciada\nJob ID: ${response.job_id}\nTiempo estimado: ${response.estimated_time_minutes} minutos`);
+
         this.pollTranslationStatus(video.id, response.job_id);
       },
       error: (error) => {
-        console.error('❌ Error solicitando traducción:', error);
-        alert('Error al solicitar traducción. Verifica que el video esté procesado.');
+        console.error('Error solicitando traduccion:', error);
+        alert('Error al solicitar traduccion. Verifica que el video este procesado.');
       }
     });
   }
@@ -216,13 +194,10 @@ export class VideoFeedComponent implements OnInit {
     const interval = setInterval(() => {
       this.videoService.getTranslationStatus(videoId, jobId).subscribe({
         next: (status) => {
-          console.log('📊 Translation status:', status);
-          
           if (status.status === 'COMPLETED') {
             clearInterval(interval);
-            alert('¡Traducción completada! Recarga el video para ver los subtítulos.');
-            
-            // Recargar video para actualizar idiomas disponibles
+            alert('Traduccion completada. Recarga el video para ver los subtitulos.');
+
             this.videoService.getVideo(videoId).subscribe({
               next: (updatedVideo) => {
                 const index = this.videos.findIndex(v => v.id === videoId);
@@ -233,7 +208,7 @@ export class VideoFeedComponent implements OnInit {
             });
           } else if (status.status === 'FAILED') {
             clearInterval(interval);
-            alert(`Traducción fallida: ${status.error_message}`);
+            alert(`Traduccion fallida: ${status.error_message}`);
           }
         },
         error: (error) => {
@@ -245,7 +220,7 @@ export class VideoFeedComponent implements OnInit {
   }
 
   // ==================== GETTERS ====================
-  
+
   get currentVideo(): Video | undefined {
     return this.videos[this.currentVideoIndex];
   }
@@ -255,10 +230,10 @@ export class VideoFeedComponent implements OnInit {
   }
 
   // ==================== FALLBACK MOCK DATA ====================
-  
+
   private loadMockVideos() {
-    console.warn('⚠️ Cargando datos MOCK (sin conexión al backend)');
-    
+    console.warn('Cargando datos MOCK (sin conexion al backend)');
+
     this.videos = [
       {
         id: 1,

@@ -209,6 +209,13 @@ export class ChatService implements OnDestroy {
       .pipe(tap(conv => this.pushConversation(conv)));
   }
 
+  requestConversation(userId: number): Observable<{ message: string; conversation_id: number; created_conversation: boolean }> {
+    return this.http.post<{ message: string; conversation_id: number; created_conversation: boolean }>(
+      `${this.apiUrl}/conversations/request/${userId}`,
+      {}
+    );
+  }
+
   createGroupConversation(participants: number[], name?: string): Observable<Conversation> {
     return this.http
       .post<Conversation>(`${this.apiUrl}/conversations`, { participants, name })

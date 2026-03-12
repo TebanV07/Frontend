@@ -1,8 +1,8 @@
-import { Component, Output, EventEmitter, ViewChild, ElementRef, Input, OnDestroy } from '@angular/core';
+﻿import { Component, Output, EventEmitter, ViewChild, ElementRef, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
-// añadimos tipos para archivos
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { debounceTime } from 'rxjs/operators';
 @Component({
   selector: 'app-chat-input',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './chat-input.component.html',
   styleUrl: './chat-input.component.scss'
 })
@@ -31,7 +31,7 @@ export class ChatInputComponent implements OnDestroy {
   private typingSubject = new Subject<boolean>();
   private isTyping = false;
 
-  // para grabación de voz real
+  // para grabacion de voz real
   private mediaRecorder?: MediaRecorder;
   private recordedChunks: Blob[] = [];
 
@@ -68,8 +68,7 @@ export class ChatInputComponent implements OnDestroy {
   }
 
   onAttachFile() {
-    // Antes de abrir el selector pedimos permisos de cámara opcionalmente
-    // para que el navegador no bloquee la acción.
+    // Antes de abrir el selector pedimos permisos de camara opcionalmente.
     this.ensurePermissions('camera').then(() => {
       if (this.fileInput) {
         this.fileInput.nativeElement.click();
@@ -80,8 +79,7 @@ export class ChatInputComponent implements OnDestroy {
   }
 
   async onTakePhoto() {
-    // solicita permiso de cámara explícitamente y además abre un input
-    // específico que forzará el uso de la cámara en móviles.
+    // Solicita permiso de camara explicitamente y abre un input especifico.
     const ok = await this.ensurePermissions('camera');
     if (!ok) {
       return;
@@ -96,16 +94,14 @@ export class ChatInputComponent implements OnDestroy {
     if (!input.files || input.files.length === 0) return;
 
     const file = input.files[0];
-    console.log('Archivo seleccionado:', file);
-    // emitir hacia el padre para que maneje la subida
+    console.debug('Archivo seleccionado:', file);
     this.fileAttached.emit(file);
 
-    // limpiar valor para poder seleccionar el mismo archivo de nuevo
     input.value = '';
   }
 
   /**
-   * Helper genérico que intenta obtener permisos de cámara o micrófono
+   * Helper generico que intenta obtener permisos de camara o microfono
    * devolviendo true si se conceden y false en caso contrario.
    */
   private async ensurePermissions(kind: 'microphone' | 'camera'): Promise<boolean> {
@@ -113,17 +109,15 @@ export class ChatInputComponent implements OnDestroy {
       const constraints: MediaStreamConstraints =
         kind === 'microphone' ? { audio: true } : { video: true };
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      // detener tracks inmediatamente para no mantener permiso en uso
       stream.getTracks().forEach(t => t.stop());
       return true;
     } catch (err: any) {
       console.warn(`Permiso de ${kind} denegado`, err);
       if (err && (err.name === 'NotAllowedError' || err.name === 'SecurityError')) {
-        alert(`Necesitas conceder acceso a la ${kind}. Revisa la configuración de permisos o usa HTTPS.`);
+        alert(`Necesitas conceder acceso a la ${kind}. Revisa la configuracion de permisos o usa HTTPS.`);
       } else {
         alert(`No fue posible obtener permiso de ${kind}.`);
       }
-      // opcional: redirigir a página de configuración de permisos
       if (this.router) {
         this.router.navigate(['/permissions']);
       }
@@ -164,18 +158,18 @@ export class ChatInputComponent implements OnDestroy {
         };
         this.mediaRecorder.start();
         this.isRecording = true;
-        console.log('Iniciando grabación de voz...');
+        console.debug('Iniciando grabacion de voz...');
       } catch (err: any) {
-        console.warn('No se pudo acceder al micrófono', err);
-        alert('No fue posible iniciar la grabación. ' +
-              'Asegúrate de conceder permisos y usar un contexto seguro.');
+        console.warn('No se pudo acceder al microfono', err);
+        alert('No fue posible iniciar la grabacion. ' +
+              'Asegurate de conceder permisos y usar un contexto seguro.');
       }
     } else {
       this.isRecording = false;
       if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
         this.mediaRecorder.stop();
       }
-      console.log('Deteniendo grabación de voz...');
+      console.debug('Deteniendo grabacion de voz...');
     }
   }
 
@@ -193,3 +187,4 @@ export class ChatInputComponent implements OnDestroy {
     '😢', '😮', '😅', '🥰', '😘', '🤗', '🎊', '🚀'
   ];
 }
+

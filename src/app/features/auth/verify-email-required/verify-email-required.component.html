@@ -1,0 +1,40 @@
+<div class="verification-required-container">
+  <app-country-setup
+    *ngIf="showCountrySetup"
+    (completed)="onCountrySetupCompleted()">
+  </app-country-setup>
+
+  <div class="verification-required-card">
+    <div class="card-icon">✉️</div>
+    <h1>Verifica tu correo</h1>
+    <p class="lead">
+      Tu cuenta inició sesión correctamente, pero necesitas verificar tu email antes de entrar a la app.
+    </p>
+
+    <div class="email-box" *ngIf="user?.email">
+      <span class="label">Correo registrado</span>
+      <strong>{{ user.email }}</strong>
+    </div>
+
+    <p class="hint">
+      Revisa tu bandeja de entrada y también spam. Cuando abras el enlace del correo, vuelve aquí y pulsa “Ya verifiqué mi cuenta”.
+    </p>
+
+    <p class="info" *ngIf="infoMessage">{{ infoMessage }}</p>
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <div class="actions">
+      <button type="button" class="primary" (click)="resendVerificationEmail()" [disabled]="isSending || isRefreshing">
+        {{ isSending ? 'Reenviando...' : 'Reenviar correo de verificación' }}
+      </button>
+
+      <button type="button" class="secondary" (click)="refreshVerificationStatus()" [disabled]="isRefreshing || isSending">
+        {{ isRefreshing ? 'Verificando...' : 'Ya verifiqué mi cuenta' }}
+      </button>
+
+      <button type="button" class="ghost" (click)="logout()">
+        Cerrar sesión
+      </button>
+    </div>
+  </div>
+</div>

@@ -2,12 +2,12 @@
       <div class="report-modal" (click)="$event.stopPropagation()">
 
         <div class="modal-header">
-          <h3 class="modal-title">🚩 Denunciar contenido</h3>
+          <h3 class="modal-title">{{ 'report.title' | translate }}</h3>
           <button class="close-btn" (click)="cancel()">✕</button>
         </div>
 
         <div class="modal-body">
-          <p class="modal-subtitle">Selecciona el motivo de tu denuncia</p>
+          <p class="modal-subtitle">{{ 'report.subtitle' | translate }}</p>
 
           <div class="reason-list">
             <label
@@ -25,10 +25,10 @@
           </div>
 
           <div class="description-field" *ngIf="selectedReason">
-            <label class="desc-label">Descripción adicional (opcional)</label>
+            <label class="desc-label">{{ 'report.descriptionLabel' | translate }}</label>
             <textarea
               [(ngModel)]="description"
-              placeholder="Cuéntanos más sobre el problema..."
+              [placeholder]="'report.descriptionPlaceholder' | translate"
               maxlength="500"
               rows="3"
               class="desc-textarea">
@@ -42,14 +42,14 @@
 
         <div class="modal-footer">
           <button class="btn-cancel" (click)="cancel()" [disabled]="isSubmitting">
-            Cancelar
+            {{ 'report.cancel' | translate }}
           </button>
           <button
             class="btn-submit"
             (click)="submit()"
             [disabled]="!selectedReason || isSubmitting">
-            <span *ngIf="!isSubmitting">Enviar denuncia</span>
-            <span *ngIf="isSubmitting" class="modal-spinner"></span>
+            <span *ngIf="!isSubmitting">{{ 'report.submit' | translate }}</span>
+            <span *ngIf="isSubmitting">{{ 'report.submitting' | translate }}</span>
           </button>
         </div>
 

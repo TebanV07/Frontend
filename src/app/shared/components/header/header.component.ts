@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -11,7 +12,7 @@ import { NotificationsComponent } from '../../components/notifications/notificat
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, NotificationsComponent, NotificationsComponent],
+  imports: [CommonModule, NotificationsComponent, NotificationsComponent, TranslateModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -58,3 +59,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.mobileMenuOpen = false;
   }
 }
+

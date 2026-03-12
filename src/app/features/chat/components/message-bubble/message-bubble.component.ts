@@ -1,12 +1,13 @@
-import { Component, Input, Output, EventEmitter, HostBinding, HostListener, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter, HostBinding, HostListener, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import type { Message } from '../../../../core/models';
 
 @Component({
   selector: 'app-message-bubble',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './message-bubble.component.html',
   styleUrls: ['./message-bubble.component.scss']
 })
@@ -22,7 +23,7 @@ export class MessageBubbleComponent implements OnChanges {
   @Output() forward = new EventEmitter<Message>();
   @Output() share = new EventEmitter<Message>();
 
-  // menú de acciones que aparece tras mantener pulsado o clic derecho
+  // menu de acciones que aparece tras mantener pulsado o clic derecho
   showActions: boolean = false;
   private longPressTimeout: any;
 
@@ -37,11 +38,11 @@ export class MessageBubbleComponent implements OnChanges {
     return !this.isSent;
   }
 
-  // Estado de traducción
+  // Estado de traduccion
   showTranslation: boolean = false;
   currentTranslationLang: string | null = null;
 
-  // Estado de edición
+  // Estado de edicion
   isEditing: boolean = false;
   editContent: string = '';
 
@@ -51,20 +52,20 @@ export class MessageBubbleComponent implements OnChanges {
 
   // Idiomas disponibles
   availableLanguages = [
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'es', name: 'Espanol', flag: '🇪🇸' },
     { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'fr', name: 'Frances', flag: '🇫🇷' },
     { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
     { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-    { code: 'pt', name: 'Português', flag: '🇵🇹' },
-    { code: 'ja', name: '日本語', flag: '🇯🇵' },
-    { code: 'zh', name: '中文', flag: '🇨🇳' },
-    { code: 'ko', name: '한국어', flag: '🇰🇷' }
+    { code: 'pt', name: 'Portugues', flag: '🇵🇹' },
+    { code: 'ja', name: 'Japones', flag: '🇯🇵' },
+    { code: 'zh', name: 'Chino', flag: '🇨🇳' },
+    { code: 'ko', name: 'Coreano', flag: '🇰🇷' }
   ];
 
   showLanguageMenu: boolean = false;
 
-  // ==================== MÉTODOS ====================
+  // ==================== METODOS ====================
 
   toggleLanguageMenu(): void {
     this.showLanguageMenu = !this.showLanguageMenu;
@@ -101,7 +102,7 @@ export class MessageBubbleComponent implements OnChanges {
     }
   }
 
-  // ----------------- acciones de menú -----------------
+  // ----------------- acciones de menu -----------------
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
     if (this.showActions && !this.elementRef.nativeElement.contains(event.target)) {
@@ -214,3 +215,4 @@ export class MessageBubbleComponent implements OnChanges {
     return !!this.translatedContent;
   }
 }
+

@@ -7,7 +7,7 @@
   <div class="chat-sidebar">
 
     <div class="sidebar-header">
-      <h2>Mensajes</h2>
+      <h2>{{ 'header.nav.messages' | translate }}</h2>
       <button class="new-chat-btn" title="Nueva conversación">✏️</button>
     </div>
 
@@ -42,7 +42,7 @@
     <!-- BUSCADOR -->
     <div class="search-box">
       <span class="search-icon">🔍</span>
-      <input type="text" placeholder="Buscar conversaciones...">
+      <input type="text" [placeholder]="'common.search' | translate">
     </div>
 
     <!-- LISTA DE CONVERSACIONES -->
@@ -73,7 +73,7 @@
               {{ conversation.other_user?.name
                 || conversation.other_user?.username
                 || conversation.name
-                || 'Sin nombre' }}
+                || ('chat.window.noName' | translate) }}
             </h4>
             <div class="right-header">
               <span class="time">

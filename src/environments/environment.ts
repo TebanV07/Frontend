@@ -12,7 +12,7 @@ export const environment = {
   // ⭐ CONFIGURA TU GOOGLE CLIENT ID AQUÍ
   // Obtén este valor desde: https://console.cloud.google.com/apis/credentials
   // Debe estar configurado en las "Authorized JavaScript origins" y "Authorized redirect URIs"
-  googleClientId: 'REPLACE_WITH_YOUR_GOOGLE_CLIENT_ID',
+  googleClientId: '259954016870-carbome69mftn4pcfirb31qbc6uqq08v.apps.googleusercontent.com',
 
   // API Backend
   apiUrl: 'http://localhost:8001/api/v1',

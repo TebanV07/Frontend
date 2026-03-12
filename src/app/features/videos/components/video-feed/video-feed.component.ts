@@ -1,18 +1,21 @@
-import {
+﻿import {
   Component, OnInit, AfterViewInit, OnDestroy,
   ViewChildren, QueryList, ElementRef
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { VideoService, Video } from '../../../../core/services/video.service';
 import { FlagService } from '../../../../core/services/flag.service';
+import { LanguageService } from '../../../../core/services/language.service';
 import { CommentListComponent } from '../../../posts/comments/comment-list/comment-list.component';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-video-feed',
   standalone: true,
-  imports: [CommonModule, RouterModule, CommentListComponent, HeaderComponent],
+  imports: [CommonModule, RouterModule, CommentListComponent, HeaderComponent, TranslateModule],
   templateUrl: './video-feed.component.html',
   styleUrls: ['./video-feed.component.scss']
 })
@@ -21,11 +24,10 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
   videos: Video[] = [];
   currentVideoIndex = 0;
   isPlaying = false;
-  isMuted = false;           // ✅ Empieza sin mute para que el audio funcione
+  isMuted = false;
   isLoading = true;
   currentSubtitleUrl?: string;
 
-  // ✅ Control de comentarios
   showComments = false;
 
   // Traducción
@@ -44,15 +46,29 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
   currentUserId: number = 1;
 
   private observer?: IntersectionObserver;
+  private routeSubscription?: Subscription;
+  private requestedVideoRef: string | null = null;
+  private isResolvingRequestedVideo = false;
 
   @ViewChildren('videoElem') videoElems!: QueryList<ElementRef<HTMLVideoElement>>;
 
   constructor(
     private videoService: VideoService,
-    public flagService: FlagService
-  ) {}
+    public flagService: FlagService,
+    private languageService: LanguageService,
+    private route: ActivatedRoute
+  ) {
+    this.currentLanguage = this.languageService.getCurrentLanguage();
+  }
 
   ngOnInit(): void {
+    this.routeSubscription = this.route.paramMap.subscribe(paramMap => {
+      this.requestedVideoRef = paramMap.get('id');
+      if (this.videos.length > 0) {
+        this.focusRequestedVideo();
+      }
+    });
+
     this.loadVideos();
   }
 
@@ -63,7 +79,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
-    // ✅ Pausar todos los videos al destruir el componente
+    this.routeSubscription?.unsubscribe();
     this.videoElems?.forEach(el => {
       el.nativeElement.pause();
       el.nativeElement.src = '';
@@ -79,14 +95,88 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
         this.videos = vids;
         this.isLoading = false;
         if (vids.length > 0) {
-          this.currentLanguage = vids[0].original_language || 'es';
+          this.currentLanguage = vids[0].original_language || this.languageService.getCurrentLanguage();
         }
+        this.focusRequestedVideo();
       },
       error: err => {
         console.error('Error loading videos', err);
         this.isLoading = false;
       }
     });
+  }
+
+  private focusRequestedVideo(): void {
+    const videoRef = this.requestedVideoRef?.trim();
+
+    if (!videoRef || this.videos.length === 0) {
+      return;
+    }
+
+    const targetIndex = this.findVideoIndex(videoRef);
+    if (targetIndex >= 0) {
+      this.scrollToVideo(targetIndex);
+      return;
+    }
+
+    if (this.isResolvingRequestedVideo) {
+      return;
+    }
+
+    this.resolveRequestedVideo(videoRef);
+  }
+
+  private findVideoIndex(videoRef: string): number {
+    const numericId = this.isNumericVideoId(videoRef) ? Number(videoRef) : null;
+
+    return this.videos.findIndex(video => (
+      video.uuid === videoRef ||
+      (numericId !== null && video.id === numericId)
+    ));
+  }
+
+  private resolveRequestedVideo(videoRef: string): void {
+    this.isResolvingRequestedVideo = true;
+
+    const request$ = this.isNumericVideoId(videoRef)
+      ? this.videoService.getVideo(Number(videoRef))
+      : this.videoService.getVideoByUuid(videoRef);
+
+    request$.subscribe({
+      next: (video) => {
+        const existingIndex = this.videos.findIndex(item => item.id === video.id || item.uuid === video.uuid);
+
+        if (existingIndex >= 0) {
+          this.scrollToVideo(existingIndex);
+        } else {
+          this.videos = [video, ...this.videos];
+          this.scrollToVideo(0);
+        }
+
+        this.isResolvingRequestedVideo = false;
+      },
+      error: (error) => {
+        console.error('Error resolving requested video:', error);
+        this.isResolvingRequestedVideo = false;
+      }
+    });
+  }
+
+  private scrollToVideo(index: number): void {
+    if (index < 0 || index >= this.videos.length) {
+      return;
+    }
+
+    this.currentVideoIndex = index;
+
+    setTimeout(() => {
+      const targetVideoEl = this.videoElems?.toArray()[index]?.nativeElement;
+      targetVideoEl?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }
+
+  private isNumericVideoId(value: string): boolean {
+    return /^\d+$/.test(value);
   }
 
   // ==================== INTERSECTION OBSERVER ====================
@@ -100,7 +190,6 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
         const index = Number(video.dataset['index']);
 
         if (entry.intersectionRatio >= 0.75) {
-          // ✅ Pausar TODOS los videos primero
           this.videoElems.forEach(el => {
             if (el.nativeElement !== video) {
               el.nativeElement.pause();
@@ -109,7 +198,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
           });
 
           this.currentVideoIndex = index;
-          this.showComments = false;  // ✅ Cerrar comentarios al cambiar video
+          this.showComments = false;
 
           const currentVideo = this.videos[index];
           if (currentVideo) {
@@ -118,13 +207,12 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
             this.currentSubtitleUrl = undefined;
           }
 
-          // ✅ Aplicar estado de mute del componente al video
           video.muted = this.isMuted;
           video.volume = 1.0;
           video.play()
             .then(() => this.isPlaying = true)
             .catch(() => {
-              // Autoplay bloqueado por el navegador → intentar muteado
+              // Autoplay bloqueado por el navegador: intentar muteado.
               video.muted = true;
               video.play()
                 .then(() => { this.isPlaying = true; })
@@ -132,7 +220,6 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
             });
 
         } else {
-          // ✅ Solo pausar si este video estaba activo
           if (index === this.currentVideoIndex) {
             video.pause();
             this.isPlaying = false;
@@ -158,7 +245,6 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
   toggleMute(video: HTMLVideoElement): void {
     this.isMuted = !this.isMuted;
-    // ✅ Aplicar a TODOS los videos para consistencia
     this.videoElems.forEach(el => {
       el.nativeElement.muted = this.isMuted;
     });
@@ -167,7 +253,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // ✅ onVideoLoaded ya NO llama play() — el observer se encarga
+  // El observer controla la reproducción automática del video activo.
   onVideoLoaded(event: Event): void {
     const video = event.target as HTMLVideoElement;
     video.volume = 1.0;
@@ -232,15 +318,11 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   loadAvailableLanguages(video: Video): void {
-    if (video.available_languages && video.available_languages.length > 0) {
-      this.availableLanguages = video.available_languages;
-    } else {
-      this.availableLanguages = [
-        video.original_language || 'es',
-        'es', 'en', 'fr', 'de', 'pt', 'it', 'ru', 'zh-cn', 'ja', 'ko'
-      ];
-      this.availableLanguages = [...new Set(this.availableLanguages)];
-    }
+    const languageCandidates = video.available_languages?.length
+      ? [video.original_language || this.languageService.getCurrentLanguage(), ...video.available_languages]
+      : [video.original_language || this.languageService.getCurrentLanguage(), ...this.languageService.SUPPORTED_LANGUAGES.map(lang => lang.code)];
+
+    this.availableLanguages = this.buildUniqueLanguages(languageCandidates);
   }
 
   toggleTranslation(): void {
@@ -258,14 +340,14 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ttsProvider = 'openai';
     this.cloneVoice = false;
 
-    if (targetLanguage === video.original_language) {
+    if (this.getComparableLanguageCode(targetLanguage) === this.getComparableLanguageCode(video.original_language)) {
       this.currentLanguage = targetLanguage;
       this.showLanguageMenu = false;
       alert('Este es el idioma original del video');
       return;
     }
 
-    if (video.available_languages?.includes(targetLanguage)) {
+    if (video.available_languages?.some(language => this.getComparableLanguageCode(language) === this.getComparableLanguageCode(targetLanguage))) {
       this.switchToLanguage(targetLanguage);
       return;
     }
@@ -289,7 +371,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (wantPremium) {
       this.ttsProvider = 'elevenlabs';
-      this.cloneVoice = confirm('¿Quieres CLONAR la voz del video original?');
+      this.cloneVoice = confirm('¿Quieres clonar la voz del video original?');
     } else {
       this.ttsProvider = 'openai';
       this.cloneVoice = false;
@@ -330,7 +412,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
           activeVideoEl.volume = 1.0;
           if (wasPlaying) activeVideoEl.play();
         };
-        alert(`🎙️ Reproduciendo doblaje en ${this.getLanguageName(language)}`);
+        alert(`Reproduciendo doblaje en ${this.getLanguageName(language)}`);
       },
       error: () => {
         this.videoService.getSubtitles(video.id, language).subscribe({
@@ -339,7 +421,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
               this.currentSubtitleUrl = subtitles.subtitle_url;
               setTimeout(() => activeVideoEl.load(), 100);
             }
-            alert(`📝 Subtítulos en ${this.getLanguageName(language)}`);
+            alert(`Subtítulos en ${this.getLanguageName(language)}`);
           },
           error: () => alert('No hay doblaje ni subtítulos disponibles')
         });
@@ -445,22 +527,40 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getLanguageFlag(lang: string): string {
-    const flags: { [key: string]: string } = {
-      'es': '🇪🇸', 'en': '🇬🇧', 'fr': '🇫🇷', 'de': '🇩🇪',
-      'pt': '🇵🇹', 'it': '🇮🇹', 'ru': '🇷🇺', 'zh-cn': '🇨🇳',
-      'ja': '🇯🇵', 'ko': '🇰🇷', 'ar': '🇸🇦', 'hi': '🇮🇳',
-      'nl': '🇳🇱', 'pl': '🇵🇱', 'tr': '🇹🇷'
-    };
-    return flags[lang] || '🌐';
+    const comparableCode = this.getComparableLanguageCode(lang);
+    return this.languageService.SUPPORTED_LANGUAGES.find(language => language.code === comparableCode)?.flag || '🌐';
   }
 
   getLanguageName(lang: string): string {
-    const names: { [key: string]: string } = {
-      'es': 'Español', 'en': 'English', 'fr': 'Français', 'de': 'Deutsch',
-      'pt': 'Português', 'it': 'Italiano', 'ru': 'Русский', 'zh-cn': '中文',
-      'ja': '日本語', 'ko': '한국어', 'ar': 'العربية', 'hi': 'हिन्दी',
-      'nl': 'Nederlands', 'pl': 'Polski', 'tr': 'Türkçe'
-    };
-    return names[lang] || lang.toUpperCase();
+    const comparableCode = this.getComparableLanguageCode(lang);
+    const knownLanguage = this.languageService.SUPPORTED_LANGUAGES.find(language => language.code === comparableCode);
+    return knownLanguage?.nativeName || this.flagService.getLanguageName(comparableCode) || lang.toUpperCase();
+  }
+
+  private buildUniqueLanguages(languages: string[]): string[] {
+    const uniqueLanguages = new Map<string, string>();
+
+    languages
+      .filter((language): language is string => !!language)
+      .forEach(language => {
+        const comparableCode = this.getComparableLanguageCode(language);
+        if (!uniqueLanguages.has(comparableCode)) {
+          uniqueLanguages.set(comparableCode, language);
+        }
+      });
+
+    return Array.from(uniqueLanguages.values());
+  }
+
+  private getComparableLanguageCode(lang: string | null | undefined): string {
+    if (!lang) return '';
+
+    const normalized = lang.toLowerCase();
+    if (normalized === 'zh-cn') {
+      return 'zh';
+    }
+
+    return normalized.split('-')[0];
   }
 }
+

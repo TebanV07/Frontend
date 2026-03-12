@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { ThemeService } from '../../../core/services/theme.service';
@@ -7,7 +8,7 @@ import { ThemeService } from '../../../core/services/theme.service';
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent],
+  imports: [CommonModule, RouterModule, HeaderComponent, TranslateModule],
   template: `
     <div class="main-layout" [class.dark-theme]="themeService.isDarkMode()">
       <app-header></app-header>
@@ -40,3 +41,4 @@ import { ThemeService } from '../../../core/services/theme.service';
 export class MainLayoutComponent {
   constructor(public themeService: ThemeService) {}
 }
+

@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+﻿import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService, FlagService } from '../../../core/services';
 
@@ -11,7 +12,7 @@ interface CountryOption {
 @Component({
   selector: 'app-country-setup',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './country-setup.component.html',
   styleUrls: ['./country-setup.component.scss']
 })
@@ -27,32 +28,17 @@ export class CountrySetupComponent implements OnInit {
   isSaving = false;
   showManualSelect = false;
 
-  readonly countries: CountryOption[] = [
-    { code: 'MX', name: 'México' }, { code: 'ES', name: 'España' },
-    { code: 'AR', name: 'Argentina' }, { code: 'CO', name: 'Colombia' },
-    { code: 'CL', name: 'Chile' }, { code: 'PE', name: 'Perú' },
-    { code: 'VE', name: 'Venezuela' }, { code: 'EC', name: 'Ecuador' },
-    { code: 'BO', name: 'Bolivia' }, { code: 'PY', name: 'Paraguay' },
-    { code: 'UY', name: 'Uruguay' }, { code: 'BR', name: 'Brasil' },
-    { code: 'US', name: 'United States' }, { code: 'CA', name: 'Canada' },
-    { code: 'GB', name: 'United Kingdom' }, { code: 'FR', name: 'France' },
-    { code: 'DE', name: 'Germany' }, { code: 'IT', name: 'Italy' },
-    { code: 'PT', name: 'Portugal' }, { code: 'NL', name: 'Netherlands' },
-    { code: 'PL', name: 'Poland' }, { code: 'RU', name: 'Russia' },
-    { code: 'JP', name: 'Japan' }, { code: 'CN', name: 'China' },
-    { code: 'KR', name: 'South Korea' }, { code: 'IN', name: 'India' },
-    { code: 'TR', name: 'Turkey' }, { code: 'SA', name: 'Saudi Arabia' },
-    { code: 'AU', name: 'Australia' }, { code: 'ZA', name: 'South Africa' },
-  ].sort((a, b) => a.name.localeCompare(b.name));
+  readonly countries: CountryOption[];
 
   constructor(
     private authService: AuthService,
     public flagService: FlagService
-  ) {}
+  ) {
+    this.countries = this.buildCountryOptions();
+  }
 
   ngOnInit(): void {
-    // El backend ya intentó detectar el país durante el login (_postLoginActions).
-    // Aquí simplemente leemos lo que tenga el usuario en memoria.
+    // El backend ya intentó detectar el país durante el login.
     const user = this.authService.getCurrentUser();
     if (user?.country_code) {
       this.detectedCountryCode = user.country_code;
@@ -88,4 +74,18 @@ export class CountrySetupComponent implements OnInit {
   skipSetup(): void {
     this.completed.emit();
   }
+
+  private buildCountryOptions(): CountryOption[] {
+    return [
+      'MX', 'ES', 'AR', 'CO', 'CL', 'PE', 'VE', 'EC', 'BO', 'PY',
+      'UY', 'BR', 'US', 'CA', 'GB', 'FR', 'DE', 'IT', 'PT', 'NL',
+      'PL', 'RU', 'JP', 'CN', 'KR', 'IN', 'TR', 'SA', 'AU', 'ZA'
+    ]
+      .map(code => ({
+        code,
+        name: this.flagService.getCountryName(code)
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }
 }
+

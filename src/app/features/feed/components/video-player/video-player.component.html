@@ -11,28 +11,28 @@
     preload="metadata"
     crossorigin="anonymous"
     (click)="togglePlay()">
-    
+
     <source [src]="getVideoUrl()" type="video/mp4">
-    
+
     <!-- Los subtítulos se agregan dinámicamente desde el componente -->
-    
-    Tu navegador no soporta el tag de video.
+
+    {{ 'videoPlayer.noSupport' | translate }}
   </video>
 
   <!-- Loading spinner -->
   <div class="loading-overlay" *ngIf="isLoading">
     <div class="spinner-large"></div>
-    <p class="loading-text">Cargando video...</p>
+    <p class="loading-text">{{ 'videoPlayer.loading' | translate }}</p>
   </div>
 
   <!-- Error state -->
   <div class="error-overlay" *ngIf="hasError">
     <div class="error-content">
       <span class="error-icon">⚠️</span>
-      <h3>Error al cargar video</h3>
-      <p>No se pudo reproducir este video</p>
+      <h3>{{ 'videoPlayer.error.title' | translate }}</h3>
+      <p>{{ 'videoPlayer.error.subtitle' | translate }}</p>
       <button class="retry-btn" (click)="retryLoad()">
-        Reintentar
+        {{ 'videoPlayer.error.retry' | translate }}
       </button>
     </div>
   </div>
