@@ -1,0 +1,12 @@
+{
+  "buildCommand": "npm run build:prod",
+  "outputDirectory": "dist/frontend/browser",
+  "installCommand": "npm ci",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
