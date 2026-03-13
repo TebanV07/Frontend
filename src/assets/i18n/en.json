@@ -4,6 +4,44 @@
                   "tagline":  "AI-Powered Global Connection"
               },
     "auth":  {
+                 "forgotPass":  {
+                                    "title":  "Recover password",
+                                    "subtitle":  "Enter your account email and we\u0027ll send you a link to reset your password.",
+                                    "emailLabel":  "Email",
+                                    "emailPlaceholder":  "you@email.com",
+                                    "sending":  "Sending...",
+                                    "submit":  "Send recovery link",
+                                    "backToLogin":  "Back to sign in",
+                                    "emailRequired":  "Enter your email to continue."
+                                },
+                 "resetPass":  {
+                                   "title":  "New password",
+                                   "subtitle":  "Enter your new password to complete the recovery.",
+                                   "newPasswordLabel":  "New password",
+                                   "newPasswordPlaceholder":  "Minimum 8 characters",
+                                   "confirmPasswordLabel":  "Confirm password",
+                                   "confirmPasswordPlaceholder":  "Repeat the new password",
+                                   "updating":  "Updating...",
+                                   "submit":  "Save new password",
+                                   "successTitle":  "Password reset",
+                                   "goToLogin":  "Go to sign in",
+                                   "errorTitle":  "Could not reset",
+                                   "requestNew":  "Request new link",
+                                   "invalidToken":  "No valid recovery token was found.",
+                                   "fillBothFields":  "Fill in both password fields.",
+                                   "passwordsMismatch":  "Passwords do not match."
+                               },
+                 "verifyRequired":  {
+                                        "title":  "Verify your email",
+                                        "lead":  "Your account logged in correctly, but you need to verify your email before entering the app.",
+                                        "registeredEmail":  "Registered email",
+                                        "hint":  "Check your inbox and spam folder. When you open the email link, come back here and click \u0022I already verified my account\u0022.",
+                                        "resending":  "Resending...",
+                                        "resend":  "Resend verification email",
+                                        "verifying":  "Verifying...",
+                                        "alreadyVerified":  "I already verified my account",
+                                        "logout":  "Sign out"
+                                    },
                  "login":  {
                                "title":  "Welcome back!",
                                "subtitle":  "Sign in to continue your global experience",

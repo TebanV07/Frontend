@@ -4,6 +4,44 @@
                   "tagline":  "AI-Powered Global Connection"
               },
     "auth":  {
+                 "forgotPass":  {
+                                    "title":  "Recuperar contraseña",
+                                    "subtitle":  "Escribe el email de tu cuenta y te enviaremos un enlace para restablecer tu contraseña.",
+                                    "emailLabel":  "Email",
+                                    "emailPlaceholder":  "tu@email.com",
+                                    "sending":  "Enviando...",
+                                    "submit":  "Enviar enlace de recuperación",
+                                    "backToLogin":  "Volver a iniciar sesión",
+                                    "emailRequired":  "Ingresa tu email para continuar."
+                                },
+                 "resetPass":  {
+                                   "title":  "Nueva contraseña",
+                                   "subtitle":  "Ingresa tu nueva contraseña para completar la recuperación.",
+                                   "newPasswordLabel":  "Nueva contraseña",
+                                   "newPasswordPlaceholder":  "Mínimo 8 caracteres",
+                                   "confirmPasswordLabel":  "Confirmar contraseña",
+                                   "confirmPasswordPlaceholder":  "Repite la nueva contraseña",
+                                   "updating":  "Actualizando...",
+                                   "submit":  "Guardar nueva contraseña",
+                                   "successTitle":  "Contraseña restablecida",
+                                   "goToLogin":  "Ir a iniciar sesión",
+                                   "errorTitle":  "No se pudo restablecer",
+                                   "requestNew":  "Solicitar nuevo enlace",
+                                   "invalidToken":  "No se encontró un token de recuperación válido.",
+                                   "fillBothFields":  "Completa ambos campos de contraseña.",
+                                   "passwordsMismatch":  "Las contraseñas no coinciden."
+                               },
+                 "verifyRequired":  {
+                                        "title":  "Verifica tu correo",
+                                        "lead":  "Tu cuenta inició sesión correctamente, pero necesitas verificar tu email antes de entrar a la app.",
+                                        "registeredEmail":  "Correo registrado",
+                                        "hint":  "Revisa tu bandeja de entrada y también spam. Cuando abras el enlace del correo, vuelve aquí y pulsa \"Ya verifiqué mi cuenta\".",
+                                        "resending":  "Reenviando...",
+                                        "resend":  "Reenviar correo de verificación",
+                                        "verifying":  "Verificando...",
+                                        "alreadyVerified":  "Ya verifiqué mi cuenta",
+                                        "logout":  "Cerrar sesión"
+                                    },
                  "login":  {
                                "title":  "¡Bienvenido de vuelta!",
                                "subtitle":  "Inicia sesión para continuar tu experiencia global",

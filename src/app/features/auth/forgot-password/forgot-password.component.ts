@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, TranslateModule],
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
@@ -17,14 +18,17 @@ export class ForgotPasswordComponent {
   successMessage = '';
   errorMessage = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private translate: TranslateService
+  ) {}
 
   onSubmit(): void {
     this.errorMessage = '';
     this.successMessage = '';
 
     if (!this.email.trim()) {
-      this.errorMessage = 'Ingresa tu email para continuar.';
+      this.errorMessage = this.translate.instant('auth.forgotPass.emailRequired');
       return;
     }
 
