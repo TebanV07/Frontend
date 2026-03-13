@@ -69,7 +69,7 @@ export interface ImageTranslationResponse {
   providedIn: 'root'
 })
 export class TranslationService {
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
 
   constructor(private http: HttpClient) {}
 
@@ -258,7 +258,7 @@ export class TranslationService {
   ): Promise<Observable<ImageTranslationResponse>> {
     const fullUrl = imageUrl.startsWith('http')
       ? imageUrl
-      : `http://localhost:8001${imageUrl}`;
+      : `https://web-production-94f95.up.railway.app${imageUrl}`;
 
     const blob = await this.http.get(fullUrl, {
       headers: this.getHeadersForFormData(),
@@ -271,3 +271,4 @@ export class TranslationService {
     return this.translateImage(imageId, file, targetLanguage, sourceLanguage);
   }
 }
+

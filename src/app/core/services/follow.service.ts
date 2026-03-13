@@ -73,7 +73,7 @@ interface FollowActionResponse {
   providedIn: 'root'
 })
 export class FollowService {
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
 
   private followingIdsSubject = new BehaviorSubject<number[]>([]);
   public followingIds$ = this.followingIdsSubject.asObservable();
@@ -474,3 +474,4 @@ export class FollowService {
     this.getSuggestedUsers().subscribe();
   }
 }
+

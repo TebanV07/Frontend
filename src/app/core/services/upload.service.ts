@@ -14,7 +14,7 @@ export interface UploadResponse {
   providedIn: 'root'
 })
 export class UploadService {
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
 
   constructor(private http: HttpClient) {}
 
@@ -41,3 +41,4 @@ export class UploadService {
     );
   }
 }
+

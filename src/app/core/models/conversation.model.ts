@@ -18,3 +18,4 @@ isTranslationEnabled: any;
   other_user?: UserMinimal;
   last_message?: Message;
 }
+

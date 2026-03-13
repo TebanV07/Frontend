@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
@@ -15,4 +15,5 @@ import { ThemeService } from '../../../core/services/theme.service';
 export class HomeComponent {
   constructor(public themeService: ThemeService) {}
 }
+
 

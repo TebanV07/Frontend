@@ -55,7 +55,7 @@ export interface TrendingStats {
   providedIn: 'root'
 })
 export class TrendingService {
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
 
   private trendingPostsSubject = new BehaviorSubject<TrendingPost[]>([]);
   public trendingPosts$ = this.trendingPostsSubject.asObservable();
@@ -208,3 +208,4 @@ export class TrendingService {
     this.refreshIntervalMs = intervalMs;
   }
 }
+

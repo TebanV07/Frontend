@@ -22,3 +22,4 @@ export interface Message {
   sender?: UserMinimal;
   translations?: { [language: string]: string };
 }
+

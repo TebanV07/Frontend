@@ -6,3 +6,4 @@ export interface ConversationDetail extends Conversation {
   messages: Message[];
   participants?: UserMinimal[];
 }
+

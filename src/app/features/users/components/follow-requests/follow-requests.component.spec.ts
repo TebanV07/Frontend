@@ -21,3 +21,4 @@ describe('FollowRequestsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

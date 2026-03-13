@@ -139,3 +139,4 @@ export interface FollowListResponse {
   pageSize: number;
   hasMore: boolean;
 }
+

@@ -1,4 +1,4 @@
-﻿// app/features/feed/videos/video-feed/video-feed.component.ts
+// app/features/feed/videos/video-feed/video-feed.component.ts
 
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -269,3 +269,4 @@ export class VideoFeedComponent implements OnInit {
     ];
   }
 }
+

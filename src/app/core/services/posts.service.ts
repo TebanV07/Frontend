@@ -47,7 +47,7 @@ export { Post } from '../models/post.model';
   providedIn: 'root'
 })
 export class PostsService {
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
   private isBrowser: boolean;
 
   constructor(
@@ -483,3 +483,4 @@ reportPost(postId: number, reason: string, description?: string): Observable<any
   );
 }
 }
+

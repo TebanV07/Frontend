@@ -1,4 +1,4 @@
-﻿import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
@@ -32,7 +32,7 @@ export class ProfileContentComponent implements OnChanges {
     const profileChanged = changes['profile'] && this.profile?.id !== this.loadedForUserId;
     const tabChanged = changes['selectedTab'];
 
-    // Si cambiÃ³ el perfil, resetear todo
+    // Si cambió el perfil, resetear todo
     if (profileChanged) {
       this.posts = [];
       this.videos = [];
@@ -43,7 +43,7 @@ export class ProfileContentComponent implements OnChanges {
 
     if (!this.profile?.id) return;
 
-    // Cargar segÃºn el tab activo
+    // Cargar según el tab activo
     if (this.selectedTab === 'posts' && (profileChanged || tabChanged) && this.posts.length === 0) {
       this.loadPosts();
     }
@@ -100,22 +100,23 @@ export class ProfileContentComponent implements OnChanges {
   getImageUrl(url: string | null | undefined): string {
     if (!url) return '';
     if (url.startsWith('http')) return url;
-    return `http://localhost:8001${url}`;
+    return `https://web-production-94f95.up.railway.app${url}`;
   }
 
   getAvatarUrl(avatar: string | null | undefined): string {
     if (!avatar) return 'assets/default-avatar.png';
     if (avatar.startsWith('http')) return avatar;
-    return `http://localhost:8001${avatar}`;
+    return `https://web-production-94f95.up.railway.app${avatar}`;
   }
 
   onVideoClick(videoId: number) {
     console.log('Video clicked:', videoId);
-    // aquÃ­ puedes navegar: this.router.navigate(['/videos', videoId])
+    // aquí puedes navegar: this.router.navigate(['/videos', videoId])
   }
 
   onImageError(event: Event) {
     (event.target as HTMLImageElement).src = 'assets/default-avatar.png';
   }
 }
+
 

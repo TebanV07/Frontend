@@ -6,3 +6,4 @@ describe('ShortNumberPipe', () => {
     expect(pipe).toBeTruthy();
   });
 });
+

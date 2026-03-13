@@ -36,7 +36,7 @@ export interface NotificationListResponse {
   providedIn: 'root'
 })
 export class NotificationService {
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
 
   // Subjects para RxJS
   private notificationsSubject = new BehaviorSubject<Notification[]>([]);
@@ -342,3 +342,4 @@ export class NotificationService {
     this.setPollingActive(false);
   }
 }
+

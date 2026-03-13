@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostComponent } from '../../../../shared/components/post/post.component';
 import { CreatePostComponent } from '../../../../shared/components/create-post/create-post.component';
@@ -222,7 +222,7 @@ navigateToExplorePeople(): void {
 
   /**
    * Maneja la subida de un video desde el componente de crear post.
-   * Si la orientaciÃ³n NO es vertical automÃ¡ticamente genera un post
+   * Si la orientación NO es vertical automáticamente genera un post
    * vinculado al video para que aparezca en el feed de posts.
    */
   onVideoCreated(video: any) {
@@ -270,4 +270,5 @@ navigateToExplorePeople(): void {
     console.debug('Traducir video del post:', postId);
   }
 }
+
 

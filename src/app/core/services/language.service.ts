@@ -135,3 +135,4 @@ export class LanguageService {
     document.documentElement.setAttribute('lang', this.getCurrentLanguage());
   }
 }
+

@@ -1,4 +1,4 @@
-ï»¿import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +18,7 @@ interface CountryOption {
 })
 export class CountrySetupComponent implements OnInit {
 
-  /** Emite cuando el usuario confirma su paÃ­s (o cierra el modal) */
+  /** Emite cuando el usuario confirma su país (o cierra el modal) */
   @Output() completed = new EventEmitter<void>();
 
   detectedCountryCode: string | null = null;
@@ -38,7 +38,7 @@ export class CountrySetupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // El backend ya intentÃ³ detectar el paÃ­s durante el login.
+    // El backend ya intentó detectar el país durante el login.
     const user = this.authService.getCurrentUser();
     if (user?.country_code) {
       this.detectedCountryCode = user.country_code;
@@ -88,4 +88,5 @@ export class CountrySetupComponent implements OnInit {
       .sort((a, b) => a.name.localeCompare(b.name));
   }
 }
+
 

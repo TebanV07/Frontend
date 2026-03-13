@@ -1,4 +1,4 @@
-﻿import {
+import {
   Component, Input, Output, EventEmitter,
   OnChanges, SimpleChanges, ViewChildren, QueryList
 } from '@angular/core';
@@ -36,7 +36,7 @@ export class ChatWindowComponent implements OnChanges {
 
   @ViewChildren(MessageBubbleComponent) messageBubbles!: QueryList<MessageBubbleComponent>;
 
-  private readonly uploadUrl = 'http://localhost:8001/api/v1/messages/upload';
+  private readonly uploadUrl = 'https://web-production-94f95.up.railway.app/api/v1/messages/upload';
 
   constructor(
     private http: HttpClient,
@@ -152,7 +152,7 @@ export class ChatWindowComponent implements OnChanges {
     }
   }
 
-  // ==================== TRADUCCIÃ“N ====================
+  // ==================== TRADUCCIÓN ====================
 
   onTranslateMessage(event: { message: Message, language: string }): void {
     const { message, language } = event;
@@ -192,4 +192,5 @@ export class ChatWindowComponent implements OnChanges {
     return `${this.activeConversation.other_user.name} esta escribiendo...`;
   }
 }
+
 

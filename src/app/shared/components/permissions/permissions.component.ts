@@ -1,4 +1,4 @@
-锘縤mport { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
@@ -25,24 +25,24 @@ export class PermissionsComponent implements OnInit {
   permissions: Permission[] = [
     {
       id: 'camera',
-      name: 'C谩mara',
-      icon: '馃摲',
-      description: 'Necesitamos acceso a tu c谩mara para transmisiones en vivo y videollamadas',
+      name: 'C醡ara',
+      icon: '??',
+      description: 'Necesitamos acceso a tu c醡ara para transmisiones en vivo y videollamadas',
       granted: false,
       required: false
     },
     {
       id: 'microphone',
-      name: 'Micr贸fono',
-      icon: '馃帳',
-      description: 'Acceso a tu micr贸fono para audio en videollamadas y transmisiones',
+      name: 'Micr骹ono',
+      icon: '??',
+      description: 'Acceso a tu micr骹ono para audio en videollamadas y transmisiones',
       granted: false,
       required: false
     },
     {
       id: 'geolocation',
-      name: 'Ubicaci贸n',
-      icon: '馃搷',
+      name: 'Ubicaci髇',
+      icon: '??',
       description: 'Opcional: para localizar eventos y encuentros cercanos',
       granted: false,
       required: false
@@ -50,7 +50,7 @@ export class PermissionsComponent implements OnInit {
     {
       id: 'notifications',
       name: 'Notificaciones',
-      icon: '馃敂',
+      icon: '??',
       description: 'Recibe notificaciones sobre mensajes, comentarios y menciones',
       granted: false,
       required: true
@@ -67,7 +67,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-    * Solicitar permiso espec铆fico.
+    * Solicitar permiso espec韋ico.
    */
   async requestPermission(permission: Permission): Promise<void> {
     try {
@@ -91,7 +91,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-    * Solicitar permiso de c谩mara.
+    * Solicitar permiso de c醡ara.
    */
   private async requestCameraPermission(permission: Permission): Promise<void> {
     try {
@@ -106,7 +106,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-    * Solicitar permiso de micr贸fono.
+    * Solicitar permiso de micr骹ono.
    */
   private async requestMicrophonePermission(permission: Permission): Promise<void> {
     try {
@@ -121,7 +121,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-    * Solicitar permiso de ubicaci贸n.
+    * Solicitar permiso de ubicaci髇.
    */
   private async requestGeolocationPermission(permission: Permission): Promise<void> {
     return new Promise((resolve) => {
@@ -196,4 +196,5 @@ export class PermissionsComponent implements OnInit {
     }, 2000);
   }
 }
+
 

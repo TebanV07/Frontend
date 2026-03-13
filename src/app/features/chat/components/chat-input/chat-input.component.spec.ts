@@ -21,3 +21,4 @@ describe('ChatInputComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

@@ -1,4 +1,4 @@
-﻿import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Post } from '../../../core/models/post.model';
@@ -37,32 +37,32 @@ export class PostComponent implements OnInit {
   comments: Comment[] = [];
   loadingComments = false;
 
-  // â”€â”€ Dropdown â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Dropdown ──────────────────────────────────────────────
   showDropdown = false;
 
-  // â”€â”€ Delete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Delete ────────────────────────────────────────────────
   showDeleteConfirm = false;
   isDeleting = false;
   deleteError = '';
 
-  // â”€â”€ Report â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Report ────────────────────────────────────────────────
   showReportModal = false;
 
-  // â”€â”€ TraducciÃ³n de TEXTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Traducción de TEXTO ───────────────────────────────────
   showTranslation = false;
   translatedContent = '';
   isTranslating = false;
   selectedTranslationLanguage = 'es';
   lastTranslatedLanguage = '';
 
-  // â”€â”€ TraducciÃ³n de IMÃGENES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Traducción de IMÁGENES ────────────────────────────────
   imageTranslations: { [imageId: number]: ImageTranslationResponse } = {};
   showImageTranslation: { [imageId: number]: boolean } = {};
   translatingImageId: number | null = null;
 
   availableLanguages: Language[] = [];
 
-  private readonly apiBaseUrl = 'http://localhost:8001';
+  private readonly apiBaseUrl = 'https://web-production-94f95.up.railway.app';
 
   constructor(
     private postsService: PostsService,
@@ -147,7 +147,7 @@ export class PostComponent implements OnInit {
     this.showReportModal = false;
   }
 
-  // ==================== TRADUCCIÃ“N ====================
+  // ==================== TRADUCCIÓN ====================
 
   onTranslationLanguageChange(event: Event): void {
     const newLanguage = (event.target as HTMLSelectElement).value;
@@ -162,13 +162,13 @@ export class PostComponent implements OnInit {
   }
 
   toggleTranslation(): void {
-    // Si ya estÃ¡ mostrando traducciÃ³n â†’ ocultar todo
+    // Si ya está mostrando traducción → ocultar todo
     if (this.showTranslation) {
       this.showTranslation = false;
       return;
     }
 
-    // Si ya tenemos la traducciÃ³n del texto en el mismo idioma â†’ solo mostrar
+    // Si ya tenemos la traducción del texto en el mismo idioma → solo mostrar
     if (this.translatedContent && this.lastTranslatedLanguage === this.selectedTranslationLanguage) {
       this.showTranslation = true;
       return;
@@ -189,10 +189,10 @@ export class PostComponent implements OnInit {
       }
     });
 
-    // Traducir imÃ¡genes en paralelo
+    // Traducir imágenes en paralelo
     if (this.post.images?.length) {
       this.post.images.forEach(image => {
-        // Si ya existe traducciÃ³n para este idioma, no volver a llamar
+        // Si ya existe traducción para este idioma, no volver a llamar
         if (
           this.imageTranslations[image.id] &&
           this.imageTranslations[image.id].target_language === this.selectedTranslationLanguage
@@ -295,4 +295,5 @@ export class PostComponent implements OnInit {
     return `${Math.floor(diffHours / 24)}d`;
   }
 }
+
 

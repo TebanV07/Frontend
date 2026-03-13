@@ -1,4 +1,4 @@
-﻿import { Component, Output, EventEmitter, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +19,7 @@ export class CreatePostComponent implements OnInit {
   @ViewChild('imageInput') imageInput!: ElementRef<HTMLInputElement>;
   @ViewChild('videoInput') videoInput!: ElementRef<HTMLInputElement>;
 
-  // âœ… Datos del usuario actual
+  // ✅ Datos del usuario actual
   currentUser: any = null;
   readonly defaultAvatar = 'assets/default-avatar.png';
 
@@ -39,41 +39,41 @@ export class CreatePostComponent implements OnInit {
 
   constructor(
     private postsService: PostsService,
-    private authService: AuthService   // âœ… Inyectado
+    private authService: AuthService   // ✅ Inyectado
   ) {}
 
   ngOnInit(): void {
-    // âœ… Suscribirse al usuario actual para obtener avatar y idioma nativo
+    // ✅ Suscribirse al usuario actual para obtener avatar y idioma nativo
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
     });
   }
 
-  // âœ… Avatar real del usuario
+  // ✅ Avatar real del usuario
   getAvatarUrl(): string {
     const avatar = this.currentUser?.avatar || this.currentUser?.profile_image;
     if (!avatar) return this.defaultAvatar;
     if (avatar.startsWith('http')) return avatar;
-    return `http://localhost:8001${avatar}`;
+    return `https://web-production-94f95.up.railway.app${avatar}`;
   }
 
   onAvatarError(event: Event) {
     (event.target as HTMLImageElement).src = this.defaultAvatar;
   }
 
-  // âœ… Idioma nativo del usuario (fallback a 'es')
+  // ✅ Idioma nativo del usuario (fallback a 'es')
   get userLanguage(): string {
     return this.currentUser?.native_language
       || this.currentUser?.nativeLanguage
       || 'es';
   }
 
-  // ==================== SELECCIÃ“N DE MEDIA ====================
+  // ==================== SELECCIÓN DE MEDIA ====================
 
   onSelectImages() { this.imageInput.nativeElement.click(); }
   onSelectVideo()  { this.videoInput.nativeElement.click(); }
 
-  // ==================== MANEJO DE IMÃGENES ====================
+  // ==================== MANEJO DE IMÁGENES ====================
 
   onImagesSelected(event: Event) {
     const files = Array.from((event.target as HTMLInputElement).files || []);
@@ -167,7 +167,7 @@ export class CreatePostComponent implements OnInit {
         this.postContent.trim(),
         title,
         description,
-        this.userLanguage,   // âœ… Usa el idioma nativo del usuario
+        this.userLanguage,   // ✅ Usa el idioma nativo del usuario
         undefined,
         [],
         true
@@ -203,7 +203,7 @@ export class CreatePostComponent implements OnInit {
         this.postContent.trim(),
         this.selectedImages.length > 0 ? this.selectedImages : undefined,
         undefined,
-        this.userLanguage   // âœ… Usa el idioma nativo del usuario (antes era 'en' hardcodeado)
+        this.userLanguage   // ✅ Usa el idioma nativo del usuario (antes era 'en' hardcodeado)
       ).subscribe({
         next: (response) => {
           alert('Post publicado exitosamente');
@@ -249,4 +249,5 @@ export class CreatePostComponent implements OnInit {
     return 'Procesando...';
   }
 }
+
 

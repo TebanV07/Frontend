@@ -21,3 +21,4 @@ describe('ProfileTabsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

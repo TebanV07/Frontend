@@ -1,4 +1,4 @@
-﻿import { Component, Input, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
@@ -26,7 +26,7 @@ export class CommentItemComponent implements OnInit {
   showReplies: boolean = false;
   formattedDate: string = '';
   showMenu = false;
-  // ediciÃ³n
+  // edición
   isEditing: boolean = false;
   editContent: string = '';
 
@@ -78,7 +78,7 @@ startEdit(): void {
 
   saveEdit(): void {
     if (!this.editContent.trim()) return;
-    // elegir endpoint segÃºn contexto
+    // elegir endpoint según contexto
     const update$ = this.videoId
       ? this.commentService.updateVideoComment(this.comment.id, { content: this.editContent.trim() })
       : this.commentService.updatePostComment(this.comment.id, { content: this.editContent.trim() });
@@ -95,7 +95,7 @@ startEdit(): void {
 deleteThisComment(): void {
   if (this.currentUserId !== this.comment.user_id) return;
   this.showMenu = false;
-  if (!confirm('Â¿Eliminar este comentario?')) return;
+  if (!confirm('¿Eliminar este comentario?')) return;
   const delete$ = this.videoId
     ? this.commentService.deleteVideoComment(this.comment.id)
     : this.commentService.deletePostComment(this.comment.id);
@@ -119,7 +119,7 @@ onDocumentClick(): void {
 
   toggleCommentLike(): void {
     if (this.comment.is_liked) {
-      // usar mÃ©todo segÃºn contexto de post o video
+      // usar método según contexto de post o video
       const unlike$ = this.videoId
         ? this.commentService.unlikeVideoComment(this.comment.id)
         : this.commentService.unlikePostComment(this.comment.id);
@@ -160,5 +160,6 @@ onDocumentClick(): void {
   }
 
 }
+
 
 

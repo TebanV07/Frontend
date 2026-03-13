@@ -21,3 +21,4 @@ describe('ProfileHeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

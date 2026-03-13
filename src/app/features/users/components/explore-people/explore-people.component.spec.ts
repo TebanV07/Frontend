@@ -21,3 +21,4 @@ describe('ExplorePeopleComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

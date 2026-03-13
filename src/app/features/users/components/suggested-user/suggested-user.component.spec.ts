@@ -21,3 +21,4 @@ describe('SuggestedUserComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

@@ -10,7 +10,7 @@
     <!-- Avatar -->
     <div class="avatar-wrap">
       <img
-        [src]="profile.avatar ? ('http://localhost:8001' + profile.avatar) : 'assets/default-avatar.png'"
+        [src]="profile.avatar ? ('https://web-production-94f95.up.railway.app' + profile.avatar) : 'assets/default-avatar.png'"
         [alt]="profile.username"
         class="avatar"
         (error)="$any($event.target).src = 'assets/default-avatar.png'">
@@ -138,3 +138,4 @@
     </div>
   </div>
 </div>
+

@@ -1,4 +1,4 @@
-﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
@@ -30,23 +30,23 @@ export class PostCardComponent {
   showDropdown = false;
   isPlaying    = false;
 
-  // â”€â”€ TraducciÃ³n de TEXTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Traducción de TEXTO ──────────────────────────────────
   showTranslation   = false;
   translatedContent = '';
   isTranslating     = false;
 
-  // â”€â”€ TraducciÃ³n de IMÃGENES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Traducción de IMÁGENES ───────────────────────────────
   imageTranslations:    { [imageId: number]: ImageTranslationResponse } = {};
   showImageTranslation: { [imageId: number]: boolean }                  = {};
   translatingImageId:   number | null = null;
 
-  // â”€â”€ Report / Delete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Report / Delete ──────────────────────────────────────
   showReportModal   = false;
   showDeleteConfirm = false;
   isDeleting        = false;
   deleteError       = '';
 
-  private readonly apiBaseUrl = 'http://localhost:8001';
+  private readonly apiBaseUrl = 'https://web-production-94f95.up.railway.app';
 
   constructor(
     public  flagService:        FlagService,
@@ -72,7 +72,7 @@ export class PostCardComponent {
     return date.toLocaleDateString();
   }
 
-  // â”€â”€ URL helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── URL helpers ──────────────────────────────────────────
 
   getFullImageUrl(imageUrl: string | undefined | null): string {
     if (!imageUrl) return '';
@@ -96,7 +96,7 @@ export class PostCardComponent {
     return this.getFullImageUrl(found || '');
   }
 
-  // â”€â”€ Video â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Video ────────────────────────────────────────────────
 
   playInline(event?: Event): void {
     if (event) event.stopPropagation();
@@ -120,7 +120,7 @@ export class PostCardComponent {
     (event.target as HTMLImageElement).src = '/assets/default-image.png';
   }
 
-  // â”€â”€ Dropdown â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Dropdown ─────────────────────────────────────────────
 
   toggleDropdown(): void  { this.showDropdown = !this.showDropdown; }
   closeDropdown(): void   { this.showDropdown = false; }
@@ -130,7 +130,7 @@ export class PostCardComponent {
     this.postUpdated.emit(this.post);
   }
 
-  // â”€â”€ Delete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Delete ───────────────────────────────────────────────
 
   openDeleteConfirm(): void {
     this.closeDropdown();
@@ -161,7 +161,7 @@ export class PostCardComponent {
     });
   }
 
-  // â”€â”€ Report â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Report ───────────────────────────────────────────────
 
   openReport(): void {
     this.closeDropdown();
@@ -170,7 +170,7 @@ export class PostCardComponent {
 
   onReportClosed(): void { this.showReportModal = false; }
 
-  // â”€â”€ TraducciÃ³n de TEXTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Traducción de TEXTO ──────────────────────────────────
 
   toggleTranslation(): void {
     if (!this.post) return;
@@ -194,7 +194,7 @@ export class PostCardComponent {
     });
   }
 
-  // â”€â”€ TraducciÃ³n de IMÃGENES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Traducción de IMÁGENES ───────────────────────────────
 
   translateImage(image: { id: number; image_url: string }): void {
     if (this.translatingImageId === image.id) return;
@@ -226,7 +226,7 @@ export class PostCardComponent {
     this.showImageTranslation[imageId] = !this.showImageTranslation[imageId];
   }
 
-  // â”€â”€ Acciones generales â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Acciones generales ───────────────────────────────────
 
   sharePost(): void { console.log('Share post:', this.post.id); }
 
@@ -239,4 +239,5 @@ export class PostCardComponent {
 
   requestTranslateVideo(): void { this.translateVideo.emit(this.post.id); }
 }
+
 

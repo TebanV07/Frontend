@@ -6,3 +6,4 @@ export const environment = {
   videoFormats: ['mp4', 'webm', 'mkv'],
   imageFormats: ['jpg', 'jpeg', 'png', 'gif']
 };
+

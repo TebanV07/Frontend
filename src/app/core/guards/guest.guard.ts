@@ -14,3 +14,4 @@ export const guestGuard: CanActivateFn = () => {
   router.navigate([authService.isCurrentUserVerified() ? '/home' : '/verify-email-required']);
   return false;
 };
+

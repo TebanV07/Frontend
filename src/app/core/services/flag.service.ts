@@ -91,3 +91,4 @@ export class FlagService {
     return !!countryCode && countryCode.trim().length === 2;
   }
 }
+

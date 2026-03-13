@@ -120,3 +120,4 @@ export interface PostFeedResponse {
   nextCursor?: string;
   total?: number;
 }
+

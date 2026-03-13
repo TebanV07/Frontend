@@ -4,3 +4,4 @@ export interface ChatUser {
   name?: string;
   avatar?: string;
 }
+

@@ -1,4 +1,4 @@
-﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { PostLikeService } from '../../../../core/services/post-like.service';
@@ -25,7 +25,7 @@ export class LikeButtonComponent {
 
   this.isLoading = true;
 
-  // âœ… PASA is_liked al servicio
+  // ✅ PASA is_liked al servicio
   this.likeService.toggleLike(this.postId, this.is_liked).subscribe({
     next: (response) => {
       // Toggle manual ya que el backend no devuelve el estado
@@ -44,3 +44,4 @@ export class LikeButtonComponent {
   });
  }
 }
+

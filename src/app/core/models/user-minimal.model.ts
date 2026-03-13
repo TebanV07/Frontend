@@ -10,3 +10,4 @@ export interface UserMinimal {
   // permit extra properties coming from backend without breaking template checks
   [key: string]: any;
 }
+

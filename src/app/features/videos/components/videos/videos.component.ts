@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
@@ -270,7 +270,7 @@ requestTranslation(targetLanguage: string) {
     return;
   }
 
-  // Verificar si ya existe la traducciÃ³n
+  // Verificar si ya existe la traducción
   if (video.available_languages?.includes(targetLanguage)) {
     this.switchToLanguage(targetLanguage);
     return;
@@ -631,23 +631,23 @@ getUserAvatar(video: Video): string {
 
   getLanguageFlag(lang: string): string {
     const flags: { [key: string]: string } = {
-      'es': '🇪🇸',
-      'en': '🇬🇧',
-      'fr': '🇫🇷',
-      'de': '🇩🇪',
-      'pt': '🇵🇹',
-      'it': '🇮🇹',
-      'ru': '🇷🇺',
-      'zh-cn': '🇨🇳',
-      'ja': '🇯🇵',
-      'ko': '🇰🇷',
-      'ar': '🇸🇦',
-      'hi': '🇮🇳',
-      'nl': '🇳🇱',
-      'pl': '🇵🇱',
-      'tr': '🇹🇷'
+      'es': '????',
+      'en': '????',
+      'fr': '????',
+      'de': '????',
+      'pt': '????',
+      'it': '????',
+      'ru': '????',
+      'zh-cn': '????',
+      'ja': '????',
+      'ko': '????',
+      'ar': '????',
+      'hi': '????',
+      'nl': '????',
+      'pl': '????',
+      'tr': '????'
     };
-    return flags[lang] || '🌐';
+    return flags[lang] || '??';
   }
 
   getLanguageName(lang: string): string {
@@ -719,4 +719,5 @@ private handleTranslationError(error: any) {
   this.showMessage(errorMsg);
 }
 }
+
 

@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +17,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class SettingsComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
 
   currentUser: any = null;
   activeTab: 'profile' | 'account' | 'notifications' | 'privacy' = 'profile';
@@ -31,7 +31,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   avatarFile: File | null = null;
   isUploadingAvatar = false;
 
-  // â”€â”€ Eliminar cuenta â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Eliminar cuenta ──────────────────────────────────────
   showDeleteModal = false;
   deletePassword = '';
   deleteError = '';
@@ -135,7 +135,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     const avatar = this.currentUser?.avatar;
     if (!avatar) return 'assets/default-avatar.png';
     if (avatar.startsWith('http')) return avatar;
-    return `http://localhost:8001${avatar}`;
+    return `https://web-production-94f95.up.railway.app${avatar}`;
   }
 
   onAvatarSelected(event: Event) {
@@ -254,7 +254,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
   }
 
-  // â”€â”€ Eliminar cuenta â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Eliminar cuenta ──────────────────────────────────────
 
   openDeleteModal() {
     this.deletePassword = '';
@@ -298,7 +298,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
   }
 
-  // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Helpers ──────────────────────────────────────────────
 
   private showSuccess() {
     this.saveSuccess = true;
@@ -314,4 +314,5 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 }
+
 

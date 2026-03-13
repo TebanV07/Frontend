@@ -1,4 +1,4 @@
-﻿import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
@@ -103,4 +103,5 @@ export class CommentListComponent implements OnInit {
     return comment.id;
   }
 }
+
 

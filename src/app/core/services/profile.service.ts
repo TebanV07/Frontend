@@ -42,7 +42,7 @@ export interface VideosPage {
   providedIn: 'root'
 })
 export class ProfileService {
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
   private currentProfile$ = new BehaviorSubject<UserProfile | null>(null);
   private isBrowser: boolean;
 
@@ -277,3 +277,4 @@ export class ProfileService {
     };
   }
 }
+

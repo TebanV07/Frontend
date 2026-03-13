@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
@@ -203,18 +203,19 @@ export class NotificationsPageComponent implements OnInit, OnDestroy {
    */
   getNotificationIcon(notification: Notification): string {
     const icons: Record<string, string> = {
-      'follow_request': '👤',
-      'follow_accepted': '✅',
-      'new_message': '💬',
-      'conversation_request': '🗨️',
-      'post_from_follow': '📝',
-      'repost_from_follow': '🔄',
-      'like_on_post': '❤️',
-      'comment_on_post': '💭',
-      'default': '🔔'
+      'follow_request': '??',
+      'follow_accepted': '?',
+      'new_message': '??',
+      'conversation_request': '???',
+      'post_from_follow': '??',
+      'repost_from_follow': '??',
+      'like_on_post': '??',
+      'comment_on_post': '??',
+      'default': '??'
     };
 
     return icons[notification.type] || icons['default'];
   }
 }
+
 

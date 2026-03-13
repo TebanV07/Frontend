@@ -1,4 +1,4 @@
-﻿// src/app/shared/components/report-modal/report-modal.component.ts
+// src/app/shared/components/report-modal/report-modal.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -24,7 +24,7 @@ export class ReportModalComponent {
   @Input() contentId!: number;
   @Output() closed = new EventEmitter<void>();
 
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
 
   selectedReason = '';
   description = '';
@@ -33,13 +33,13 @@ export class ReportModalComponent {
   successMsg = '';
 
   reasons = [
-    { value: 'spam',           icon: '📢', label: 'Spam o contenido repetitivo' },
-    { value: 'harassment',     icon: '😡', label: 'Acoso o intimidacion' },
-    { value: 'inappropriate',  icon: '🔞', label: 'Contenido inapropiado o sexual' },
-    { value: 'misinformation', icon: '❌', label: 'Informacion falsa o enganosa' },
-    { value: 'violence',       icon: '⚠️', label: 'Violencia o contenido peligroso' },
-    { value: 'hate_speech',    icon: '🚫', label: 'Discurso de odio' },
-    { value: 'other',          icon: '📝', label: 'Otro motivo' }
+    { value: 'spam',           icon: '??', label: 'Spam o contenido repetitivo' },
+    { value: 'harassment',     icon: '??', label: 'Acoso o intimidacion' },
+    { value: 'inappropriate',  icon: '??', label: 'Contenido inapropiado o sexual' },
+    { value: 'misinformation', icon: '?', label: 'Informacion falsa o enganosa' },
+    { value: 'violence',       icon: '??', label: 'Violencia o contenido peligroso' },
+    { value: 'hate_speech',    icon: '??', label: 'Discurso de odio' },
+    { value: 'other',          icon: '??', label: 'Otro motivo' }
   ];
 
   constructor(private http: HttpClient) {}
@@ -84,4 +84,5 @@ export class ReportModalComponent {
     });
   }
 }
+
 

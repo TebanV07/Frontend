@@ -106,3 +106,4 @@ export class VerifyEmailRequiredComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 }
+

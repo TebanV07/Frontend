@@ -124,7 +124,7 @@ interface TrendingApiResponse {
   providedIn: 'root'
 })
 export class VideoService {
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
   private currentVideo$ = new BehaviorSubject<Video | null>(null);
 
   constructor(private http: HttpClient) {}
@@ -577,3 +577,4 @@ getSubtitles(videoId: number, language: string): Observable<VideoSubtitle> {
   );
 }
 }
+

@@ -21,3 +21,4 @@ describe('VideoPlayerComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

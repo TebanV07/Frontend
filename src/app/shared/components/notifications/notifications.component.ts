@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule, Router } from '@angular/router';
@@ -218,27 +218,27 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Obtener icono segÃºn tipo de notificaciÃ³n
+   * Obtener icono según tipo de notificación
    */
   getNotificationIcon(notification: Notification): string {
     switch (notification.type) {
       case 'follow_request':
-        return '👤'; // Usuario
+        return '??'; // Usuario
       case 'follow_accepted':
-        return '✅'; // Aprobado
+        return '?'; // Aprobado
       case 'new_message':
-        return '💬'; // Mensaje
+        return '??'; // Mensaje
       case 'conversation_request':
-        return '🗨️'; // Solicitud de conversar
+        return '???'; // Solicitud de conversar
       case 'post_from_follow':
       case 'repost_from_follow':
-        return '📝'; // Post
+        return '??'; // Post
       case 'like_on_post':
-        return '❤️'; // Like
+        return '??'; // Like
       case 'comment_on_post':
-        return '💭'; // Comentario
+        return '??'; // Comentario
       default:
-        return '🔔'; // Campana por defecto
+        return '??'; // Campana por defecto
     }
   }
 
@@ -258,4 +258,5 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     return notificationDate.toLocaleDateString();
   }
 }
+
 

@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -34,12 +34,12 @@ export class PostDetailComponent implements OnInit {
   isTranslating = false;
   selectedTranslationLanguage = 'en';
 
-  private readonly apiBaseUrl = 'http://localhost:8001';
+  private readonly apiBaseUrl = 'https://web-production-94f95.up.railway.app';
 
   constructor(
     private route: ActivatedRoute,
     private postService: PostsService,
-    public flagService: FlagService    // â­ NUEVO
+    public flagService: FlagService    // ⭐ NUEVO
   ) {}
 
   ngOnInit(): void {
@@ -66,7 +66,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   onVideoError(event: Event): void {
-    console.error('âŒ Error loading video:', (event.target as HTMLVideoElement)?.error);
+    console.error('❌ Error loading video:', (event.target as HTMLVideoElement)?.error);
   }
 
   toggleTranslation(): void {
@@ -102,4 +102,5 @@ export class PostDetailComponent implements OnInit {
     });
   }
 }
+
 

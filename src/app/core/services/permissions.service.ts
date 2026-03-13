@@ -138,3 +138,4 @@ export class PermissionsService {
     localStorage.setItem('permissions_granted', configured ? 'true' : 'false');
   }
 }
+

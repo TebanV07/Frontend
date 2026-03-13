@@ -21,3 +21,4 @@ describe('PostCardComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

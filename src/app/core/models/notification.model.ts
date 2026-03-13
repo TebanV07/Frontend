@@ -27,3 +27,4 @@ export interface NotificationListResponse {
   pageSize: number;
   hasMore: boolean;
 }
+

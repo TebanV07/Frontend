@@ -8,7 +8,7 @@ import { Comment, CreateCommentDto } from '../models/comment.model';
   providedIn: 'root'
 })
 export class CommentService {
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
 
   private postCommentsSubject = new BehaviorSubject<Comment[]>([]);
   public postComments$ = this.postCommentsSubject.asObservable();
@@ -272,3 +272,4 @@ export class CommentService {
     return this.videoCommentsSubject.value;
   }
 }
+

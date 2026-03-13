@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
   // Asegúrate de que esta URL apunte a tu backend Python
-  private apiUrl = 'http://localhost:8001/api';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api';
 
   constructor(private http: HttpClient) { }
 

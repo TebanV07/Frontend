@@ -6,3 +6,4 @@ export interface MessageListResponse {
   skip: number;
   limit: number;
 }
+

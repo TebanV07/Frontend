@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
@@ -41,4 +41,5 @@ import { ThemeService } from '../../../core/services/theme.service';
 export class MainLayoutComponent {
   constructor(public themeService: ThemeService) {}
 }
+
 

@@ -1,4 +1,4 @@
-﻿// app/features/feed/videos/video-overlay/video-overlay.component.ts
+// app/features/feed/videos/video-overlay/video-overlay.component.ts
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -25,19 +25,19 @@ export class VideoOverlayComponent {
   // Estados locales
   showTranslationMenu = false;
   selectedSubtitleLanguage: string = '';
-  private readonly apiBaseUrl = 'http://localhost:8001';
+  private readonly apiBaseUrl = 'https://web-production-94f95.up.railway.app';
 
   // Idiomas disponibles para traduccion
   availableTranslationLanguages = [
-    { code: 'es', name: 'Espanol', flag: '🇪🇸' },
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'fr', name: 'Frances', flag: '🇫🇷' },
-    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-    { code: 'pt', name: 'Portugues', flag: '🇵🇹' },
-    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-    { code: 'ja', name: 'Japones', flag: '🇯🇵' },
-    { code: 'zh', name: 'Chino', flag: '🇨🇳' },
-    { code: 'ko', name: 'Coreano', flag: '🇰🇷' },
+    { code: 'es', name: 'Espanol', flag: '????' },
+    { code: 'en', name: 'English', flag: '????' },
+    { code: 'fr', name: 'Frances', flag: '????' },
+    { code: 'de', name: 'Deutsch', flag: '????' },
+    { code: 'pt', name: 'Portugues', flag: '????' },
+    { code: 'it', name: 'Italiano', flag: '????' },
+    { code: 'ja', name: 'Japones', flag: '????' },
+    { code: 'zh', name: 'Chino', flag: '????' },
+    { code: 'ko', name: 'Coreano', flag: '????' },
   ];
 
   ngOnInit() {
@@ -103,7 +103,7 @@ export class VideoOverlayComponent {
 
   getLanguageFlag(langCode: string): string {
     const lang = this.availableTranslationLanguages.find(l => l.code === langCode);
-    return lang?.flag || '🌐';
+    return lang?.flag || '??';
   }
 
   getUserAvatarUrl(): string {
@@ -174,3 +174,4 @@ export class VideoOverlayComponent {
     return date.toLocaleDateString();
   }
 }
+

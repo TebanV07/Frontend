@@ -14,7 +14,7 @@ import {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
 
   private usersCache$ = new BehaviorSubject<Map<number, User>>(new Map());
 

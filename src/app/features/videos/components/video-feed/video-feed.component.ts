@@ -1,4 +1,4 @@
-锘縤mport {
+import {
   Component, OnInit, AfterViewInit, OnDestroy,
   ViewChildren, QueryList, ElementRef
 } from '@angular/core';
@@ -30,7 +30,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
   showComments = false;
 
-  // Traducci贸n
+  // Traducci髇
   showLanguageMenu = false;
   availableLanguages: string[] = [];
   currentLanguage = 'es';
@@ -253,7 +253,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // El observer controla la reproducci贸n autom谩tica del video activo.
+  // El observer controla la reproducci髇 autom醫ica del video activo.
   onVideoLoaded(event: Event): void {
     const video = event.target as HTMLVideoElement;
     video.volume = 1.0;
@@ -300,7 +300,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
         video.shares_count = res.shares_count;
         const shareUrl = `${window.location.origin}/videos/${video.uuid}`;
         navigator.clipboard.writeText(shareUrl)
-          .then(() => alert('隆Enlace copiado!'))
+          .then(() => alert('nlace copiado!'))
           .catch(() => alert(`Enlace: ${shareUrl}`));
       },
       error: err => console.error('Error share:', err)
@@ -311,7 +311,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('Follow user:', user?.username);
   }
 
-  // ==================== TRADUCCI脫N ====================
+  // ==================== TRADUCCI覰 ====================
 
   get currentVideo(): Video | null {
     return this.videos[this.currentVideoIndex] || null;
@@ -352,7 +352,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    const wantAudio = confirm('驴Deseas incluir doblaje de audio?');
+    const wantAudio = confirm('緿eseas incluir doblaje de audio?');
 
     if (!wantAudio) {
       this.isTranslating = true;
@@ -367,11 +367,11 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.includeAudioDubbing = true;
-    const wantPremium = confirm('驴Usar voz premium (ElevenLabs)?');
+    const wantPremium = confirm('縐sar voz premium (ElevenLabs)?');
 
     if (wantPremium) {
       this.ttsProvider = 'elevenlabs';
-      this.cloneVoice = confirm('驴Quieres clonar la voz del video original?');
+      this.cloneVoice = confirm('縌uieres clonar la voz del video original?');
     } else {
       this.ttsProvider = 'openai';
       this.cloneVoice = false;
@@ -421,9 +421,9 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
               this.currentSubtitleUrl = subtitles.subtitle_url;
               setTimeout(() => activeVideoEl.load(), 100);
             }
-            alert(`Subt铆tulos en ${this.getLanguageName(language)}`);
+            alert(`Subt韙ulos en ${this.getLanguageName(language)}`);
           },
-          error: () => alert('No hay doblaje ni subt铆tulos disponibles')
+          error: () => alert('No hay doblaje ni subt韙ulos disponibles')
         });
       }
     });
@@ -448,7 +448,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
           if (job.status === 'completed') {
             clearInterval(interval);
             this.isTranslating = false;
-            alert('隆Traducci贸n completada!');
+            alert('raducci髇 completada!');
             if (this.currentVideo) {
               const langs = job.completed_languages?.length
                 ? job.completed_languages
@@ -461,7 +461,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
           } else if (job.status === 'failed') {
             clearInterval(interval);
             this.isTranslating = false;
-            alert(`Error: ${job.error_message || 'Traducci贸n fallida'}`);
+            alert(`Error: ${job.error_message || 'Traducci髇 fallida'}`);
           }
         },
         error: () => {
@@ -474,14 +474,14 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private handleTranslationResponse(response: any, video: Video, targetLanguage: string): void {
     this.translationJobId = response.job_id;
-    alert(`Traducci贸n iniciada. Tiempo estimado: ${response.estimated_time_minutes} min`);
+    alert(`Traducci髇 iniciada. Tiempo estimado: ${response.estimated_time_minutes} min`);
     this.pollTranslationStatus(video.id, response.job_id, targetLanguage);
   }
 
   private handleTranslationError(error: any): void {
     this.isTranslating = false;
     this.showDubbingOption = false;
-    const msg = error.error?.detail || 'Error al solicitar traducci贸n.';
+    const msg = error.error?.detail || 'Error al solicitar traducci髇.';
     alert(msg);
   }
 
@@ -490,7 +490,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
   getFullUrl(url: string): string {
     if (!url) return '';
     if (url.startsWith('http')) return url;
-    return `http://localhost:8001${url}`;
+    return `https://web-production-94f95.up.railway.app${url}`;
   }
 
   formatNumber(num: number): string {
@@ -528,7 +528,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getLanguageFlag(lang: string): string {
     const comparableCode = this.getComparableLanguageCode(lang);
-    return this.languageService.SUPPORTED_LANGUAGES.find(language => language.code === comparableCode)?.flag || '馃寪';
+    return this.languageService.SUPPORTED_LANGUAGES.find(language => language.code === comparableCode)?.flag || '??';
   }
 
   getLanguageName(lang: string): string {
@@ -563,4 +563,5 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
     return normalized.split('-')[0];
   }
 }
+
 

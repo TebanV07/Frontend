@@ -1,4 +1,4 @@
-﻿import { Component, Input, Output, EventEmitter, HostBinding, HostListener, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostBinding, HostListener, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
@@ -52,15 +52,15 @@ export class MessageBubbleComponent implements OnChanges {
 
   // Idiomas disponibles
   availableLanguages = [
-    { code: 'es', name: 'Espanol', flag: '🇪🇸' },
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'fr', name: 'Frances', flag: '🇫🇷' },
-    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-    { code: 'pt', name: 'Portugues', flag: '🇵🇹' },
-    { code: 'ja', name: 'Japones', flag: '🇯🇵' },
-    { code: 'zh', name: 'Chino', flag: '🇨🇳' },
-    { code: 'ko', name: 'Coreano', flag: '🇰🇷' }
+    { code: 'es', name: 'Espanol', flag: '????' },
+    { code: 'en', name: 'English', flag: '????' },
+    { code: 'fr', name: 'Frances', flag: '????' },
+    { code: 'de', name: 'Deutsch', flag: '????' },
+    { code: 'it', name: 'Italiano', flag: '????' },
+    { code: 'pt', name: 'Portugues', flag: '????' },
+    { code: 'ja', name: 'Japones', flag: '????' },
+    { code: 'zh', name: 'Chino', flag: '????' },
+    { code: 'ko', name: 'Coreano', flag: '????' }
   ];
 
   showLanguageMenu: boolean = false;
@@ -215,4 +215,5 @@ export class MessageBubbleComponent implements OnChanges {
     return !!this.translatedContent;
   }
 }
+
 

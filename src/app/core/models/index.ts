@@ -9,3 +9,4 @@ export type { ConversationDetail } from './conversation-detail.model';
 export type { MessageListResponse } from './message-list.model';
 export type { UserMinimal } from './user-minimal.model';
 export type { Notification, NotificationListResponse } from './notification.model';
+

@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
@@ -40,8 +40,8 @@ export class TrendingComponent implements OnInit {
   availableCountries: CountryOption[] = [];
   isLoadingCountries = false;
 
-  private apiUrl = 'http://localhost:8001/api/v1';
-  private baseUrl = 'http://localhost:8001';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private baseUrl = 'https://web-production-94f95.up.railway.app';
 
   constructor(
     private videoService: VideoService,
@@ -265,4 +265,5 @@ export class TrendingComponent implements OnInit {
     return this.flagService.getCountryName(this.getUserCountryCode(video));
   }
 }
+
 

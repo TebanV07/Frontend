@@ -1,4 +1,4 @@
-﻿// app/features/feed/videos/video-player/video-player.component.ts
+// app/features/feed/videos/video-player/video-player.component.ts
 
 import {
   Component,
@@ -32,7 +32,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnChanges {
   @ViewChild('videoElement') videoElementRef!: ElementRef<HTMLVideoElement>;
 
   private videoElement!: HTMLVideoElement;
-  private readonly apiBaseUrl = 'http://localhost:8001';
+  private readonly apiBaseUrl = 'https://web-production-94f95.up.railway.app';
 
   // Estados
   isLoading = true;
@@ -111,7 +111,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnChanges {
       this.isLoading = false;
     });
 
-    // Auto-play si estÃ¡ configurado
+    // Auto-play si está configurado
     if (this.isPlaying) {
       this.playVideo();
     }
@@ -126,7 +126,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnChanges {
 retryLoad(): void {
   this.loadVideo();
 }
-  // ==================== SUBTÃTULOS ====================
+  // ==================== SUBTÍTULOS ====================
 
   private loadSubtitles() {
     if (!this.video || !this.videoElement) return;
@@ -135,7 +135,7 @@ retryLoad(): void {
     const tracks = Array.from(this.videoElement.querySelectorAll('track'));
     tracks.forEach(track => track.remove());
 
-    // Cargar subtÃ­tulos disponibles
+    // Cargar subtítulos disponibles
     if (this.video.available_languages && this.video.available_languages.length > 0) {
       this.video.available_languages.forEach((lang, index) => {
         this.addSubtitleTrack(lang, index === 0);
@@ -207,7 +207,7 @@ retryLoad(): void {
         })
         .catch(error => {
           console.warn('Autoplay bloqueado:', error);
-          // Mostrar botÃ³n de play manual si autoplay estÃ¡ bloqueado
+          // Mostrar botón de play manual si autoplay está bloqueado
         });
     }
   }
@@ -302,3 +302,4 @@ retryLoad(): void {
     return this.videoElement?.volume || 1;
   }
 }
+

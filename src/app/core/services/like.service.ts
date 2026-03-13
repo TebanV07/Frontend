@@ -21,7 +21,7 @@ export interface LikeStatus {
   providedIn: 'root'
 })
 export class LikeService {
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
 
   // BehaviorSubjects para tracking de likes
   private postLikesSubject = new BehaviorSubject<{ [key: number]: boolean }>({});
@@ -162,3 +162,4 @@ export class LikeService {
     this.videoLikesSubject.next(updated);
   }
 }
+

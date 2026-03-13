@@ -21,3 +21,4 @@ describe('TrendingComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

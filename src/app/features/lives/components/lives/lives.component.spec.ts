@@ -21,3 +21,4 @@ describe('LivesComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

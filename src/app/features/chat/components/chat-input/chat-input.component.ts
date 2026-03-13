@@ -1,4 +1,4 @@
-﻿import { Component, Output, EventEmitter, ViewChild, ElementRef, Input, OnDestroy } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, ElementRef, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
@@ -182,9 +182,10 @@ export class ChatInputComponent implements OnDestroy {
   }
 
   commonEmojis = [
-    '😊', '😂', '🤣', '❤️', '👍', '🙏', '😍', '🤔',
-    '😎', '🎉', '🔥', '✨', '💪', '👏', '🌟', '💯',
-    '😢', '😮', '😅', '🥰', '😘', '🤗', '🎊', '🚀'
+    '??', '??', '??', '??', '??', '??', '??', '??',
+    '??', '??', '??', '?', '??', '??', '??', '??',
+    '??', '??', '??', '??', '??', '??', '??', '??'
   ];
 }
+
 

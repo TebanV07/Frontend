@@ -21,3 +21,4 @@ describe('MessageBubbleComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

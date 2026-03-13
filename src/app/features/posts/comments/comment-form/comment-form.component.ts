@@ -1,4 +1,4 @@
-﻿import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
@@ -75,4 +75,5 @@ export class CommentFormComponent implements AfterViewInit {
     textarea.style.height = textarea.scrollHeight + 'px';
   }
 }
+
 

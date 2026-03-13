@@ -18,3 +18,4 @@ export class AppComponent implements OnInit {
     this.langService.init();
   }
 }
+

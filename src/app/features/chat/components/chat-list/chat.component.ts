@@ -1,4 +1,4 @@
-ï»¿import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
@@ -62,7 +62,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       })
     );
 
-    // Abrir conversaciÃ³n desde query param (?conversation=ID)
+    // Abrir conversación desde query param (?conversation=ID)
     this.subscriptions.push(
       this.route.queryParamMap.subscribe(params => {
         const conversationParam = params.get('conversation');
@@ -230,16 +230,17 @@ export class ChatComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Fallback: intentar abrir por ID incluso si no vino en la lista local aÃºn
+    // Fallback: intentar abrir por ID incluso si no vino en la lista local aún
     this.pendingConversationId = null;
     this.chatService.getConversationDetail(pendingId).subscribe({
       next: () => {
         this.chatService.markConversationAsRead(pendingId).subscribe();
       },
       error: (error) => {
-        console.warn('No se pudo abrir la conversaciÃ³n desde notificaciÃ³n:', error);
+        console.warn('No se pudo abrir la conversación desde notificación:', error);
       }
     });
   }
 }
+
 

@@ -21,3 +21,4 @@ describe('ReportModalComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

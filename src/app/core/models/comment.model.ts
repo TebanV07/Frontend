@@ -50,3 +50,4 @@ export interface CommentResponse {
   has_liked: boolean;
   original_language?: string;
 }
+

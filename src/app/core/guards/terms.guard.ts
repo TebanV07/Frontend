@@ -31,3 +31,4 @@ export class TermsGuard implements CanActivate {
     return true;
   }
 }
+

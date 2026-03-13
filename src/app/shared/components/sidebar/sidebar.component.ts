@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
@@ -29,7 +29,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   };
 
   readonly defaultAvatar = 'assets/default-avatar.png';
-  private apiUrl = 'http://localhost:8001/api/v1';
+  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
   private destroy$ = new Subject<void>();
 
   quickAccessItems: QuickAccessItem[] = [
@@ -62,7 +62,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  // âœ… CORREGIDO: incluye el token en el header
+  // ✅ CORREGIDO: incluye el token en el header
   private getHeaders(): HttpHeaders {
     const token = this.authService.getToken();
     return token
@@ -76,11 +76,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (userData) => {
-          // âœ… El schema usa serialization_alias, por eso el JSON devuelve:
-          //    followers_count â†’ "followers"
-          //    following_count â†’ "following"
-          //    posts_count     â†’ "postsCount"
-          // Soportamos ambas variantes por si cambia la configuraciÃ³n
+          // ✅ El schema usa serialization_alias, por eso el JSON devuelve:
+          //    followers_count → "followers"
+          //    following_count → "following"
+          //    posts_count     → "postsCount"
+          // Soportamos ambas variantes por si cambia la configuración
           this.profileStats.followers_count = userData.followers      ?? userData.followers_count ?? 0;
           this.profileStats.following_count = userData.following      ?? userData.following_count ?? 0;
           this.profileStats.posts_count     = userData.postsCount     ?? userData.posts_count     ?? 0;
@@ -110,7 +110,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     const avatar = this.currentUser?.avatar || this.currentUser?.profile_image;
     if (!avatar) return this.defaultAvatar;
     if (avatar.startsWith('http')) return avatar;
-    return `http://localhost:8001${avatar}`;
+    return `https://web-production-94f95.up.railway.app${avatar}`;
   }
 
   onAvatarError(event: Event) {
@@ -139,4 +139,5 @@ export class SidebarComponent implements OnInit, OnDestroy {
     return icons[iconType] || '';
   }
 }
+
 
