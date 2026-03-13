@@ -6,18 +6,18 @@
 
   <div class="verification-required-card">
     <div class="card-icon">✉️</div>
-    <h1>Verifica tu correo</h1>
+    <h1>{{ 'auth.verifyRequired.title' | translate }}</h1>
     <p class="lead">
-      Tu cuenta inició sesión correctamente, pero necesitas verificar tu email antes de entrar a la app.
+      {{ 'auth.verifyRequired.lead' | translate }}
     </p>
 
     <div class="email-box" *ngIf="user?.email">
-      <span class="label">Correo registrado</span>
+      <span class="label">{{ 'auth.verifyRequired.registeredEmail' | translate }}</span>
       <strong>{{ user.email }}</strong>
     </div>
 
     <p class="hint">
-      Revisa tu bandeja de entrada y también spam. Cuando abras el enlace del correo, vuelve aquí y pulsa “Ya verifiqué mi cuenta”.
+      {{ 'auth.verifyRequired.hint' | translate }}
     </p>
 
     <p class="info" *ngIf="infoMessage">{{ infoMessage }}</p>
@@ -25,15 +25,15 @@
 
     <div class="actions">
       <button type="button" class="primary" (click)="resendVerificationEmail()" [disabled]="isSending || isRefreshing">
-        {{ isSending ? 'Reenviando...' : 'Reenviar correo de verificación' }}
+        {{ isSending ? ('auth.verifyRequired.resending' | translate) : ('auth.verifyRequired.resend' | translate) }}
       </button>
 
       <button type="button" class="secondary" (click)="refreshVerificationStatus()" [disabled]="isRefreshing || isSending">
-        {{ isRefreshing ? 'Verificando...' : 'Ya verifiqué mi cuenta' }}
+        {{ isRefreshing ? ('auth.verifyRequired.verifying' | translate) : ('auth.verifyRequired.alreadyVerified' | translate) }}
       </button>
 
       <button type="button" class="ghost" (click)="logout()">
-        Cerrar sesión
+        {{ 'auth.verifyRequired.logout' | translate }}
       </button>
     </div>
   </div>

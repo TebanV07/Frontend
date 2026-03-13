@@ -1,10 +1,48 @@
-﻿{
+﻿﻿{
     "brand":  {
                   "name":  "TINKO",
                   "tagline":  "AI-Powered Global Connection"
               },
     "auth":  {
-                 "login":  {
+                 "forgotPass":  {
+                    "title":  "\u015eifreyi kurtar",
+                    "subtitle":  "Hesab\u0131n\u0131z\u0131n e-posta adresini girin, size s\u0131f\u0131rlama ba\u011flant\u0131s\u0131 g\u00f6nderelim.",
+                    "emailLabel":  "E-posta",
+                    "emailPlaceholder":  "siz@email.com",
+                    "sending":  "G\u00f6nderiliyor...",
+                    "submit":  "Kurtarma ba\u011flant\u0131s\u0131 g\u00f6nder",
+                    "backToLogin":  "Girişe d\u00f6n",
+                    "emailRequired":  "Devam etmek i\u00e7in e-posta adresinizi girin."
+                },
+"resetPass":  {
+                  "title":  "Yeni \u015fifre belirle",
+                  "subtitle":  "Hesab\u0131n\u0131z i\u00e7in g\u00fc\u00e7l\u00fc bir yeni \u015fifre se\u00e7in.",
+                  "newPasswordLabel":  "Yeni \u015fifre",
+                  "newPasswordPlaceholder":  "Yeni \u015fifre",
+                  "confirmPasswordLabel":  "\u015eifreyi onayla",
+                  "confirmPasswordPlaceholder":  "\u015eifreyi onayla",
+                  "updating":  "G\u00fcncelleniyor...",
+                  "submit":  "\u015eifreyi g\u00fcncelle",
+                  "successTitle":  "\u015eifre g\u00fcncellendi!",
+                  "goToLogin":  "Girişe git",
+                  "errorTitle":  "\u015eifre g\u00fcncellenemedi",
+                  "requestNew":  "Yeni kurtarma ba\u011flant\u0131s\u0131 iste",
+                  "invalidToken":  "Ge\u00e7ersiz veya s\u00fcresi dolmu\u015f kurtarma ba\u011flant\u0131s\u0131.",
+                  "fillBothFields":  "Her iki \u015fifre alan\u0131n\u0131 doldurun.",
+                  "passwordsMismatch":  "\u015eifreler e\u015fle\u015fmiyor."
+              },
+"verifyRequired":  {
+                       "title":  "E-postay\u0131 do\u011frula",
+                       "lead":  "Tinko'ya eri\u015fmeden \u00f6nce e-posta adresinizi do\u011frulaman\u0131z gerekiyor.",
+                       "registeredEmail":  "Kay\u0131t s\u0131ras\u0131nda kulland\u0131\u011f\u0131n\u0131z e-posta adresine do\u011frulama ba\u011flant\u0131s\u0131 g\u00f6nderdik.",
+                       "hint":  "G\u00f6remediyseniz spam klas\u00f6r\u00fcn\u00fc kontrol edin.",
+                       "resending":  "Yeniden g\u00f6nderiliyor...",
+                       "resend":  "Do\u011frulama e-postas\u0131n\u0131 yeniden g\u00f6nder",
+                       "verifying":  "Do\u011frulan\u0131yor...",
+                       "alreadyVerified":  "Zaten do\u011fruland\u0131m",
+                       "logout":  "\u00c7\u0131k\u0131\u015f"
+                   },
+"login":  {
                                "title":  "Tekrar hoÅŸ geldin!",
                                "subtitle":  "KÃ¼resel deneyimine devam etmek iÃ§in giriÅŸ yap",
                                "submit":  "GiriÅŸ yap",

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { CountrySetupComponent } from '../../../shared/components';
 
 @Component({
   selector: 'app-verify-email-required',
   standalone: true,
-  imports: [CommonModule, RouterModule, CountrySetupComponent],
+  imports: [CommonModule, RouterModule, TranslateModule, CountrySetupComponent],
   templateUrl: './verify-email-required.component.html',
   styleUrls: ['./verify-email-required.component.scss']
 })

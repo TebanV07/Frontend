@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, TranslateModule],
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
 })
@@ -22,14 +23,15 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
     this.token = this.route.snapshot.params['token'] || '';
     if (!this.token) {
       this.status = 'error';
-      this.errorMessage = 'No se encontró un token de recuperación válido.';
+      this.errorMessage = this.translate.instant('auth.resetPass.invalidToken');
     }
   }
 
@@ -37,12 +39,12 @@ export class ResetPasswordComponent implements OnInit {
     this.errorMessage = '';
 
     if (!this.newPassword || !this.confirmPassword) {
-      this.errorMessage = 'Completa ambos campos de contraseña.';
+      this.errorMessage = this.translate.instant('auth.resetPass.fillBothFields');
       return;
     }
 
     if (this.newPassword !== this.confirmPassword) {
-      this.errorMessage = 'Las contraseñas no coinciden.';
+      this.errorMessage = this.translate.instant('auth.resetPass.passwordsMismatch');
       return;
     }
 

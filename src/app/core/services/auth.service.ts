@@ -113,6 +113,11 @@ export class AuthService {
     return this.injector.get(FollowService);
   }
 
+  private getLanguageService() {
+    const { LanguageService } = require('./language.service');
+    return this.injector.get(LanguageService);
+  }
+
   // ============================================
   // LOGIN / REGISTER CON EMAIL
   // ============================================
@@ -351,6 +356,11 @@ export class AuthService {
 
   /** Acciones post-login: cargar datos de follows y detectar país */
   private _postLoginActions(user: any): void {
+    // Aplicar idioma nativo del usuario
+    if (user?.native_language) {
+      this.getLanguageService().setLanguage(user.native_language);
+    }
+
     if (user?.id) {
       this.getFollowService().loadInitialData(user.id);
     }

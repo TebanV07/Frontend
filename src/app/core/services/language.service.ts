@@ -50,8 +50,9 @@ export class LanguageService {
     this.translate.setDefaultLang(this.DEFAULT_LANG);
 
     const saved = this.getSavedLanguage();
+    const userNative = this.getUserNativeLanguage();
     const browser = this.detectBrowserLanguage();
-    const initial = saved ?? browser ?? this.DEFAULT_LANG;
+    const initial = saved ?? userNative ?? browser ?? this.DEFAULT_LANG;
 
     this.setLanguage(initial, false); // don't save again on first load
   }
@@ -92,6 +93,20 @@ export class LanguageService {
   }
 
   // ─── Private helpers ───────────────────────────────────────────────────────
+
+  private getUserNativeLanguage(): string | null {
+    try {
+      const userJson = localStorage.getItem('currentUser');
+      if (userJson) {
+        const user = JSON.parse(userJson);
+        const lang = user?.native_language;
+        if (lang && this.SUPPORTED_LANGUAGES.find(l => l.code === lang)) {
+          return lang;
+        }
+      }
+    } catch { /* JSON parse or localStorage unavailable */ }
+    return null;
+  }
 
   private detectBrowserLanguage(): string | null {
     const browserLang = navigator.language?.split('-')[0]?.toLowerCase();

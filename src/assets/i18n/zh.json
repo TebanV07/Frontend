@@ -1,10 +1,48 @@
-﻿{
+﻿﻿{
     "brand":  {
                   "name":  "TINKO",
                   "tagline":  "AI-Powered Global Connection"
               },
     "auth":  {
-                 "login":  {
+                 "forgotPass":  {
+                    "title":  "\u627e\u56de\u5bc6\u7801",
+                    "subtitle":  "\u8f93\u5165\u60a8\u7684\u8d26\u6237\u7535\u5b50\u90ae\u4ef6\uff0c\u6211\u4eec\u5c06\u53d1\u9001\u91cd\u7f6e\u94fe\u63a5\u7ed9\u60a8\u3002",
+                    "emailLabel":  "\u7535\u5b50\u90ae\u4ef6",
+                    "emailPlaceholder":  "\u60a8@email.com",
+                    "sending":  "\u53d1\u9001\u4e2d\u2026",
+                    "submit":  "\u53d1\u9001\u627e\u56de\u94fe\u63a5",
+                    "backToLogin":  "\u8fd4\u56de\u767b\u5f55",
+                    "emailRequired":  "\u8bf7\u8f93\u5165\u7535\u5b50\u90ae\u4ef6\u4ee5\u7ee7\u7eed\u3002"
+                },
+"resetPass":  {
+                  "title":  "\u8bbe\u7f6e\u65b0\u5bc6\u7801",
+                  "subtitle":  "\u8bf7\u4e3a\u60a8\u7684\u8d26\u6237\u9009\u62e9\u4e00\u4e2a\u5f3a\u5bc6\u7801\u3002",
+                  "newPasswordLabel":  "\u65b0\u5bc6\u7801",
+                  "newPasswordPlaceholder":  "\u65b0\u5bc6\u7801",
+                  "confirmPasswordLabel":  "\u786e\u8ba4\u5bc6\u7801",
+                  "confirmPasswordPlaceholder":  "\u786e\u8ba4\u5bc6\u7801",
+                  "updating":  "\u66f4\u65b0\u4e2d\u2026",
+                  "submit":  "\u66f4\u65b0\u5bc6\u7801",
+                  "successTitle":  "\u5bc6\u7801\u5df2\u66f4\u65b0\uff01",
+                  "goToLogin":  "\u524d\u5f80\u767b\u5f55",
+                  "errorTitle":  "\u65e0\u6cd5\u66f4\u65b0\u5bc6\u7801",
+                  "requestNew":  "\u7533\u8bf7\u65b0\u7684\u627e\u56de\u94fe\u63a5",
+                  "invalidToken":  "\u65e0\u6548\u6216\u5df2\u8fc7\u671f\u7684\u627e\u56de\u94fe\u63a5\u3002",
+                  "fillBothFields":  "\u8bf7\u586b\u5199\u4e24\u4e2a\u5bc6\u7801\u5b57\u6bb5\u3002",
+                  "passwordsMismatch":  "\u5bc6\u7801\u4e0d\u5339\u914d\u3002"
+              },
+"verifyRequired":  {
+                       "title":  "\u9a8c\u8bc1\u60a8\u7684\u7535\u5b50\u90ae\u4ef6",
+                       "lead":  "\u60a8\u9700\u8981\u9a8c\u8bc1\u7535\u5b50\u90ae\u4ef6\u624d\u80fd\u8bbf\u95ee Tinko\u3002",
+                       "registeredEmail":  "\u6211\u4eec\u5c06\u9a8c\u8bc1\u94fe\u63a5\u53d1\u9001\u5230\u60a8\u6ce8\u518c\u65f6\u4f7f\u7528\u7684\u7535\u5b50\u90ae\u4ef6\u3002",
+                       "hint":  "\u5982\u679c\u6ca1\u6709\u770b\u5230\uff0c\u8bf7\u68c0\u67e5\u5783\u573e\u90ae\u4ef6\u6587\u4ef6\u5939\u3002",
+                       "resending":  "\u91cd\u65b0\u53d1\u9001\u4e2d\u2026",
+                       "resend":  "\u91cd\u65b0\u53d1\u9001\u9a8c\u8bc1\u7535\u5b50\u90ae\u4ef6",
+                       "verifying":  "\u9a8c\u8bc1\u4e2d\u2026",
+                       "alreadyVerified":  "\u6211\u5df2\u9a8c\u8bc1",
+                       "logout":  "\u767b\u51fa"
+                   },
+"login":  {
                                "title":  "æ¬¢è¿Žå›žæ¥ï¼",
                                "subtitle":  "ç™»å½•ä»¥ç»§ç»­æ‚¨çš„å…¨çƒä½“éªŒ",
                                "submit":  "ç™»å½•",
