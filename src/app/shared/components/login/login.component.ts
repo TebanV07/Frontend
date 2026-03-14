@@ -22,7 +22,7 @@ export class LoginComponent {
   errorMessage = '';
   readonly availableLanguages: Language[];
 
-  // Nuevo: mostrar modal de paÌs despuÈs del login
+  // Nuevo: mostrar modal de pa√≠s despu√©s del login
   showCountrySetup = false;
 
   formData = {
@@ -127,11 +127,11 @@ export class LoginComponent {
       error: (error) => {
         this.isLoading = false;
         if (error.status === 401) {
-          this.errorMessage = 'Email o contraseÒa incorrectos';
+          this.errorMessage = 'Email o contrase√±a incorrectos';
         } else if (error.status === 500) {
-          this.errorMessage = 'Error del servidor. Intenta m·s tarde.';
+          this.errorMessage = 'Error del servidor. Intenta m√°s tarde.';
         } else {
-          this.errorMessage = 'Error al iniciar sesiÛn. Verifica tus datos.';
+          this.errorMessage = 'Error al iniciar sesi√≥n. Verifica tus datos.';
         }
       }
     });
@@ -157,7 +157,7 @@ export class LoginComponent {
           error: () => {
             this.isLoading = false;
             this.isRegisterMode = false;
-            this.errorMessage = 'Registro exitoso. Ahora puedes iniciar sesiÛn.';
+            this.errorMessage = 'Registro exitoso. Ahora puedes iniciar sesi√≥n.';
           }
         });
       },
@@ -165,14 +165,14 @@ export class LoginComponent {
         this.isLoading = false;
         if (error.status === 400) {
           if (error.error?.detail?.includes('Email ya registrado')) {
-            this.errorMessage = 'Este email ya est· registrado';
+            this.errorMessage = 'Este email ya est√° registrado';
           } else if (error.error?.detail?.includes('Username ya existe')) {
             this.errorMessage = 'Este nombre de usuario ya existe';
           } else {
             this.errorMessage = error.error?.detail || 'Error en los datos del formulario';
           }
         } else {
-          this.errorMessage = 'Error al registrar usuario. Intenta m·s tarde.';
+          this.errorMessage = 'Error al registrar usuario. Intenta m√°s tarde.';
         }
       }
     });
@@ -183,15 +183,15 @@ export class LoginComponent {
   // ============================================
 
   /**
-   * Maneja la autenticaciÛn con Google.
-   * Llama este mÈtodo desde el callback del SDK de Google.
+    * Maneja la autenticaci√≥n con Google.
+    * Llama este m√©todo desde el callback del SDK de Google.
    */
   onGoogleLogin(googleToken: string | any): void {
     // Si es un objeto de respuesta de Google, obtener el credential
     const token = typeof googleToken === 'string' ? googleToken : googleToken.credential || googleToken;
 
     if (!token) {
-      this.errorMessage = 'No se recibiÛ token de Google';
+      this.errorMessage = 'No se recibi√≥ token de Google';
       return;
     }
 
@@ -215,8 +215,8 @@ export class LoginComponent {
   // ============================================
 
   /**
-    * Llama este mÈtodo desde el botÛn de Facebook.
-    * Requiere que el SDK de Facebook estÈ cargado en index.html:
+    * Llama este m√©todo desde el bot√≥n de Facebook.
+    * Requiere que el SDK de Facebook est√© cargado en index.html:
    *   <script async defer crossorigin="anonymous"
    *     src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v19.0&appId=TU_APP_ID">
    *   </script>
@@ -237,7 +237,7 @@ export class LoginComponent {
           },
           error: (err) => {
             this.isLoading = false;
-            this.errorMessage = 'Error al iniciar sesiÛn con Facebook.';
+            this.errorMessage = 'Error al iniciar sesi√≥n con Facebook.';
             console.error('Facebook login error:', err);
           }
         });
@@ -253,11 +253,11 @@ export class LoginComponent {
   // ============================================
 
   /**
-    * Llama este mÈtodo desde el botÛn de Apple.
+    * Llama este m√©todo desde el bot√≥n de Apple.
    * Requiere el JS SDK de Apple:
    *   <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
    *
-    * Y configuraciÛn en ngOnInit:
+    * Y configuraci√≥n en ngOnInit:
    *   AppleID.auth.init({
    *     clientId: 'com.tuapp.service',
    *     scope: 'name email',
@@ -285,7 +285,7 @@ export class LoginComponent {
         },
         error: (err) => {
           this.isLoading = false;
-          this.errorMessage = 'Error al iniciar sesiÛn con Apple.';
+          this.errorMessage = 'Error al iniciar sesi√≥n con Apple.';
           console.error('Apple login error:', err);
         }
       });
@@ -300,10 +300,10 @@ export class LoginComponent {
   // ============================================
 
   /**
-   * DespuÈs de cualquier login exitoso:
-   * - Esperar a que se detecte el paÌs
-   * - Si el usuario no tiene paÌs -> mostrar modal
-   * - Si ya tiene paÌs -> ir directo al home
+    * Despu√©s de cualquier login exitoso:
+    * - Esperar a que se detecte el pa√≠s
+    * - Si el usuario no tiene pa√≠s -> mostrar modal
+    * - Si ya tiene pa√≠s -> ir directo al home
    */
   private async _afterLogin(): Promise<void> {
     if (this.authService.needsEmailVerification()) {
@@ -321,7 +321,7 @@ export class LoginComponent {
     }
   }
 
-  /** Cuando el usuario termina de configurar su paÌs */
+  /** Cuando el usuario termina de configurar su pa√≠s */
   onCountrySetupCompleted(): void {
     this.showCountrySetup = false;
     this.router.navigate(['/home']);

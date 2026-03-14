@@ -1,4 +1,4 @@
-﻿﻿{
+{
     "brand":  {
                   "name":  "TINKO",
                   "tagline":  "AI-Powered Global Connection"
@@ -43,106 +43,106 @@
                        "logout":  "\ub85c\uadf8\uc544\uc6c3"
                    },
 "login":  {
-                               "title":  "ë‹¤ì‹œ ì˜¤ì…¨êµ°ìš”!",
-                               "subtitle":  "ë¡œê·¸ì¸í•˜ì—¬ ê¸€ë¡œë²Œ ê²½í—˜ì„ ê³„ì†í•˜ì„¸ìš”",
-                               "submit":  "ë¡œê·¸ì¸",
-                               "submitting":  "ë¡œê·¸ì¸ ì¤‘...",
-                               "noAccount":  "ê³„ì •ì´ ì—†ìœ¼ì‹ ê°€ìš”?",
-                               "switchToRegister":  "ë¬´ë£Œë¡œ ê°€ìž…í•˜ê¸°",
-                               "rememberMe":  "ë¡œê·¸ì¸ ìƒíƒœ ìœ ì§€",
-                               "forgotPassword":  "ë¹„ë°€ë²ˆí˜¸ë¥¼ ìžŠìœ¼ì…¨ë‚˜ìš”?",
-                               "orContinueWith":  "ë˜ëŠ” ë‹¤ìŒìœ¼ë¡œ ê³„ì†",
+                               "title":  "다시 오셨군요!",
+                               "subtitle":  "로그인하여 글로벌 경험을 계속하세요",
+                               "submit":  "로그인",
+                               "submitting":  "로그인 중...",
+                               "noAccount":  "계정이 없으신가요?",
+                               "switchToRegister":  "무료로 가입하기",
+                               "rememberMe":  "로그인 상태 유지",
+                               "forgotPassword":  "비밀번호를 잊으셨나요?",
+                               "orContinueWith":  "또는 다음으로 계속",
                                "google":  "Google"
                            },
                  "register":  {
-                                  "title":  "í˜ëª…ì— ì°¸ì—¬í•˜ì„¸ìš”!",
-                                  "subtitle":  "ì–¸ì–´ ìž¥ë²½ ì—†ì´ ì „ ì„¸ê³„ì™€ ì—°ê²°í•˜ì„¸ìš”",
-                                  "submit":  "ê³„ì • ë§Œë“¤ê¸°",
-                                  "submitting":  "ê³„ì • ìƒì„± ì¤‘...",
-                                  "hasAccount":  "ì´ë¯¸ ê³„ì •ì´ ìžˆìœ¼ì‹ ê°€ìš”?",
-                                  "switchToLogin":  "ë¡œê·¸ì¸",
-                                  "usernameHint":  "ìž…ë ¥í•˜ì§€ ì•Šìœ¼ë©´ ìžë™ìœ¼ë¡œ ìƒì„±ë©ë‹ˆë‹¤",
-                                  "nativeLanguageHint":  "ëª¨êµ­ì–´"
+                                  "title":  "혁명에 참여하세요!",
+                                  "subtitle":  "언어 장벽 없이 전 세계와 연결하세요",
+                                  "submit":  "계정 만들기",
+                                  "submitting":  "계정 생성 중...",
+                                  "hasAccount":  "이미 계정이 있으신가요?",
+                                  "switchToLogin":  "로그인",
+                                  "usernameHint":  "입력하지 않으면 자동으로 생성됩니다",
+                                  "nativeLanguageHint":  "모국어"
                               },
                  "fields":  {
-                                "firstName":  "ì´ë¦„",
-                                "lastName":  "ì„±",
-                                "username":  "ì‚¬ìš©ìž ì´ë¦„ (ì„ íƒ)",
-                                "email":  "ì´ë©”ì¼ ì£¼ì†Œ",
-                                "password":  "ë¹„ë°€ë²ˆí˜¸",
-                                "nativeLanguage":  "ëª¨êµ­ì–´"
+                                "firstName":  "이름",
+                                "lastName":  "성",
+                                "username":  "사용자 이름 (선택)",
+                                "email":  "이메일 주소",
+                                "password":  "비밀번호",
+                                "nativeLanguage":  "모국어"
                             },
                  "features":  {
-                                  "title":  "ðŸš€ ê¸°ë‹¤ë¦¬ê³  ìžˆëŠ” ê²ƒë“¤:",
-                                  "videos":  "ì‹¤ì‹œê°„ ë²ˆì—­ ë™ì˜ìƒ",
-                                  "languages":  "24ê°œ ì´ìƒì˜ ì–¸ì–´ë¡œ ì—°ê²°",
-                                  "ai":  "ê³ ê¸‰ AI ë²ˆì—­"
+                                  "title":  "🚀 기다리고 있는 것들:",
+                                  "videos":  "실시간 번역 동영상",
+                                  "languages":  "24개 이상의 언어로 연결",
+                                  "ai":  "고급 AI 번역"
                               }
              },
     "verify":  {
-                   "loading":  "ì´ë©”ì¼ ì¸ì¦ ì¤‘...",
+                   "loading":  "이메일 인증 중...",
                    "success":  {
-                                   "title":  "ì´ë©”ì¼ ì¸ì¦ ì™„ë£Œ!",
-                                   "message":  "ê³„ì •ì´ ì¸ì¦ë˜ì—ˆìŠµë‹ˆë‹¤. ëª¨ë“  ê¸°ëŠ¥ì„ ì¦ê²¨ë³´ì„¸ìš”.",
-                                   "goHome":  "í™ˆìœ¼ë¡œ ê°€ê¸°"
+                                   "title":  "이메일 인증 완료!",
+                                   "message":  "계정이 인증되었습니다. 모든 기능을 즐겨보세요.",
+                                   "goHome":  "홈으로 가기"
                                },
                    "error":  {
-                                 "title":  "ìœ íš¨í•˜ì§€ ì•Šì€ ë§í¬",
-                                 "requestNew":  "ìƒˆ ë§í¬ ìš”ì²­"
+                                 "title":  "유효하지 않은 링크",
+                                 "requestNew":  "새 링크 요청"
                              }
                },
     "header":  {
-                   "search":  "ì‚¬ëžŒ, ê²Œì‹œë¬¼ ê²€ìƒ‰...",
+                   "search":  "사람, 게시물 검색...",
                    "nav":  {
                                "home":  "í™ˆ",
-                               "trending":  "íŠ¸ë Œë”©",
-                               "videos":  "ë™ì˜ìƒ",
-                               "messages":  "ë©”ì‹œì§€",
-                               "notifications":  "ì•Œë¦¼",
-                               "profile":  "í”„ë¡œí•„",
-                               "settings":  "ì„¤ì •"
+                               "trending":  "트렌딩",
+                               "videos":  "동영상",
+                               "messages":  "메시지",
+                               "notifications":  "알림",
+                               "profile":  "프로필",
+                               "settings":  "설정"
                            },
                    "theme":  {
-                                 "light":  "ë¼ì´íŠ¸ ëª¨ë“œ",
-                                 "dark":  "ë‹¤í¬ ëª¨ë“œ"
+                                 "light":  "라이트 모드",
+                                 "dark":  "다크 모드"
                              },
-                   "menu":  "ë©”ë‰´"
+                   "menu":  "메뉴"
                },
     "chat":  {
                  "input":  {
-                               "placeholder":  "ë©”ì‹œì§€ë¥¼ ìž…ë ¥í•˜ì„¸ìš”...",
-                               "emojis":  "ì´ëª¨ì§€",
-                               "attach":  "íŒŒì¼ ì²¨ë¶€",
-                               "camera":  "ì‚¬ì§„ ì°ê¸°",
-                               "voice":  "ìŒì„± ë©”ì‹œì§€ ë…¹ìŒ",
-                               "send":  "ë©”ì‹œì§€ ì „ì†¡",
-                               "recording":  "ë…¹ìŒ ì¤‘...",
-                               "stopRecording":  "ì¤‘ì§€"
+                               "placeholder":  "메시지를 입력하세요...",
+                               "emojis":  "이모지",
+                               "attach":  "파일 첨부",
+                               "camera":  "사진 찍기",
+                               "voice":  "음성 메시지 녹음",
+                               "send":  "메시지 전송",
+                               "recording":  "녹음 중...",
+                               "stopRecording":  "중지"
                            },
                  "window":  {
-                                "noName":  "ì´ë¦„ ì—†ìŒ",
-                                "selectConversation":  "ëŒ€í™”ë¥¼ ì„ íƒí•˜ì„¸ìš”",
-                                "selectConversationHint":  "ì±„íŒ…ì„ ì‹œìž‘í•  ëŒ€í™”ë¥¼ ì„ íƒí•˜ì„¸ìš”",
-                                "uploading":  "íŒŒì¼ ì—…ë¡œë“œ ì¤‘...",
-                                "speaksLanguage":  "ì‚¬ìš© ì–¸ì–´: "
+                                "noName":  "이름 없음",
+                                "selectConversation":  "대화를 선택하세요",
+                                "selectConversationHint":  "채팅을 시작할 대화를 선택하세요",
+                                "uploading":  "파일 업로드 중...",
+                                "speaksLanguage":  "사용 언어: "
                             },
                  "bubble":  {
-                                "edited":  "ìˆ˜ì •ë¨",
-                                "edit":  "íŽ¸ì§‘",
-                                "delete":  "ì‚­ì œ",
-                                "deleteForMe":  "ë‚˜ì—ê²Œë§Œ ì‚­ì œ",
-                                "forward":  "ì „ë‹¬",
-                                "share":  "ê³µìœ ",
-                                "translate":  "ë²ˆì—­"
+                                "edited":  "수정됨",
+                                "edit":  "편집",
+                                "delete":  "삭제",
+                                "deleteForMe":  "나에게만 삭제",
+                                "forward":  "전달",
+                                "share":  "공유",
+                                "translate":  "번역"
                             }
              },
     "feed":  {
-                 "loading":  "ë™ì˜ìƒ ë¶ˆëŸ¬ì˜¤ëŠ” ì¤‘...",
-                 "loadingMore":  "ë” ë§Žì€ ë™ì˜ìƒ ë¶ˆëŸ¬ì˜¤ëŠ” ì¤‘...",
+                 "loading":  "동영상 불러오는 중...",
+                 "loadingMore":  "더 많은 동영상 불러오는 중...",
                  "empty":  {
-                               "title":  "ë™ì˜ìƒì´ ì—†ìŠµë‹ˆë‹¤",
-                               "subtitle":  "AI ë²ˆì—­ìœ¼ë¡œ ì²« ë²ˆì§¸ ë™ì˜ìƒì„ ì˜¬ë ¤ë³´ì„¸ìš”",
-                               "upload":  "ë™ì˜ìƒ ì—…ë¡œë“œ"
+                               "title":  "동영상이 없습니다",
+                               "subtitle":  "AI 번역으로 첫 번째 동영상을 올려보세요",
+                               "upload":  "동영상 업로드"
                            },
                  "position":  "{{ current }} / {{ total }}",
                  "aiActive":  "AI Translation Active",
@@ -160,51 +160,51 @@
                  "noPostsSub":  "Be the first to share something!"
              },
     "videoPlayer":  {
-                        "loading":  "ë™ì˜ìƒ ë¶ˆëŸ¬ì˜¤ëŠ” ì¤‘...",
+                        "loading":  "동영상 불러오는 중...",
                         "error":  {
-                                      "title":  "ë™ì˜ìƒ ë¡œë“œ ì˜¤ë¥˜",
-                                      "subtitle":  "ì´ ë™ì˜ìƒì„ ìž¬ìƒí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤",
-                                      "retry":  "ë‹¤ì‹œ ì‹œë„"
+                                      "title":  "동영상 로드 오류",
+                                      "subtitle":  "이 동영상을 재생할 수 없습니다",
+                                      "retry":  "다시 시도"
                                   },
-                        "noSupport":  "ë¸Œë¼ìš°ì €ê°€ ë¹„ë””ì˜¤ íƒœê·¸ë¥¼ ì§€ì›í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."
+                        "noSupport":  "브라우저가 비디오 태그를 지원하지 않습니다."
                     },
     "comments":  {
-                     "title":  "ëŒ“ê¸€",
-                     "placeholder":  "ëŒ“ê¸€ì„ ìž‘ì„±í•˜ì„¸ìš”...",
-                     "submit":  "ðŸ’¬ ëŒ“ê¸€ ë‹¬ê¸°",
-                     "submitting":  "ê²Œì‹œ ì¤‘...",
-                     "loading":  "ë¶ˆëŸ¬ì˜¤ëŠ” ì¤‘...",
-                     "empty":  "ì²« ë²ˆì§¸ ëŒ“ê¸€ì„ ë‹¬ì•„ë³´ì„¸ìš”",
-                     "loadMore":  "â†“ ëŒ“ê¸€ ë” ë³´ê¸°",
-                     "loadingMore":  "ë¶ˆëŸ¬ì˜¤ëŠ” ì¤‘...",
-                     "reply":  "ë‹µê¸€",
-                     "replying":  "ê²Œì‹œ ì¤‘...",
-                     "cancel":  "ì·¨ì†Œ",
-                     "save":  "ì €ìž¥",
-                     "edit":  "âœï¸ íŽ¸ì§‘",
-                     "delete":  "ðŸ—‘ï¸ ì‚­ì œ",
-                     "edited":  "Â· ìˆ˜ì •ë¨",
-                     "replyTo":  "@ì—ê²Œ ë‹µê¸€",
+                     "title":  "댓글",
+                     "placeholder":  "댓글을 작성하세요...",
+                     "submit":  "💬 댓글 달기",
+                     "submitting":  "게시 중...",
+                     "loading":  "불러오는 중...",
+                     "empty":  "첫 번째 댓글을 달아보세요",
+                     "loadMore":  "↓ 댓글 더 보기",
+                     "loadingMore":  "불러오는 중...",
+                     "reply":  "답글",
+                     "replying":  "게시 중...",
+                     "cancel":  "취소",
+                     "save":  "저장",
+                     "edit":  "✏️ 편집",
+                     "delete":  "🗑️ 삭제",
+                     "edited":  "· 수정됨",
+                     "replyTo":  "@에게 답글",
                      "replies":  {
-                                     "one":  "ê°œ ë‹µê¸€",
-                                     "other":  "ê°œ ë‹µê¸€"
+                                     "one":  "개 답글",
+                                     "other":  "개 답글"
                                  }
                  },
     "post":  {
                  "edit":  {
-                              "title":  "ê²Œì‹œë¬¼ íŽ¸ì§‘",
-                              "content":  "ë‚´ìš©:",
-                              "tags":  "íƒœê·¸ (ì‰¼í‘œë¡œ êµ¬ë¶„):",
-                              "public":  "ê³µê°œ",
-                              "save":  "ì €ìž¥",
-                              "skip":  "ê±´ë„ˆë›°ê¸°"
+                              "title":  "게시물 편집",
+                              "content":  "내용:",
+                              "tags":  "태그 (쉼표로 구분):",
+                              "public":  "공개",
+                              "save":  "저장",
+                              "skip":  "건너뛰기"
                           },
                  "likes":  {
-                               "like":  "ì¢‹ì•„ìš”",
-                               "liked":  "ì¢‹ì•„ìš” ì·¨ì†Œ",
-                               "likedBy":  "ì¢‹ì•„í•œ ì‚¬ëžŒë“¤",
-                               "noLikes":  "ì•„ì§ ì¢‹ì•„ìš”ê°€ ì—†ìŠµë‹ˆë‹¤",
-                               "loading":  "ë¶ˆëŸ¬ì˜¤ëŠ” ì¤‘..."
+                               "like":  "좋아요",
+                               "liked":  "좋아요 취소",
+                               "likedBy":  "좋아한 사람들",
+                               "noLikes":  "아직 좋아요가 없습니다",
+                               "loading":  "불러오는 중..."
                            },
                  "deleteConfirm":  "Delete this post?",
                  "deleteBody":  "This action cannot be undone.",
@@ -232,147 +232,147 @@
              },
     "profile":  {
                     "tabs":  {
-                                 "posts":  "ê²Œì‹œë¬¼",
-                                 "videos":  "ë™ì˜ìƒ",
-                                 "liked":  "ì¢‹ì•„ìš”",
-                                 "bookmarks":  "ì €ìž¥ë¨"
+                                 "posts":  "게시물",
+                                 "videos":  "동영상",
+                                 "liked":  "좋아요",
+                                 "bookmarks":  "저장됨"
                              },
                     "content":  {
-                                    "noPosts":  "ì•„ì§ ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤",
-                                    "noVideos":  "ì•„ì§ ë™ì˜ìƒì´ ì—†ìŠµë‹ˆë‹¤",
-                                    "likedPosts":  "ì¢‹ì•„í•œ ê²Œì‹œë¬¼",
-                                    "savedPosts":  "ì €ìž¥í•œ ê²Œì‹œë¬¼",
-                                    "loadMore":  "ë” ë³´ê¸°",
-                                    "loading":  "ë¶ˆëŸ¬ì˜¤ëŠ” ì¤‘..."
+                                    "noPosts":  "아직 게시물이 없습니다",
+                                    "noVideos":  "아직 동영상이 없습니다",
+                                    "likedPosts":  "좋아한 게시물",
+                                    "savedPosts":  "저장한 게시물",
+                                    "loadMore":  "더 보기",
+                                    "loading":  "불러오는 중..."
                                 }
                 },
     "upload":  {
-                   "title":  "ë™ì˜ìƒ/ê²Œì‹œë¬¼ ì—…ë¡œë“œ",
-                   "titleField":  "ì œëª© (ì„ íƒ)",
-                   "description":  "ì„¤ëª… (ì„ íƒ)",
-                   "submit":  "ì—…ë¡œë“œ",
-                   "submitting":  "ì—…ë¡œë“œ ì¤‘..."
+                   "title":  "동영상/게시물 업로드",
+                   "titleField":  "제목 (선택)",
+                   "description":  "설명 (선택)",
+                   "submit":  "업로드",
+                   "submitting":  "업로드 중..."
                },
     "explore":  {
-                    "title":  "ì‚¬ëžŒ ë°œê²¬í•˜ê¸°",
-                    "subtitle":  "ì „ ì„¸ê³„ ì‚¬ëžŒë“¤ì„ ì°¾ê³  ì—°ê²°í•˜ì„¸ìš”",
+                    "title":  "사람 발견하기",
+                    "subtitle":  "전 세계 사람들을 찾고 연결하세요",
                     "search":  {
-                                   "placeholder":  "ì´ë¦„ ë˜ëŠ” ì‚¬ìš©ìž ì´ë¦„ìœ¼ë¡œ ê²€ìƒ‰...",
-                                   "button":  "ê²€ìƒ‰",
-                                   "searching":  "ê²€ìƒ‰ ì¤‘...",
-                                   "results":  "ê²°ê³¼ ({{ count }})",
+                                   "placeholder":  "이름 또는 사용자 이름으로 검색...",
+                                   "button":  "검색",
+                                   "searching":  "검색 중...",
+                                   "results":  "결과 ({{ count }})",
                                    "noResults":  {
-                                                     "title":  "ê²°ê³¼ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤",
-                                                     "subtitle":  "ë‹¤ë¥¸ ê²€ìƒ‰ì–´ë¥¼ ì‹œë„í•´ë³´ì„¸ìš”"
+                                                     "title":  "결과를 찾을 수 없습니다",
+                                                     "subtitle":  "다른 검색어를 시도해보세요"
                                                  }
                                },
                     "followRequests":  {
-                                           "title":  "íŒ”ë¡œìš° ìš”ì²­",
+                                           "title":  "팔로우 요청",
                                            "noPending":  {
-                                                             "title":  "ëŒ€ê¸° ì¤‘ì¸ ìš”ì²­ì´ ì—†ìŠµë‹ˆë‹¤",
-                                                             "subtitle":  "ëˆ„êµ°ê°€ íŒ”ë¡œìš°í•˜ë ¤ê³  í•˜ë©´ ì—¬ê¸°ì— í‘œì‹œë©ë‹ˆë‹¤"
+                                                             "title":  "대기 중인 요청이 없습니다",
+                                                             "subtitle":  "누군가 팔로우하려고 하면 여기에 표시됩니다"
                                                          },
-                                           "accept":  "ìˆ˜ë½",
-                                           "reject":  "ê±°ì ˆ"
+                                           "accept":  "수락",
+                                           "reject":  "거절"
                                        },
                     "suggested":  {
-                                      "title":  "ì•Œ ìˆ˜ë„ ìžˆëŠ” ì‚¬ëžŒë“¤",
-                                      "empty":  "í˜„ìž¬ ì¶”ì²œì´ ì—†ìŠµë‹ˆë‹¤",
-                                      "viewAll":  "ëª¨ë“  ì¶”ì²œ ë³´ê¸°",
-                                      "viewLess":  "ì ‘ê¸°",
-                                      "mutual":  "{{ count }}ëª…ì˜ ê³µí†µ íŒ”ë¡œì›Œ",
-                                      "follow":  "íŒ”ë¡œìš°",
-                                      "following":  "íŒ”ë¡œìž‰",
-                                      "pending":  "ëŒ€ê¸° ì¤‘"
+                                      "title":  "알 수도 있는 사람들",
+                                      "empty":  "현재 추천이 없습니다",
+                                      "viewAll":  "모든 추천 보기",
+                                      "viewLess":  "접기",
+                                      "mutual":  "{{ count }}명의 공통 팔로워",
+                                      "follow":  "팔로우",
+                                      "following":  "팔로잉",
+                                      "pending":  "대기 중"
                                   }
                 },
     "countrySetup":  {
-                         "title":  "ì–´ë””ì„œ ì˜¤ì…¨ë‚˜ìš”?",
-                         "subtitle":  "ê²Œì‹œë¬¼ê³¼ ë©”ì‹œì§€ì— êµ­ê¸°ê°€ í‘œì‹œë˜ì–´ ì‚¬ëžŒë“¤ì´ ì–´ë””ì„œ ì˜¤ì…¨ëŠ”ì§€ ì•Œ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.",
-                         "detecting":  "êµ­ê°€ ê°ì§€ ì¤‘...",
-                         "detected":  "ê°ì§€ëœ êµ­ê°€:",
-                         "notDetected":  "ìžë™ìœ¼ë¡œ êµ­ê°€ë¥¼ ê°ì§€í•  ìˆ˜ ì—†ì—ˆìŠµë‹ˆë‹¤.",
-                         "manualSelect":  "êµ­ê°€ë¥¼ ì„ íƒí•˜ì„¸ìš”:",
-                         "manualPlaceholder":  "-- êµ­ê°€ ì„ íƒ --",
-                         "notMyCountry":  "ë‚´ êµ­ê°€ê°€ ì•„ë‹™ë‹ˆë‹¤ â€” ë³€ê²½",
-                         "confirm":  "âœ… í™•ì¸",
-                         "saving":  "ì €ìž¥ ì¤‘...",
-                         "skip":  "ì§€ê¸ˆì€ ê±´ë„ˆë›°ê¸°"
+                         "title":  "어디서 오셨나요?",
+                         "subtitle":  "게시물과 메시지에 국기가 표시되어 사람들이 어디서 오셨는지 알 수 있습니다.",
+                         "detecting":  "국가 감지 중...",
+                         "detected":  "감지된 국가:",
+                         "notDetected":  "자동으로 국가를 감지할 수 없었습니다.",
+                         "manualSelect":  "국가를 선택하세요:",
+                         "manualPlaceholder":  "-- 국가 선택 --",
+                         "notMyCountry":  "내 국가가 아닙니다 — 변경",
+                         "confirm":  "✅ 확인",
+                         "saving":  "저장 중...",
+                         "skip":  "지금은 건너뛰기"
                      },
     "permissions":  {
                         "welcome":  {
-                                        "title":  "ê¶Œí•œ ì„¤ì •",
-                                        "subtitle":  "ìµœê³ ì˜ ê²½í—˜ì„ ì œê³µí•˜ê¸° ìœ„í•´ ì¼ë¶€ ê¸°ê¸° ê¶Œí•œì— ì ‘ê·¼ì´ í•„ìš”í•©ë‹ˆë‹¤.",
-                                        "camera":  "ë¼ì´ë¸Œ ìŠ¤íŠ¸ë¦¬ë°ìš© ì¹´ë©”ë¼",
-                                        "microphone":  "í™”ìƒ í†µí™”ìš© ë§ˆì´í¬",
-                                        "notifications":  "ë©”ì‹œì§€ ì•Œë¦¼",
-                                        "later":  "ë‚˜ì¤‘ì— ì„¤ì •",
-                                        "continue":  "ê³„ì†"
+                                        "title":  "권한 설정",
+                                        "subtitle":  "최고의 경험을 제공하기 위해 일부 기기 권한에 접근이 필요합니다.",
+                                        "camera":  "라이브 스트리밍용 카메라",
+                                        "microphone":  "화상 통화용 마이크",
+                                        "notifications":  "메시지 알림",
+                                        "later":  "나중에 설정",
+                                        "continue":  "계속"
                                     },
                         "list":  {
-                                     "title":  "í•„ìš”í•œ ê¶Œí•œ",
-                                     "subtitle":  "ê° ê¶Œí•œì„ í´ë¦­í•˜ì—¬ ê¸°ê¸°ì— ìš”ì²­í•˜ì„¸ìš”",
-                                     "granted":  "âœ“ í—ˆìš©ë¨",
-                                     "required":  "âš  í•„ìˆ˜",
-                                     "optional":  "â„¹ ì„ íƒ",
-                                     "request":  "ì ‘ê·¼ ìš”ì²­",
-                                     "requestAll":  "ëª¨ë‘ ìš”ì²­",
-                                     "back":  "ë’¤ë¡œ"
+                                     "title":  "필요한 권한",
+                                     "subtitle":  "각 권한을 클릭하여 기기에 요청하세요",
+                                     "granted":  "✓ 허용됨",
+                                     "required":  "⚠ 필수",
+                                     "optional":  "ℹ 선택",
+                                     "request":  "접근 요청",
+                                     "requestAll":  "모두 요청",
+                                     "back":  "뒤로"
                                  },
                         "complete":  {
-                                         "title":  "ì„¤ì • ì™„ë£Œ!",
-                                         "subtitle":  "ê¶Œí•œì´ ì˜¬ë°”ë¥´ê²Œ êµ¬ì„±ë˜ì—ˆìŠµë‹ˆë‹¤.",
-                                         "grantedStatus":  "í—ˆìš©ë¨",
-                                         "deniedStatus":  "í—ˆìš© ì•ˆ ë¨",
-                                         "redirect":  "ëª‡ ì´ˆ í›„ í™ˆìœ¼ë¡œ ì´ë™í•©ë‹ˆë‹¤...",
-                                         "goHome":  "ì§€ê¸ˆ í™ˆìœ¼ë¡œ ê°€ê¸°"
+                                         "title":  "설정 완료!",
+                                         "subtitle":  "권한이 올바르게 구성되었습니다.",
+                                         "grantedStatus":  "허용됨",
+                                         "deniedStatus":  "허용 안 됨",
+                                         "redirect":  "몇 초 후 홈으로 이동합니다...",
+                                         "goHome":  "지금 홈으로 가기"
                                      }
                     },
     "report":  {
-                   "title":  "ðŸš© ì½˜í…ì¸  ì‹ ê³ ",
-                   "subtitle":  "ì‹ ê³  ì´ìœ ë¥¼ ì„ íƒí•˜ì„¸ìš”",
-                   "descriptionLabel":  "ì¶”ê°€ ì„¤ëª… (ì„ íƒ)",
-                   "descriptionPlaceholder":  "ë¬¸ì œì— ëŒ€í•´ ë” ìžì„¸ížˆ ì•Œë ¤ì£¼ì„¸ìš”...",
-                   "cancel":  "ì·¨ì†Œ",
-                   "submit":  "ì‹ ê³  ì œì¶œ",
-                   "submitting":  "ì œì¶œ ì¤‘..."
+                   "title":  "🚩 콘텐츠 신고",
+                   "subtitle":  "신고 이유를 선택하세요",
+                   "descriptionLabel":  "추가 설명 (선택)",
+                   "descriptionPlaceholder":  "문제에 대해 더 자세히 알려주세요...",
+                   "cancel":  "취소",
+                   "submit":  "신고 제출",
+                   "submitting":  "제출 중..."
                },
     "terms":  {
-                  "title":  "ì´ìš©ì•½ê´€ ë° ê°œì¸ì •ë³´ ì²˜ë¦¬ë°©ì¹¨",
-                  "lastUpdated":  "ë§ˆì§€ë§‰ ì—…ë°ì´íŠ¸: 2025ë…„ 1ì›” Â· ê³„ì†í•˜ê¸° ì „ì— ì£¼ì˜ ê¹Šê²Œ ì½ì–´ì£¼ì„¸ìš”",
+                  "title":  "이용약관 및 개인정보 처리방침",
+                  "lastUpdated":  "마지막 업데이트: 2025년 1월 · 계속하기 전에 주의 깊게 읽어주세요",
                   "tabs":  {
-                               "terms":  "ðŸ“„ ì´ìš©ì•½ê´€",
-                               "privacy":  "ðŸ”’ ê°œì¸ì •ë³´ ì²˜ë¦¬ë°©ì¹¨"
+                               "terms":  "📄 이용약관",
+                               "privacy":  "🔒 개인정보 처리방침"
                            },
                   "scroll":  {
-                                 "pending":  "ê³„ì†í•˜ë ¤ë©´ ì•„ëž˜ë¡œ ìŠ¤í¬ë¡¤í•˜ì„¸ìš”",
-                                 "done":  "ì „ì²´ ë¬¸ì„œë¥¼ ì½ì—ˆìŠµë‹ˆë‹¤ âœ“"
+                                 "pending":  "계속하려면 아래로 스크롤하세요",
+                                 "done":  "전체 문서를 읽었습니다 ✓"
                              },
-                  "decline":  "ê±°ë¶€",
-                  "accept":  "ë™ì˜ ë° ê³„ì†"
+                  "decline":  "거부",
+                  "accept":  "동의 및 계속"
               },
     "common":  {
-                   "loading":  "ë¶ˆëŸ¬ì˜¤ëŠ” ì¤‘...",
-                   "error":  "ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤",
-                   "retry":  "ë‹¤ì‹œ ì‹œë„",
-                   "save":  "ì €ìž¥",
-                   "cancel":  "ì·¨ì†Œ",
-                   "confirm":  "í™•ì¸",
-                   "delete":  "ì‚­ì œ",
-                   "edit":  "íŽ¸ì§‘",
-                   "close":  "ë‹«ê¸°",
-                   "back":  "ë’¤ë¡œ",
-                   "next":  "ë‹¤ìŒ",
-                   "skip":  "ê±´ë„ˆë›°ê¸°",
-                   "search":  "ê²€ìƒ‰",
-                   "share":  "ê³µìœ ",
-                   "report":  "ì‹ ê³ ",
-                   "follow":  "íŒ”ë¡œìš°",
-                   "unfollow":  "íŒ”ë¡œìš° ì·¨ì†Œ",
-                   "following":  "íŒ”ë¡œìž‰",
-                   "followers":  "íŒ”ë¡œì›Œ",
-                   "posts":  "ê²Œì‹œë¬¼",
-                   "videos":  "ë™ì˜ìƒ"
+                   "loading":  "불러오는 중...",
+                   "error":  "오류가 발생했습니다",
+                   "retry":  "다시 시도",
+                   "save":  "저장",
+                   "cancel":  "취소",
+                   "confirm":  "확인",
+                   "delete":  "삭제",
+                   "edit":  "편집",
+                   "close":  "닫기",
+                   "back":  "뒤로",
+                   "next":  "다음",
+                   "skip":  "건너뛰기",
+                   "search":  "검색",
+                   "share":  "공유",
+                   "report":  "신고",
+                   "follow":  "팔로우",
+                   "unfollow":  "팔로우 취소",
+                   "following":  "팔로잉",
+                   "followers":  "팔로워",
+                   "posts":  "게시물",
+                   "videos":  "동영상"
                },
     "settings":  {
                      "title":  "Settings",

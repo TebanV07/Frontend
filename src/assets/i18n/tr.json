@@ -1,4 +1,4 @@
-﻿﻿{
+{
     "brand":  {
                   "name":  "TINKO",
                   "tagline":  "AI-Powered Global Connection"
@@ -43,56 +43,56 @@
                        "logout":  "\u00c7\u0131k\u0131\u015f"
                    },
 "login":  {
-                               "title":  "Tekrar hoÅŸ geldin!",
-                               "subtitle":  "KÃ¼resel deneyimine devam etmek iÃ§in giriÅŸ yap",
-                               "submit":  "GiriÅŸ yap",
-                               "submitting":  "GiriÅŸ yapÄ±lÄ±yor...",
+                               "title":  "Tekrar hoş geldin!",
+                               "subtitle":  "Küresel deneyimine devam etmek için giriş yap",
+                               "submit":  "Giriş yap",
+                               "submitting":  "Giriş yapılıyor...",
                                "noAccount":  "HesabÄ±n yok mu?",
-                               "switchToRegister":  "Ãœcretsiz kaydol",
+                               "switchToRegister":  "Ücretsiz kaydol",
                                "rememberMe":  "Beni hatÄ±rla",
                                "forgotPassword":  "Åžifreni mi unuttun?",
-                               "orContinueWith":  "veya ÅŸununla devam et",
+                               "orContinueWith":  "veya şununla devam et",
                                "google":  "Google"
                            },
                  "register":  {
                                   "title":  "Devrime katÄ±l!",
-                                  "subtitle":  "Dil engeli olmadan dÃ¼nyayla baÄŸlan",
-                                  "submit":  "Hesap oluÅŸtur",
-                                  "submitting":  "Hesap oluÅŸturuluyor...",
+                                  "subtitle":  "Dil engeli olmadan dünyayla bağlan",
+                                  "submit":  "Hesap oluştur",
+                                  "submitting":  "Hesap oluşturuluyor...",
                                   "hasAccount":  "Zaten hesabÄ±n var mÄ±?",
-                                  "switchToLogin":  "GiriÅŸ yap",
-                                  "usernameHint":  "Girmezsen otomatik oluÅŸturulacak",
+                                  "switchToLogin":  "Giriş yap",
+                                  "usernameHint":  "Girmezsen otomatik oluşturulacak",
                                   "nativeLanguageHint":  "Ana dil"
                               },
                  "fields":  {
                                 "firstName":  "Ad",
                                 "lastName":  "Soyad",
-                                "username":  "KullanÄ±cÄ± adÄ± (isteÄŸe baÄŸlÄ±)",
+                                "username":  "Kullanıcı adı (isteğe bağlı)",
                                 "email":  "E-posta adresi",
                                 "password":  "Åžifre",
                                 "nativeLanguage":  "Ana dil"
                             },
                  "features":  {
-                                  "title":  "ðŸš€ Seni bekleyenler:",
-                                  "videos":  "GerÃ§ek zamanlÄ± Ã§evrilmiÅŸ videolar",
-                                  "languages":  "24+ dilde baÄŸlan",
-                                  "ai":  "GeliÅŸmiÅŸ AI Ã§evirisi"
+                                  "title":  "🚀 Seni bekleyenler:",
+                                  "videos":  "Gerçek zamanlı çevrilmiş videolar",
+                                  "languages":  "24+ dilde bağlan",
+                                  "ai":  "Gelişmiş AI çevirisi"
                               }
              },
     "verify":  {
-                   "loading":  "E-posta doÄŸrulanÄ±yor...",
+                   "loading":  "E-posta doğrulanıyor...",
                    "success":  {
-                                   "title":  "E-posta doÄŸrulandÄ±!",
-                                   "message":  "HesabÄ±n doÄŸrulandÄ±. TÃ¼m Ã¶zelliklerin keyfini Ã§Ä±kar.",
+                                   "title":  "E-posta doğrulandı!",
+                                   "message":  "Hesabın doğrulandı. Tüm özelliklerin keyfini çıkar.",
                                    "goHome":  "Ana sayfaya git"
                                },
                    "error":  {
-                                 "title":  "GeÃ§ersiz baÄŸlantÄ±",
-                                 "requestNew":  "Yeni baÄŸlantÄ± iste"
+                                 "title":  "Geçersiz bağlantı",
+                                 "requestNew":  "Yeni bağlantı iste"
                              }
                },
     "header":  {
-                   "search":  "KiÅŸileri, gÃ¶nderileri ara...",
+                   "search":  "Kişileri, gönderileri ara...",
                    "nav":  {
                                "home":  "Ana Sayfa",
                                "trending":  "Trendler",
@@ -106,43 +106,43 @@
                                  "light":  "AÃ§Ä±k mod",
                                  "dark":  "Koyu mod"
                              },
-                   "menu":  "MenÃ¼"
+                   "menu":  "Menü"
                },
     "chat":  {
                  "input":  {
                                "placeholder":  "Bir mesaj yaz...",
                                "emojis":  "Emojiler",
                                "attach":  "Dosya ekle",
-                               "camera":  "FotoÄŸraf Ã§ek",
+                               "camera":  "Fotoğraf çek",
                                "voice":  "Sesli mesaj kaydet",
-                               "send":  "GÃ¶nder",
+                               "send":  "Gönder",
                                "recording":  "Kaydediliyor...",
                                "stopRecording":  "Durdur"
                            },
                  "window":  {
                                 "noName":  "Ä°simsiz",
-                                "selectConversation":  "Bir konuÅŸma seÃ§",
-                                "selectConversationHint":  "Sohbet baÅŸlatmak iÃ§in bir konuÅŸma seÃ§",
-                                "uploading":  "Dosya yÃ¼kleniyor...",
-                                "speaksLanguage":  "KonuÅŸtuÄŸu dil: "
+                                "selectConversation":  "Bir konuşma seç",
+                                "selectConversationHint":  "Sohbet başlatmak için bir konuşma seç",
+                                "uploading":  "Dosya yükleniyor...",
+                                "speaksLanguage":  "Konuştuğu dil: "
                             },
                  "bubble":  {
-                                "edited":  "dÃ¼zenlendi",
-                                "edit":  "DÃ¼zenle",
+                                "edited":  "düzenlendi",
+                                "edit":  "Düzenle",
                                 "delete":  "Sil",
                                 "deleteForMe":  "Benim iÃ§in sil",
                                 "forward":  "Ä°let",
-                                "share":  "PaylaÅŸ",
-                                "translate":  "Ã‡evir"
+                                "share":  "Paylaş",
+                                "translate":  "Çevir"
                             }
              },
     "feed":  {
-                 "loading":  "Videolar yÃ¼kleniyor...",
-                 "loadingMore":  "Daha fazla video yÃ¼kleniyor...",
+                 "loading":  "Videolar yükleniyor...",
+                 "loadingMore":  "Daha fazla video yükleniyor...",
                  "empty":  {
                                "title":  "KullanÄ±labilir video yok",
-                               "subtitle":  "AI Ã§evirisiyle ilk videoyu yÃ¼kleyen sen ol",
-                               "upload":  "Video YÃ¼kle"
+                               "subtitle":  "AI çevirisiyle ilk videoyu yükleyen sen ol",
+                               "upload":  "Video Yükle"
                            },
                  "position":  "{{ current }} / {{ total }}",
                  "aiActive":  "AI Translation Active",
@@ -160,9 +160,9 @@
                  "noPostsSub":  "Be the first to share something!"
              },
     "videoPlayer":  {
-                        "loading":  "Video yÃ¼kleniyor...",
+                        "loading":  "Video yükleniyor...",
                         "error":  {
-                                      "title":  "Video yÃ¼kleme hatasÄ±",
+                                      "title":  "Video yükleme hatası",
                                       "subtitle":  "Bu video oynatÄ±lamadÄ±",
                                       "retry":  "Tekrar dene"
                                   },
@@ -171,19 +171,19 @@
     "comments":  {
                      "title":  "Yorumlar",
                      "placeholder":  "Yorum yaz...",
-                     "submit":  "ðŸ’¬ Yorum yap",
+                     "submit":  "💬 Yorum yap",
                      "submitting":  "YayÄ±nlanÄ±yor...",
-                     "loading":  "YÃ¼kleniyor...",
+                     "loading":  "Yükleniyor...",
                      "empty":  "Ä°lk yorum yapan sen ol",
-                     "loadMore":  "â†“ Daha fazla yorum",
-                     "loadingMore":  "YÃ¼kleniyor...",
+                     "loadMore":  "↓ Daha fazla yorum",
+                     "loadingMore":  "Yükleniyor...",
                      "reply":  "YanÄ±tla",
                      "replying":  "YayÄ±nlanÄ±yor...",
                      "cancel":  "Ä°ptal",
                      "save":  "Kaydet",
-                     "edit":  "âœï¸ DÃ¼zenle",
-                     "delete":  "ðŸ—‘ï¸ Sil",
-                     "edited":  "Â· dÃ¼zenlendi",
+                     "edit":  "✏️ Düzenle",
+                     "delete":  "🗑️ Sil",
+                     "edited":  "· düzenlendi",
                      "replyTo":  "@\u0027ya yanÄ±tla",
                      "replies":  {
                                      "one":  "yanÄ±t",
@@ -192,19 +192,19 @@
                  },
     "post":  {
                  "edit":  {
-                              "title":  "GÃ¶nderiyi dÃ¼zenle",
+                              "title":  "Gönderiyi düzenle",
                               "content":  "Ä°Ã§erik:",
-                              "tags":  "Etiketler (virgÃ¼lle ayÄ±r):",
+                              "tags":  "Etiketler (virgülle ayır):",
                               "public":  "Herkese aÃ§Ä±k",
                               "save":  "Kaydet",
                               "skip":  "Atla"
                           },
                  "likes":  {
-                               "like":  "BeÄŸen",
-                               "liked":  "BeÄŸenildi",
-                               "likedBy":  "BeÄŸenenler",
-                               "noLikes":  "HenÃ¼z beÄŸeni yok",
-                               "loading":  "YÃ¼kleniyor..."
+                               "like":  "Beğen",
+                               "liked":  "Beğenildi",
+                               "likedBy":  "Beğenenler",
+                               "noLikes":  "Henüz beğeni yok",
+                               "loading":  "Yükleniyor..."
                            },
                  "deleteConfirm":  "Delete this post?",
                  "deleteBody":  "This action cannot be undone.",
@@ -232,30 +232,30 @@
              },
     "profile":  {
                     "tabs":  {
-                                 "posts":  "GÃ¶nderiler",
+                                 "posts":  "Gönderiler",
                                  "videos":  "Videolar",
-                                 "liked":  "BeÄŸendiklerim",
+                                 "liked":  "Beğendiklerim",
                                  "bookmarks":  "Kaydedilenler"
                              },
                     "content":  {
-                                    "noPosts":  "HenÃ¼z gÃ¶nderi yok",
-                                    "noVideos":  "HenÃ¼z video yok",
-                                    "likedPosts":  "BeÄŸendiÄŸin gÃ¶nderiler",
-                                    "savedPosts":  "Kaydedilen gÃ¶nderiler",
-                                    "loadMore":  "Daha fazla gÃ¶r",
-                                    "loading":  "YÃ¼kleniyor..."
+                                    "noPosts":  "Henüz gönderi yok",
+                                    "noVideos":  "Henüz video yok",
+                                    "likedPosts":  "Beğendiğin gönderiler",
+                                    "savedPosts":  "Kaydedilen gönderiler",
+                                    "loadMore":  "Daha fazla gör",
+                                    "loading":  "Yükleniyor..."
                                 }
                 },
     "upload":  {
-                   "title":  "Video/gÃ¶nderi yÃ¼kle",
-                   "titleField":  "BaÅŸlÄ±k (isteÄŸe baÄŸlÄ±)",
-                   "description":  "AÃ§Ä±klama (isteÄŸe baÄŸlÄ±)",
-                   "submit":  "YÃ¼kle",
-                   "submitting":  "YÃ¼kleniyor..."
+                   "title":  "Video/gönderi yükle",
+                   "titleField":  "Başlık (isteğe bağlı)",
+                   "description":  "Açıklama (isteğe bağlı)",
+                   "submit":  "Yükle",
+                   "submitting":  "Yükleniyor..."
                },
     "explore":  {
-                    "title":  "KiÅŸileri keÅŸfet",
-                    "subtitle":  "DÃ¼nyanÄ±n dÃ¶rt bir yanÄ±ndan insanlarÄ± bul ve baÄŸlan",
+                    "title":  "Kişileri keşfet",
+                    "subtitle":  "Dünyanın dört bir yanından insanları bul ve bağlan",
                     "search":  {
                                    "placeholder":  "Ä°sim veya kullanÄ±cÄ± adÄ±yla ara...",
                                    "button":  "Ara",
@@ -270,16 +270,16 @@
                                            "title":  "Takip istekleri",
                                            "noPending":  {
                                                              "title":  "Bekleyen istek yok",
-                                                             "subtitle":  "Biri seni takip etmek istediÄŸinde burada gÃ¶rÃ¼necek"
+                                                             "subtitle":  "Biri seni takip etmek istediğinde burada görünecek"
                                                          },
                                            "accept":  "Kabul et",
                                            "reject":  "Reddet"
                                        },
                     "suggested":  {
-                                      "title":  "TanÄ±yor olabileceÄŸin kiÅŸiler",
-                                      "empty":  "Åžu an Ã¶neri yok",
-                                      "viewAll":  "TÃ¼m Ã¶nerileri gÃ¶r",
-                                      "viewLess":  "Daha az gÃ¶r",
+                                      "title":  "Tanıyor olabileceğin kişiler",
+                                      "empty":  "Şu an öneri yok",
+                                      "viewAll":  "Tüm önerileri gör",
+                                      "viewLess":  "Daha az gör",
                                       "mutual":  "{{ count }} ortak takipÃ§i",
                                       "follow":  "Takip et",
                                       "following":  "Takip ediliyor",
@@ -288,23 +288,23 @@
                 },
     "countrySetup":  {
                          "title":  "Nereden geliyorsun?",
-                         "subtitle":  "Bayrak gÃ¶nderilerinde ve mesajlarÄ±nda gÃ¶rÃ¼necek, insanlar nereden olduÄŸunu Ã¶ÄŸrenecek.",
-                         "detecting":  "Ãœlken tespit ediliyor...",
-                         "detected":  "Tespit edilen Ã¼lke:",
-                         "notDetected":  "Ãœlkeni otomatik olarak tespit edemedik.",
-                         "manualSelect":  "Ãœlkeni seÃ§:",
-                         "manualPlaceholder":  "-- Ãœlkeni seÃ§ --",
-                         "notMyCountry":  "Bu benim Ã¼lkem deÄŸil â€” deÄŸiÅŸtir",
-                         "confirm":  "âœ… Onayla",
+                         "subtitle":  "Bayrak gönderilerinde ve mesajlarında görünecek, insanlar nereden olduğunu öğrenecek.",
+                         "detecting":  "Ülken tespit ediliyor...",
+                         "detected":  "Tespit edilen ülke:",
+                         "notDetected":  "Ülkeni otomatik olarak tespit edemedik.",
+                         "manualSelect":  "Ülkeni seç:",
+                         "manualPlaceholder":  "-- Ülkeni seç --",
+                         "notMyCountry":  "Bu benim ülkem değil — değiştir",
+                         "confirm":  "✅ Onayla",
                          "saving":  "Kaydediliyor...",
                          "skip":  "Åžimdilik atla"
                      },
     "permissions":  {
                         "welcome":  {
                                         "title":  "Ä°zinleri ayarla",
-                                        "subtitle":  "En iyi deneyimi sunabilmek iÃ§in bazÄ± cihaz izinlerine eriÅŸmemiz gerekiyor.",
+                                        "subtitle":  "En iyi deneyimi sunabilmek için bazı cihaz izinlerine erişmemiz gerekiyor.",
                                         "camera":  "CanlÄ± yayÄ±n iÃ§in kamera",
-                                        "microphone":  "GÃ¶rÃ¼ntÃ¼lÃ¼ gÃ¶rÃ¼ÅŸme iÃ§in mikrofon",
+                                        "microphone":  "Görüntülü görüşme için mikrofon",
                                         "notifications":  "Mesaj bildirimleri",
                                         "later":  "Sonra ayarla",
                                         "continue":  "Devam et"
@@ -312,66 +312,66 @@
                         "list":  {
                                      "title":  "Gerekli izinler",
                                      "subtitle":  "Her izne tÄ±klayarak cihazÄ±ndan iste",
-                                     "granted":  "âœ“ Verildi",
-                                     "required":  "âš  Gerekli",
-                                     "optional":  "â„¹ Ä°steÄŸe baÄŸlÄ±",
-                                     "request":  "EriÅŸim iste",
-                                     "requestAll":  "TÃ¼mÃ¼nÃ¼ iste",
+                                     "granted":  "✓ Verildi",
+                                     "required":  "⚠ Gerekli",
+                                     "optional":  "ℹ İsteğe bağlı",
+                                     "request":  "Erişim iste",
+                                     "requestAll":  "Tümünü iste",
                                      "back":  "Geri"
                                  },
                         "complete":  {
                                          "title":  "Kurulum tamamlandÄ±!",
-                                         "subtitle":  "Ä°zinlerin doÄŸru ÅŸekilde yapÄ±landÄ±rÄ±ldÄ±.",
+                                         "subtitle":  "İzinlerin doğru şekilde yapılandırıldı.",
                                          "grantedStatus":  "Verildi",
                                          "deniedStatus":  "Verilmedi",
-                                         "redirect":  "BirkaÃ§ saniye iÃ§inde ana sayfaya yÃ¶nlendiriliyor...",
+                                         "redirect":  "Birkaç saniye içinde ana sayfaya yönlendiriliyor...",
                                          "goHome":  "Åžimdi Ana Sayfaya Git"
                                      }
                     },
     "report":  {
-                   "title":  "ðŸš© Ä°Ã§eriÄŸi ÅŸikayet et",
+                   "title":  "🚩 İçeriği şikayet et",
                    "subtitle":  "Åžikayet nedenini seÃ§",
-                   "descriptionLabel":  "Ek aÃ§Ä±klama (isteÄŸe baÄŸlÄ±)",
+                   "descriptionLabel":  "Ek açıklama (isteğe bağlı)",
                    "descriptionPlaceholder":  "Sorun hakkÄ±nda daha fazla bilgi ver...",
                    "cancel":  "Ä°ptal",
-                   "submit":  "Åžikayet gÃ¶nder",
-                   "submitting":  "GÃ¶nderiliyor..."
+                   "submit":  "Şikayet gönder",
+                   "submitting":  "Gönderiliyor..."
                },
     "terms":  {
                   "title":  "Åžartlar ve Gizlilik",
-                  "lastUpdated":  "Son gÃ¼ncelleme: Ocak 2025 Â· Devam etmeden Ã¶nce dikkatlice oku",
+                  "lastUpdated":  "Son güncelleme: Ocak 2025 · Devam etmeden önce dikkatlice oku",
                   "tabs":  {
-                               "terms":  "ðŸ“„ KullanÄ±m ÅžartlarÄ±",
-                               "privacy":  "ðŸ”’ Gizlilik PolitikasÄ±"
+                               "terms":  "📄 Kullanım Şartları",
+                               "privacy":  "🔒 Gizlilik Politikası"
                            },
                   "scroll":  {
-                                 "pending":  "Devam etmek iÃ§in aÅŸaÄŸÄ± kaydÄ±r",
-                                 "done":  "Belgenin tamamÄ±nÄ± okudun âœ“"
+                                 "pending":  "Devam etmek için aşağı kaydır",
+                                 "done":  "Belgenin tamamını okudun ✓"
                              },
                   "decline":  "Reddet",
                   "accept":  "Kabul et ve devam et"
               },
     "common":  {
-                   "loading":  "YÃ¼kleniyor...",
-                   "error":  "Bir hata oluÅŸtu",
+                   "loading":  "Yükleniyor...",
+                   "error":  "Bir hata oluştu",
                    "retry":  "Tekrar dene",
                    "save":  "Kaydet",
                    "cancel":  "Ä°ptal",
                    "confirm":  "Onayla",
                    "delete":  "Sil",
-                   "edit":  "DÃ¼zenle",
+                   "edit":  "Düzenle",
                    "close":  "Kapat",
                    "back":  "Geri",
                    "next":  "Ä°leri",
                    "skip":  "Atla",
                    "search":  "Ara",
-                   "share":  "PaylaÅŸ",
+                   "share":  "Paylaş",
                    "report":  "Åžikayet et",
                    "follow":  "Takip et",
                    "unfollow":  "Takibi bÄ±rak",
                    "following":  "Takip ediliyor",
                    "followers":  "TakipÃ§iler",
-                   "posts":  "GÃ¶nderiler",
+                   "posts":  "Gönderiler",
                    "videos":  "Videolar"
                },
     "settings":  {

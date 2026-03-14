@@ -88,7 +88,7 @@ export class ExplorePeopleComponent implements OnInit {
         this.availableCountries = countries;
       },
       error: (error) => {
-        console.error('Error cargando pa韘es:', error);
+        console.error('Error cargando pa铆ses:', error);
       }
     });
   }
@@ -128,14 +128,14 @@ export class ExplorePeopleComponent implements OnInit {
     request$.subscribe({
       next: (response: any) => {
         if (response?.error) {
-          this.showFeedback(response.message || 'No se pudo completar la acci髇', 'error');
+          this.showFeedback(response.message || 'No se pudo completar la acci贸n', 'error');
           this.actionLoading[actionKey] = false;
           return;
         }
 
         if (isConnected) {
           this.syncUserState(user.id, { isFollowing: false, isPendingRequest: false });
-          this.showFeedback(response?.message || 'Conexi髇 eliminada', 'success');
+          this.showFeedback(response?.message || 'Conexi贸n eliminada', 'success');
           this.actionLoading[actionKey] = false;
           return;
         }
@@ -159,7 +159,7 @@ export class ExplorePeopleComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error en follow/unfollow:', error);
-        this.showFeedback('No se pudo completar la acci髇', 'error');
+        this.showFeedback('No se pudo completar la acci贸n', 'error');
         this.actionLoading[actionKey] = false;
       }
     });
@@ -180,7 +180,7 @@ export class ExplorePeopleComponent implements OnInit {
         this.actionLoading[actionKey] = false;
       },
       error: (error) => {
-        console.error('Error solicitando conversaci髇:', error);
+        console.error('Error solicitando conversaci贸n:', error);
         this.showFeedback('No se pudo enviar la solicitud para conversar', 'error');
         this.actionLoading[actionKey] = false;
       }

@@ -25,24 +25,24 @@ export class PermissionsComponent implements OnInit {
   permissions: Permission[] = [
     {
       id: 'camera',
-      name: 'C醡ara',
-      icon: '??',
-      description: 'Necesitamos acceso a tu c醡ara para transmisiones en vivo y videollamadas',
+      name: 'C谩mara',
+      icon: '馃摲',
+      description: 'Necesitamos acceso a tu c谩mara para transmisiones en vivo y videollamadas',
       granted: false,
       required: false
     },
     {
       id: 'microphone',
-      name: 'Micr骹ono',
-      icon: '??',
-      description: 'Acceso a tu micr骹ono para audio en videollamadas y transmisiones',
+      name: 'Micr贸fono',
+      icon: '馃帳',
+      description: 'Acceso a tu micr贸fono para audio en videollamadas y transmisiones',
       granted: false,
       required: false
     },
     {
       id: 'geolocation',
-      name: 'Ubicaci髇',
-      icon: '??',
+      name: 'Ubicaci贸n',
+      icon: '馃搷',
       description: 'Opcional: para localizar eventos y encuentros cercanos',
       granted: false,
       required: false
@@ -50,7 +50,7 @@ export class PermissionsComponent implements OnInit {
     {
       id: 'notifications',
       name: 'Notificaciones',
-      icon: '??',
+      icon: '馃敂',
       description: 'Recibe notificaciones sobre mensajes, comentarios y menciones',
       granted: false,
       required: true
@@ -67,7 +67,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-    * Solicitar permiso espec韋ico.
+    * Solicitar permiso espec铆fico.
    */
   async requestPermission(permission: Permission): Promise<void> {
     try {
@@ -91,7 +91,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-    * Solicitar permiso de c醡ara.
+    * Solicitar permiso de c谩mara.
    */
   private async requestCameraPermission(permission: Permission): Promise<void> {
     try {
@@ -106,7 +106,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-    * Solicitar permiso de micr骹ono.
+    * Solicitar permiso de micr贸fono.
    */
   private async requestMicrophonePermission(permission: Permission): Promise<void> {
     try {
@@ -121,7 +121,7 @@ export class PermissionsComponent implements OnInit {
   }
 
   /**
-    * Solicitar permiso de ubicaci髇.
+    * Solicitar permiso de ubicaci贸n.
    */
   private async requestGeolocationPermission(permission: Permission): Promise<void> {
     return new Promise((resolve) => {

@@ -1,4 +1,4 @@
-﻿{
+{
     "brand":  {
                   "name":  "TINKO",
                   "tagline":  "AI-Powered Global Connection"
@@ -59,9 +59,9 @@
                                   "subtitle":  "Connettiti col mondo senza barriere linguistiche",
                                   "submit":  "Crea account",
                                   "submitting":  "Creazione account...",
-                                  "hasAccount":  "Hai giÃ  un account?",
+                                  "hasAccount":  "Hai già un account?",
                                   "switchToLogin":  "Accedi",
-                                  "usernameHint":  "Se non ne inserisci uno, verrÃ  generato automaticamente",
+                                  "usernameHint":  "Se non ne inserisci uno, verrà generato automaticamente",
                                   "nativeLanguageHint":  "Lingua madre"
                               },
                  "fields":  {
@@ -73,7 +73,7 @@
                                 "nativeLanguage":  "Lingua madre"
                             },
                  "features":  {
-                                  "title":  "ðŸš€ Cosa ti aspetta:",
+                                  "title":  "🚀 Cosa ti aspetta:",
                                   "videos":  "Video tradotti in tempo reale",
                                   "languages":  "Connettiti con 24+ lingue",
                                   "ai":  "Traduzione IA avanzata"
@@ -83,7 +83,7 @@
                    "loading":  "Verifica e-mail in corso...",
                    "success":  {
                                    "title":  "E-mail verificata!",
-                                   "message":  "Il tuo account Ã¨ ora verificato. Goditi tutte le funzionalitÃ .",
+                                   "message":  "Il tuo account è ora verificato. Goditi tutte le funzionalità.",
                                    "goHome":  "Vai alla home"
                                },
                    "error":  {
@@ -103,8 +103,8 @@
                                "settings":  "Impostazioni"
                            },
                    "theme":  {
-                                 "light":  "ModalitÃ  chiara",
-                                 "dark":  "ModalitÃ  scura"
+                                 "light":  "Modalità chiara",
+                                 "dark":  "Modalità scura"
                              },
                    "menu":  "Menu"
                },
@@ -171,19 +171,19 @@
     "comments":  {
                      "title":  "Commenti",
                      "placeholder":  "Scrivi un commento...",
-                     "submit":  "ðŸ’¬ Commenta",
+                     "submit":  "💬 Commenta",
                      "submitting":  "Pubblicazione...",
                      "loading":  "Caricamento...",
                      "empty":  "Sii il primo a commentare",
-                     "loadMore":  "â†“ Vedi altri commenti",
+                     "loadMore":  "↓ Vedi altri commenti",
                      "loadingMore":  "Caricamento...",
                      "reply":  "Rispondi",
                      "replying":  "Pubblicazione...",
                      "cancel":  "Annulla",
                      "save":  "Salva",
-                     "edit":  "âœï¸ Modifica",
-                     "delete":  "ðŸ—‘ï¸ Elimina",
-                     "edited":  "Â· modificato",
+                     "edit":  "✏️ Modifica",
+                     "delete":  "🗑️ Elimina",
+                     "edited":  "· modificato",
                      "replyTo":  "Rispondi a @",
                      "replies":  {
                                      "one":  "risposta",
@@ -270,7 +270,7 @@
                                            "title":  "Richieste di follow",
                                            "noPending":  {
                                                              "title":  "Nessuna richiesta in sospeso",
-                                                             "subtitle":  "Quando qualcuno vorrÃ  seguirti, apparirÃ  qui"
+                                                             "subtitle":  "Quando qualcuno vorrà seguirti, apparirà qui"
                                                          },
                                            "accept":  "Accetta",
                                            "reject":  "Rifiuta"
@@ -288,14 +288,14 @@
                 },
     "countrySetup":  {
                          "title":  "Da dove vieni?",
-                         "subtitle":  "La tua bandiera apparirÃ  sui tuoi post e messaggi per far sapere da dove vieni.",
+                         "subtitle":  "La tua bandiera apparirà sui tuoi post e messaggi per far sapere da dove vieni.",
                          "detecting":  "Rilevamento del tuo paese...",
                          "detected":  "Paese rilevato:",
                          "notDetected":  "Non siamo riusciti a rilevare il tuo paese automaticamente.",
                          "manualSelect":  "Seleziona il tuo paese:",
                          "manualPlaceholder":  "-- Scegli il tuo paese --",
-                         "notMyCountry":  "Non Ã¨ il mio paese â€” cambia",
-                         "confirm":  "âœ… Conferma",
+                         "notMyCountry":  "Non è il mio paese — cambia",
+                         "confirm":  "✅ Conferma",
                          "saving":  "Salvataggio...",
                          "skip":  "Salta per ora"
                      },
@@ -306,15 +306,15 @@
                                         "camera":  "Fotocamera per le dirette",
                                         "microphone":  "Microfono per le videochiamate",
                                         "notifications":  "Notifiche messaggi",
-                                        "later":  "Configura piÃ¹ tardi",
+                                        "later":  "Configura più tardi",
                                         "continue":  "Continua"
                                     },
                         "list":  {
                                      "title":  "Permessi Necessari",
                                      "subtitle":  "Clicca su ogni permesso per richiederlo al tuo dispositivo",
-                                     "granted":  "âœ“ Concesso",
-                                     "required":  "âš  Obbligatorio",
-                                     "optional":  "â„¹ Opzionale",
+                                     "granted":  "✓ Concesso",
+                                     "required":  "⚠ Obbligatorio",
+                                     "optional":  "ℹ Opzionale",
                                      "request":  "Richiedi Accesso",
                                      "requestAll":  "Richiedi Tutti",
                                      "back":  "Indietro"
@@ -329,31 +329,31 @@
                                      }
                     },
     "report":  {
-                   "title":  "ðŸš© Segnala contenuto",
+                   "title":  "🚩 Segnala contenuto",
                    "subtitle":  "Seleziona il motivo della tua segnalazione",
                    "descriptionLabel":  "Descrizione aggiuntiva (opzionale)",
-                   "descriptionPlaceholder":  "Raccontaci di piÃ¹ sul problema...",
+                   "descriptionPlaceholder":  "Raccontaci di più sul problema...",
                    "cancel":  "Annulla",
                    "submit":  "Invia segnalazione",
                    "submitting":  "Invio..."
                },
     "terms":  {
                   "title":  "Termini, Condizioni e Privacy",
-                  "lastUpdated":  "Ultimo aggiornamento: gennaio 2025 Â· Leggi attentamente prima di continuare",
+                  "lastUpdated":  "Ultimo aggiornamento: gennaio 2025 · Leggi attentamente prima di continuare",
                   "tabs":  {
-                               "terms":  "ðŸ“„ Termini e Condizioni",
-                               "privacy":  "ðŸ”’ Informativa sulla Privacy"
+                               "terms":  "📄 Termini e Condizioni",
+                               "privacy":  "🔒 Informativa sulla Privacy"
                            },
                   "scroll":  {
                                  "pending":  "Scorri fino in fondo per continuare",
-                                 "done":  "Hai letto l\u0027intero documento âœ“"
+                                 "done":  "Hai letto l\u0027intero documento ✓"
                              },
                   "decline":  "Rifiuta",
                   "accept":  "Accetta e Continua"
               },
     "common":  {
                    "loading":  "Caricamento...",
-                   "error":  "Si Ã¨ verificato un errore",
+                   "error":  "Si è verificato un errore",
                    "retry":  "Riprova",
                    "save":  "Salva",
                    "cancel":  "Annulla",
@@ -368,7 +368,7 @@
                    "share":  "Condividi",
                    "report":  "Segnala",
                    "follow":  "Segui",
-                   "unfollow":  "Non seguire piÃ¹",
+                   "unfollow":  "Non seguire più",
                    "following":  "Stai seguendo",
                    "followers":  "Follower",
                    "posts":  "Post",
