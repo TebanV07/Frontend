@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 export interface UploadResponse {
   content_type: 'video' | 'post';
@@ -14,7 +15,7 @@ export interface UploadResponse {
   providedIn: 'root'
 })
 export class UploadService {
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 

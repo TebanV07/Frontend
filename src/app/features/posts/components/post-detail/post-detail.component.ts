@@ -6,6 +6,7 @@ import { PostsService } from '../../../../core/services/posts.service';
 import { Post } from '../../../../core/models/post.model';
 import { LikeButtonComponent } from '../../likes/likes-button/likes-button.component';
 import { LikeCountComponent } from '../../likes/likes-count/likes-count.component';
+import { environment } from '../../../../../environments/environment';
 import { CommentListComponent } from '../../comments/comment-list/comment-list.component';
 import { FlagService } from '../../../../core/services/flag.service';
 import { FormsModule } from '@angular/forms';
@@ -34,7 +35,7 @@ export class PostDetailComponent implements OnInit {
   isTranslating = false;
   selectedTranslationLanguage = 'en';
 
-  private readonly apiBaseUrl = 'https://web-production-94f95.up.railway.app';
+  private readonly apiBaseUrl = environment.apiBaseUrl;
 
   constructor(
     private route: ActivatedRoute,

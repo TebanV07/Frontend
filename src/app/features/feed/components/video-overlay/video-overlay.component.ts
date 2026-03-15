@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { Video } from '../../../../core/services/video.service';
 import { ShortNumberPipe } from "../../../../shared/pipes/short-number.pipe";
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-video-overlay',
@@ -25,7 +26,7 @@ export class VideoOverlayComponent {
   // Estados locales
   showTranslationMenu = false;
   selectedSubtitleLanguage: string = '';
-  private readonly apiBaseUrl = 'https://web-production-94f95.up.railway.app';
+  private readonly apiBaseUrl = environment.apiBaseUrl;
 
   // Idiomas disponibles para traduccion
   availableTranslationLanguages = [

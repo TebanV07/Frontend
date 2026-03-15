@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 export interface Like {
   id: number;
@@ -21,6 +22,7 @@ export interface LikeStatus {
 @Injectable({
   providedIn: 'root'
 })
+export class LikeService {
   private apiUrl = environment.apiUrl;
 
   // BehaviorSubjects para tracking de likes

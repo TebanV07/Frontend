@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpEventType, HttpParams } from '@angular/com
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { UserBasic } from '../models/user.model';
+import { environment } from '../../../environments/environment';
 
 // ==================== INTERFACES ====================
 
@@ -124,7 +125,7 @@ interface TrendingApiResponse {
   providedIn: 'root'
 })
 export class VideoService {
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
   private currentVideo$ = new BehaviorSubject<Video | null>(null);
 
   constructor(private http: HttpClient) {}

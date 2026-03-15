@@ -11,6 +11,7 @@ import { LanguageService } from '../../../../core/services/language.service';
 import { CommentListComponent } from '../../../posts/comments/comment-list/comment-list.component';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
 import { Subscription } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-video-feed',
@@ -30,7 +31,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
   showComments = false;
 
-  // Traducción
+  // Traducci�n
   showLanguageMenu = false;
   availableLanguages: string[] = [];
   currentLanguage = 'es';
@@ -253,7 +254,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // El observer controla la reproducción automática del video activo.
+  // El observer controla la reproducci�n autom�tica del video activo.
   onVideoLoaded(event: Event): void {
     const video = event.target as HTMLVideoElement;
     video.volume = 1.0;
@@ -300,7 +301,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
         video.shares_count = res.shares_count;
         const shareUrl = `${window.location.origin}/videos/${video.uuid}`;
         navigator.clipboard.writeText(shareUrl)
-          .then(() => alert('¡Enlace copiado!'))
+          .then(() => alert('�Enlace copiado!'))
           .catch(() => alert(`Enlace: ${shareUrl}`));
       },
       error: err => console.error('Error share:', err)
@@ -311,7 +312,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('Follow user:', user?.username);
   }
 
-  // ==================== TRADUCCIÓN ====================
+  // ==================== TRADUCCI�N ====================
 
   get currentVideo(): Video | null {
     return this.videos[this.currentVideoIndex] || null;
@@ -352,7 +353,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    const wantAudio = confirm('¿Deseas incluir doblaje de audio?');
+    const wantAudio = confirm('�Deseas incluir doblaje de audio?');
 
     if (!wantAudio) {
       this.isTranslating = true;
@@ -367,11 +368,11 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.includeAudioDubbing = true;
-    const wantPremium = confirm('¿Usar voz premium (ElevenLabs)?');
+    const wantPremium = confirm('�Usar voz premium (ElevenLabs)?');
 
     if (wantPremium) {
       this.ttsProvider = 'elevenlabs';
-      this.cloneVoice = confirm('¿Quieres clonar la voz del video original?');
+      this.cloneVoice = confirm('�Quieres clonar la voz del video original?');
     } else {
       this.ttsProvider = 'openai';
       this.cloneVoice = false;
@@ -421,9 +422,9 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
               this.currentSubtitleUrl = subtitles.subtitle_url;
               setTimeout(() => activeVideoEl.load(), 100);
             }
-            alert(`Subtítulos en ${this.getLanguageName(language)}`);
+            alert(`Subt�tulos en ${this.getLanguageName(language)}`);
           },
-          error: () => alert('No hay doblaje ni subtítulos disponibles')
+          error: () => alert('No hay doblaje ni subt�tulos disponibles')
         });
       }
     });
@@ -448,7 +449,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
           if (job.status === 'completed') {
             clearInterval(interval);
             this.isTranslating = false;
-            alert('¡Traducción completada!');
+            alert('�Traducci�n completada!');
             if (this.currentVideo) {
               const langs = job.completed_languages?.length
                 ? job.completed_languages
@@ -461,7 +462,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
           } else if (job.status === 'failed') {
             clearInterval(interval);
             this.isTranslating = false;
-            alert(`Error: ${job.error_message || 'Traducción fallida'}`);
+            alert(`Error: ${job.error_message || 'Traducci�n fallida'}`);
           }
         },
         error: () => {
@@ -474,14 +475,14 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private handleTranslationResponse(response: any, video: Video, targetLanguage: string): void {
     this.translationJobId = response.job_id;
-    alert(`Traducción iniciada. Tiempo estimado: ${response.estimated_time_minutes} min`);
+    alert(`Traducci�n iniciada. Tiempo estimado: ${response.estimated_time_minutes} min`);
     this.pollTranslationStatus(video.id, response.job_id, targetLanguage);
   }
 
   private handleTranslationError(error: any): void {
     this.isTranslating = false;
     this.showDubbingOption = false;
-    const msg = error.error?.detail || 'Error al solicitar traducción.';
+    const msg = error.error?.detail || 'Error al solicitar traducci�n.';
     alert(msg);
   }
 
@@ -490,7 +491,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
   getFullUrl(url: string): string {
     if (!url) return '';
     if (url.startsWith('http')) return url;
-    return `https://web-production-94f95.up.railway.app${url}`;
+    return `${environment.apiBaseUrl}${url}`;
   }
 
   formatNumber(num: number): string {

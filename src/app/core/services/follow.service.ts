@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { tap, catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 
@@ -73,7 +74,7 @@ interface FollowActionResponse {
   providedIn: 'root'
 })
 export class FollowService {
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
 
   private followingIdsSubject = new BehaviorSubject<number[]>([]);
   public followingIds$ = this.followingIdsSubject.asObservable();
