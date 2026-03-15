@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../../../core/services/auth.service';
+import { environment } from '../../../../environments/environment';
 
 interface QuickAccessItem {
   icon: string;
@@ -29,7 +30,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   };
 
   readonly defaultAvatar = 'assets/default-avatar.png';
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
   private destroy$ = new Subject<void>();
 
   quickAccessItems: QuickAccessItem[] = [
@@ -110,7 +111,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     const avatar = this.currentUser?.avatar || this.currentUser?.profile_image;
     if (!avatar) return this.defaultAvatar;
     if (avatar.startsWith('http')) return avatar;
-    return `https://web-production-94f95.up.railway.app${avatar}`;
+    return `${environment.apiBaseUrl}${avatar}`;
   }
 
   onAvatarError(event: Event) {

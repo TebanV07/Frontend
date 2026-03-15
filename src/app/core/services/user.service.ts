@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 import {
   User,
   UserBasic,
@@ -14,7 +15,7 @@ import {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
 
   private usersCache$ = new BehaviorSubject<Map<number, User>>(new Map());
 

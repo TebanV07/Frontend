@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { VideoService, Trending, Video } from '../../../../core/services/video.service';
 import { FlagService } from '../../../../core/services/flag.service';
+import { environment } from '../../../../../environments/environment';
 
 interface TrendingWithVideos extends Trending {
   videos: Video[];
@@ -40,8 +41,8 @@ export class TrendingComponent implements OnInit {
   availableCountries: CountryOption[] = [];
   isLoadingCountries = false;
 
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
-  private baseUrl = 'https://web-production-94f95.up.railway.app';
+  private apiUrl = environment.apiUrl;
+  private baseUrl = environment.apiBaseUrl;
 
   constructor(
     private videoService: VideoService,

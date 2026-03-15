@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 import { User, UpdateUserDto } from '../models/user.model';
 import { Video } from '../models/video.model';
 
@@ -42,7 +43,7 @@ export interface VideosPage {
   providedIn: 'root'
 })
 export class ProfileService {
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
   private currentProfile$ = new BehaviorSubject<UserProfile | null>(null);
   private isBrowser: boolean;
 

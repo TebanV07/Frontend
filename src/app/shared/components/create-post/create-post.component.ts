@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { Post, PostsService } from '../../../core/services/posts.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-create-post',
@@ -54,7 +55,7 @@ export class CreatePostComponent implements OnInit {
     const avatar = this.currentUser?.avatar || this.currentUser?.profile_image;
     if (!avatar) return this.defaultAvatar;
     if (avatar.startsWith('http')) return avatar;
-    return `https://web-production-94f95.up.railway.app${avatar}`;
+    return `${environment.apiBaseUrl}${avatar}`;
   }
 
   onAvatarError(event: Event) {
