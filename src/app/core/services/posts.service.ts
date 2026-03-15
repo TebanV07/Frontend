@@ -123,7 +123,7 @@ export class PostsService {
     if (tags && tags.length > 0) formData.append('tags', JSON.stringify(tags));
 
     return this.http.post<any>(
-      `${this.apiUrl}/upload`,
+      `${this.apiUrl}/upload/`,
       formData,
       { headers: this.getAuthHeadersForFormData() }
     );

@@ -113,7 +113,7 @@ export class CreatePostComponent implements OnInit {
     if (!file) return;
 
     if (!file.type.startsWith('video/')) { alert('Por favor selecciona un archivo de video valido'); return; }
-    if (file.size > 100 * 1024 * 1024)  { alert('El video debe ser menor a 100MB'); return; }
+    if (file.size > 200 * 1024 * 1024)  { alert('El video debe ser menor a 200MB'); return; }
 
     this.selectedImages = [];
     this.imagePreviews  = [];
