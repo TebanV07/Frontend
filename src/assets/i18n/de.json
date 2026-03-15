@@ -1,4 +1,4 @@
-﻿{
+{
     "brand":  {
                   "name":  "TINKO",
                   "tagline":  "AI-Powered Global Connection"
@@ -43,7 +43,7 @@
                                         "logout":  "Abmelden"
                                     },
                  "login":  {
-                               "title":  "Willkommen zurÃ¼ck!",
+                               "title":  "Willkommen zurück!",
                                "subtitle":  "Melde dich an, um dein globales Erlebnis fortzusetzen",
                                "submit":  "Anmelden",
                                "submitting":  "Anmelden...",
@@ -55,7 +55,7 @@
                                "google":  "Google"
                            },
                  "register":  {
-                                  "title":  "SchlieÃŸ dich der Revolution an!",
+                                  "title":  "Schließ dich der Revolution an!",
                                   "subtitle":  "Verbinde dich mit der Welt ohne Sprachbarrieren",
                                   "submit":  "Konto erstellen",
                                   "submitting":  "Konto wird erstellt...",
@@ -73,26 +73,26 @@
                                 "nativeLanguage":  "Muttersprache"
                             },
                  "features":  {
-                                  "title":  "ðŸš€ Was dich erwartet:",
-                                  "videos":  "Videos in Echtzeit Ã¼bersetzt",
+                                  "title":  "🚀 Was dich erwartet:",
+                                  "videos":  "Videos in Echtzeit übersetzt",
                                   "languages":  "Verbinde dich mit 24+ Sprachen",
-                                  "ai":  "Fortschrittliche KI-Ãœbersetzung"
+                                  "ai":  "Fortschrittliche KI-Übersetzung"
                               }
              },
     "verify":  {
                    "loading":  "E-Mail wird verifiziert...",
                    "success":  {
                                    "title":  "E-Mail verifiziert!",
-                                   "message":  "Dein Konto ist jetzt verifiziert. GenieÃŸe alle Funktionen.",
+                                   "message":  "Dein Konto ist jetzt verifiziert. Genieße alle Funktionen.",
                                    "goHome":  "Zur Startseite"
                                },
                    "error":  {
-                                 "title":  "UngÃ¼ltiger Link",
+                                 "title":  "Ungültiger Link",
                                  "requestNew":  "Neuen Link anfordern"
                              }
                },
     "header":  {
-                   "search":  "Personen, BeitrÃ¤ge suchen...",
+                   "search":  "Personen, Beiträge suchen...",
                    "nav":  {
                                "home":  "Startseite",
                                "trending":  "Trends",
@@ -106,42 +106,42 @@
                                  "light":  "Heller Modus",
                                  "dark":  "Dunkler Modus"
                              },
-                   "menu":  "MenÃ¼"
+                   "menu":  "Menü"
                },
     "chat":  {
                  "input":  {
                                "placeholder":  "Nachricht schreiben...",
                                "emojis":  "Emojis",
-                               "attach":  "Datei anhÃ¤ngen",
+                               "attach":  "Datei anhängen",
                                "camera":  "Foto aufnehmen",
                                "voice":  "Sprachnachricht aufnehmen",
                                "send":  "Senden",
-                               "recording":  "Aufnahme lÃ¤uft...",
+                               "recording":  "Aufnahme läuft...",
                                "stopRecording":  "Stopp"
                            },
                  "window":  {
                                 "noName":  "Kein Name",
-                                "selectConversation":  "GesprÃ¤ch auswÃ¤hlen",
-                                "selectConversationHint":  "WÃ¤hle ein GesprÃ¤ch, um zu chatten",
+                                "selectConversation":  "Gespräch auswählen",
+                                "selectConversationHint":  "Wähle ein Gespräch, um zu chatten",
                                 "uploading":  "Datei wird hochgeladen...",
                                 "speaksLanguage":  "Spricht "
                             },
                  "bubble":  {
                                 "edited":  "bearbeitet",
                                 "edit":  "Bearbeiten",
-                                "delete":  "LÃ¶schen",
-                                "deleteForMe":  "FÃ¼r mich lÃ¶schen",
+                                "delete":  "Löschen",
+                                "deleteForMe":  "Für mich löschen",
                                 "forward":  "Weiterleiten",
                                 "share":  "Teilen",
-                                "translate":  "Ãœbersetzen"
+                                "translate":  "Übersetzen"
                             }
              },
     "feed":  {
                  "loading":  "Videos werden geladen...",
                  "loadingMore":  "Weitere Videos werden geladen...",
                  "empty":  {
-                               "title":  "Keine Videos verfÃ¼gbar",
-                               "subtitle":  "Sei der Erste, der ein Video mit KI-Ãœbersetzung hochlÃ¤dt",
+                               "title":  "Keine Videos verfügbar",
+                               "subtitle":  "Sei der Erste, der ein Video mit KI-Übersetzung hochlädt",
                                "upload":  "Video hochladen"
                            },
                  "position":  "{{ current }} / {{ total }}",
@@ -166,24 +166,24 @@
                                       "subtitle":  "Das Video konnte nicht abgespielt werden",
                                       "retry":  "Erneut versuchen"
                                   },
-                        "noSupport":  "Dein Browser unterstÃ¼tzt das Video-Tag nicht."
+                        "noSupport":  "Dein Browser unterstützt das Video-Tag nicht."
                     },
     "comments":  {
                      "title":  "Kommentare",
                      "placeholder":  "Kommentar schreiben...",
-                     "submit":  "ðŸ’¬ Kommentieren",
-                     "submitting":  "Wird verÃ¶ffentlicht...",
+                     "submit":  "💬 Kommentieren",
+                     "submitting":  "Wird veröffentlicht...",
                      "loading":  "Laden...",
                      "empty":  "Sei der Erste, der kommentiert",
-                     "loadMore":  "â†“ Mehr Kommentare laden",
+                     "loadMore":  "↓ Mehr Kommentare laden",
                      "loadingMore":  "Laden...",
                      "reply":  "Antworten",
-                     "replying":  "Wird verÃ¶ffentlicht...",
+                     "replying":  "Wird veröffentlicht...",
                      "cancel":  "Abbrechen",
                      "save":  "Speichern",
-                     "edit":  "âœï¸ Bearbeiten",
-                     "delete":  "ðŸ—‘ï¸ LÃ¶schen",
-                     "edited":  "Â· bearbeitet",
+                     "edit":  "✏️ Bearbeiten",
+                     "delete":  "🗑️ Löschen",
+                     "edited":  "· bearbeitet",
                      "replyTo":  "Antworten an @",
                      "replies":  {
                                      "one":  "Antwort",
@@ -195,14 +195,14 @@
                               "title":  "Beitrag bearbeiten",
                               "content":  "Inhalt:",
                               "tags":  "Tags (durch Komma getrennt):",
-                              "public":  "Ã–ffentlich",
+                              "public":  "Öffentlich",
                               "save":  "Speichern",
-                              "skip":  "Ãœberspringen"
+                              "skip":  "Überspringen"
                           },
                  "likes":  {
-                               "like":  "GefÃ¤llt mir",
-                               "liked":  "GefÃ¤llt mir",
-                               "likedBy":  "GefÃ¤llt",
+                               "like":  "Gefällt mir",
+                               "liked":  "Gefällt mir",
+                               "likedBy":  "Gefällt",
                                "noLikes":  "Noch keine Likes",
                                "loading":  "Laden..."
                            },
@@ -232,16 +232,16 @@
              },
     "profile":  {
                     "tabs":  {
-                                 "posts":  "BeitrÃ¤ge",
+                                 "posts":  "Beiträge",
                                  "videos":  "Videos",
-                                 "liked":  "GefÃ¤llt mir",
+                                 "liked":  "Gefällt mir",
                                  "bookmarks":  "Gespeichert"
                              },
                     "content":  {
-                                    "noPosts":  "Noch keine BeitrÃ¤ge",
+                                    "noPosts":  "Noch keine Beiträge",
                                     "noVideos":  "Noch keine Videos",
-                                    "likedPosts":  "BeitrÃ¤ge, die dir gefallen haben",
-                                    "savedPosts":  "Gespeicherte BeitrÃ¤ge",
+                                    "likedPosts":  "Beiträge, die dir gefallen haben",
+                                    "savedPosts":  "Gespeicherte Beiträge",
                                     "loadMore":  "Mehr laden",
                                     "loading":  "Laden..."
                                 }
@@ -259,7 +259,7 @@
                     "search":  {
                                    "placeholder":  "Personen nach Name oder Benutzername suchen...",
                                    "button":  "Suchen",
-                                   "searching":  "Suche lÃ¤uft...",
+                                   "searching":  "Suche läuft...",
                                    "results":  "Ergebnisse ({{ count }})",
                                    "noResults":  {
                                                      "title":  "Keine Ergebnisse gefunden",
@@ -270,15 +270,15 @@
                                            "title":  "Follower-Anfragen",
                                            "noPending":  {
                                                              "title":  "Keine ausstehenden Anfragen",
-                                                             "subtitle":  "Wenn jemand dir folgen mÃ¶chte, erscheint er hier"
+                                                             "subtitle":  "Wenn jemand dir folgen möchte, erscheint er hier"
                                                          },
                                            "accept":  "Annehmen",
                                            "reject":  "Ablehnen"
                                        },
                     "suggested":  {
-                                      "title":  "Personen, die du kennen kÃ¶nntest",
-                                      "empty":  "Momentan keine VorschlÃ¤ge",
-                                      "viewAll":  "Alle VorschlÃ¤ge anzeigen",
+                                      "title":  "Personen, die du kennen könntest",
+                                      "empty":  "Momentan keine Vorschläge",
+                                      "viewAll":  "Alle Vorschläge anzeigen",
                                       "viewLess":  "Weniger anzeigen",
                                       "mutual":  "{{ count }} gemeinsame Follower",
                                       "follow":  "Folgen",
@@ -288,36 +288,36 @@
                 },
     "countrySetup":  {
                          "title":  "Woher kommst du?",
-                         "subtitle":  "Deine Flagge erscheint auf deinen BeitrÃ¤gen und Nachrichten, damit die Leute wissen, woher du kommst.",
+                         "subtitle":  "Deine Flagge erscheint auf deinen Beiträgen und Nachrichten, damit die Leute wissen, woher du kommst.",
                          "detecting":  "Dein Land wird erkannt...",
                          "detected":  "Erkanntes Land:",
                          "notDetected":  "Wir konnten dein Land nicht automatisch erkennen.",
-                         "manualSelect":  "WÃ¤hle dein Land:",
-                         "manualPlaceholder":  "-- Land auswÃ¤hlen --",
-                         "notMyCountry":  "Das ist nicht mein Land â€” Ã¤ndern",
-                         "confirm":  "âœ… BestÃ¤tigen",
+                         "manualSelect":  "Wähle dein Land:",
+                         "manualPlaceholder":  "-- Land auswählen --",
+                         "notMyCountry":  "Das ist nicht mein Land — ändern",
+                         "confirm":  "✅ Bestätigen",
                          "saving":  "Wird gespeichert...",
-                         "skip":  "Vorerst Ã¼berspringen"
+                         "skip":  "Vorerst überspringen"
                      },
     "permissions":  {
                         "welcome":  {
                                         "title":  "Berechtigungen einrichten",
-                                        "subtitle":  "Um dir das beste Erlebnis zu bieten, benÃ¶tigen wir Zugriff auf einige GerÃ¤teberechtigungen.",
-                                        "camera":  "Kamera fÃ¼r Live-Ãœbertragungen",
-                                        "microphone":  "Mikrofon fÃ¼r Videoanrufe",
+                                        "subtitle":  "Um dir das beste Erlebnis zu bieten, benötigen wir Zugriff auf einige Geräteberechtigungen.",
+                                        "camera":  "Kamera für Live-Übertragungen",
+                                        "microphone":  "Mikrofon für Videoanrufe",
                                         "notifications":  "Nachrichtenbenachrichtigungen",
-                                        "later":  "SpÃ¤ter einrichten",
+                                        "later":  "Später einrichten",
                                         "continue":  "Weiter"
                                     },
                         "list":  {
                                      "title":  "Erforderliche Berechtigungen",
-                                     "subtitle":  "Klicke auf jede Berechtigung, um sie von deinem GerÃ¤t anzufordern",
-                                     "granted":  "âœ“ Erteilt",
-                                     "required":  "âš  Erforderlich",
-                                     "optional":  "â„¹ Optional",
+                                     "subtitle":  "Klicke auf jede Berechtigung, um sie von deinem Gerät anzufordern",
+                                     "granted":  "✓ Erteilt",
+                                     "required":  "⚠ Erforderlich",
+                                     "optional":  "ℹ Optional",
                                      "request":  "Zugriff anfordern",
                                      "requestAll":  "Alle anfordern",
-                                     "back":  "ZurÃ¼ck"
+                                     "back":  "Zurück"
                                  },
                         "complete":  {
                                          "title":  "Einrichtung abgeschlossen!",
@@ -329,24 +329,24 @@
                                      }
                     },
     "report":  {
-                   "title":  "ðŸš© Inhalt melden",
-                   "subtitle":  "WÃ¤hle den Grund fÃ¼r deine Meldung",
-                   "descriptionLabel":  "ZusÃ¤tzliche Beschreibung (optional)",
-                   "descriptionPlaceholder":  "ErzÃ¤hl uns mehr Ã¼ber das Problem...",
+                   "title":  "🚩 Inhalt melden",
+                   "subtitle":  "Wähle den Grund für deine Meldung",
+                   "descriptionLabel":  "Zusätzliche Beschreibung (optional)",
+                   "descriptionPlaceholder":  "Erzähl uns mehr über das Problem...",
                    "cancel":  "Abbrechen",
                    "submit":  "Meldung senden",
                    "submitting":  "Wird gesendet..."
                },
     "terms":  {
                   "title":  "Nutzungsbedingungen \u0026 Datenschutz",
-                  "lastUpdated":  "Letzte Aktualisierung: Januar 2025 Â· Bitte sorgfÃ¤ltig lesen",
+                  "lastUpdated":  "Letzte Aktualisierung: Januar 2025 · Bitte sorgfältig lesen",
                   "tabs":  {
-                               "terms":  "ðŸ“„ Nutzungsbedingungen",
-                               "privacy":  "ðŸ”’ Datenschutzrichtlinie"
+                               "terms":  "📄 Nutzungsbedingungen",
+                               "privacy":  "🔒 Datenschutzrichtlinie"
                            },
                   "scroll":  {
                                  "pending":  "Scrolle nach unten, um fortzufahren",
-                                 "done":  "Du hast das Dokument vollstÃ¤ndig gelesen âœ“"
+                                 "done":  "Du hast das Dokument vollständig gelesen ✓"
                              },
                   "decline":  "Ablehnen",
                   "accept":  "Akzeptieren \u0026 fortfahren"
@@ -357,13 +357,13 @@
                    "retry":  "Erneut versuchen",
                    "save":  "Speichern",
                    "cancel":  "Abbrechen",
-                   "confirm":  "BestÃ¤tigen",
-                   "delete":  "LÃ¶schen",
+                   "confirm":  "Bestätigen",
+                   "delete":  "Löschen",
                    "edit":  "Bearbeiten",
-                   "close":  "SchlieÃŸen",
-                   "back":  "ZurÃ¼ck",
+                   "close":  "Schließen",
+                   "back":  "Zurück",
                    "next":  "Weiter",
-                   "skip":  "Ãœberspringen",
+                   "skip":  "Überspringen",
                    "search":  "Suchen",
                    "share":  "Teilen",
                    "report":  "Melden",
@@ -371,7 +371,7 @@
                    "unfollow":  "Entfolgen",
                    "following":  "Folgst du",
                    "followers":  "Follower",
-                   "posts":  "BeitrÃ¤ge",
+                   "posts":  "Beiträge",
                    "videos":  "Videos"
                },
     "settings":  {

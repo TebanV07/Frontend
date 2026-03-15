@@ -1,4 +1,4 @@
-﻿﻿{
+{
     "brand":  {
                   "name":  "TINKO",
                   "tagline":  "AI-Powered Global Connection"
@@ -43,106 +43,106 @@
                        "logout":  "\u767b\u51fa"
                    },
 "login":  {
-                               "title":  "æ¬¢è¿Žå›žæ¥ï¼",
-                               "subtitle":  "ç™»å½•ä»¥ç»§ç»­æ‚¨çš„å…¨çƒä½“éªŒ",
-                               "submit":  "ç™»å½•",
-                               "submitting":  "ç™»å½•ä¸­...",
-                               "noAccount":  "æ²¡æœ‰è´¦å·ï¼Ÿ",
-                               "switchToRegister":  "å…è´¹æ³¨å†Œ",
-                               "rememberMe":  "è®°ä½æˆ‘",
-                               "forgotPassword":  "å¿˜è®°å¯†ç ï¼Ÿ",
-                               "orContinueWith":  "æˆ–é€šè¿‡ä»¥ä¸‹æ–¹å¼ç»§ç»­",
+                               "title":  "欢迎回来！",
+                               "subtitle":  "登录以继续您的全球体验",
+                               "submit":  "登录",
+                               "submitting":  "登录中...",
+                               "noAccount":  "没有账号？",
+                               "switchToRegister":  "免费注册",
+                               "rememberMe":  "记住我",
+                               "forgotPassword":  "忘记密码？",
+                               "orContinueWith":  "或通过以下方式继续",
                                "google":  "Google"
                            },
                  "register":  {
-                                  "title":  "åŠ å…¥é©å‘½ï¼",
-                                  "subtitle":  "æ— è¯­è¨€éšœç¢åœ°è¿žæŽ¥å…¨ä¸–ç•Œ",
-                                  "submit":  "åˆ›å»ºè´¦å·",
-                                  "submitting":  "åˆ›å»ºä¸­...",
-                                  "hasAccount":  "å·²æœ‰è´¦å·ï¼Ÿ",
-                                  "switchToLogin":  "ç™»å½•",
-                                  "usernameHint":  "å¦‚ä¸å¡«å†™ï¼Œå°†è‡ªåŠ¨ç”Ÿæˆ",
-                                  "nativeLanguageHint":  "æ¯è¯­"
+                                  "title":  "加入革命！",
+                                  "subtitle":  "无语言障碍地连接全世界",
+                                  "submit":  "创建账号",
+                                  "submitting":  "创建中...",
+                                  "hasAccount":  "已有账号？",
+                                  "switchToLogin":  "登录",
+                                  "usernameHint":  "如不填写，将自动生成",
+                                  "nativeLanguageHint":  "母语"
                               },
                  "fields":  {
-                                "firstName":  "å",
-                                "lastName":  "å§“",
-                                "username":  "ç”¨æˆ·åï¼ˆå¯é€‰ï¼‰",
-                                "email":  "ç”µå­é‚®ä»¶",
-                                "password":  "å¯†ç ",
-                                "nativeLanguage":  "æ¯è¯­"
+                                "firstName":  "名",
+                                "lastName":  "姓",
+                                "username":  "用户名（可选）",
+                                "email":  "电子邮件",
+                                "password":  "密码",
+                                "nativeLanguage":  "母语"
                             },
                  "features":  {
-                                  "title":  "ðŸš€ ç­‰å¾…æ‚¨çš„ç²¾å½©ï¼š",
-                                  "videos":  "å®žæ—¶ç¿»è¯‘è§†é¢‘",
-                                  "languages":  "è¿žæŽ¥24+ç§è¯­è¨€",
-                                  "ai":  "å…ˆè¿›AIç¿»è¯‘"
+                                  "title":  "🚀 等待您的精彩：",
+                                  "videos":  "实时翻译视频",
+                                  "languages":  "连接24+种语言",
+                                  "ai":  "先进AI翻译"
                               }
              },
     "verify":  {
-                   "loading":  "éªŒè¯æ‚¨çš„é‚®ç®±ä¸­...",
+                   "loading":  "验证您的邮箱中...",
                    "success":  {
-                                   "title":  "é‚®ç®±å·²éªŒè¯ï¼",
-                                   "message":  "æ‚¨çš„è´¦å·å·²éªŒè¯ã€‚å°½æƒ…äº«å—æ‰€æœ‰åŠŸèƒ½å§ã€‚",
-                                   "goHome":  "å‰å¾€é¦–é¡µ"
+                                   "title":  "邮箱已验证！",
+                                   "message":  "您的账号已验证。尽情享受所有功能吧。",
+                                   "goHome":  "前往首页"
                                },
                    "error":  {
-                                 "title":  "æ— æ•ˆé“¾æŽ¥",
-                                 "requestNew":  "è¯·æ±‚æ–°é“¾æŽ¥"
+                                 "title":  "无效链接",
+                                 "requestNew":  "请求新链接"
                              }
                },
     "header":  {
-                   "search":  "æœç´¢ç”¨æˆ·ã€å¸–å­...",
+                   "search":  "搜索用户、帖子...",
                    "nav":  {
                                "home":  "é¦–é¡µ",
-                               "trending":  "çƒ­é—¨",
-                               "videos":  "è§†é¢‘",
-                               "messages":  "æ¶ˆæ¯",
-                               "notifications":  "é€šçŸ¥",
+                               "trending":  "热门",
+                               "videos":  "视频",
+                               "messages":  "消息",
+                               "notifications":  "通知",
                                "profile":  "ä¸ªäººä¸»é¡µ",
-                               "settings":  "è®¾ç½®"
+                               "settings":  "设置"
                            },
                    "theme":  {
-                                 "light":  "æµ…è‰²æ¨¡å¼",
-                                 "dark":  "æ·±è‰²æ¨¡å¼"
+                                 "light":  "浅色模式",
+                                 "dark":  "深色模式"
                              },
-                   "menu":  "èœå•"
+                   "menu":  "菜单"
                },
     "chat":  {
                  "input":  {
-                               "placeholder":  "è¾“å…¥æ¶ˆæ¯...",
-                               "emojis":  "è¡¨æƒ…",
-                               "attach":  "é™„åŠ æ–‡ä»¶",
-                               "camera":  "æ‹ç…§",
-                               "voice":  "å½•åˆ¶è¯­éŸ³æ¶ˆæ¯",
-                               "send":  "å‘é€",
-                               "recording":  "å½•éŸ³ä¸­...",
-                               "stopRecording":  "åœæ­¢"
+                               "placeholder":  "输入消息...",
+                               "emojis":  "表情",
+                               "attach":  "附加文件",
+                               "camera":  "拍照",
+                               "voice":  "录制语音消息",
+                               "send":  "发送",
+                               "recording":  "录音中...",
+                               "stopRecording":  "停止"
                            },
                  "window":  {
-                                "noName":  "æ— åç§°",
-                                "selectConversation":  "é€‰æ‹©å¯¹è¯",
-                                "selectConversationHint":  "é€‰æ‹©ä¸€ä¸ªå¯¹è¯å¼€å§‹èŠå¤©",
-                                "uploading":  "ä¸Šä¼ æ–‡ä»¶ä¸­...",
+                                "noName":  "无名称",
+                                "selectConversation":  "选择对话",
+                                "selectConversationHint":  "选择一个对话开始聊天",
+                                "uploading":  "上传文件中...",
                                 "speaksLanguage":  "è¯´ "
                             },
                  "bubble":  {
-                                "edited":  "å·²ç¼–è¾‘",
-                                "edit":  "ç¼–è¾‘",
-                                "delete":  "åˆ é™¤",
-                                "deleteForMe":  "ä»…å¯¹æˆ‘åˆ é™¤",
-                                "forward":  "è½¬å‘",
-                                "share":  "åˆ†äº«",
-                                "translate":  "ç¿»è¯‘"
+                                "edited":  "已编辑",
+                                "edit":  "编辑",
+                                "delete":  "删除",
+                                "deleteForMe":  "仅对我删除",
+                                "forward":  "转发",
+                                "share":  "分享",
+                                "translate":  "翻译"
                             }
              },
     "feed":  {
-                 "loading":  "åŠ è½½è§†é¢‘ä¸­...",
-                 "loadingMore":  "åŠ è½½æ›´å¤šè§†é¢‘...",
+                 "loading":  "加载视频中...",
+                 "loadingMore":  "加载更多视频...",
                  "empty":  {
-                               "title":  "æš‚æ— è§†é¢‘",
-                               "subtitle":  "æˆä¸ºç¬¬ä¸€ä¸ªä¸Šä¼ AIç¿»è¯‘è§†é¢‘çš„äºº",
-                               "upload":  "ä¸Šä¼ è§†é¢‘"
+                               "title":  "暂无视频",
+                               "subtitle":  "成为第一个上传AI翻译视频的人",
+                               "upload":  "上传视频"
                            },
                  "position":  "{{ current }} / {{ total }}",
                  "aiActive":  "AI Translation Active",
@@ -160,51 +160,51 @@
                  "noPostsSub":  "Be the first to share something!"
              },
     "videoPlayer":  {
-                        "loading":  "åŠ è½½è§†é¢‘ä¸­...",
+                        "loading":  "加载视频中...",
                         "error":  {
-                                      "title":  "è§†é¢‘åŠ è½½å¤±è´¥",
-                                      "subtitle":  "æ— æ³•æ’­æ”¾æ­¤è§†é¢‘",
+                                      "title":  "视频加载失败",
+                                      "subtitle":  "无法播放此视频",
                                       "retry":  "é‡è¯•"
                                   },
-                        "noSupport":  "æ‚¨çš„æµè§ˆå™¨ä¸æ”¯æŒè§†é¢‘æ ‡ç­¾ã€‚"
+                        "noSupport":  "您的浏览器不支持视频标签。"
                     },
     "comments":  {
-                     "title":  "è¯„è®º",
-                     "placeholder":  "å†™è¯„è®º...",
-                     "submit":  "ðŸ’¬ è¯„è®º",
-                     "submitting":  "å‘å¸ƒä¸­...",
-                     "loading":  "åŠ è½½ä¸­...",
-                     "empty":  "æˆä¸ºç¬¬ä¸€ä¸ªè¯„è®ºçš„äºº",
-                     "loadMore":  "â†“ æŸ¥çœ‹æ›´å¤šè¯„è®º",
-                     "loadingMore":  "åŠ è½½ä¸­...",
-                     "reply":  "å›žå¤",
-                     "replying":  "å‘å¸ƒä¸­...",
-                     "cancel":  "å–æ¶ˆ",
-                     "save":  "ä¿å­˜",
-                     "edit":  "âœï¸ ç¼–è¾‘",
-                     "delete":  "ðŸ—‘ï¸ åˆ é™¤",
-                     "edited":  "Â· å·²ç¼–è¾‘",
-                     "replyTo":  "å›žå¤@",
+                     "title":  "评论",
+                     "placeholder":  "写评论...",
+                     "submit":  "💬 评论",
+                     "submitting":  "发布中...",
+                     "loading":  "加载中...",
+                     "empty":  "成为第一个评论的人",
+                     "loadMore":  "↓ 查看更多评论",
+                     "loadingMore":  "加载中...",
+                     "reply":  "回复",
+                     "replying":  "发布中...",
+                     "cancel":  "取消",
+                     "save":  "保存",
+                     "edit":  "✏️ 编辑",
+                     "delete":  "🗑️ 删除",
+                     "edited":  "· 已编辑",
+                     "replyTo":  "回复@",
                      "replies":  {
-                                     "one":  "æ¡å›žå¤",
-                                     "other":  "æ¡å›žå¤"
+                                     "one":  "条回复",
+                                     "other":  "条回复"
                                  }
                  },
     "post":  {
                  "edit":  {
-                              "title":  "ç¼–è¾‘å¸–å­",
-                              "content":  "å†…å®¹ï¼š",
-                              "tags":  "æ ‡ç­¾ï¼ˆç”¨é€—å·åˆ†éš”ï¼‰ï¼š",
-                              "public":  "å…¬å¼€",
-                              "save":  "ä¿å­˜",
+                              "title":  "编辑帖子",
+                              "content":  "内容：",
+                              "tags":  "标签（用逗号分隔）：",
+                              "public":  "公开",
+                              "save":  "保存",
                               "skip":  "è·³è¿‡"
                           },
                  "likes":  {
-                               "like":  "ç‚¹èµž",
-                               "liked":  "å·²ç‚¹èµž",
-                               "likedBy":  "ç‚¹èµžè€…",
-                               "noLikes":  "æš‚æ— ç‚¹èµž",
-                               "loading":  "åŠ è½½ä¸­..."
+                               "like":  "点赞",
+                               "liked":  "已点赞",
+                               "likedBy":  "点赞者",
+                               "noLikes":  "暂无点赞",
+                               "loading":  "加载中..."
                            },
                  "deleteConfirm":  "Delete this post?",
                  "deleteBody":  "This action cannot be undone.",
@@ -232,147 +232,147 @@
              },
     "profile":  {
                     "tabs":  {
-                                 "posts":  "å¸–å­",
-                                 "videos":  "è§†é¢‘",
-                                 "liked":  "ç‚¹èµž",
-                                 "bookmarks":  "æ”¶è—"
+                                 "posts":  "帖子",
+                                 "videos":  "视频",
+                                 "liked":  "点赞",
+                                 "bookmarks":  "收藏"
                              },
                     "content":  {
-                                    "noPosts":  "æš‚æ— å¸–å­",
-                                    "noVideos":  "æš‚æ— è§†é¢‘",
-                                    "likedPosts":  "æ‚¨ç‚¹èµžçš„å¸–å­",
-                                    "savedPosts":  "æ”¶è—çš„å¸–å­",
-                                    "loadMore":  "æŸ¥çœ‹æ›´å¤š",
-                                    "loading":  "åŠ è½½ä¸­..."
+                                    "noPosts":  "暂无帖子",
+                                    "noVideos":  "暂无视频",
+                                    "likedPosts":  "您点赞的帖子",
+                                    "savedPosts":  "收藏的帖子",
+                                    "loadMore":  "查看更多",
+                                    "loading":  "加载中..."
                                 }
                 },
     "upload":  {
-                   "title":  "ä¸Šä¼ è§†é¢‘/å¸–å­",
-                   "titleField":  "æ ‡é¢˜ï¼ˆå¯é€‰ï¼‰",
-                   "description":  "æè¿°ï¼ˆå¯é€‰ï¼‰",
-                   "submit":  "ä¸Šä¼ ",
-                   "submitting":  "ä¸Šä¼ ä¸­..."
+                   "title":  "上传视频/帖子",
+                   "titleField":  "标题（可选）",
+                   "description":  "描述（可选）",
+                   "submit":  "上传",
+                   "submitting":  "上传中..."
                },
     "explore":  {
-                    "title":  "å‘çŽ°ç”¨æˆ·",
-                    "subtitle":  "æ‰¾åˆ°å¹¶è¿žæŽ¥æ¥è‡ªä¸–ç•Œå„åœ°çš„äºº",
+                    "title":  "发现用户",
+                    "subtitle":  "找到并连接来自世界各地的人",
                     "search":  {
-                                   "placeholder":  "æŒ‰å§“åæˆ–ç”¨æˆ·åæœç´¢...",
-                                   "button":  "æœç´¢",
-                                   "searching":  "æœç´¢ä¸­...",
-                                   "results":  "ç»“æžœï¼ˆ{{ count }}ï¼‰",
+                                   "placeholder":  "按姓名或用户名搜索...",
+                                   "button":  "搜索",
+                                   "searching":  "搜索中...",
+                                   "results":  "结果（{{ count }}）",
                                    "noResults":  {
-                                                     "title":  "æœªæ‰¾åˆ°ç»“æžœ",
-                                                     "subtitle":  "è¯·å°è¯•å…¶ä»–æœç´¢è¯"
+                                                     "title":  "未找到结果",
+                                                     "subtitle":  "请尝试其他搜索词"
                                                  }
                                },
                     "followRequests":  {
-                                           "title":  "å…³æ³¨è¯·æ±‚",
+                                           "title":  "关注请求",
                                            "noPending":  {
-                                                             "title":  "æš‚æ— å¾…å¤„ç†è¯·æ±‚",
-                                                             "subtitle":  "å½“æœ‰äººæƒ³å…³æ³¨æ‚¨æ—¶ï¼Œå°†æ˜¾ç¤ºåœ¨è¿™é‡Œ"
+                                                             "title":  "暂无待处理请求",
+                                                             "subtitle":  "当有人想关注您时，将显示在这里"
                                                          },
-                                           "accept":  "æŽ¥å—",
-                                           "reject":  "æ‹’ç»"
+                                           "accept":  "接受",
+                                           "reject":  "拒绝"
                                        },
                     "suggested":  {
-                                      "title":  "æ‚¨å¯èƒ½è®¤è¯†çš„äºº",
-                                      "empty":  "æš‚æ— æŽ¨è",
-                                      "viewAll":  "æŸ¥çœ‹å…¨éƒ¨æŽ¨è",
-                                      "viewLess":  "æ”¶èµ·",
-                                      "mutual":  "{{ count }}ä½å…±åŒå…³æ³¨è€…",
-                                      "follow":  "å…³æ³¨",
-                                      "following":  "å·²å…³æ³¨",
-                                      "pending":  "å¾…ç¡®è®¤"
+                                      "title":  "您可能认识的人",
+                                      "empty":  "暂无推荐",
+                                      "viewAll":  "查看全部推荐",
+                                      "viewLess":  "收起",
+                                      "mutual":  "{{ count }}位共同关注者",
+                                      "follow":  "关注",
+                                      "following":  "已关注",
+                                      "pending":  "待确认"
                                   }
                 },
     "countrySetup":  {
-                         "title":  "æ‚¨æ¥è‡ªå“ªé‡Œï¼Ÿ",
-                         "subtitle":  "æ‚¨çš„å›½æ——å°†æ˜¾ç¤ºåœ¨æ‚¨çš„å¸–å­å’Œæ¶ˆæ¯ä¸­ï¼Œè®©å¤§å®¶çŸ¥é“æ‚¨æ¥è‡ªå“ªé‡Œã€‚",
-                         "detecting":  "æ­£åœ¨æ£€æµ‹æ‚¨çš„å›½å®¶...",
-                         "detected":  "æ£€æµ‹åˆ°çš„å›½å®¶ï¼š",
-                         "notDetected":  "æ— æ³•è‡ªåŠ¨æ£€æµ‹æ‚¨çš„å›½å®¶ã€‚",
-                         "manualSelect":  "é€‰æ‹©æ‚¨çš„å›½å®¶ï¼š",
-                         "manualPlaceholder":  "-- é€‰æ‹©å›½å®¶ --",
-                         "notMyCountry":  "è¿™ä¸æ˜¯æˆ‘çš„å›½å®¶ â€” æ›´æ”¹",
-                         "confirm":  "âœ… ç¡®è®¤",
-                         "saving":  "ä¿å­˜ä¸­...",
-                         "skip":  "æš‚æ—¶è·³è¿‡"
+                         "title":  "您来自哪里？",
+                         "subtitle":  "您的国旗将显示在您的帖子和消息中，让大家知道您来自哪里。",
+                         "detecting":  "正在检测您的国家...",
+                         "detected":  "检测到的国家：",
+                         "notDetected":  "无法自动检测您的国家。",
+                         "manualSelect":  "选择您的国家：",
+                         "manualPlaceholder":  "-- 选择国家 --",
+                         "notMyCountry":  "这不是我的国家 — 更改",
+                         "confirm":  "✅ 确认",
+                         "saving":  "保存中...",
+                         "skip":  "暂时跳过"
                      },
     "permissions":  {
                         "welcome":  {
-                                        "title":  "è®¾ç½®æƒé™",
-                                        "subtitle":  "ä¸ºäº†ç»™æ‚¨æä¾›æœ€ä½³ä½“éªŒï¼Œæˆ‘ä»¬éœ€è¦è®¿é—®éƒ¨åˆ†è®¾å¤‡æƒé™ã€‚",
-                                        "camera":  "ç›´æ’­ç”¨æ‘„åƒå¤´",
-                                        "microphone":  "è§†é¢‘é€šè¯ç”¨éº¦å…‹é£Ž",
-                                        "notifications":  "æ¶ˆæ¯é€šçŸ¥",
-                                        "later":  "ç¨åŽè®¾ç½®",
-                                        "continue":  "ç»§ç»­"
+                                        "title":  "设置权限",
+                                        "subtitle":  "为了给您提供最佳体验，我们需要访问部分设备权限。",
+                                        "camera":  "直播用摄像头",
+                                        "microphone":  "视频通话用麦克风",
+                                        "notifications":  "消息通知",
+                                        "later":  "稍后设置",
+                                        "continue":  "继续"
                                     },
                         "list":  {
-                                     "title":  "æ‰€éœ€æƒé™",
-                                     "subtitle":  "ç‚¹å‡»æ¯é¡¹æƒé™å‘è®¾å¤‡ç”³è¯·",
-                                     "granted":  "âœ“ å·²æŽˆæƒ",
-                                     "required":  "âš  å¿…è¦",
-                                     "optional":  "â„¹ å¯é€‰",
-                                     "request":  "ç”³è¯·è®¿é—®",
-                                     "requestAll":  "ç”³è¯·å…¨éƒ¨",
-                                     "back":  "è¿”å›ž"
+                                     "title":  "所需权限",
+                                     "subtitle":  "点击每项权限向设备申请",
+                                     "granted":  "✓ 已授权",
+                                     "required":  "⚠ 必要",
+                                     "optional":  "ℹ 可选",
+                                     "request":  "申请访问",
+                                     "requestAll":  "申请全部",
+                                     "back":  "返回"
                                  },
                         "complete":  {
-                                         "title":  "è®¾ç½®å®Œæˆï¼",
-                                         "subtitle":  "æ‚¨çš„æƒé™å·²æ­£ç¡®é…ç½®ã€‚",
-                                         "grantedStatus":  "å·²æŽˆæƒ",
-                                         "deniedStatus":  "æœªæŽˆæƒ",
-                                         "redirect":  "å‡ ç§’åŽå°†è·³è½¬åˆ°é¦–é¡µ...",
-                                         "goHome":  "ç«‹å³å‰å¾€é¦–é¡µ"
+                                         "title":  "设置完成！",
+                                         "subtitle":  "您的权限已正确配置。",
+                                         "grantedStatus":  "已授权",
+                                         "deniedStatus":  "未授权",
+                                         "redirect":  "几秒后将跳转到首页...",
+                                         "goHome":  "立即前往首页"
                                      }
                     },
     "report":  {
-                   "title":  "ðŸš© ä¸¾æŠ¥å†…å®¹",
-                   "subtitle":  "é€‰æ‹©ä¸¾æŠ¥åŽŸå› ",
-                   "descriptionLabel":  "è¡¥å……è¯´æ˜Žï¼ˆå¯é€‰ï¼‰",
-                   "descriptionPlaceholder":  "å‘Šè¯‰æˆ‘ä»¬æ›´å¤šå…³äºŽè¯¥é—®é¢˜...",
-                   "cancel":  "å–æ¶ˆ",
-                   "submit":  "æäº¤ä¸¾æŠ¥",
-                   "submitting":  "æäº¤ä¸­..."
+                   "title":  "🚩 举报内容",
+                   "subtitle":  "选择举报原因",
+                   "descriptionLabel":  "补充说明（可选）",
+                   "descriptionPlaceholder":  "告诉我们更多关于该问题...",
+                   "cancel":  "取消",
+                   "submit":  "提交举报",
+                   "submitting":  "提交中..."
                },
     "terms":  {
-                  "title":  "æ¡æ¬¾ã€æ¡ä»¶ä¸Žéšç§",
-                  "lastUpdated":  "æœ€åŽæ›´æ–°ï¼š2025å¹´1æœˆ Â· è¯·åœ¨ç»§ç»­ä¹‹å‰ä»”ç»†é˜…è¯»",
+                  "title":  "条款、条件与隐私",
+                  "lastUpdated":  "最后更新：2025年1月 · 请在继续之前仔细阅读",
                   "tabs":  {
-                               "terms":  "ðŸ“„ æ¡æ¬¾ä¸Žæ¡ä»¶",
-                               "privacy":  "ðŸ”’ éšç§æ”¿ç­–"
+                               "terms":  "📄 条款与条件",
+                               "privacy":  "🔒 隐私政策"
                            },
                   "scroll":  {
-                                 "pending":  "å‘ä¸‹æ»šåŠ¨ä»¥ç»§ç»­",
-                                 "done":  "æ‚¨å·²é˜…è¯»å®Œæ•´æ–‡æ¡£ âœ“"
+                                 "pending":  "向下滚动以继续",
+                                 "done":  "您已阅读完整文档 ✓"
                              },
-                  "decline":  "æ‹’ç»",
-                  "accept":  "åŒæ„å¹¶ç»§ç»­"
+                  "decline":  "拒绝",
+                  "accept":  "同意并继续"
               },
     "common":  {
-                   "loading":  "åŠ è½½ä¸­...",
-                   "error":  "å‘ç”Ÿé”™è¯¯",
+                   "loading":  "加载中...",
+                   "error":  "发生错误",
                    "retry":  "é‡è¯•",
-                   "save":  "ä¿å­˜",
-                   "cancel":  "å–æ¶ˆ",
-                   "confirm":  "ç¡®è®¤",
-                   "delete":  "åˆ é™¤",
-                   "edit":  "ç¼–è¾‘",
-                   "close":  "å…³é—­",
-                   "back":  "è¿”å›ž",
-                   "next":  "ä¸‹ä¸€æ­¥",
+                   "save":  "保存",
+                   "cancel":  "取消",
+                   "confirm":  "确认",
+                   "delete":  "删除",
+                   "edit":  "编辑",
+                   "close":  "关闭",
+                   "back":  "返回",
+                   "next":  "下一步",
                    "skip":  "è·³è¿‡",
-                   "search":  "æœç´¢",
-                   "share":  "åˆ†äº«",
-                   "report":  "ä¸¾æŠ¥",
-                   "follow":  "å…³æ³¨",
-                   "unfollow":  "å–æ¶ˆå…³æ³¨",
-                   "following":  "å·²å…³æ³¨",
-                   "followers":  "ç²‰ä¸",
-                   "posts":  "å¸–å­",
-                   "videos":  "è§†é¢‘"
+                   "search":  "搜索",
+                   "share":  "分享",
+                   "report":  "举报",
+                   "follow":  "关注",
+                   "unfollow":  "取消关注",
+                   "following":  "已关注",
+                   "followers":  "粉丝",
+                   "posts":  "帖子",
+                   "videos":  "视频"
                },
     "settings":  {
                      "title":  "Settings",

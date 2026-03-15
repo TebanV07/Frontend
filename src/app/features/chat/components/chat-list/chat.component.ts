@@ -44,7 +44,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   ) {}
 
   /**
-  * Devuelve idioma preferido de traduccion del usuario (si existe).
+  * Devuelve idioma preferido de traducci贸n del usuario (si existe).
    * Se usa desde la plantilla para evitar accesos directos a propiedades
    * que a veces el verificador de plantillas no reconoce correctamente.
    */
@@ -62,7 +62,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       })
     );
 
-    // Abrir conversaci髇 desde query param (?conversation=ID)
+    // Abrir conversaci贸n desde query param (?conversation=ID)
     this.subscriptions.push(
       this.route.queryParamMap.subscribe(params => {
         const conversationParam = params.get('conversation');
@@ -75,7 +75,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       })
     );
 
-    // Conversacion activa
+    // Conversaci贸n activa
     this.subscriptions.push(
       this.chatService.activeConversation$.subscribe(conv => {
         this.activeConversation = conv;
@@ -138,12 +138,12 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatService.sendTypingIndicator(conversationId, isTyping);
   }
 
-  // Abrir conversacion desde un usuario online
+  // Abrir conversaci贸n desde un usuario online
   onOnlineUserClick(user: OnlineUser): void {
     this.chatService.createConversation(user.id).subscribe({
       next: (conv) => this.chatService.setActiveConversation(conv),
       error: () => {
-        // Si ya existe la conversacion, buscarla en la lista
+        // Si ya existe la conversaci贸n, buscarla en la lista
         const existing = this.conversations.find(
           c => c.other_user?.id === user.id
         );
@@ -230,14 +230,14 @@ export class ChatComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Fallback: intentar abrir por ID incluso si no vino en la lista local a鷑
+    // Fallback: intentar abrir por ID incluso si no vino en la lista local a煤n
     this.pendingConversationId = null;
     this.chatService.getConversationDetail(pendingId).subscribe({
       next: () => {
         this.chatService.markConversationAsRead(pendingId).subscribe();
       },
       error: (error) => {
-        console.warn('No se pudo abrir la conversaci髇 desde notificaci髇:', error);
+        console.warn('No se pudo abrir la conversaci贸n desde notificaci贸n:', error);
       }
     });
   }

@@ -1,4 +1,4 @@
-﻿{
+{
     "brand":  {
                   "name":  "TINKO",
                   "tagline":  "AI-Powered Global Connection"
@@ -56,7 +56,7 @@
                            },
                  "register":  {
                                   "title":  "Doe mee aan de revolutie!",
-                                  "subtitle":  "Verbind met de wereld zonder taalbarriÃ¨res",
+                                  "subtitle":  "Verbind met de wereld zonder taalbarrières",
                                   "submit":  "Account aanmaken",
                                   "submitting":  "Account aanmaken...",
                                   "hasAccount":  "Heb je al een account?",
@@ -73,7 +73,7 @@
                                 "nativeLanguage":  "Moedertaal"
                             },
                  "features":  {
-                                  "title":  "ðŸš€ Wat je te wachten staat:",
+                                  "title":  "🚀 Wat je te wachten staat:",
                                   "videos":  "Video\u0027s in realtime vertaald",
                                   "languages":  "Verbind met 24+ talen",
                                   "ai":  "Geavanceerde AI-vertaling"
@@ -171,19 +171,19 @@
     "comments":  {
                      "title":  "Reacties",
                      "placeholder":  "Schrijf een reactie...",
-                     "submit":  "ðŸ’¬ Reageren",
+                     "submit":  "💬 Reageren",
                      "submitting":  "Plaatsen...",
                      "loading":  "Laden...",
                      "empty":  "Wees de eerste die reageert",
-                     "loadMore":  "â†“ Meer reacties laden",
+                     "loadMore":  "↓ Meer reacties laden",
                      "loadingMore":  "Laden...",
                      "reply":  "Reageren",
                      "replying":  "Plaatsen...",
                      "cancel":  "Annuleren",
                      "save":  "Opslaan",
-                     "edit":  "âœï¸ Bewerken",
-                     "delete":  "ðŸ—‘ï¸ Verwijderen",
-                     "edited":  "Â· bewerkt",
+                     "edit":  "✏️ Bewerken",
+                     "delete":  "🗑️ Verwijderen",
+                     "edited":  "· bewerkt",
                      "replyTo":  "Reageren op @",
                      "replies":  {
                                      "one":  "antwoord",
@@ -294,8 +294,8 @@
                          "notDetected":  "We konden je land niet automatisch detecteren.",
                          "manualSelect":  "Selecteer je land:",
                          "manualPlaceholder":  "-- Kies je land --",
-                         "notMyCountry":  "Dat is mijn land niet â€” wijzigen",
-                         "confirm":  "âœ… Bevestigen",
+                         "notMyCountry":  "Dat is mijn land niet — wijzigen",
+                         "confirm":  "✅ Bevestigen",
                          "saving":  "Opslaan...",
                          "skip":  "Nu overslaan"
                      },
@@ -312,9 +312,9 @@
                         "list":  {
                                      "title":  "Vereiste machtigingen",
                                      "subtitle":  "Klik op elke machtiging om deze aan te vragen",
-                                     "granted":  "âœ“ Toegestaan",
-                                     "required":  "âš  Vereist",
-                                     "optional":  "â„¹ Optioneel",
+                                     "granted":  "✓ Toegestaan",
+                                     "required":  "⚠ Vereist",
+                                     "optional":  "ℹ Optioneel",
                                      "request":  "Toegang aanvragen",
                                      "requestAll":  "Alles aanvragen",
                                      "back":  "Terug"
@@ -329,7 +329,7 @@
                                      }
                     },
     "report":  {
-                   "title":  "ðŸš© Inhoud melden",
+                   "title":  "🚩 Inhoud melden",
                    "subtitle":  "Selecteer de reden voor je melding",
                    "descriptionLabel":  "Aanvullende beschrijving (optioneel)",
                    "descriptionPlaceholder":  "Vertel ons meer over het probleem...",
@@ -339,14 +339,14 @@
                },
     "terms":  {
                   "title":  "Voorwaarden en Privacy",
-                  "lastUpdated":  "Laatste update: januari 2025 Â· Lees aandachtig voor je doorgaat",
+                  "lastUpdated":  "Laatste update: januari 2025 · Lees aandachtig voor je doorgaat",
                   "tabs":  {
-                               "terms":  "ðŸ“„ Algemene voorwaarden",
-                               "privacy":  "ðŸ”’ Privacybeleid"
+                               "terms":  "📄 Algemene voorwaarden",
+                               "privacy":  "🔒 Privacybeleid"
                            },
                   "scroll":  {
                                  "pending":  "Scroll naar beneden om verder te gaan",
-                                 "done":  "Je hebt het volledige document gelezen âœ“"
+                                 "done":  "Je hebt het volledige document gelezen ✓"
                              },
                   "decline":  "Weigeren",
                   "accept":  "Accepteren en doorgaan"

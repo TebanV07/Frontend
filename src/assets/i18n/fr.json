@@ -1,4 +1,4 @@
-﻿{
+{
     "brand":  {
                   "name":  "TINKO",
                   "tagline":  "AI-Powered Global Connection"
@@ -44,28 +44,28 @@
                                     },
                  "login":  {
                                "title":  "Bon retour !",
-                               "subtitle":  "Connectez-vous pour continuer votre expÃ©rience mondiale",
+                               "subtitle":  "Connectez-vous pour continuer votre expérience mondiale",
                                "submit":  "Se connecter",
                                "submitting":  "Connexion...",
                                "noAccount":  "Vous n\u0027avez pas de compte ?",
                                "switchToRegister":  "S\u0027inscrire gratuitement",
                                "rememberMe":  "Se souvenir de moi",
-                               "forgotPassword":  "Mot de passe oubliÃ© ?",
+                               "forgotPassword":  "Mot de passe oublié ?",
                                "orContinueWith":  "ou continuer avec",
                                "google":  "Google"
                            },
                  "register":  {
-                                  "title":  "Rejoignez la rÃ©volution !",
-                                  "subtitle":  "Connectez-vous au monde sans barriÃ¨res linguistiques",
-                                  "submit":  "CrÃ©er un compte",
-                                  "submitting":  "CrÃ©ation du compte...",
-                                  "hasAccount":  "Vous avez dÃ©jÃ  un compte ?",
+                                  "title":  "Rejoignez la révolution !",
+                                  "subtitle":  "Connectez-vous au monde sans barrières linguistiques",
+                                  "submit":  "Créer un compte",
+                                  "submitting":  "Création du compte...",
+                                  "hasAccount":  "Vous avez déjà un compte ?",
                                   "switchToLogin":  "Se connecter",
-                                  "usernameHint":  "Si vous ne le renseignez pas, il sera gÃ©nÃ©rÃ© automatiquement",
+                                  "usernameHint":  "Si vous ne le renseignez pas, il sera généré automatiquement",
                                   "nativeLanguageHint":  "Langue maternelle"
                               },
                  "fields":  {
-                                "firstName":  "PrÃ©nom",
+                                "firstName":  "Prénom",
                                 "lastName":  "Nom",
                                 "username":  "Nom d\u0027utilisateur (optionnel)",
                                 "email":  "Adresse e-mail",
@@ -73,18 +73,18 @@
                                 "nativeLanguage":  "Langue maternelle"
                             },
                  "features":  {
-                                  "title":  "ðŸš€ Ce qui vous attend :",
-                                  "videos":  "VidÃ©os traduites en temps rÃ©el",
+                                  "title":  "🚀 Ce qui vous attend :",
+                                  "videos":  "Vidéos traduites en temps réel",
                                   "languages":  "Connectez-vous avec 24+ langues",
-                                  "ai":  "Traduction IA avancÃ©e"
+                                  "ai":  "Traduction IA avancée"
                               }
              },
     "verify":  {
-                   "loading":  "VÃ©rification de votre e-mail...",
+                   "loading":  "Vérification de votre e-mail...",
                    "success":  {
-                                   "title":  "E-mail vÃ©rifiÃ© !",
-                                   "message":  "Votre compte est maintenant vÃ©rifiÃ©. Profitez de toutes les fonctionnalitÃ©s.",
-                                   "goHome":  "Aller Ã  l\u0027accueil"
+                                   "title":  "E-mail vérifié !",
+                                   "message":  "Votre compte est maintenant vérifié. Profitez de toutes les fonctionnalités.",
+                                   "goHome":  "Aller à l\u0027accueil"
                                },
                    "error":  {
                                  "title":  "Lien invalide",
@@ -96,11 +96,11 @@
                    "nav":  {
                                "home":  "Accueil",
                                "trending":  "Tendances",
-                               "videos":  "VidÃ©os",
+                               "videos":  "Vidéos",
                                "messages":  "Messages",
                                "notifications":  "Notifications",
                                "profile":  "Profil",
-                               "settings":  "ParamÃ¨tres"
+                               "settings":  "Paramètres"
                            },
                    "theme":  {
                                  "light":  "Mode clair",
@@ -110,7 +110,7 @@
                },
     "chat":  {
                  "input":  {
-                               "placeholder":  "Ã‰crire un message...",
+                               "placeholder":  "Écrire un message...",
                                "emojis":  "Emojis",
                                "attach":  "Joindre un fichier",
                                "camera":  "Prendre une photo",
@@ -121,28 +121,28 @@
                            },
                  "window":  {
                                 "noName":  "Sans nom",
-                                "selectConversation":  "SÃ©lectionnez une conversation",
-                                "selectConversationHint":  "Choisissez une conversation pour commencer Ã  discuter",
-                                "uploading":  "TÃ©lÃ©chargement du fichier...",
+                                "selectConversation":  "Sélectionnez une conversation",
+                                "selectConversationHint":  "Choisissez une conversation pour commencer à discuter",
+                                "uploading":  "Téléchargement du fichier...",
                                 "speaksLanguage":  "Parle "
                             },
                  "bubble":  {
-                                "edited":  "modifiÃ©",
+                                "edited":  "modifié",
                                 "edit":  "Modifier",
                                 "delete":  "Supprimer",
                                 "deleteForMe":  "Supprimer pour moi",
-                                "forward":  "TransfÃ©rer",
+                                "forward":  "Transférer",
                                 "share":  "Partager",
                                 "translate":  "Traduire"
                             }
              },
     "feed":  {
-                 "loading":  "Chargement des vidÃ©os...",
-                 "loadingMore":  "Chargement de plus de vidÃ©os...",
+                 "loading":  "Chargement des vidéos...",
+                 "loadingMore":  "Chargement de plus de vidéos...",
                  "empty":  {
-                               "title":  "Aucune vidÃ©o disponible",
-                               "subtitle":  "Soyez le premier Ã  tÃ©lÃ©charger une vidÃ©o avec traduction IA",
-                               "upload":  "TÃ©lÃ©charger une vidÃ©o"
+                               "title":  "Aucune vidéo disponible",
+                               "subtitle":  "Soyez le premier à télécharger une vidéo avec traduction IA",
+                               "upload":  "Télécharger une vidéo"
                            },
                  "position":  "{{ current }} / {{ total }}",
                  "aiActive":  "Traduction IA active",
@@ -160,49 +160,49 @@
                  "noPostsSub":  "Soyez le premier \u00e0 partager quelque chose"
              },
     "videoPlayer":  {
-                        "loading":  "Chargement de la vidÃ©o...",
+                        "loading":  "Chargement de la vidéo...",
                         "error":  {
                                       "title":  "Erreur de chargement",
-                                      "subtitle":  "Cette vidÃ©o n\u0027a pas pu Ãªtre lue",
-                                      "retry":  "RÃ©essayer"
+                                      "subtitle":  "Cette vidéo n\u0027a pas pu être lue",
+                                      "retry":  "Réessayer"
                                   },
-                        "noSupport":  "Votre navigateur ne supporte pas la balise vidÃ©o."
+                        "noSupport":  "Votre navigateur ne supporte pas la balise vidéo."
                     },
     "comments":  {
                      "title":  "Commentaires",
-                     "placeholder":  "Ã‰crire un commentaire...",
-                     "submit":  "ðŸ’¬ Commenter",
+                     "placeholder":  "Écrire un commentaire...",
+                     "submit":  "💬 Commenter",
                      "submitting":  "Publication...",
                      "loading":  "Chargement...",
-                     "empty":  "Soyez le premier Ã  commenter",
-                     "loadMore":  "â†“ Voir plus de commentaires",
+                     "empty":  "Soyez le premier à commenter",
+                     "loadMore":  "↓ Voir plus de commentaires",
                      "loadingMore":  "Chargement...",
-                     "reply":  "RÃ©pondre",
+                     "reply":  "Répondre",
                      "replying":  "Publication...",
                      "cancel":  "Annuler",
                      "save":  "Enregistrer",
-                     "edit":  "âœï¸ Modifier",
-                     "delete":  "ðŸ—‘ï¸ Supprimer",
-                     "edited":  "Â· modifiÃ©",
-                     "replyTo":  "RÃ©pondre Ã  @",
+                     "edit":  "✏️ Modifier",
+                     "delete":  "🗑️ Supprimer",
+                     "edited":  "· modifié",
+                     "replyTo":  "Répondre à @",
                      "replies":  {
-                                     "one":  "rÃ©ponse",
-                                     "other":  "rÃ©ponses"
+                                     "one":  "réponse",
+                                     "other":  "réponses"
                                  }
                  },
     "post":  {
                  "edit":  {
                               "title":  "Modifier le post",
                               "content":  "Contenu :",
-                              "tags":  "Tags (sÃ©parÃ©s par virgule) :",
+                              "tags":  "Tags (séparés par virgule) :",
                               "public":  "Public",
                               "save":  "Enregistrer",
                               "skip":  "Passer"
                           },
                  "likes":  {
                                "like":  "J\u0027aime",
-                               "liked":  "AimÃ©",
-                               "likedBy":  "AimÃ© par",
+                               "liked":  "Aimé",
+                               "likedBy":  "Aimé par",
                                "noLikes":  "Aucun j\u0027aime",
                                "loading":  "Chargement..."
                            },
@@ -233,36 +233,36 @@
     "profile":  {
                     "tabs":  {
                                  "posts":  "Posts",
-                                 "videos":  "VidÃ©os",
+                                 "videos":  "Vidéos",
                                  "liked":  "J\u0027aime",
-                                 "bookmarks":  "EnregistrÃ©s"
+                                 "bookmarks":  "Enregistrés"
                              },
                     "content":  {
                                     "noPosts":  "Aucun post pour l\u0027instant",
-                                    "noVideos":  "Aucune vidÃ©o pour l\u0027instant",
-                                    "likedPosts":  "Posts que vous avez aimÃ©s",
-                                    "savedPosts":  "Posts enregistrÃ©s",
+                                    "noVideos":  "Aucune vidéo pour l\u0027instant",
+                                    "likedPosts":  "Posts que vous avez aimés",
+                                    "savedPosts":  "Posts enregistrés",
                                     "loadMore":  "Voir plus",
                                     "loading":  "Chargement..."
                                 }
                 },
     "upload":  {
-                   "title":  "TÃ©lÃ©charger une vidÃ©o/post",
+                   "title":  "Télécharger une vidéo/post",
                    "titleField":  "Titre (optionnel)",
                    "description":  "Description (optionnelle)",
-                   "submit":  "TÃ©lÃ©charger",
-                   "submitting":  "TÃ©lÃ©chargement..."
+                   "submit":  "Télécharger",
+                   "submitting":  "Téléchargement..."
                },
     "explore":  {
-                    "title":  "DÃ©couvrir des personnes",
+                    "title":  "Découvrir des personnes",
                     "subtitle":  "Trouvez et connectez-vous avec des personnes du monde entier",
                     "search":  {
                                    "placeholder":  "Rechercher des personnes par nom ou nom d\u0027utilisateur...",
                                    "button":  "Rechercher",
                                    "searching":  "Recherche...",
-                                   "results":  "RÃ©sultats ({{ count }})",
+                                   "results":  "Résultats ({{ count }})",
                                    "noResults":  {
-                                                     "title":  "Aucun rÃ©sultat trouvÃ©",
+                                                     "title":  "Aucun résultat trouvé",
                                                      "subtitle":  "Essayez un autre terme de recherche"
                                                  }
                                },
@@ -270,7 +270,7 @@
                                            "title":  "Demandes de suivi",
                                            "noPending":  {
                                                              "title":  "Aucune demande en attente",
-                                                             "subtitle":  "Quand quelqu\u0027un voudra vous suivre, il apparaÃ®tra ici"
+                                                             "subtitle":  "Quand quelqu\u0027un voudra vous suivre, il apparaîtra ici"
                                                          },
                                            "accept":  "Accepter",
                                            "reject":  "Refuser"
@@ -280,73 +280,73 @@
                                       "empty":  "Aucune suggestion pour l\u0027instant",
                                       "viewAll":  "Voir toutes les suggestions",
                                       "viewLess":  "Voir moins",
-                                      "mutual":  "{{ count }} abonnÃ©s en commun",
+                                      "mutual":  "{{ count }} abonnés en commun",
                                       "follow":  "Suivre",
-                                      "following":  "AbonnÃ©",
+                                      "following":  "Abonné",
                                       "pending":  "En attente"
                                   }
                 },
     "countrySetup":  {
-                         "title":  "D\u0027oÃ¹ venez-vous ?",
-                         "subtitle":  "Votre drapeau apparaÃ®tra sur vos posts et messages pour que les gens sachent d\u0027oÃ¹ vous venez.",
-                         "detecting":  "DÃ©tection de votre pays...",
-                         "detected":  "Pays dÃ©tectÃ© :",
-                         "notDetected":  "Nous n\u0027avons pas pu dÃ©tecter votre pays automatiquement.",
-                         "manualSelect":  "SÃ©lectionnez votre pays :",
+                         "title":  "D\u0027où venez-vous ?",
+                         "subtitle":  "Votre drapeau apparaîtra sur vos posts et messages pour que les gens sachent d\u0027où vous venez.",
+                         "detecting":  "Détection de votre pays...",
+                         "detected":  "Pays détecté :",
+                         "notDetected":  "Nous n\u0027avons pas pu détecter votre pays automatiquement.",
+                         "manualSelect":  "Sélectionnez votre pays :",
                          "manualPlaceholder":  "-- Choisissez votre pays --",
-                         "notMyCountry":  "Ce n\u0027est pas mon pays â€” changer",
-                         "confirm":  "âœ… Confirmer",
+                         "notMyCountry":  "Ce n\u0027est pas mon pays — changer",
+                         "confirm":  "✅ Confirmer",
                          "saving":  "Enregistrement...",
                          "skip":  "Passer pour l\u0027instant"
                      },
     "permissions":  {
                         "welcome":  {
                                         "title":  "Configurer les autorisations",
-                                        "subtitle":  "Pour vous offrir la meilleure expÃ©rience, nous avons besoin d\u0027accÃ©der Ã  certaines autorisations de votre appareil.",
-                                        "camera":  "CamÃ©ra pour les diffusions en direct",
-                                        "microphone":  "Microphone pour les appels vidÃ©o",
+                                        "subtitle":  "Pour vous offrir la meilleure expérience, nous avons besoin d\u0027accéder à certaines autorisations de votre appareil.",
+                                        "camera":  "Caméra pour les diffusions en direct",
+                                        "microphone":  "Microphone pour les appels vidéo",
                                         "notifications":  "Notifications de messages",
                                         "later":  "Configurer plus tard",
                                         "continue":  "Continuer"
                                     },
                         "list":  {
                                      "title":  "Autorisations requises",
-                                     "subtitle":  "Cliquez sur chaque autorisation pour la demander Ã  votre appareil",
-                                     "granted":  "âœ“ AccordÃ©",
-                                     "required":  "âš  Requis",
-                                     "optional":  "â„¹ Optionnel",
-                                     "request":  "Demander l\u0027accÃ¨s",
+                                     "subtitle":  "Cliquez sur chaque autorisation pour la demander à votre appareil",
+                                     "granted":  "✓ Accordé",
+                                     "required":  "⚠ Requis",
+                                     "optional":  "ℹ Optionnel",
+                                     "request":  "Demander l\u0027accès",
                                      "requestAll":  "Tout demander",
                                      "back":  "Retour"
                                  },
                         "complete":  {
-                                         "title":  "Configuration terminÃ©e !",
-                                         "subtitle":  "Vos autorisations ont Ã©tÃ© configurÃ©es correctement.",
-                                         "grantedStatus":  "AccordÃ©",
-                                         "deniedStatus":  "Non accordÃ©",
+                                         "title":  "Configuration terminée !",
+                                         "subtitle":  "Vos autorisations ont été configurées correctement.",
+                                         "grantedStatus":  "Accordé",
+                                         "deniedStatus":  "Non accordé",
                                          "redirect":  "Redirection vers l\u0027accueil dans quelques secondes...",
-                                         "goHome":  "Aller Ã  l\u0027accueil maintenant"
+                                         "goHome":  "Aller à l\u0027accueil maintenant"
                                      }
                     },
     "report":  {
-                   "title":  "ðŸš© Signaler un contenu",
-                   "subtitle":  "SÃ©lectionnez la raison de votre signalement",
-                   "descriptionLabel":  "Description supplÃ©mentaire (optionnelle)",
-                   "descriptionPlaceholder":  "Dites-nous en plus sur le problÃ¨me...",
+                   "title":  "🚩 Signaler un contenu",
+                   "subtitle":  "Sélectionnez la raison de votre signalement",
+                   "descriptionLabel":  "Description supplémentaire (optionnelle)",
+                   "descriptionPlaceholder":  "Dites-nous en plus sur le problème...",
                    "cancel":  "Annuler",
                    "submit":  "Envoyer le signalement",
                    "submitting":  "Envoi..."
                },
     "terms":  {
-                  "title":  "Conditions, Termes et ConfidentialitÃ©",
-                  "lastUpdated":  "DerniÃ¨re mise Ã  jour : janvier 2025 Â· Lisez attentivement avant de continuer",
+                  "title":  "Conditions, Termes et Confidentialité",
+                  "lastUpdated":  "Dernière mise à jour : janvier 2025 · Lisez attentivement avant de continuer",
                   "tabs":  {
-                               "terms":  "ðŸ“„ Conditions d\u0027utilisation",
-                               "privacy":  "ðŸ”’ Politique de confidentialitÃ©"
+                               "terms":  "📄 Conditions d\u0027utilisation",
+                               "privacy":  "🔒 Politique de confidentialité"
                            },
                   "scroll":  {
-                                 "pending":  "Faites dÃ©filer jusqu\u0027en bas pour continuer",
-                                 "done":  "Vous avez lu le document en entier âœ“"
+                                 "pending":  "Faites défiler jusqu\u0027en bas pour continuer",
+                                 "done":  "Vous avez lu le document en entier ✓"
                              },
                   "decline":  "Refuser",
                   "accept":  "Accepter et continuer"
@@ -354,7 +354,7 @@
     "common":  {
                    "loading":  "Chargement...",
                    "error":  "Une erreur s\u0027est produite",
-                   "retry":  "RÃ©essayer",
+                   "retry":  "Réessayer",
                    "save":  "Enregistrer",
                    "cancel":  "Annuler",
                    "confirm":  "Confirmer",
@@ -369,10 +369,10 @@
                    "report":  "Signaler",
                    "follow":  "Suivre",
                    "unfollow":  "Ne plus suivre",
-                   "following":  "AbonnÃ©",
-                   "followers":  "AbonnÃ©s",
+                   "following":  "Abonné",
+                   "followers":  "Abonnés",
                    "posts":  "Posts",
-                   "videos":  "VidÃ©os"
+                   "videos":  "Vidéos"
                },
     "settings":  {
                      "title":  "Param\u00e8tres",

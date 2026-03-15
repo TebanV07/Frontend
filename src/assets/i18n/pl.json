@@ -1,4 +1,4 @@
-﻿﻿﻿{
+﻿{
     "brand":  {
                   "name":  "TINKO",
                   "tagline":  "AI-Powered Global Connection"
@@ -57,9 +57,9 @@
                  "register":  {
                                   "title":  "DoÅ‚Ä…cz do rewolucji!",
                                   "subtitle":  "PoÅ‚Ä…cz siÄ™ ze Å›wiatem bez barier jÄ™zykowych",
-                                  "submit":  "UtwÃ³rz konto",
+                                  "submit":  "Utwórz konto",
                                   "submitting":  "Tworzenie konta...",
-                                  "hasAccount":  "Masz juÅ¼ konto?",
+                                  "hasAccount":  "Masz już konto?",
                                   "switchToLogin":  "Zaloguj siÄ™",
                                   "usernameHint":  "JeÅ›li nie wpiszesz, zostanie wygenerowana automatycznie",
                                   "nativeLanguageHint":  "JÄ™zyk ojczysty"
@@ -67,13 +67,13 @@
                  "fields":  {
                                 "firstName":  "ImiÄ™",
                                 "lastName":  "Nazwisko",
-                                "username":  "Nazwa uÅ¼ytkownika (opcjonalna)",
+                                "username":  "Nazwa użytkownika (opcjonalna)",
                                 "email":  "Adres e-mail",
                                 "password":  "HasÅ‚o",
                                 "nativeLanguage":  "JÄ™zyk ojczysty"
                             },
                  "features":  {
-                                  "title":  "ðŸš€ Co na Ciebie czeka:",
+                                  "title":  "🚀 Co na Ciebie czeka:",
                                   "videos":  "Filmy tÅ‚umaczone w czasie rzeczywistym",
                                   "languages":  "PoÅ‚Ä…cz siÄ™ z 24+ jÄ™zykami",
                                   "ai":  "Zaawansowane tÅ‚umaczenie AI"
@@ -84,7 +84,7 @@
                    "success":  {
                                    "title":  "E-mail zweryfikowany!",
                                    "message":  "Twoje konto zostaÅ‚o zweryfikowane. Ciesz siÄ™ wszystkimi funkcjami.",
-                                   "goHome":  "PrzejdÅº do strony gÅ‚Ã³wnej"
+                                   "goHome":  "Przejdź do strony głównej"
                                },
                    "error":  {
                                  "title":  "NieprawidÅ‚owy link",
@@ -92,9 +92,9 @@
                              }
                },
     "header":  {
-                   "search":  "Szukaj osÃ³b, postÃ³w...",
+                   "search":  "Szukaj osób, postów...",
                    "nav":  {
-                               "home":  "Strona gÅ‚Ã³wna",
+                               "home":  "Strona główna",
                                "trending":  "Trendy",
                                "videos":  "Filmy",
                                "messages":  "WiadomoÅ›ci",
@@ -113,7 +113,7 @@
                                "placeholder":  "Napisz wiadomoÅ›Ä‡...",
                                "emojis":  "Emotikony",
                                "attach":  "ZaÅ‚Ä…cz plik",
-                               "camera":  "ZrÃ³b zdjÄ™cie",
+                               "camera":  "Zrób zdjęcie",
                                "voice":  "Nagraj wiadomoÅ›Ä‡ gÅ‚osowÄ…",
                                "send":  "WyÅ›lij",
                                "recording":  "Nagrywanie...",
@@ -124,24 +124,24 @@
                                 "selectConversation":  "Wybierz rozmowÄ™",
                                 "selectConversationHint":  "Wybierz rozmowÄ™, aby zaczÄ…Ä‡ czatowaÄ‡",
                                 "uploading":  "PrzesyÅ‚anie pliku...",
-                                "speaksLanguage":  "MÃ³wi po "
+                                "speaksLanguage":  "Mówi po "
                             },
                  "bubble":  {
                                 "edited":  "edytowano",
                                 "edit":  "Edytuj",
-                                "delete":  "UsuÅ„",
-                                "deleteForMe":  "UsuÅ„ u mnie",
-                                "forward":  "PrzekaÅ¼",
+                                "delete":  "Usuń",
+                                "deleteForMe":  "Usuń u mnie",
+                                "forward":  "Przekaż",
                                 "share":  "UdostÄ™pnij",
                                 "translate":  "PrzetÅ‚umacz"
                             }
              },
     "feed":  {
-                 "loading":  "Wczytywanie filmÃ³w...",
-                 "loadingMore":  "Wczytywanie kolejnych filmÃ³w...",
+                 "loading":  "Wczytywanie filmów...",
+                 "loadingMore":  "Wczytywanie kolejnych filmów...",
                  "empty":  {
-                               "title":  "Brak dostÄ™pnych filmÃ³w",
-                               "subtitle":  "BÄ…dÅº pierwszÄ… osobÄ…, ktÃ³ra wgra film z tÅ‚umaczeniem AI",
+                               "title":  "Brak dostępnych filmów",
+                               "subtitle":  "Bądź pierwszą osobą, która wgra film z tłumaczeniem AI",
                                "upload":  "Wgraj film"
                            },
                  "position":  "{{ current }} / {{ total }}",
@@ -163,27 +163,27 @@
                         "loading":  "Wczytywanie wideo...",
                         "error":  {
                                       "title":  "BÅ‚Ä…d wczytywania wideo",
-                                      "subtitle":  "Nie moÅ¼na odtworzyÄ‡ tego wideo",
-                                      "retry":  "SprÃ³buj ponownie"
+                                      "subtitle":  "Nie można odtworzyć tego wideo",
+                                      "retry":  "Spróbuj ponownie"
                                   },
                         "noSupport":  "Twoja przeglÄ…darka nie obsÅ‚uguje tagu wideo."
                     },
     "comments":  {
                      "title":  "Komentarze",
                      "placeholder":  "Napisz komentarz...",
-                     "submit":  "ðŸ’¬ Komentuj",
+                     "submit":  "💬 Komentuj",
                      "submitting":  "Publikowanie...",
                      "loading":  "Wczytywanie...",
-                     "empty":  "BÄ…dÅº pierwszÄ… osobÄ…, ktÃ³ra skomentuje",
-                     "loadMore":  "â†“ PokaÅ¼ wiÄ™cej komentarzy",
+                     "empty":  "Bądź pierwszą osobą, która skomentuje",
+                     "loadMore":  "↓ Pokaż więcej komentarzy",
                      "loadingMore":  "Wczytywanie...",
                      "reply":  "Odpowiedz",
                      "replying":  "Publikowanie...",
                      "cancel":  "Anuluj",
                      "save":  "Zapisz",
-                     "edit":  "âœï¸ Edytuj",
-                     "delete":  "ðŸ—‘ï¸ UsuÅ„",
-                     "edited":  "Â· edytowano",
+                     "edit":  "✏️ Edytuj",
+                     "delete":  "🗑️ Usuń",
+                     "edited":  "· edytowano",
                      "replyTo":  "Odpowiedz @",
                      "replies":  {
                                      "one":  "odpowiedÅº",
@@ -197,13 +197,13 @@
                               "tags":  "Tagi (oddzielone przecinkami):",
                               "public":  "Publiczny",
                               "save":  "Zapisz",
-                              "skip":  "PomiÅ„"
+                              "skip":  "Pomiń"
                           },
                  "likes":  {
                                "like":  "LubiÄ™ to",
                                "liked":  "Polubione",
                                "likedBy":  "Polubione przez",
-                               "noLikes":  "Brak polubieÅ„",
+                               "noLikes":  "Brak polubień",
                                "loading":  "Wczytywanie..."
                            },
                  "deleteConfirm":  "Usun\u0105\u0107 ten post?",
@@ -238,11 +238,11 @@
                                  "bookmarks":  "Zapisane"
                              },
                     "content":  {
-                                    "noPosts":  "Brak postÃ³w",
-                                    "noVideos":  "Brak filmÃ³w",
-                                    "likedPosts":  "Posty, ktÃ³re polubiÅ‚eÅ›",
+                                    "noPosts":  "Brak postów",
+                                    "noVideos":  "Brak filmów",
+                                    "likedPosts":  "Posty, które polubiłeś",
                                     "savedPosts":  "Zapisane posty",
-                                    "loadMore":  "PokaÅ¼ wiÄ™cej",
+                                    "loadMore":  "Pokaż więcej",
                                     "loading":  "Wczytywanie..."
                                 }
                 },
@@ -257,30 +257,30 @@
                     "title":  "Odkryj ludzi",
                     "subtitle":  "ZnajdÅº i poÅ‚Ä…cz siÄ™ z osobami z caÅ‚ego Å›wiata",
                     "search":  {
-                                   "placeholder":  "Szukaj osÃ³b po nazwie lub nicku...",
+                                   "placeholder":  "Szukaj osób po nazwie lub nicku...",
                                    "button":  "Szukaj",
                                    "searching":  "Szukanie...",
                                    "results":  "Wyniki ({{ count }})",
                                    "noResults":  {
-                                                     "title":  "Nie znaleziono wynikÃ³w",
-                                                     "subtitle":  "SprÃ³buj innego wyszukiwania"
+                                                     "title":  "Nie znaleziono wyników",
+                                                     "subtitle":  "Spróbuj innego wyszukiwania"
                                                  }
                                },
                     "followRequests":  {
                                            "title":  "ProÅ›by o obserwowanie",
                                            "noPending":  {
-                                                             "title":  "Brak oczekujÄ…cych prÃ³Å›b",
+                                                             "title":  "Brak oczekujących próśb",
                                                              "subtitle":  "Kiedy ktoÅ› bÄ™dzie chciaÅ‚ CiÄ™ obserwowaÄ‡, pojawi siÄ™ tutaj"
                                                          },
                                            "accept":  "Akceptuj",
                                            "reject":  "OdrzuÄ‡"
                                        },
                     "suggested":  {
-                                      "title":  "Osoby, ktÃ³re moÅ¼esz znaÄ‡",
+                                      "title":  "Osoby, które możesz znać",
                                       "empty":  "Brak sugestii w tej chwili",
-                                      "viewAll":  "PokaÅ¼ wszystkie sugestie",
-                                      "viewLess":  "PokaÅ¼ mniej",
-                                      "mutual":  "{{ count }} wspÃ³lnych obserwujÄ…cych",
+                                      "viewAll":  "Pokaż wszystkie sugestie",
+                                      "viewLess":  "Pokaż mniej",
+                                      "mutual":  "{{ count }} wspólnych obserwujących",
                                       "follow":  "Obserwuj",
                                       "following":  "Obserwujesz",
                                       "pending":  "OczekujÄ…ce"
@@ -292,45 +292,45 @@
                          "detecting":  "Wykrywanie kraju...",
                          "detected":  "Wykryty kraj:",
                          "notDetected":  "Nie udaÅ‚o siÄ™ automatycznie wykryÄ‡ Twojego kraju.",
-                         "manualSelect":  "Wybierz swÃ³j kraj:",
+                         "manualSelect":  "Wybierz swój kraj:",
                          "manualPlaceholder":  "-- Wybierz kraj --",
-                         "notMyCountry":  "To nie jest mÃ³j kraj â€” zmieÅ„",
-                         "confirm":  "âœ… PotwierdÅº",
+                         "notMyCountry":  "To nie jest mój kraj — zmień",
+                         "confirm":  "✅ Potwierdź",
                          "saving":  "Zapisywanie...",
-                         "skip":  "PomiÅ„ na razie"
+                         "skip":  "Pomiń na razie"
                      },
     "permissions":  {
                         "welcome":  {
                                         "title":  "Skonfiguruj uprawnienia",
-                                        "subtitle":  "Aby zapewniÄ‡ najlepsze doÅ›wiadczenie, potrzebujemy dostÄ™pu do niektÃ³rych uprawnieÅ„ urzÄ…dzenia.",
-                                        "camera":  "Kamera do transmisji na Å¼ywo",
-                                        "microphone":  "Mikrofon do rozmÃ³w wideo",
+                                        "subtitle":  "Aby zapewnić najlepsze doświadczenie, potrzebujemy dostępu do niektórych uprawnień urządzenia.",
+                                        "camera":  "Kamera do transmisji na żywo",
+                                        "microphone":  "Mikrofon do rozmów wideo",
                                         "notifications":  "Powiadomienia o wiadomoÅ›ciach",
-                                        "later":  "Skonfiguruj pÃ³Åºniej",
+                                        "later":  "Skonfiguruj później",
                                         "continue":  "Kontynuuj"
                                     },
                         "list":  {
                                      "title":  "Wymagane uprawnienia",
-                                     "subtitle":  "Kliknij kaÅ¼de uprawnienie, aby je poprosiÄ‡ urzÄ…dzenie",
-                                     "granted":  "âœ“ Przyznane",
-                                     "required":  "âš  Wymagane",
-                                     "optional":  "â„¹ Opcjonalne",
+                                     "subtitle":  "Kliknij każde uprawnienie, aby je poprosić urządzenie",
+                                     "granted":  "✓ Przyznane",
+                                     "required":  "⚠ Wymagane",
+                                     "optional":  "ℹ Opcjonalne",
                                      "request":  "PoproÅ› o dostÄ™p",
                                      "requestAll":  "PoproÅ› o wszystkie",
                                      "back":  "Wstecz"
                                  },
                         "complete":  {
-                                         "title":  "Konfiguracja zakoÅ„czona!",
+                                         "title":  "Konfiguracja zakończona!",
                                          "subtitle":  "Twoje uprawnienia zostaÅ‚y poprawnie skonfigurowane.",
                                          "grantedStatus":  "Przyznane",
                                          "deniedStatus":  "Nieprzyznane",
-                                         "redirect":  "Za kilka sekund przekierowanie do strony gÅ‚Ã³wnej...",
-                                         "goHome":  "PrzejdÅº do strony gÅ‚Ã³wnej teraz"
+                                         "redirect":  "Za kilka sekund przekierowanie do strony głównej...",
+                                         "goHome":  "Przejdź do strony głównej teraz"
                                      }
                     },
     "report":  {
-                   "title":  "ðŸš© ZgÅ‚oÅ› treÅ›Ä‡",
-                   "subtitle":  "Wybierz powÃ³d zgÅ‚oszenia",
+                   "title":  "🚩 Zgłoś treść",
+                   "subtitle":  "Wybierz powód zgłoszenia",
                    "descriptionLabel":  "Dodatkowy opis (opcjonalnie)",
                    "descriptionPlaceholder":  "Powiedz nam wiÄ™cej o problemie...",
                    "cancel":  "Anuluj",
@@ -339,14 +339,14 @@
                },
     "terms":  {
                   "title":  "Regulamin i PrywatnoÅ›Ä‡",
-                  "lastUpdated":  "Ostatnia aktualizacja: styczeÅ„ 2025 Â· Przeczytaj uwaÅ¼nie przed kontynuowaniem",
+                  "lastUpdated":  "Ostatnia aktualizacja: styczeń 2025 · Przeczytaj uważnie przed kontynuowaniem",
                   "tabs":  {
-                               "terms":  "ðŸ“„ Regulamin",
-                               "privacy":  "ðŸ”’ Polityka prywatnoÅ›ci"
+                               "terms":  "📄 Regulamin",
+                               "privacy":  "🔒 Polityka prywatności"
                            },
                   "scroll":  {
-                                 "pending":  "PrzewiÅ„ na dÃ³Å‚, aby kontynuowaÄ‡",
-                                 "done":  "PrzeczytaÅ‚eÅ› caÅ‚y dokument âœ“"
+                                 "pending":  "Przewiń na dół, aby kontynuować",
+                                 "done":  "Przeczytałeś cały dokument ✓"
                              },
                   "decline":  "OdrzuÄ‡",
                   "accept":  "Akceptuj i kontynuuj"
@@ -354,21 +354,21 @@
     "common":  {
                    "loading":  "Wczytywanie...",
                    "error":  "WystÄ…piÅ‚ bÅ‚Ä…d",
-                   "retry":  "SprÃ³buj ponownie",
+                   "retry":  "Spróbuj ponownie",
                    "save":  "Zapisz",
                    "cancel":  "Anuluj",
                    "confirm":  "PotwierdÅº",
-                   "delete":  "UsuÅ„",
+                   "delete":  "Usuń",
                    "edit":  "Edytuj",
                    "close":  "Zamknij",
                    "back":  "Wstecz",
                    "next":  "Dalej",
-                   "skip":  "PomiÅ„",
+                   "skip":  "Pomiń",
                    "search":  "Szukaj",
                    "share":  "UdostÄ™pnij",
                    "report":  "ZgÅ‚oÅ›",
                    "follow":  "Obserwuj",
-                   "unfollow":  "PrzestaÅ„ obserwowaÄ‡",
+                   "unfollow":  "Przestań obserwować",
                    "following":  "Obserwujesz",
                    "followers":  "ObserwujÄ…cy",
                    "posts":  "Posty",

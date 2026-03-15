@@ -1,4 +1,4 @@
-﻿{
+{
     "brand":  {
                   "name":  "TINKO",
                   "tagline":  "AI-Powered Global Connection"
@@ -73,7 +73,7 @@
                                 "nativeLanguage":  "Native language"
                             },
                  "features":  {
-                                  "title":  "ðŸš€ What\u0027s waiting for you:",
+                                  "title":  "🚀 What\u0027s waiting for you:",
                                   "videos":  "Videos translated in real time",
                                   "languages":  "Connect with 24+ languages",
                                   "ai":  "Advanced AI translation"
@@ -171,19 +171,19 @@
     "comments":  {
                      "title":  "Comments",
                      "placeholder":  "Write a comment...",
-                     "submit":  "ðŸ’¬ Comment",
+                     "submit":  "💬 Comment",
                      "submitting":  "Posting...",
                      "loading":  "Loading...",
                      "empty":  "Be the first to comment",
-                     "loadMore":  "â†“ Load more comments",
+                     "loadMore":  "↓ Load more comments",
                      "loadingMore":  "Loading...",
                      "reply":  "Reply",
                      "replying":  "Posting...",
                      "cancel":  "Cancel",
                      "save":  "Save",
-                     "edit":  "âœï¸ Edit",
-                     "delete":  "ðŸ—‘ï¸ Delete",
-                     "edited":  "Â· edited",
+                     "edit":  "✏️ Edit",
+                     "delete":  "🗑️ Delete",
+                     "edited":  "· edited",
                      "replyTo":  "Reply to @",
                      "replies":  {
                                      "one":  "reply",
@@ -307,8 +307,8 @@
                          "notDetected":  "We couldn\u0027t detect your country automatically.",
                          "manualSelect":  "Select your country:",
                          "manualPlaceholder":  "-- Choose your country --",
-                         "notMyCountry":  "That\u0027s not my country â€” change",
-                         "confirm":  "âœ… Confirm",
+                         "notMyCountry":  "That\u0027s not my country — change",
+                         "confirm":  "✅ Confirm",
                          "saving":  "Saving...",
                          "skip":  "Skip for now"
                      },
@@ -325,9 +325,9 @@
                         "list":  {
                                      "title":  "Required Permissions",
                                      "subtitle":  "Click each permission to request it from your device",
-                                     "granted":  "âœ“ Granted",
-                                     "required":  "âš  Required",
-                                     "optional":  "â„¹ Optional",
+                                     "granted":  "✓ Granted",
+                                     "required":  "⚠ Required",
+                                     "optional":  "ℹ Optional",
                                      "request":  "Request Access",
                                      "requestAll":  "Request All",
                                      "back":  "Back"
@@ -342,7 +342,7 @@
                                      }
                     },
     "report":  {
-                   "title":  "ðŸš© Report content",
+                   "title":  "🚩 Report content",
                    "subtitle":  "Select the reason for your report",
                    "descriptionLabel":  "Additional description (optional)",
                    "descriptionPlaceholder":  "Tell us more about the problem...",
@@ -352,14 +352,14 @@
                },
     "terms":  {
                   "title":  "Terms, Conditions \u0026 Privacy",
-                  "lastUpdated":  "Last updated: January 2025 Â· Please read carefully before continuing",
+                  "lastUpdated":  "Last updated: January 2025 · Please read carefully before continuing",
                   "tabs":  {
-                               "terms":  "ðŸ“„ Terms \u0026 Conditions",
-                               "privacy":  "ðŸ”’ Privacy Policy"
+                               "terms":  "📄 Terms \u0026 Conditions",
+                               "privacy":  "🔒 Privacy Policy"
                            },
                   "scroll":  {
                                  "pending":  "Scroll to the bottom to continue",
-                                 "done":  "You\u0027ve read the entire document âœ“"
+                                 "done":  "You\u0027ve read the entire document ✓"
                              },
                   "decline":  "Decline",
                   "accept":  "Accept \u0026 Continue"
