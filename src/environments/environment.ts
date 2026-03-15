@@ -16,6 +16,7 @@ export const environment = {
 
   // API Backend
   apiUrl: 'https://web-production-94f95.up.railway.app/api/v1',
+  apiBaseUrl: 'https://web-production-94f95.up.railway.app',
 
   // Otros servicios
   maxUploadSizeMB: 100,

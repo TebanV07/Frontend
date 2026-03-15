@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 // ==================== INTERFACES ====================
 
@@ -69,7 +70,7 @@ export interface ImageTranslationResponse {
   providedIn: 'root'
 })
 export class TranslationService {
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -258,7 +259,7 @@ export class TranslationService {
   ): Promise<Observable<ImageTranslationResponse>> {
     const fullUrl = imageUrl.startsWith('http')
       ? imageUrl
-      : `https://web-production-94f95.up.railway.app${imageUrl}`;
+      : `${environment.apiBaseUrl}${imageUrl}`;
 
     const blob = await this.http.get(fullUrl, {
       headers: this.getHeadersForFormData(),

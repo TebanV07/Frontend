@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, interval, Subject } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { catchError, tap, switchMap, filter } from 'rxjs/operators';
 import { of } from 'rxjs';
 
@@ -36,7 +37,7 @@ export interface NotificationListResponse {
   providedIn: 'root'
 })
 export class NotificationService {
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
 
   // Subjects para RxJS
   private notificationsSubject = new BehaviorSubject<Notification[]>([]);

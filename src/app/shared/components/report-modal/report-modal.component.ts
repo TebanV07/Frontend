@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 export interface ReportPayload {
   content_type: 'post' | 'video' | 'comment';
@@ -24,7 +25,7 @@ export class ReportModalComponent {
   @Input() contentId!: number;
   @Output() closed = new EventEmitter<void>();
 
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
 
   selectedReason = '';
   description = '';

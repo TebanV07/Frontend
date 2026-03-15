@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 import {
   Observable,
@@ -57,8 +58,8 @@ export interface OnlineUser {
 })
 export class ChatService implements OnDestroy {
 
-  private readonly apiUrl = 'https://web-production-94f95.up.railway.app/api/v1/messages';
-  private readonly wsApiUrl = 'https://web-production-94f95.up.railway.app/api/v1/ws';
+  private readonly apiUrl = `${environment.apiUrl}/messages`;
+  private readonly wsApiUrl = `${environment.apiUrl}/ws`;
   private refreshIntervalMs = 5000;
   private refreshSub?: Subscription;
 

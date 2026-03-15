@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post } from '../models/post.model';
+import { environment } from '../../../environments/environment';
 
 export interface CreatePostRequest {
   content: string;
@@ -47,7 +48,7 @@ export { Post } from '../models/post.model';
   providedIn: 'root'
 })
 export class PostsService {
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
   private isBrowser: boolean;
 
   constructor(

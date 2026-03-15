@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 export interface Like {
   id: number;
@@ -21,7 +22,7 @@ export interface LikeStatus {
   providedIn: 'root'
 })
 export class LikeService {
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
 
   // BehaviorSubjects para tracking de likes
   private postLikesSubject = new BehaviorSubject<{ [key: number]: boolean }>({});

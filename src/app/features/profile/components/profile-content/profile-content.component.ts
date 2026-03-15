@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { UserProfile, ProfileService, PostsPage, VideosPage } from '../../../../core/services/profile.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-profile-content',
@@ -100,13 +101,13 @@ export class ProfileContentComponent implements OnChanges {
   getImageUrl(url: string | null | undefined): string {
     if (!url) return '';
     if (url.startsWith('http')) return url;
-    return `https://web-production-94f95.up.railway.app${url}`;
+    return `${environment.apiBaseUrl}${url}`;
   }
 
   getAvatarUrl(avatar: string | null | undefined): string {
     if (!avatar) return 'assets/default-avatar.png';
     if (avatar.startsWith('http')) return avatar;
-    return `https://web-production-94f95.up.railway.app${avatar}`;
+    return `${environment.apiBaseUrl}${avatar}`;
   }
 
   onVideoClick(videoId: number) {

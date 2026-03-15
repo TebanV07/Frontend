@@ -13,6 +13,7 @@ import { ChatService } from '../../../../core/services/chat.service';
 import { WebSocketService } from '../../../../core/services/websocket.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { FlagService } from '../../../../core/services/flag.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-chat-window',
@@ -36,7 +37,7 @@ export class ChatWindowComponent implements OnChanges {
 
   @ViewChildren(MessageBubbleComponent) messageBubbles!: QueryList<MessageBubbleComponent>;
 
-  private readonly uploadUrl = 'https://web-production-94f95.up.railway.app/api/v1/messages/upload';
+  private readonly uploadUrl = `${environment.apiUrl}/messages/upload`;
 
   constructor(
     private http: HttpClient,

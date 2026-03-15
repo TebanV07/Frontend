@@ -6,6 +6,7 @@ import { PostsService } from '../../../core/services/posts.service';
 import { Comment } from '../../../core/models/comment.model';
 import { CommentService } from '../../../core/services/comment.service';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 import { FlagService } from '../../../core/services/flag.service';
 import { TranslationService, ImageTranslationResponse } from '../../../core/services/translation.service';
 import { Language, LanguageService } from '../../../core/services/language.service';
@@ -62,7 +63,7 @@ export class PostComponent implements OnInit {
 
   availableLanguages: Language[] = [];
 
-  private readonly apiBaseUrl = 'https://web-production-94f95.up.railway.app';
+  private readonly apiBaseUrl = environment.apiBaseUrl;
 
   constructor(
     private postsService: PostsService,
