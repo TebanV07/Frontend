@@ -14,6 +14,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Video, VideoService } from '../../../../core/services/video.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-video-player',
@@ -32,7 +33,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnChanges {
   @ViewChild('videoElement') videoElementRef!: ElementRef<HTMLVideoElement>;
 
   private videoElement!: HTMLVideoElement;
-  private readonly apiBaseUrl = 'https://web-production-94f95.up.railway.app';
+  private readonly apiBaseUrl = environment.apiBaseUrl;
 
   // Estados
   isLoading = true;

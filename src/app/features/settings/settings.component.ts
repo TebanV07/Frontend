@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-settings',
@@ -17,7 +18,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class SettingsComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
 
   currentUser: any = null;
   activeTab: 'profile' | 'account' | 'notifications' | 'privacy' = 'profile';
@@ -135,7 +136,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     const avatar = this.currentUser?.avatar;
     if (!avatar) return 'assets/default-avatar.png';
     if (avatar.startsWith('http')) return avatar;
-    return `https://web-production-94f95.up.railway.app${avatar}`;
+    return `${environment.apiBaseUrl}${avatar}`;
   }
 
   onAvatarSelected(event: Event) {

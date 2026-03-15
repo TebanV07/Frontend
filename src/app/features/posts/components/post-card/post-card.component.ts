@@ -6,6 +6,7 @@ import { Post } from '../../../../core/models/post.model';
 import { PostsService } from '../../../../core/services/posts.service';
 import { LikeButtonComponent } from '../../likes/likes-button/likes-button.component';
 import { LikeCountComponent } from '../../likes/likes-count/likes-count.component';
+import { environment } from '../../../../../environments/environment';
 import { FlagService } from '../../../../core/services/flag.service';
 import { ReportModalComponent } from '../../../../shared/components/report-modal/report-modal.component';
 import { TranslationService, ImageTranslationResponse } from '../../../../core/services/translation.service';
@@ -46,7 +47,7 @@ export class PostCardComponent {
   isDeleting        = false;
   deleteError       = '';
 
-  private readonly apiBaseUrl = 'https://web-production-94f95.up.railway.app';
+  private readonly apiBaseUrl = environment.apiBaseUrl;
 
   constructor(
     public  flagService:        FlagService,

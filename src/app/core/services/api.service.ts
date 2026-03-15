@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   // Asegúrate de que esta URL apunte a tu backend Python
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api';
+  private apiUrl = `${environment.apiBaseUrl}/api`;
 
   constructor(private http: HttpClient) { }
 

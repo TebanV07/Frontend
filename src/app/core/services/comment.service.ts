@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { tap } from 'rxjs/operators';
 import { Comment, CreateCommentDto } from '../models/comment.model';
 
@@ -8,7 +9,7 @@ import { Comment, CreateCommentDto } from '../models/comment.model';
   providedIn: 'root'
 })
 export class CommentService {
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
 
   private postCommentsSubject = new BehaviorSubject<Comment[]>([]);
   public postComments$ = this.postCommentsSubject.asObservable();

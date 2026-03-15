@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 export interface WebSocketMessage {
   type: 'message' | 'typing' | 'read' | 'online' | 'offline' | 'edit' | 'delete' | 'translation';
@@ -40,7 +41,7 @@ export class WebSocketService {
 
     try {
       // Construir URL del WebSocket
-      const wsUrl = `wss://web-production-94f95.up.railway.app/api/v1/ws/chat?token=${token}`;
+      const wsUrl = `${environment.apiUrl.replace(/^http/, 'ws')}/ws/chat?token=${token}`;
 
       this.socket = new WebSocket(wsUrl);
 

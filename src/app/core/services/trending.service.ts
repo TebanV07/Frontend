@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject, interval, combineLatest } from 'rxjs';
 import { tap, switchMap, startWith, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 export interface TrendingPost {
   id: number;
@@ -55,7 +56,7 @@ export interface TrendingStats {
   providedIn: 'root'
 })
 export class TrendingService {
-  private apiUrl = 'https://web-production-94f95.up.railway.app/api/v1';
+  private apiUrl = environment.apiUrl;
 
   private trendingPostsSubject = new BehaviorSubject<TrendingPost[]>([]);
   public trendingPosts$ = this.trendingPostsSubject.asObservable();
