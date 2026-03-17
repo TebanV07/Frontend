@@ -153,9 +153,9 @@
         class="image-wrapper"
         [class.hidden]="i >= 4">
 
-        <!-- Imagen -->
+        <!-- Imagen — muestra overlay si existe, original si no -->
         <img
-          [src]="getFullImageUrl(image.image_url)"
+          [src]="imageOverlayUrls[image.id] || getFullImageUrl(image.image_url)"
           class="post-image"
           [alt]="image.alt_text || 'Post image'"
           (error)="onImageError($event)"/>
@@ -164,6 +164,25 @@
         <div class="more-images-overlay" *ngIf="i === 3 && post.images.length > 4">
           <span class="more-count">+{{ post.images.length - 4 }}</span>
         </div>
+
+        <!-- Botón overlay -->
+        <button
+          class="btn-img-overlay"
+          [disabled]="translatingOverlayId === image.id"
+          [class.active]="imageOverlayUrls[image.id]"
+          (click)="$event.stopPropagation(); translateImageOverlay(image)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>
+          </svg>
+          <span *ngIf="translatingOverlayId !== image.id && !imageOverlayUrls[image.id]">
+            {{ 'post.translateOverlay' | translate }}
+          </span>
+          <span *ngIf="translatingOverlayId === image.id">⏳</span>
+          <span *ngIf="translatingOverlayId !== image.id && imageOverlayUrls[image.id]">
+            {{ 'post.showOriginalImage' | translate }}
+          </span>
+        </button>
 
         <!-- Panel OCR — aparece automáticamente al traducir el post -->
         <div
@@ -229,4 +248,3 @@
   </section>
 
 </article>
-

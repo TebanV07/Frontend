@@ -470,6 +470,32 @@ translatePost(postId: number, targetLanguage: string, forceRetranslate = false):
     { headers: this.getAuthHeaders() }
   );
 }
+/**
+ * Traduce imagen con overlay — devuelve Blob con la imagen PNG modificada
+ * Ruta: POST /api/v1/translations/images/{image_id}/overlay
+ */
+translateImageWithOverlay(
+  imageId: number,
+  imageFile: File,
+  targetLanguage: string,
+  sourceLanguage?: string
+): Observable<Blob> {
+  const formData = new FormData();
+  formData.append('file', imageFile);
+  formData.append('target_language', targetLanguage);
+  if (sourceLanguage) {
+    formData.append('source_language', sourceLanguage);
+  }
+
+  return this.http.post(
+    `${this.apiUrl}/translations/images/${imageId}/overlay`,
+    formData,
+    {
+      headers: this.getAuthHeadersForFormData(),
+      responseType: 'blob'
+    }
+  );
+}
 deletePost(postId: string): Observable<void> {
   return this.http.delete<void>(
     `${this.apiUrl}/posts/${postId}`,

@@ -40,6 +40,9 @@ export class PostCardComponent {
   imageTranslations:    { [imageId: number]: ImageTranslationResponse } = {};
   showImageTranslation: { [imageId: number]: boolean }                  = {};
   translatingImageId:   number | null = null;
+  // ── Overlay de imágenes ──────────────────────────────────
+  imageOverlayUrls: { [imageId: number]: string } = {};
+  translatingOverlayId: number | null = null;
 
   // ── Report / Delete ──────────────────────────────────────
   showReportModal   = false;
@@ -227,6 +230,39 @@ export class PostCardComponent {
     this.showImageTranslation[imageId] = !this.showImageTranslation[imageId];
   }
 
+  translateImageOverlay(image: { id: number; image_url: string }): void {
+  if (this.translatingOverlayId === image.id) return;
+
+  // Si ya tenemos el overlay, alternamos visibilidad usando el mismo toggle
+  if (this.imageOverlayUrls[image.id]) {
+    // Limpiar overlay para volver a la imagen original
+    URL.revokeObjectURL(this.imageOverlayUrls[image.id]);
+    delete this.imageOverlayUrls[image.id];
+    return;
+  }
+
+  this.translatingOverlayId = image.id;
+
+  this.translationService.translateImageWithOverlayFromUrl(
+    image.id,
+    image.image_url,
+    this.userLanguage
+  ).then(obs$ => {
+    obs$.subscribe({
+      next: (blob) => {
+        this.imageOverlayUrls[image.id] = URL.createObjectURL(blob);
+        this.translatingOverlayId = null;
+      },
+      error: (err) => {
+        console.error('Error con overlay:', err);
+        this.translatingOverlayId = null;
+      }
+    });
+  }).catch(err => {
+    console.error('Error descargando imagen para overlay:', err);
+    this.translatingOverlayId = null;
+  });
+}
   // ── Acciones generales ───────────────────────────────────
 
   sharePost(): void { console.log('Share post:', this.post.id); }

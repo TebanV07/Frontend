@@ -1,523 +1,538 @@
 {
-    "brand":  {
-                  "name":  "TINKO",
-                  "tagline":  "AI-Powered Global Connection"
-              },
-    "auth":  {
-                 "forgotPass":  {
-                    "title":  "\u0627\u0633\u062a\u0639\u0627\u062f\u0629 \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
-                    "subtitle":  "\u0623\u062f\u062e\u0644 \u0639\u0646\u0648\u0627\u0646 \u0628\u0631\u064a\u062f\u0643 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0648\u0633\u0646\u0631\u0633\u0644 \u0644\u0643 \u0631\u0627\u0628\u0637 \u0625\u0639\u0627\u062f\u0629 \u0627\u0644\u062a\u0639\u064a\u064a\u0646.",
-                    "emailLabel":  "\u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a",
-                    "emailPlaceholder":  "you@email.com",
-                    "sending":  "\u062c\u0627\u0631\u064a \u0627\u0644\u0625\u0631\u0633\u0627\u0644...",
-                    "submit":  "\u0625\u0631\u0633\u0627\u0644 \u0631\u0627\u0628\u0637 \u0627\u0644\u0627\u0633\u062a\u0639\u0627\u062f\u0629",
-                    "backToLogin":  "\u0627\u0644\u0639\u0648\u062f\u0629 \u0625\u0644\u0649 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644",
-                    "emailRequired":  "\u0623\u062f\u062e\u0644 \u0628\u0631\u064a\u062f\u0643 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0644\u0644\u0645\u062a\u0627\u0628\u0639\u0629."
-                },
-"resetPass":  {
-                  "title":  "\u062a\u0639\u064a\u064a\u0646 \u0643\u0644\u0645\u0629 \u0645\u0631\u0648\u0631 \u062c\u062f\u064a\u062f\u0629",
-                  "subtitle":  "\u0627\u062e\u062a\u0631 \u0643\u0644\u0645\u0629 \u0645\u0631\u0648\u0631 \u062c\u062f\u064a\u062f\u0629 \u0642\u0648\u064a\u0629 \u0644\u062d\u0633\u0627\u0628\u0643.",
-                  "newPasswordLabel":  "\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631 \u0627\u0644\u062c\u062f\u064a\u062f\u0629",
-                  "newPasswordPlaceholder":  "\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631 \u0627\u0644\u062c\u062f\u064a\u062f\u0629",
-                  "confirmPasswordLabel":  "\u062a\u0623\u0643\u064a\u062f \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
-                  "confirmPasswordPlaceholder":  "\u062a\u0623\u0643\u064a\u062f \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
-                  "updating":  "\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u062d\u062f\u064a\u062b...",
-                  "submit":  "\u062a\u062d\u062f\u064a\u062b \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
-                  "successTitle":  "\u062a\u0645 \u062a\u062d\u062f\u064a\u062b \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631!",
-                  "goToLogin":  "\u0627\u0644\u0630\u0647\u0627\u0628 \u0625\u0644\u0649 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644",
-                  "errorTitle":  "\u062a\u0639\u0630\u0651\u0631 \u062a\u062d\u062f\u064a\u062b \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
-                  "requestNew":  "\u0637\u0644\u0628 \u0631\u0627\u0628\u0637 \u0627\u0633\u062a\u0639\u0627\u062f\u0629 \u062c\u062f\u064a\u062f",
-                  "invalidToken":  "\u0631\u0627\u0628\u0637 \u0627\u0644\u0627\u0633\u062a\u0639\u0627\u062f\u0629 \u063a\u064a\u0631 \u0635\u0627\u0644\u062d \u0623\u0648 \u0645\u0646\u062a\u0647\u064a \u0627\u0644\u0635\u0644\u0627\u062d\u064a\u0629.",
-                  "fillBothFields":  "\u064a\u064f\u0631\u062c\u0649 \u0645\u0644\u0621 \u062d\u0642\u0644\u064a \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631.",
-                  "passwordsMismatch":  "\u0643\u0644\u0645\u062a\u0627 \u0627\u0644\u0645\u0631\u0648\u0631 \u063a\u064a\u0631 \u0645\u062a\u0637\u0627\u0628\u0642\u062a\u064a\u0646."
-              },
-"verifyRequired":  {
-                       "title":  "\u062a\u062d\u0642\u0642 \u0645\u0646 \u0639\u0646\u0648\u0627\u0646 \u0628\u0631\u064a\u062f\u0643 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a",
-                       "lead":  "\u064a\u062c\u0628 \u0639\u0644\u064a\u0643 \u0627\u0644\u062a\u062d\u0642\u0642 \u0645\u0646 \u0628\u0631\u064a\u062f\u0643 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0642\u0628\u0644 \u0627\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 Tinko.",
-                       "registeredEmail":  "\u0623\u0631\u0633\u0644\u0646\u0627 \u0631\u0627\u0628\u0637 \u0627\u0644\u062a\u062d\u0642\u0642 \u0625\u0644\u0649 \u0639\u0646\u0648\u0627\u0646 \u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0630\u064a \u0633\u062c\u0651\u0644\u062a \u0628\u0647.",
-                       "hint":  "\u0625\u0630\u0627 \u0644\u0645 \u062a\u062c\u062f\u0647\u060c \u0631\u0627\u062c\u0639 \u0645\u062c\u0644\u062f \u0627\u0644\u0628\u0631\u064a\u062f \u063a\u064a\u0631 \u0627\u0644\u0645\u0631\u063a\u0648\u0628 \u0641\u064a\u0647.",
-                       "resending":  "\u062c\u0627\u0631\u064a \u0625\u0639\u0627\u062f\u0629 \u0627\u0644\u0625\u0631\u0633\u0627\u0644...",
-                       "resend":  "\u0625\u0639\u0627\u062f\u0629 \u0625\u0631\u0633\u0627\u0644 \u0628\u0631\u064a\u062f \u0627\u0644\u062a\u062d\u0642\u0642",
-                       "verifying":  "\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u062d\u0642\u0642...",
-                       "alreadyVerified":  "\u062a\u062d\u0642\u0642\u062a \u0628\u0627\u0644\u0641\u0639\u0644",
-                       "logout":  "\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062e\u0631\u0648\u062c"
-                   },
-"login":  {
-                               "title":  "مرحباً بعودتك!",
-                               "subtitle":  "سجّل الدخول لمواصلة تجربتك العالمية",
-                               "submit":  "تسجيل الدخول",
-                               "submitting":  "جارٍ تسجيل الدخول...",
-                               "noAccount":  "ليس لديك حساب؟",
-                               "switchToRegister":  "سجّل مجاناً",
-                               "rememberMe":  "تذكّرني",
-                               "forgotPassword":  "نسيت كلمة المرور؟",
-                               "orContinueWith":  "أو تابع باستخدام",
-                               "google":  "Google"
-                           },
-                 "register":  {
-                                  "title":  "انضم إلى الثورة!",
-                                  "subtitle":  "تواصل مع العالم بلا حواجز لغوية",
-                                  "submit":  "إنشاء حساب",
-                                  "submitting":  "جارٍ إنشاء الحساب...",
-                                  "hasAccount":  "هل لديك حساب بالفعل؟",
-                                  "switchToLogin":  "تسجيل الدخول",
-                                  "usernameHint":  "إذا تركته فارغاً، سيتم توليده تلقائياً",
-                                  "nativeLanguageHint":  "اللغة الأم"
-                              },
-                 "fields":  {
-                                "firstName":  "الاسم الأول",
-                                "lastName":  "اسم العائلة",
-                                "username":  "اسم المستخدم (اختياري)",
-                                "email":  "البريد الإلكتروني",
-                                "password":  "كلمة المرور",
-                                "nativeLanguage":  "اللغة الأم"
-                            },
-                 "features":  {
-                                  "title":  "🚀 ما ينتظرك:",
-                                  "videos":  "مقاطع فيديو مترجمة في الوقت الفعلي",
-                                  "languages":  "تواصل بأكثر من 24 لغة",
-                                  "ai":  "ترجمة ذكاء اصطناعي متقدمة"
-                              }
-             },
-    "verify":  {
-                   "loading":  "جارٍ التحقق من بريدك الإلكتروني...",
-                   "success":  {
-                                   "title":  "تم التحقق من البريد الإلكتروني!",
-                                   "message":  "تم التحقق من حسابك. استمتع بجميع الميزات.",
-                                   "goHome":  "الذهاب إلى الرئيسية"
-                               },
-                   "error":  {
-                                 "title":  "رابط غير صالح",
-                                 "requestNew":  "طلب رابط جديد"
-                             }
-               },
-    "header":  {
-                   "search":  "ابحث عن أشخاص أو منشورات...",
-                   "nav":  {
-                               "home":  "الرئيسية",
-                               "trending":  "الرائج",
-                               "videos":  "الفيديوهات",
-                               "messages":  "الرسائل",
-                               "notifications":  "الإشعارات",
-                               "profile":  "الملف الشخصي",
-                               "settings":  "الإعدادات"
-                           },
-                   "theme":  {
-                                 "light":  "الوضع الفاتح",
-                                 "dark":  "الوضع الداكن"
-                             },
-                   "menu":  "القائمة"
-               },
-    "chat":  {
-                 "input":  {
-                               "placeholder":  "اكتب رسالة...",
-                               "emojis":  "الإيموجي",
-                               "attach":  "إرفاق ملف",
-                               "camera":  "التقاط صورة",
-                               "voice":  "تسجيل رسالة صوتية",
-                               "send":  "إرسال",
-                               "recording":  "جارٍ التسجيل...",
-                               "stopRecording":  "إيقاف"
-                           },
-                 "window":  {
-                                "noName":  "بلا اسم",
-                                "selectConversation":  "اختر محادثة",
-                                "selectConversationHint":  "اختر محادثة للبدء في الدردشة",
-                                "uploading":  "جارٍ رفع الملف...",
-                                "speaksLanguage":  "يتحدث "
-                            },
-                 "bubble":  {
-                                "edited":  "تم التعديل",
-                                "edit":  "تعديل",
-                                "delete":  "حذف",
-                                "deleteForMe":  "حذف بالنسبة لي",
-                                "forward":  "إعادة إرسال",
-                                "share":  "مشاركة",
-                                "translate":  "ترجمة"
-                            }
-             },
-    "feed":  {
-                 "loading":  "جارٍ تحميل الفيديوهات...",
-                 "loadingMore":  "جارٍ تحميل المزيد...",
-                 "empty":  {
-                               "title":  "لا توجد فيديوهات",
-                               "subtitle":  "كن أول من يرفع فيديو مع ترجمة الذكاء الاصطناعي",
-                               "upload":  "رفع فيديو"
-                           },
-                 "position":  "{{ current }} / {{ total }}",
-                 "aiActive":  "AI Translation Active",
-                 "aiDesc":  "All content automatically translated to your preferred language",
-                 "aiLanguages":  "Languages",
-                 "aiVideos":  "Videos",
-                 "suggestedTitle":  "People you may know",
-                 "suggestedSeeAll":  "See all",
-                 "suggestedFollowers":  "followers",
-                 "suggestedMutual":  "in common",
-                 "following":  "Following",
-                 "follow":  "Follow",
-                 "loadingPosts":  "Loading posts...",
-                 "noPosts":  "No posts yet",
-                 "noPostsSub":  "Be the first to share something!"
-             },
-    "videoPlayer":  {
-                        "loading":  "جارٍ تحميل الفيديو...",
-                        "error":  {
-                                      "title":  "خطأ في تحميل الفيديو",
-                                      "subtitle":  "تعذّر تشغيل هذا الفيديو",
-                                      "retry":  "إعادة المحاولة"
-                                  },
-                        "noSupport":  "متصفحك لا يدعم عنصر الفيديو."
-                    },
-    "comments":  {
-                     "title":  "التعليقات",
-                     "placeholder":  "اكتب تعليقاً...",
-                     "submit":  "💬 تعليق",
-                     "submitting":  "جارٍ النشر...",
-                     "loading":  "جارٍ التحميل...",
-                     "empty":  "كن أول من يعلّق",
-                     "loadMore":  "↓ عرض المزيد من التعليقات",
-                     "loadingMore":  "جارٍ التحميل...",
-                     "reply":  "ردّ",
-                     "replying":  "جارٍ النشر...",
-                     "cancel":  "إلغاء",
-                     "save":  "حفظ",
-                     "edit":  "✏️ تعديل",
-                     "delete":  "🗑️ حذف",
-                     "edited":  "· تم التعديل",
-                     "replyTo":  "ردّ على @",
-                     "replies":  {
-                                     "one":  "ردّ",
-                                     "other":  "ردود"
-                                 }
-                 },
-    "post":  {
-                 "edit":  {
-                              "title":  "تعديل المنشور",
-                              "content":  "المحتوى:",
-                              "tags":  "الوسوم (مفصولة بفاصلة):",
-                              "public":  "عام",
-                              "save":  "حفظ",
-                              "skip":  "تخطي"
-                          },
-                 "likes":  {
-                               "like":  "أعجبني",
-                               "liked":  "معجب",
-                               "likedBy":  "أعجب بالمنشور",
-                               "noLikes":  "لا توجد إعجابات بعد",
-                               "loading":  "جارٍ التحميل..."
-                           },
-                 "deleteConfirm":  "Delete this post?",
-                 "deleteBody":  "This action cannot be undone.",
-                 "editMenu":  "Edit",
-                 "deleteMenu":  "Delete",
-                 "reportMenu":  "Report",
-                 "shareMenu":  "Share",
-                 "comments":  "comments",
-                 "comment":  "Comment",
-                 "translateText":  "Translate text",
-                 "extracting":  "Extracting...",
-                 "showImage":  "Show image",
-                 "showText":  "Show text",
-                 "originalText":  "Original text",
-                 "noText":  "No text found in this image",
-                 "translatedTo":  "Translated to",
-                 "from":  "from",
-                 "showingTranslation":  "Showing translation",
-                 "translatePost":  "Translate this post",
-                 "translating":  "Translating...",
-                 "showOriginal":  "Show Original",
-                 "translate":  "Translate",
-                 "back":  "Back to feed",
-                 "close":  "Close"
-             },
-    "profile":  {
-                    "tabs":  {
-                                 "posts":  "المنشورات",
-                                 "videos":  "الفيديوهات",
-                                 "liked":  "الإعجابات",
-                                 "bookmarks":  "المحفوظات"
-                             },
-                    "content":  {
-                                    "noPosts":  "لا توجد منشورات بعد",
-                                    "noVideos":  "لا توجد فيديوهات بعد",
-                                    "likedPosts":  "المنشورات التي أعجبتك",
-                                    "savedPosts":  "المنشورات المحفوظة",
-                                    "loadMore":  "عرض المزيد",
-                                    "loading":  "جارٍ التحميل..."
-                                }
-                },
-    "upload":  {
-                   "title":  "رفع فيديو/منشور",
-                   "titleField":  "العنوان (اختياري)",
-                   "description":  "الوصف (اختياري)",
-                   "submit":  "رفع",
-                   "submitting":  "جارٍ الرفع..."
-               },
-    "explore":  {
-                    "title":  "اكتشف أشخاصاً",
-                    "subtitle":  "اعثر على أشخاص من حول العالم وتواصل معهم",
-                    "search":  {
-                                   "placeholder":  "ابحث بالاسم أو اسم المستخدم...",
-                                   "button":  "Ø¨Ø­Ø«",
-                                   "searching":  "جارٍ البحث...",
-                                   "results":  "النتائج ({{ count }})",
-                                   "noResults":  {
-                                                     "title":  "لم يتم العثور على نتائج",
-                                                     "subtitle":  "جرّب مصطلح بحث آخر"
-                                                 }
-                               },
-                    "followRequests":  {
-                                           "title":  "طلبات المتابعة",
-                                           "noPending":  {
-                                                             "title":  "لا توجد طلبات معلّقة",
-                                                             "subtitle":  "عندما يريد أحدهم متابعتك، سيظهر هنا"
-                                                         },
-                                           "accept":  "قبول",
-                                           "reject":  "رفض"
-                                       },
-                    "suggested":  {
-                                      "title":  "أشخاص قد تعرفهم",
-                                      "empty":  "لا توجد اقتراحات حالياً",
-                                      "viewAll":  "عرض كل الاقتراحات",
-                                      "viewLess":  "عرض أقل",
-                                      "mutual":  "{{ count }} متابع مشترك",
-                                      "follow":  "متابعة",
-                                      "following":  "تتابعه",
-                                      "pending":  "في الانتظار"
-                                  }
-                },
-    "countrySetup":  {
-                         "title":  "من أين أنت؟",
-                         "subtitle":  "ستظهر علمك على منشوراتك ورسائلك حتى يعرف الناس من أين أنت.",
-                         "detecting":  "جارٍ اكتشاف بلدك...",
-                         "detected":  "البلد المُكتشف:",
-                         "notDetected":  "لم نتمكن من اكتشاف بلدك تلقائياً.",
-                         "manualSelect":  "اختر بلدك:",
-                         "manualPlaceholder":  "-- اختر بلدك --",
-                         "notMyCountry":  "هذا ليس بلدي — تغيير",
-                         "confirm":  "✅ تأكيد",
-                         "saving":  "جارٍ الحفظ...",
-                         "skip":  "تخطي الآن"
-                     },
-    "permissions":  {
-                        "welcome":  {
-                                        "title":  "إعداد الأذونات",
-                                        "subtitle":  "لتقديم أفضل تجربة، نحتاج إلى الوصول لبعض أذونات الجهاز.",
-                                        "camera":  "الكاميرا للبث المباشر",
-                                        "microphone":  "الميكروفون لمكالمات الفيديو",
-                                        "notifications":  "إشعارات الرسائل",
-                                        "later":  "إعداد لاحقاً",
-                                        "continue":  "متابعة"
-                                    },
-                        "list":  {
-                                     "title":  "الأذونات المطلوبة",
-                                     "subtitle":  "اضغط على كل إذن لطلبه من جهازك",
-                                     "granted":  "✓ ممنوح",
-                                     "required":  "⚠ مطلوب",
-                                     "optional":  "ℹ اختياري",
-                                     "request":  "طلب الوصول",
-                                     "requestAll":  "طلب الكل",
-                                     "back":  "رجوع"
-                                 },
-                        "complete":  {
-                                         "title":  "اكتمل الإعداد!",
-                                         "subtitle":  "تمت تهيئة أذوناتك بشكل صحيح.",
-                                         "grantedStatus":  "ممنوح",
-                                         "deniedStatus":  "غير ممنوح",
-                                         "redirect":  "إعادة التوجيه إلى الرئيسية خلال ثوانٍ...",
-                                         "goHome":  "الذهاب إلى الرئيسية الآن"
-                                     }
-                    },
-    "report":  {
-                   "title":  "🚩 الإبلاغ عن محتوى",
-                   "subtitle":  "اختر سبب الإبلاغ",
-                   "descriptionLabel":  "وصف إضافي (اختياري)",
-                   "descriptionPlaceholder":  "أخبرنا أكثر عن المشكلة...",
-                   "cancel":  "إلغاء",
-                   "submit":  "إرسال البلاغ",
-                   "submitting":  "جارٍ الإرسال..."
-               },
-    "terms":  {
-                  "title":  "الشروط والأحكام والخصوصية",
-                  "lastUpdated":  "آخر تحديث: يناير 2025 · يُرجى القراءة بعناية قبل المتابعة",
-                  "tabs":  {
-                               "terms":  "📄 الشروط والأحكام",
-                               "privacy":  "🔒 سياسة الخصوصية"
-                           },
-                  "scroll":  {
-                                 "pending":  "مرّر للأسفل للمتابعة",
-                                 "done":  "لقد قرأت المستند بالكامل ✓"
-                             },
-                  "decline":  "رفض",
-                  "accept":  "قبول والمتابعة"
-              },
-    "common":  {
-                   "loading":  "جارٍ التحميل...",
-                   "error":  "Ø­Ø¯Ø« Ø®Ø·Ø£",
-                   "retry":  "إعادة المحاولة",
-                   "save":  "حفظ",
-                   "cancel":  "إلغاء",
-                   "confirm":  "تأكيد",
-                   "delete":  "حذف",
-                   "edit":  "تعديل",
-                   "close":  "إغلاق",
-                   "back":  "رجوع",
-                   "next":  "التالي",
-                   "skip":  "تخطي",
-                   "search":  "Ø¨Ø­Ø«",
-                   "share":  "مشاركة",
-                   "report":  "إبلاغ",
-                   "follow":  "متابعة",
-                   "unfollow":  "إلغاء المتابعة",
-                   "following":  "تتابعه",
-                   "followers":  "المتابعون",
-                   "posts":  "المنشورات",
-                   "videos":  "الفيديوهات"
-               },
-    "settings":  {
-                     "title":  "Settings",
-                     "nav":  {
-                                 "profile":  "Profile",
-                                 "account":  "Account",
-                                 "notifications":  "Notifications",
-                                 "privacy":  "Privacy",
-                                 "logout":  "Log out"
-                             },
-                     "profile":  {
-                                     "title":  "Edit Profile",
-                                     "avatarHint":  "JPG, PNG or WebP · Max 5MB",
-                                     "savePhoto":  "Save photo",
-                                     "firstName":  "First name",
-                                     "lastName":  "Last name",
-                                     "bio":  "Bio",
-                                     "bioPlaceholder":  "Tell us something about you...",
-                                     "website":  "Website",
-                                     "websitePlaceholder":  "https://your-site.com",
-                                     "location":  "Location",
-                                     "locationPlaceholder":  "City, Country",
-                                     "nativeLanguage":  "Native language",
-                                     "saveChanges":  "Save changes"
-                                 },
-                     "account":  {
-                                     "title":  "Account",
-                                     "email":  "Email",
-                                     "username":  "Username",
-                                     "verified":  "Verified account",
-                                     "verifiedYes":  "Verified",
-                                     "verifiedNo":  "Not verified",
-                                     "changePassword":  "Change password",
-                                     "currentPassword":  "Current password",
-                                     "newPassword":  "New password",
-                                     "confirmPassword":  "Confirm new password",
-                                     "dangerZone":  "Danger zone",
-                                     "dangerDesc":  "These actions are permanent and cannot be undone.",
-                                     "deleteAccount":  "Delete account",
-                                     "deleteDesc":  "Permanently deletes your account, posts and all personal data."
-                                 },
-                     "deleteModal":  {
-                                         "title":  "Delete your account?",
-                                         "body":  "This action is permanent and irreversible. All your data, posts and videos will be deleted within 30 days.",
-                                         "confirmLabel":  "Confirm your password to continue",
-                                         "confirmBtn":  "Yes, delete my account"
-                                     },
-                     "notifications":  {
-                                           "title":  "Notifications",
-                                           "push":  "Push notifications",
-                                           "pushDesc":  "Receive activity alerts in the app",
-                                           "email":  "Email notifications",
-                                           "emailDesc":  "Receive a weekly summary and important alerts",
-                                           "save":  "Save"
-                                       },
-                     "privacy":  {
-                                     "title":  "Privacy and Preferences",
-                                     "privateAccount":  "Private account",
-                                     "privateDesc":  "Only your followers can see your content",
-                                     "autoTranslate":  "Auto-translate",
-                                     "autoTranslateDesc":  "Automatically translate content from other languages",
-                                     "prefLang":  "Preferred translation language",
-                                     "prefLangDefault":  "Same as native",
-                                     "theme":  "Theme",
-                                     "themeAuto":  "Automatic",
-                                     "themeDark":  "Dark",
-                                     "themeLight":  "Light",
-                                     "save":  "Save"
-                                 },
-                     "saved":  "Changes saved successfully"
-                 },
-    "notifications":  {
-                          "title":  "Notifications",
-                          "markAllRead":  "Mark all as read",
-                          "markingAllRead":  "Marking...",
-                          "clearAll":  "Clear all",
-                          "filterAll":  "All",
-                          "filterUnread":  "Unread",
-                          "loading":  "Loading notifications...",
-                          "emptyAll":  "No notifications",
-                          "emptyAllSub":  "Check back later for new notifications",
-                          "emptyUnread":  "No unread notifications",
-                          "emptyUnreadSub":  "You are up to date",
-                          "new":  "New",
-                          "markRead":  "Mark as read",
-                          "markUnread":  "Mark as unread",
-                          "delete":  "Delete"
-                      },
-    "sidebar":  {
-                    "following":  "Following",
-                    "followers":  "Followers",
-                    "posts":  "Posts",
-                    "navigation":  "Navigation",
-                    "aiTranslation":  "AI Translation",
-                    "active":  "Active",
-                    "realtimeTranslation":  "Real-time Translation",
-                    "realtimeDesc":  "Videos \u0026 Posts",
-                    "languages":  "24+ Languages",
-                    "languagesDesc":  "Global connectivity",
-                    "instant":  "Instant Processing",
-                    "instantDesc":  "Lightning fast"
-                },
-    "trending":  {
-                     "title":  "Trending",
-                     "loading":  "Loading trends...",
-                     "filterByCountry":  "Filter by country",
-                     "global":  "Global",
-                     "noTrending":  "No trending topics available",
-                     "videos":  "videos",
-                     "views":  "views",
-                     "onlyFrom":  "Only from",
-                     "sort":  "Sort:",
-                     "sortTrending":  "Most trending",
-                     "sortViews":  "Most views",
-                     "sortRecent":  "Most recent",
-                     "trendingBadge":  "Trending",
-                     "watchNow":  "Watch now",
-                     "gridView":  "Grid",
-                     "listView":  "List"
-                 },
-    "lives":  {
-                  "title":  "Live",
-                  "chat":  "Chat",
-                  "live":  "LIVE",
-                  "say":  "Say something...",
-                  "send":  "Send"
-              },
-    "videoOverlay":  {
-                         "follow":  "Follow",
-                         "subtitles":  "Subtitles:",
-                         "original":  "Original",
-                         "available":  "Available",
-                         "requestTranslation":  "Request translation",
-                         "translate":  "Translate",
-                         "translateVideo":  "Translate Video",
-                         "translateDesc":  "Generate AI translated subtitles for this video",
-                         "availableLangs":  "Available:",
-                         "requestLangs":  "Request translation:",
-                         "requesting":  "Requesting...",
-                         "request":  "Request",
-                         "translationPending":  "Translation requested! It will be available shortly.",
-                         "close":  "Close"
-                     },
-    "stories":  {
-                    "title":  "Stories",
-                    "add":  "Add"
-                }
+    "brand": {
+        "name": "TINKO",
+        "tagline": "AI-Powered Global Connection"
+    },
+    "auth": {
+        "forgotPass": {
+            "title": "استعادة كلمة المرور",
+            "subtitle": "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابط إعادة التعيين.",
+            "emailLabel": "البريد الإلكتروني",
+            "emailPlaceholder": "you@email.com",
+            "sending": "جارٍ الإرسال...",
+            "submit": "إرسال رابط الاستعادة",
+            "backToLogin": "العودة إلى تسجيل الدخول",
+            "emailRequired": "أدخل بريدك الإلكتروني للمتابعة."
+        },
+        "resetPass": {
+            "title": "تعيين كلمة مرور جديدة",
+            "subtitle": "اختر كلمة مرور جديدة قوية لحسابك.",
+            "newPasswordLabel": "كلمة المرور الجديدة",
+            "newPasswordPlaceholder": "كلمة المرور الجديدة",
+            "confirmPasswordLabel": "تأكيد كلمة المرور",
+            "confirmPasswordPlaceholder": "تأكيد كلمة المرور",
+            "updating": "جارٍ التحديث...",
+            "submit": "تحديث كلمة المرور",
+            "successTitle": "تم تحديث كلمة المرور!",
+            "goToLogin": "الذهاب إلى تسجيل الدخول",
+            "errorTitle": "تعذّر تحديث كلمة المرور",
+            "requestNew": "طلب رابط استعادة جديد",
+            "invalidToken": "رابط الاستعادة غير صالح أو منتهي الصلاحية.",
+            "fillBothFields": "يُرجى ملء حقلي كلمة المرور.",
+            "passwordsMismatch": "كلمتا المرور غير متطابقتين."
+        },
+        "verifyRequired": {
+            "title": "تحقق من عنوان بريدك الإلكتروني",
+            "lead": "يجب عليك التحقق من بريدك الإلكتروني قبل الوصول إلى Tinko.",
+            "registeredEmail": "أرسلنا رابط التحقق إلى عنوان البريد الذي سجّلت به.",
+            "hint": "إذا لم تجده، راجع مجلد البريد غير المرغوب فيه.",
+            "resending": "جارٍ إعادة الإرسال...",
+            "resend": "إعادة إرسال بريد التحقق",
+            "verifying": "جارٍ التحقق...",
+            "alreadyVerified": "تحققت بالفعل",
+            "logout": "تسجيل الخروج"
+        },
+        "login": {
+            "title": "مرحباً بعودتك!",
+            "subtitle": "سجّل الدخول لمواصلة تجربتك العالمية",
+            "submit": "تسجيل الدخول",
+            "submitting": "جارٍ تسجيل الدخول...",
+            "noAccount": "ليس لديك حساب؟",
+            "switchToRegister": "سجّل مجاناً",
+            "rememberMe": "تذكّرني",
+            "forgotPassword": "نسيت كلمة المرور؟",
+            "orContinueWith": "أو تابع باستخدام",
+            "google": "Google"
+        },
+        "register": {
+            "title": "انضم إلى الثورة!",
+            "subtitle": "تواصل مع العالم بلا حواجز لغوية",
+            "submit": "إنشاء حساب",
+            "submitting": "جارٍ إنشاء الحساب...",
+            "hasAccount": "هل لديك حساب بالفعل؟",
+            "switchToLogin": "تسجيل الدخول",
+            "usernameHint": "إذا تركته فارغاً، سيتم توليده تلقائياً",
+            "nativeLanguageHint": "اللغة الأم"
+        },
+        "fields": {
+            "firstName": "الاسم الأول",
+            "lastName": "اسم العائلة",
+            "username": "اسم المستخدم (اختياري)",
+            "email": "البريد الإلكتروني",
+            "password": "كلمة المرور",
+            "nativeLanguage": "اللغة الأم"
+        },
+        "features": {
+            "title": "🚀 ما ينتظرك:",
+            "videos": "مقاطع فيديو مترجمة في الوقت الفعلي",
+            "languages": "تواصل بأكثر من 24 لغة",
+            "ai": "ترجمة ذكاء اصطناعي متقدمة"
+        }
+    },
+    "verify": {
+        "loading": "جارٍ التحقق من بريدك الإلكتروني...",
+        "success": {
+            "title": "تم التحقق من البريد الإلكتروني!",
+            "message": "تم التحقق من حسابك. استمتع بجميع الميزات.",
+            "goHome": "الذهاب إلى الرئيسية"
+        },
+        "error": {
+            "title": "رابط غير صالح",
+            "requestNew": "طلب رابط جديد"
+        }
+    },
+    "header": {
+        "search": "ابحث عن أشخاص أو منشورات...",
+        "nav": {
+            "home": "الرئيسية",
+            "trending": "الرائج",
+            "videos": "الفيديوهات",
+            "messages": "الرسائل",
+            "notifications": "الإشعارات",
+            "profile": "الملف الشخصي",
+            "settings": "الإعدادات"
+        },
+        "theme": {
+            "light": "الوضع الفاتح",
+            "dark": "الوضع الداكن"
+        },
+        "menu": "القائمة"
+    },
+    "chat": {
+        "input": {
+            "placeholder": "اكتب رسالة...",
+            "emojis": "الإيموجي",
+            "attach": "إرفاق ملف",
+            "camera": "التقاط صورة",
+            "voice": "تسجيل رسالة صوتية",
+            "send": "إرسال",
+            "recording": "جارٍ التسجيل...",
+            "stopRecording": "إيقاف"
+        },
+        "window": {
+            "noName": "بلا اسم",
+            "selectConversation": "اختر محادثة",
+            "selectConversationHint": "اختر محادثة للبدء في الدردشة",
+            "uploading": "جارٍ رفع الملف...",
+            "speaksLanguage": "يتحدث "
+        },
+        "bubble": {
+            "edited": "تم التعديل",
+            "edit": "تعديل",
+            "delete": "حذف",
+            "deleteForMe": "حذف بالنسبة لي",
+            "forward": "إعادة إرسال",
+            "share": "مشاركة",
+            "translate": "ترجمة"
+        }
+    },
+    "feed": {
+        "loading": "جارٍ تحميل الفيديوهات...",
+        "loadingMore": "جارٍ تحميل المزيد...",
+        "empty": {
+            "title": "لا توجد فيديوهات",
+            "subtitle": "كن أول من يرفع فيديو مع ترجمة الذكاء الاصطناعي",
+            "upload": "رفع فيديو"
+        },
+        "position": "{{ current }} / {{ total }}",
+        "aiActive": "ترجمة الذكاء الاصطناعي نشطة",
+        "aiDesc": "يتم ترجمة جميع المحتويات تلقائياً إلى لغتك المفضلة",
+        "aiLanguages": "اللغات",
+        "aiVideos": "الفيديوهات",
+        "suggestedTitle": "أشخاص قد تعرفهم",
+        "suggestedSeeAll": "عرض الكل",
+        "suggestedFollowers": "متابع",
+        "suggestedMutual": "مشترك",
+        "following": "تتابعه",
+        "follow": "متابعة",
+        "loadingPosts": "جارٍ تحميل المنشورات...",
+        "noPosts": "لا توجد منشورات بعد",
+        "noPostsSub": "كن أول من يشارك شيئاً!"
+    },
+    "videoPlayer": {
+        "loading": "جارٍ تحميل الفيديو...",
+        "error": {
+            "title": "خطأ في تحميل الفيديو",
+            "subtitle": "تعذّر تشغيل هذا الفيديو",
+            "retry": "إعادة المحاولة"
+        },
+        "noSupport": "متصفحك لا يدعم عنصر الفيديو."
+    },
+    "comments": {
+        "title": "التعليقات",
+        "placeholder": "اكتب تعليقاً...",
+        "submit": "💬 تعليق",
+        "submitting": "جارٍ النشر...",
+        "loading": "جارٍ التحميل...",
+        "empty": "كن أول من يعلّق",
+        "loadMore": "↓ عرض المزيد من التعليقات",
+        "loadingMore": "جارٍ التحميل...",
+        "reply": "ردّ",
+        "replying": "جارٍ النشر...",
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "edit": "✏️ تعديل",
+        "delete": "🗑️ حذف",
+        "edited": "· تم التعديل",
+        "replyTo": "ردّ على @",
+        "replies": {
+            "one": "ردّ",
+            "other": "ردود"
+        }
+    },
+    "post": {
+        "edit": {
+            "title": "تعديل المنشور",
+            "content": "المحتوى:",
+            "tags": "الوسوم (مفصولة بفاصلة):",
+            "public": "عام",
+            "save": "حفظ",
+            "skip": "تخطي"
+        },
+        "likes": {
+            "like": "أعجبني",
+            "liked": "معجب",
+            "likedBy": "أعجب بالمنشور",
+            "noLikes": "لا توجد إعجابات بعد",
+            "loading": "جارٍ التحميل..."
+        },
+        "deleteConfirm": "حذف هذا المنشور؟",
+        "deleteBody": "لا يمكن التراجع عن هذا الإجراء.",
+        "editMenu": "تعديل",
+        "deleteMenu": "حذف",
+        "reportMenu": "إبلاغ",
+        "shareMenu": "مشاركة",
+        "comments": "تعليقات",
+        "comment": "تعليق",
+        "translateText": "ترجمة النص",
+        "extracting": "جارٍ الاستخراج...",
+        "showImage": "عرض الصورة",
+        "showText": "عرض النص",
+        "originalText": "النص الأصلي",
+        "noText": "لم يتم العثور على نص في هذه الصورة",
+        "translatedTo": "مترجم إلى",
+        "from": "من",
+        "showingTranslation": "عرض الترجمة",
+        "translatePost": "ترجمة هذا المنشور",
+        "translating": "جارٍ الترجمة...",
+        "showOriginal": "عرض الأصل",
+        "translate": "ترجمة",
+        "back": "العودة إلى الخلاصة",
+        "close": "إغلاق",
+        "translateOverlay": "ترجمة على الصورة",
+        "showOriginalImage": "عرض الأصل"
+    },
+    "profile": {
+        "tabs": {
+            "posts": "المنشورات",
+            "videos": "الفيديوهات",
+            "liked": "الإعجابات",
+            "bookmarks": "المحفوظات"
+        },
+        "content": {
+            "noPosts": "لا توجد منشورات بعد",
+            "noVideos": "لا توجد فيديوهات بعد",
+            "likedPosts": "المنشورات التي أعجبتك",
+            "savedPosts": "المنشورات المحفوظة",
+            "loadMore": "عرض المزيد",
+            "loading": "جارٍ التحميل..."
+        }
+    },
+    "upload": {
+        "title": "رفع فيديو/منشور",
+        "titleField": "العنوان (اختياري)",
+        "description": "الوصف (اختياري)",
+        "submit": "رفع",
+        "submitting": "جارٍ الرفع..."
+    },
+    "explore": {
+        "title": "اكتشف أشخاصاً",
+        "subtitle": "اعثر على أشخاص من حول العالم وتواصل معهم",
+        "search": {
+            "placeholder": "ابحث بالاسم أو اسم المستخدم...",
+            "button": "بحث",
+            "searching": "جارٍ البحث...",
+            "results": "النتائج ({{ count }})",
+            "noResults": {
+                "title": "لم يتم العثور على نتائج",
+                "subtitle": "جرّب مصطلح بحث آخر"
+            }
+        },
+        "followRequests": {
+            "title": "طلبات المتابعة",
+            "noPending": {
+                "title": "لا توجد طلبات معلّقة",
+                "subtitle": "عندما يريد أحدهم متابعتك، سيظهر هنا"
+            },
+            "accept": "قبول",
+            "reject": "رفض"
+        },
+        "suggested": {
+            "title": "أشخاص قد تعرفهم",
+            "empty": "لا توجد اقتراحات حالياً",
+            "viewAll": "عرض كل الاقتراحات",
+            "viewLess": "عرض أقل",
+            "mutual": "{{ count }} متابع مشترك",
+            "follow": "متابعة",
+            "following": "تتابعه",
+            "pending": "في الانتظار"
+        },
+        "filters": {
+            "byCountry": "تصفية حسب البلد",
+            "allCountries": "جميع البلدان"
+        },
+        "actions": {
+            "talk": "أريد التحدث"
+        },
+        "byCountry": {
+            "title": "أشخاص حسب البلد",
+            "countries": "بلدان",
+            "emptyTitle": "لا يوجد أشخاص للعرض",
+            "emptySubtitle": "جرّب بلداً آخر أو مصطلح بحث مختلف"
+        }
+    },
+    "countrySetup": {
+        "title": "من أين أنت؟",
+        "subtitle": "ستظهر علمك على منشوراتك ورسائلك حتى يعرف الناس من أين أنت.",
+        "detecting": "جارٍ اكتشاف بلدك...",
+        "detected": "البلد المُكتشف:",
+        "notDetected": "لم نتمكن من اكتشاف بلدك تلقائياً.",
+        "manualSelect": "اختر بلدك:",
+        "manualPlaceholder": "-- اختر بلدك --",
+        "notMyCountry": "هذا ليس بلدي — تغيير",
+        "confirm": "✅ تأكيد",
+        "saving": "جارٍ الحفظ...",
+        "skip": "تخطي الآن"
+    },
+    "permissions": {
+        "welcome": {
+            "title": "إعداد الأذونات",
+            "subtitle": "لتقديم أفضل تجربة، نحتاج إلى الوصول لبعض أذونات الجهاز.",
+            "camera": "الكاميرا للبث المباشر",
+            "microphone": "الميكروفون لمكالمات الفيديو",
+            "notifications": "إشعارات الرسائل",
+            "later": "إعداد لاحقاً",
+            "continue": "متابعة"
+        },
+        "list": {
+            "title": "الأذونات المطلوبة",
+            "subtitle": "اضغط على كل إذن لطلبه من جهازك",
+            "granted": "✓ ممنوح",
+            "required": "⚠ مطلوب",
+            "optional": "ℹ اختياري",
+            "request": "طلب الوصول",
+            "requestAll": "طلب الكل",
+            "back": "رجوع"
+        },
+        "complete": {
+            "title": "اكتمل الإعداد!",
+            "subtitle": "تمت تهيئة أذوناتك بشكل صحيح.",
+            "grantedStatus": "ممنوح",
+            "deniedStatus": "غير ممنوح",
+            "redirect": "إعادة التوجيه إلى الرئيسية خلال ثوانٍ...",
+            "goHome": "الذهاب إلى الرئيسية الآن"
+        }
+    },
+    "report": {
+        "title": "🚩 الإبلاغ عن محتوى",
+        "subtitle": "اختر سبب الإبلاغ",
+        "descriptionLabel": "وصف إضافي (اختياري)",
+        "descriptionPlaceholder": "أخبرنا أكثر عن المشكلة...",
+        "cancel": "إلغاء",
+        "submit": "إرسال البلاغ",
+        "submitting": "جارٍ الإرسال..."
+    },
+    "terms": {
+        "title": "الشروط والأحكام والخصوصية",
+        "lastUpdated": "آخر تحديث: يناير 2025 · يُرجى القراءة بعناية قبل المتابعة",
+        "tabs": {
+            "terms": "📄 الشروط والأحكام",
+            "privacy": "🔒 سياسة الخصوصية"
+        },
+        "scroll": {
+            "pending": "مرّر للأسفل للمتابعة",
+            "done": "لقد قرأت المستند بالكامل ✓"
+        },
+        "decline": "رفض",
+        "accept": "قبول والمتابعة"
+    },
+    "common": {
+        "loading": "جارٍ التحميل...",
+        "error": "حدث خطأ",
+        "retry": "إعادة المحاولة",
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "confirm": "تأكيد",
+        "delete": "حذف",
+        "edit": "تعديل",
+        "close": "إغلاق",
+        "back": "رجوع",
+        "next": "التالي",
+        "skip": "تخطي",
+        "search": "بحث",
+        "share": "مشاركة",
+        "report": "إبلاغ",
+        "follow": "متابعة",
+        "unfollow": "إلغاء المتابعة",
+        "following": "تتابعه",
+        "followers": "المتابعون",
+        "posts": "المنشورات",
+        "videos": "الفيديوهات"
+    },
+    "settings": {
+        "title": "الإعدادات",
+        "nav": {
+            "profile": "الملف الشخصي",
+            "account": "الحساب",
+            "notifications": "الإشعارات",
+            "privacy": "الخصوصية",
+            "logout": "تسجيل الخروج"
+        },
+        "profile": {
+            "title": "تعديل الملف الشخصي",
+            "avatarHint": "JPG أو PNG أو WebP · الحد الأقصى 5 ميغابايت",
+            "savePhoto": "حفظ الصورة",
+            "firstName": "الاسم الأول",
+            "lastName": "اسم العائلة",
+            "bio": "السيرة الذاتية",
+            "bioPlaceholder": "أخبرنا شيئاً عن نفسك...",
+            "website": "الموقع الإلكتروني",
+            "websitePlaceholder": "https://موقعك.com",
+            "location": "الموقع",
+            "locationPlaceholder": "المدينة، البلد",
+            "nativeLanguage": "اللغة الأم",
+            "saveChanges": "حفظ التغييرات"
+        },
+        "account": {
+            "title": "الحساب",
+            "email": "البريد الإلكتروني",
+            "username": "اسم المستخدم",
+            "verified": "حساب موثق",
+            "verifiedYes": "موثق",
+            "verifiedNo": "غير موثق",
+            "changePassword": "تغيير كلمة المرور",
+            "currentPassword": "كلمة المرور الحالية",
+            "newPassword": "كلمة المرور الجديدة",
+            "confirmPassword": "تأكيد كلمة المرور الجديدة",
+            "dangerZone": "منطقة الخطر",
+            "dangerDesc": "هذه الإجراءات دائمة ولا يمكن التراجع عنها.",
+            "deleteAccount": "حذف الحساب",
+            "deleteDesc": "يحذف حسابك ومنشوراتك وجميع بياناتك الشخصية نهائياً."
+        },
+        "deleteModal": {
+            "title": "حذف حسابك؟",
+            "body": "هذا الإجراء دائم ولا يمكن التراجع عنه. ستُحذف جميع بياناتك خلال 30 يوماً.",
+            "confirmLabel": "أكّد كلمة مرورك للمتابعة",
+            "confirmBtn": "نعم، احذف حسابي"
+        },
+        "notifications": {
+            "title": "الإشعارات",
+            "push": "إشعارات الدفع",
+            "pushDesc": "تلقّ تنبيهات النشاط في التطبيق",
+            "email": "إشعارات البريد الإلكتروني",
+            "emailDesc": "تلقّ ملخصاً أسبوعياً وتنبيهات مهمة",
+            "save": "حفظ"
+        },
+        "privacy": {
+            "title": "الخصوصية والتفضيلات",
+            "privateAccount": "حساب خاص",
+            "privateDesc": "متابعوك فقط يمكنهم رؤية محتواك",
+            "autoTranslate": "الترجمة التلقائية",
+            "autoTranslateDesc": "يترجم المحتوى تلقائياً من لغات أخرى",
+            "prefLang": "لغة الترجمة المفضلة",
+            "prefLangDefault": "نفس اللغة الأم",
+            "theme": "السمة",
+            "themeAuto": "تلقائي",
+            "themeDark": "داكن",
+            "themeLight": "فاتح",
+            "save": "حفظ"
+        },
+        "saved": "تم حفظ التغييرات بنجاح"
+    },
+    "notifications": {
+        "title": "الإشعارات",
+        "markAllRead": "تعليم الكل كمقروء",
+        "markingAllRead": "جارٍ التعليم...",
+        "clearAll": "مسح الكل",
+        "filterAll": "الكل",
+        "filterUnread": "غير مقروء",
+        "loading": "جارٍ تحميل الإشعارات...",
+        "emptyAll": "لا توجد إشعارات",
+        "emptyAllSub": "عد لاحقاً للإشعارات الجديدة",
+        "emptyUnread": "لا توجد إشعارات غير مقروءة",
+        "emptyUnreadSub": "أنت على اطلاع بكل شيء",
+        "new": "جديد",
+        "markRead": "تعليم كمقروء",
+        "markUnread": "تعليم كغير مقروء",
+        "delete": "حذف"
+    },
+    "sidebar": {
+        "following": "المتابَعون",
+        "followers": "المتابعون",
+        "posts": "المنشورات",
+        "navigation": "التنقل",
+        "aiTranslation": "ترجمة الذكاء الاصطناعي",
+        "active": "نشط",
+        "realtimeTranslation": "الترجمة في الوقت الفعلي",
+        "realtimeDesc": "الفيديوهات والمنشورات",
+        "languages": "24+ لغة",
+        "languagesDesc": "الاتصال العالمي",
+        "instant": "المعالجة الفورية",
+        "instantDesc": "فائق السرعة"
+    },
+    "trending": {
+        "title": "الرائج",
+        "loading": "جارٍ تحميل الرائج...",
+        "filterByCountry": "تصفية حسب البلد",
+        "global": "عالمي",
+        "noTrending": "لا توجد موضوعات رائجة",
+        "videos": "فيديوهات",
+        "views": "مشاهدات",
+        "onlyFrom": "فقط من",
+        "sort": "ترتيب:",
+        "sortTrending": "الأكثر رواجاً",
+        "sortViews": "الأكثر مشاهدة",
+        "sortRecent": "الأحدث",
+        "trendingBadge": "رائج",
+        "watchNow": "شاهد الآن",
+        "gridView": "شبكة",
+        "listView": "قائمة"
+    },
+    "lives": {
+        "title": "مباشر",
+        "chat": "دردشة",
+        "live": "مباشر",
+        "say": "قل شيئاً...",
+        "send": "إرسال"
+    },
+    "videoOverlay": {
+        "follow": "متابعة",
+        "subtitles": "الترجمة:",
+        "original": "الأصل",
+        "available": "متاح",
+        "requestTranslation": "طلب ترجمة",
+        "translate": "ترجمة",
+        "translateVideo": "ترجمة الفيديو",
+        "translateDesc": "توليد ترجمات بالذكاء الاصطناعي لهذا الفيديو",
+        "availableLangs": "متاح:",
+        "requestLangs": "طلب ترجمة:",
+        "requesting": "جارٍ الطلب...",
+        "request": "طلب",
+        "translationPending": "تم طلب الترجمة. ستكون متاحة قريباً.",
+        "close": "إغلاق"
+    },
+    "stories": {
+        "title": "القصص",
+        "add": "إضافة"
+    }
 }

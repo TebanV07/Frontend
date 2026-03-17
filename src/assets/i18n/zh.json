@@ -1,523 +1,538 @@
 {
-    "brand":  {
-                  "name":  "TINKO",
-                  "tagline":  "AI-Powered Global Connection"
-              },
-    "auth":  {
-                 "forgotPass":  {
-                    "title":  "\u627e\u56de\u5bc6\u7801",
-                    "subtitle":  "\u8f93\u5165\u60a8\u7684\u8d26\u6237\u7535\u5b50\u90ae\u4ef6\uff0c\u6211\u4eec\u5c06\u53d1\u9001\u91cd\u7f6e\u94fe\u63a5\u7ed9\u60a8\u3002",
-                    "emailLabel":  "\u7535\u5b50\u90ae\u4ef6",
-                    "emailPlaceholder":  "\u60a8@email.com",
-                    "sending":  "\u53d1\u9001\u4e2d\u2026",
-                    "submit":  "\u53d1\u9001\u627e\u56de\u94fe\u63a5",
-                    "backToLogin":  "\u8fd4\u56de\u767b\u5f55",
-                    "emailRequired":  "\u8bf7\u8f93\u5165\u7535\u5b50\u90ae\u4ef6\u4ee5\u7ee7\u7eed\u3002"
-                },
-"resetPass":  {
-                  "title":  "\u8bbe\u7f6e\u65b0\u5bc6\u7801",
-                  "subtitle":  "\u8bf7\u4e3a\u60a8\u7684\u8d26\u6237\u9009\u62e9\u4e00\u4e2a\u5f3a\u5bc6\u7801\u3002",
-                  "newPasswordLabel":  "\u65b0\u5bc6\u7801",
-                  "newPasswordPlaceholder":  "\u65b0\u5bc6\u7801",
-                  "confirmPasswordLabel":  "\u786e\u8ba4\u5bc6\u7801",
-                  "confirmPasswordPlaceholder":  "\u786e\u8ba4\u5bc6\u7801",
-                  "updating":  "\u66f4\u65b0\u4e2d\u2026",
-                  "submit":  "\u66f4\u65b0\u5bc6\u7801",
-                  "successTitle":  "\u5bc6\u7801\u5df2\u66f4\u65b0\uff01",
-                  "goToLogin":  "\u524d\u5f80\u767b\u5f55",
-                  "errorTitle":  "\u65e0\u6cd5\u66f4\u65b0\u5bc6\u7801",
-                  "requestNew":  "\u7533\u8bf7\u65b0\u7684\u627e\u56de\u94fe\u63a5",
-                  "invalidToken":  "\u65e0\u6548\u6216\u5df2\u8fc7\u671f\u7684\u627e\u56de\u94fe\u63a5\u3002",
-                  "fillBothFields":  "\u8bf7\u586b\u5199\u4e24\u4e2a\u5bc6\u7801\u5b57\u6bb5\u3002",
-                  "passwordsMismatch":  "\u5bc6\u7801\u4e0d\u5339\u914d\u3002"
-              },
-"verifyRequired":  {
-                       "title":  "\u9a8c\u8bc1\u60a8\u7684\u7535\u5b50\u90ae\u4ef6",
-                       "lead":  "\u60a8\u9700\u8981\u9a8c\u8bc1\u7535\u5b50\u90ae\u4ef6\u624d\u80fd\u8bbf\u95ee Tinko\u3002",
-                       "registeredEmail":  "\u6211\u4eec\u5c06\u9a8c\u8bc1\u94fe\u63a5\u53d1\u9001\u5230\u60a8\u6ce8\u518c\u65f6\u4f7f\u7528\u7684\u7535\u5b50\u90ae\u4ef6\u3002",
-                       "hint":  "\u5982\u679c\u6ca1\u6709\u770b\u5230\uff0c\u8bf7\u68c0\u67e5\u5783\u573e\u90ae\u4ef6\u6587\u4ef6\u5939\u3002",
-                       "resending":  "\u91cd\u65b0\u53d1\u9001\u4e2d\u2026",
-                       "resend":  "\u91cd\u65b0\u53d1\u9001\u9a8c\u8bc1\u7535\u5b50\u90ae\u4ef6",
-                       "verifying":  "\u9a8c\u8bc1\u4e2d\u2026",
-                       "alreadyVerified":  "\u6211\u5df2\u9a8c\u8bc1",
-                       "logout":  "\u767b\u51fa"
-                   },
-"login":  {
-                               "title":  "欢迎回来！",
-                               "subtitle":  "登录以继续您的全球体验",
-                               "submit":  "登录",
-                               "submitting":  "登录中...",
-                               "noAccount":  "没有账号？",
-                               "switchToRegister":  "免费注册",
-                               "rememberMe":  "记住我",
-                               "forgotPassword":  "忘记密码？",
-                               "orContinueWith":  "或通过以下方式继续",
-                               "google":  "Google"
-                           },
-                 "register":  {
-                                  "title":  "加入革命！",
-                                  "subtitle":  "无语言障碍地连接全世界",
-                                  "submit":  "创建账号",
-                                  "submitting":  "创建中...",
-                                  "hasAccount":  "已有账号？",
-                                  "switchToLogin":  "登录",
-                                  "usernameHint":  "如不填写，将自动生成",
-                                  "nativeLanguageHint":  "母语"
-                              },
-                 "fields":  {
-                                "firstName":  "名",
-                                "lastName":  "姓",
-                                "username":  "用户名（可选）",
-                                "email":  "电子邮件",
-                                "password":  "密码",
-                                "nativeLanguage":  "母语"
-                            },
-                 "features":  {
-                                  "title":  "🚀 等待您的精彩：",
-                                  "videos":  "实时翻译视频",
-                                  "languages":  "连接24+种语言",
-                                  "ai":  "先进AI翻译"
-                              }
-             },
-    "verify":  {
-                   "loading":  "验证您的邮箱中...",
-                   "success":  {
-                                   "title":  "邮箱已验证！",
-                                   "message":  "您的账号已验证。尽情享受所有功能吧。",
-                                   "goHome":  "前往首页"
-                               },
-                   "error":  {
-                                 "title":  "无效链接",
-                                 "requestNew":  "请求新链接"
-                             }
-               },
-    "header":  {
-                   "search":  "搜索用户、帖子...",
-                   "nav":  {
-                               "home":  "é¦–é¡µ",
-                               "trending":  "热门",
-                               "videos":  "视频",
-                               "messages":  "消息",
-                               "notifications":  "通知",
-                               "profile":  "ä¸ªäººä¸»é¡µ",
-                               "settings":  "设置"
-                           },
-                   "theme":  {
-                                 "light":  "浅色模式",
-                                 "dark":  "深色模式"
-                             },
-                   "menu":  "菜单"
-               },
-    "chat":  {
-                 "input":  {
-                               "placeholder":  "输入消息...",
-                               "emojis":  "表情",
-                               "attach":  "附加文件",
-                               "camera":  "拍照",
-                               "voice":  "录制语音消息",
-                               "send":  "发送",
-                               "recording":  "录音中...",
-                               "stopRecording":  "停止"
-                           },
-                 "window":  {
-                                "noName":  "无名称",
-                                "selectConversation":  "选择对话",
-                                "selectConversationHint":  "选择一个对话开始聊天",
-                                "uploading":  "上传文件中...",
-                                "speaksLanguage":  "è¯´ "
-                            },
-                 "bubble":  {
-                                "edited":  "已编辑",
-                                "edit":  "编辑",
-                                "delete":  "删除",
-                                "deleteForMe":  "仅对我删除",
-                                "forward":  "转发",
-                                "share":  "分享",
-                                "translate":  "翻译"
-                            }
-             },
-    "feed":  {
-                 "loading":  "加载视频中...",
-                 "loadingMore":  "加载更多视频...",
-                 "empty":  {
-                               "title":  "暂无视频",
-                               "subtitle":  "成为第一个上传AI翻译视频的人",
-                               "upload":  "上传视频"
-                           },
-                 "position":  "{{ current }} / {{ total }}",
-                 "aiActive":  "AI Translation Active",
-                 "aiDesc":  "All content automatically translated to your preferred language",
-                 "aiLanguages":  "Languages",
-                 "aiVideos":  "Videos",
-                 "suggestedTitle":  "People you may know",
-                 "suggestedSeeAll":  "See all",
-                 "suggestedFollowers":  "followers",
-                 "suggestedMutual":  "in common",
-                 "following":  "Following",
-                 "follow":  "Follow",
-                 "loadingPosts":  "Loading posts...",
-                 "noPosts":  "No posts yet",
-                 "noPostsSub":  "Be the first to share something!"
-             },
-    "videoPlayer":  {
-                        "loading":  "加载视频中...",
-                        "error":  {
-                                      "title":  "视频加载失败",
-                                      "subtitle":  "无法播放此视频",
-                                      "retry":  "é‡è¯•"
-                                  },
-                        "noSupport":  "您的浏览器不支持视频标签。"
-                    },
-    "comments":  {
-                     "title":  "评论",
-                     "placeholder":  "写评论...",
-                     "submit":  "💬 评论",
-                     "submitting":  "发布中...",
-                     "loading":  "加载中...",
-                     "empty":  "成为第一个评论的人",
-                     "loadMore":  "↓ 查看更多评论",
-                     "loadingMore":  "加载中...",
-                     "reply":  "回复",
-                     "replying":  "发布中...",
-                     "cancel":  "取消",
-                     "save":  "保存",
-                     "edit":  "✏️ 编辑",
-                     "delete":  "🗑️ 删除",
-                     "edited":  "· 已编辑",
-                     "replyTo":  "回复@",
-                     "replies":  {
-                                     "one":  "条回复",
-                                     "other":  "条回复"
-                                 }
-                 },
-    "post":  {
-                 "edit":  {
-                              "title":  "编辑帖子",
-                              "content":  "内容：",
-                              "tags":  "标签（用逗号分隔）：",
-                              "public":  "公开",
-                              "save":  "保存",
-                              "skip":  "è·³è¿‡"
-                          },
-                 "likes":  {
-                               "like":  "点赞",
-                               "liked":  "已点赞",
-                               "likedBy":  "点赞者",
-                               "noLikes":  "暂无点赞",
-                               "loading":  "加载中..."
-                           },
-                 "deleteConfirm":  "Delete this post?",
-                 "deleteBody":  "This action cannot be undone.",
-                 "editMenu":  "Edit",
-                 "deleteMenu":  "Delete",
-                 "reportMenu":  "Report",
-                 "shareMenu":  "Share",
-                 "comments":  "comments",
-                 "comment":  "Comment",
-                 "translateText":  "Translate text",
-                 "extracting":  "Extracting...",
-                 "showImage":  "Show image",
-                 "showText":  "Show text",
-                 "originalText":  "Original text",
-                 "noText":  "No text found in this image",
-                 "translatedTo":  "Translated to",
-                 "from":  "from",
-                 "showingTranslation":  "Showing translation",
-                 "translatePost":  "Translate this post",
-                 "translating":  "Translating...",
-                 "showOriginal":  "Show Original",
-                 "translate":  "Translate",
-                 "back":  "Back to feed",
-                 "close":  "Close"
-             },
-    "profile":  {
-                    "tabs":  {
-                                 "posts":  "帖子",
-                                 "videos":  "视频",
-                                 "liked":  "点赞",
-                                 "bookmarks":  "收藏"
-                             },
-                    "content":  {
-                                    "noPosts":  "暂无帖子",
-                                    "noVideos":  "暂无视频",
-                                    "likedPosts":  "您点赞的帖子",
-                                    "savedPosts":  "收藏的帖子",
-                                    "loadMore":  "查看更多",
-                                    "loading":  "加载中..."
-                                }
-                },
-    "upload":  {
-                   "title":  "上传视频/帖子",
-                   "titleField":  "标题（可选）",
-                   "description":  "描述（可选）",
-                   "submit":  "上传",
-                   "submitting":  "上传中..."
-               },
-    "explore":  {
-                    "title":  "发现用户",
-                    "subtitle":  "找到并连接来自世界各地的人",
-                    "search":  {
-                                   "placeholder":  "按姓名或用户名搜索...",
-                                   "button":  "搜索",
-                                   "searching":  "搜索中...",
-                                   "results":  "结果（{{ count }}）",
-                                   "noResults":  {
-                                                     "title":  "未找到结果",
-                                                     "subtitle":  "请尝试其他搜索词"
-                                                 }
-                               },
-                    "followRequests":  {
-                                           "title":  "关注请求",
-                                           "noPending":  {
-                                                             "title":  "暂无待处理请求",
-                                                             "subtitle":  "当有人想关注您时，将显示在这里"
-                                                         },
-                                           "accept":  "接受",
-                                           "reject":  "拒绝"
-                                       },
-                    "suggested":  {
-                                      "title":  "您可能认识的人",
-                                      "empty":  "暂无推荐",
-                                      "viewAll":  "查看全部推荐",
-                                      "viewLess":  "收起",
-                                      "mutual":  "{{ count }}位共同关注者",
-                                      "follow":  "关注",
-                                      "following":  "已关注",
-                                      "pending":  "待确认"
-                                  }
-                },
-    "countrySetup":  {
-                         "title":  "您来自哪里？",
-                         "subtitle":  "您的国旗将显示在您的帖子和消息中，让大家知道您来自哪里。",
-                         "detecting":  "正在检测您的国家...",
-                         "detected":  "检测到的国家：",
-                         "notDetected":  "无法自动检测您的国家。",
-                         "manualSelect":  "选择您的国家：",
-                         "manualPlaceholder":  "-- 选择国家 --",
-                         "notMyCountry":  "这不是我的国家 — 更改",
-                         "confirm":  "✅ 确认",
-                         "saving":  "保存中...",
-                         "skip":  "暂时跳过"
-                     },
-    "permissions":  {
-                        "welcome":  {
-                                        "title":  "设置权限",
-                                        "subtitle":  "为了给您提供最佳体验，我们需要访问部分设备权限。",
-                                        "camera":  "直播用摄像头",
-                                        "microphone":  "视频通话用麦克风",
-                                        "notifications":  "消息通知",
-                                        "later":  "稍后设置",
-                                        "continue":  "继续"
-                                    },
-                        "list":  {
-                                     "title":  "所需权限",
-                                     "subtitle":  "点击每项权限向设备申请",
-                                     "granted":  "✓ 已授权",
-                                     "required":  "⚠ 必要",
-                                     "optional":  "ℹ 可选",
-                                     "request":  "申请访问",
-                                     "requestAll":  "申请全部",
-                                     "back":  "返回"
-                                 },
-                        "complete":  {
-                                         "title":  "设置完成！",
-                                         "subtitle":  "您的权限已正确配置。",
-                                         "grantedStatus":  "已授权",
-                                         "deniedStatus":  "未授权",
-                                         "redirect":  "几秒后将跳转到首页...",
-                                         "goHome":  "立即前往首页"
-                                     }
-                    },
-    "report":  {
-                   "title":  "🚩 举报内容",
-                   "subtitle":  "选择举报原因",
-                   "descriptionLabel":  "补充说明（可选）",
-                   "descriptionPlaceholder":  "告诉我们更多关于该问题...",
-                   "cancel":  "取消",
-                   "submit":  "提交举报",
-                   "submitting":  "提交中..."
-               },
-    "terms":  {
-                  "title":  "条款、条件与隐私",
-                  "lastUpdated":  "最后更新：2025年1月 · 请在继续之前仔细阅读",
-                  "tabs":  {
-                               "terms":  "📄 条款与条件",
-                               "privacy":  "🔒 隐私政策"
-                           },
-                  "scroll":  {
-                                 "pending":  "向下滚动以继续",
-                                 "done":  "您已阅读完整文档 ✓"
-                             },
-                  "decline":  "拒绝",
-                  "accept":  "同意并继续"
-              },
-    "common":  {
-                   "loading":  "加载中...",
-                   "error":  "发生错误",
-                   "retry":  "é‡è¯•",
-                   "save":  "保存",
-                   "cancel":  "取消",
-                   "confirm":  "确认",
-                   "delete":  "删除",
-                   "edit":  "编辑",
-                   "close":  "关闭",
-                   "back":  "返回",
-                   "next":  "下一步",
-                   "skip":  "è·³è¿‡",
-                   "search":  "搜索",
-                   "share":  "分享",
-                   "report":  "举报",
-                   "follow":  "关注",
-                   "unfollow":  "取消关注",
-                   "following":  "已关注",
-                   "followers":  "粉丝",
-                   "posts":  "帖子",
-                   "videos":  "视频"
-               },
-    "settings":  {
-                     "title":  "Settings",
-                     "nav":  {
-                                 "profile":  "Profile",
-                                 "account":  "Account",
-                                 "notifications":  "Notifications",
-                                 "privacy":  "Privacy",
-                                 "logout":  "Log out"
-                             },
-                     "profile":  {
-                                     "title":  "Edit Profile",
-                                     "avatarHint":  "JPG, PNG or WebP · Max 5MB",
-                                     "savePhoto":  "Save photo",
-                                     "firstName":  "First name",
-                                     "lastName":  "Last name",
-                                     "bio":  "Bio",
-                                     "bioPlaceholder":  "Tell us something about you...",
-                                     "website":  "Website",
-                                     "websitePlaceholder":  "https://your-site.com",
-                                     "location":  "Location",
-                                     "locationPlaceholder":  "City, Country",
-                                     "nativeLanguage":  "Native language",
-                                     "saveChanges":  "Save changes"
-                                 },
-                     "account":  {
-                                     "title":  "Account",
-                                     "email":  "Email",
-                                     "username":  "Username",
-                                     "verified":  "Verified account",
-                                     "verifiedYes":  "Verified",
-                                     "verifiedNo":  "Not verified",
-                                     "changePassword":  "Change password",
-                                     "currentPassword":  "Current password",
-                                     "newPassword":  "New password",
-                                     "confirmPassword":  "Confirm new password",
-                                     "dangerZone":  "Danger zone",
-                                     "dangerDesc":  "These actions are permanent and cannot be undone.",
-                                     "deleteAccount":  "Delete account",
-                                     "deleteDesc":  "Permanently deletes your account, posts and all personal data."
-                                 },
-                     "deleteModal":  {
-                                         "title":  "Delete your account?",
-                                         "body":  "This action is permanent and irreversible. All your data, posts and videos will be deleted within 30 days.",
-                                         "confirmLabel":  "Confirm your password to continue",
-                                         "confirmBtn":  "Yes, delete my account"
-                                     },
-                     "notifications":  {
-                                           "title":  "Notifications",
-                                           "push":  "Push notifications",
-                                           "pushDesc":  "Receive activity alerts in the app",
-                                           "email":  "Email notifications",
-                                           "emailDesc":  "Receive a weekly summary and important alerts",
-                                           "save":  "Save"
-                                       },
-                     "privacy":  {
-                                     "title":  "Privacy and Preferences",
-                                     "privateAccount":  "Private account",
-                                     "privateDesc":  "Only your followers can see your content",
-                                     "autoTranslate":  "Auto-translate",
-                                     "autoTranslateDesc":  "Automatically translate content from other languages",
-                                     "prefLang":  "Preferred translation language",
-                                     "prefLangDefault":  "Same as native",
-                                     "theme":  "Theme",
-                                     "themeAuto":  "Automatic",
-                                     "themeDark":  "Dark",
-                                     "themeLight":  "Light",
-                                     "save":  "Save"
-                                 },
-                     "saved":  "Changes saved successfully"
-                 },
-    "notifications":  {
-                          "title":  "Notifications",
-                          "markAllRead":  "Mark all as read",
-                          "markingAllRead":  "Marking...",
-                          "clearAll":  "Clear all",
-                          "filterAll":  "All",
-                          "filterUnread":  "Unread",
-                          "loading":  "Loading notifications...",
-                          "emptyAll":  "No notifications",
-                          "emptyAllSub":  "Check back later for new notifications",
-                          "emptyUnread":  "No unread notifications",
-                          "emptyUnreadSub":  "You are up to date",
-                          "new":  "New",
-                          "markRead":  "Mark as read",
-                          "markUnread":  "Mark as unread",
-                          "delete":  "Delete"
-                      },
-    "sidebar":  {
-                    "following":  "Following",
-                    "followers":  "Followers",
-                    "posts":  "Posts",
-                    "navigation":  "Navigation",
-                    "aiTranslation":  "AI Translation",
-                    "active":  "Active",
-                    "realtimeTranslation":  "Real-time Translation",
-                    "realtimeDesc":  "Videos \u0026 Posts",
-                    "languages":  "24+ Languages",
-                    "languagesDesc":  "Global connectivity",
-                    "instant":  "Instant Processing",
-                    "instantDesc":  "Lightning fast"
-                },
-    "trending":  {
-                     "title":  "Trending",
-                     "loading":  "Loading trends...",
-                     "filterByCountry":  "Filter by country",
-                     "global":  "Global",
-                     "noTrending":  "No trending topics available",
-                     "videos":  "videos",
-                     "views":  "views",
-                     "onlyFrom":  "Only from",
-                     "sort":  "Sort:",
-                     "sortTrending":  "Most trending",
-                     "sortViews":  "Most views",
-                     "sortRecent":  "Most recent",
-                     "trendingBadge":  "Trending",
-                     "watchNow":  "Watch now",
-                     "gridView":  "Grid",
-                     "listView":  "List"
-                 },
-    "lives":  {
-                  "title":  "Live",
-                  "chat":  "Chat",
-                  "live":  "LIVE",
-                  "say":  "Say something...",
-                  "send":  "Send"
-              },
-    "videoOverlay":  {
-                         "follow":  "Follow",
-                         "subtitles":  "Subtitles:",
-                         "original":  "Original",
-                         "available":  "Available",
-                         "requestTranslation":  "Request translation",
-                         "translate":  "Translate",
-                         "translateVideo":  "Translate Video",
-                         "translateDesc":  "Generate AI translated subtitles for this video",
-                         "availableLangs":  "Available:",
-                         "requestLangs":  "Request translation:",
-                         "requesting":  "Requesting...",
-                         "request":  "Request",
-                         "translationPending":  "Translation requested! It will be available shortly.",
-                         "close":  "Close"
-                     },
-    "stories":  {
-                    "title":  "Stories",
-                    "add":  "Add"
-                }
+    "brand": {
+        "name": "TINKO",
+        "tagline": "AI-Powered Global Connection"
+    },
+    "auth": {
+        "forgotPass": {
+            "title": "找回密码",
+            "subtitle": "输入您的账户电子邮件，我们将发送重置链接给您。",
+            "emailLabel": "电子邮件",
+            "emailPlaceholder": "您@email.com",
+            "sending": "发送中…",
+            "submit": "发送找回链接",
+            "backToLogin": "返回登录",
+            "emailRequired": "请输入电子邮件以继续。"
+        },
+        "resetPass": {
+            "title": "设置新密码",
+            "subtitle": "请为您的账户选择一个强密码。",
+            "newPasswordLabel": "新密码",
+            "newPasswordPlaceholder": "新密码",
+            "confirmPasswordLabel": "确认密码",
+            "confirmPasswordPlaceholder": "确认密码",
+            "updating": "更新中…",
+            "submit": "更新密码",
+            "successTitle": "密码已更新！",
+            "goToLogin": "前往登录",
+            "errorTitle": "无法更新密码",
+            "requestNew": "申请新的找回链接",
+            "invalidToken": "无效或已过期的找回链接。",
+            "fillBothFields": "请填写两个密码字段。",
+            "passwordsMismatch": "密码不匹配。"
+        },
+        "verifyRequired": {
+            "title": "验证您的电子邮件",
+            "lead": "您需要验证电子邮件才能访问 Tinko。",
+            "registeredEmail": "我们将验证链接发送到注册时使用的电子邮件。",
+            "hint": "如果没有看到，请检查垃圾邮件文件夹。",
+            "resending": "重新发送中…",
+            "resend": "重新发送验证电子邮件",
+            "verifying": "验证中…",
+            "alreadyVerified": "我已验证",
+            "logout": "登出"
+        },
+        "login": {
+            "title": "欢迎回来！",
+            "subtitle": "登录以继续您的全球体验",
+            "submit": "登录",
+            "submitting": "登录中...",
+            "noAccount": "没有账号？",
+            "switchToRegister": "免费注册",
+            "rememberMe": "记住我",
+            "forgotPassword": "忘记密码？",
+            "orContinueWith": "或通过以下方式继续",
+            "google": "Google"
+        },
+        "register": {
+            "title": "加入革命！",
+            "subtitle": "无语言障碍地连接全世界",
+            "submit": "创建账号",
+            "submitting": "创建中...",
+            "hasAccount": "已有账号？",
+            "switchToLogin": "登录",
+            "usernameHint": "如不填写，将自动生成",
+            "nativeLanguageHint": "母语"
+        },
+        "fields": {
+            "firstName": "名",
+            "lastName": "姓",
+            "username": "用户名（可选）",
+            "email": "电子邮件",
+            "password": "密码",
+            "nativeLanguage": "母语"
+        },
+        "features": {
+            "title": "🚀 等待您的精彩：",
+            "videos": "实时翻译视频",
+            "languages": "连接24+种语言",
+            "ai": "先进AI翻译"
+        }
+    },
+    "verify": {
+        "loading": "验证您的邮箱中...",
+        "success": {
+            "title": "邮箱已验证！",
+            "message": "您的账号已验证。尽情享受所有功能吧。",
+            "goHome": "前往首页"
+        },
+        "error": {
+            "title": "无效链接",
+            "requestNew": "请求新链接"
+        }
+    },
+    "header": {
+        "search": "搜索用户、帖子...",
+        "nav": {
+            "home": "首页",
+            "trending": "热门",
+            "videos": "视频",
+            "messages": "消息",
+            "notifications": "通知",
+            "profile": "个人主页",
+            "settings": "设置"
+        },
+        "theme": {
+            "light": "浅色模式",
+            "dark": "深色模式"
+        },
+        "menu": "菜单"
+    },
+    "chat": {
+        "input": {
+            "placeholder": "输入消息...",
+            "emojis": "表情",
+            "attach": "附加文件",
+            "camera": "拍照",
+            "voice": "录制语音消息",
+            "send": "发送",
+            "recording": "录音中...",
+            "stopRecording": "停止"
+        },
+        "window": {
+            "noName": "无名称",
+            "selectConversation": "选择对话",
+            "selectConversationHint": "选择一个对话开始聊天",
+            "uploading": "上传文件中...",
+            "speaksLanguage": "说 "
+        },
+        "bubble": {
+            "edited": "已编辑",
+            "edit": "编辑",
+            "delete": "删除",
+            "deleteForMe": "仅对我删除",
+            "forward": "转发",
+            "share": "分享",
+            "translate": "翻译"
+        }
+    },
+    "feed": {
+        "loading": "加载视频中...",
+        "loadingMore": "加载更多视频...",
+        "empty": {
+            "title": "暂无视频",
+            "subtitle": "成为第一个上传AI翻译视频的人",
+            "upload": "上传视频"
+        },
+        "position": "{{ current }} / {{ total }}",
+        "aiActive": "AI翻译已激活",
+        "aiDesc": "所有内容自动翻译为您的首选语言",
+        "aiLanguages": "语言",
+        "aiVideos": "视频",
+        "suggestedTitle": "您可能认识的人",
+        "suggestedSeeAll": "查看全部",
+        "suggestedFollowers": "粉丝",
+        "suggestedMutual": "共同",
+        "following": "已关注",
+        "follow": "关注",
+        "loadingPosts": "加载帖子中...",
+        "noPosts": "暂无帖子",
+        "noPostsSub": "成为第一个分享内容的人！"
+    },
+    "videoPlayer": {
+        "loading": "加载视频中...",
+        "error": {
+            "title": "视频加载失败",
+            "subtitle": "无法播放此视频",
+            "retry": "重试"
+        },
+        "noSupport": "您的浏览器不支持视频标签。"
+    },
+    "comments": {
+        "title": "评论",
+        "placeholder": "写评论...",
+        "submit": "💬 评论",
+        "submitting": "发布中...",
+        "loading": "加载中...",
+        "empty": "成为第一个评论的人",
+        "loadMore": "↓ 查看更多评论",
+        "loadingMore": "加载中...",
+        "reply": "回复",
+        "replying": "发布中...",
+        "cancel": "取消",
+        "save": "保存",
+        "edit": "✏️ 编辑",
+        "delete": "🗑️ 删除",
+        "edited": "· 已编辑",
+        "replyTo": "回复@",
+        "replies": {
+            "one": "条回复",
+            "other": "条回复"
+        }
+    },
+    "post": {
+        "edit": {
+            "title": "编辑帖子",
+            "content": "内容：",
+            "tags": "标签（用逗号分隔）：",
+            "public": "公开",
+            "save": "保存",
+            "skip": "跳过"
+        },
+        "likes": {
+            "like": "点赞",
+            "liked": "已点赞",
+            "likedBy": "点赞者",
+            "noLikes": "暂无点赞",
+            "loading": "加载中..."
+        },
+        "deleteConfirm": "删除这篇帖子？",
+        "deleteBody": "此操作无法撤销。",
+        "editMenu": "编辑",
+        "deleteMenu": "删除",
+        "reportMenu": "举报",
+        "shareMenu": "分享",
+        "comments": "评论",
+        "comment": "评论",
+        "translateText": "翻译文字",
+        "extracting": "提取中...",
+        "showImage": "显示图片",
+        "showText": "显示文字",
+        "originalText": "原始文字",
+        "noText": "此图片中未找到文字",
+        "translatedTo": "翻译为",
+        "from": "从",
+        "showingTranslation": "显示翻译",
+        "translatePost": "翻译此帖子",
+        "translating": "翻译中...",
+        "showOriginal": "显示原文",
+        "translate": "翻译",
+        "back": "返回动态",
+        "close": "关闭",
+        "translateOverlay": "在图片中翻译",
+        "showOriginalImage": "显示原图"
+    },
+    "profile": {
+        "tabs": {
+            "posts": "帖子",
+            "videos": "视频",
+            "liked": "点赞",
+            "bookmarks": "收藏"
+        },
+        "content": {
+            "noPosts": "暂无帖子",
+            "noVideos": "暂无视频",
+            "likedPosts": "您点赞的帖子",
+            "savedPosts": "收藏的帖子",
+            "loadMore": "查看更多",
+            "loading": "加载中..."
+        }
+    },
+    "upload": {
+        "title": "上传视频/帖子",
+        "titleField": "标题（可选）",
+        "description": "描述（可选）",
+        "submit": "上传",
+        "submitting": "上传中..."
+    },
+    "explore": {
+        "title": "发现用户",
+        "subtitle": "找到并连接来自世界各地的人",
+        "search": {
+            "placeholder": "按姓名或用户名搜索...",
+            "button": "搜索",
+            "searching": "搜索中...",
+            "results": "结果（{{ count }}）",
+            "noResults": {
+                "title": "未找到结果",
+                "subtitle": "请尝试其他搜索词"
+            }
+        },
+        "followRequests": {
+            "title": "关注请求",
+            "noPending": {
+                "title": "暂无待处理请求",
+                "subtitle": "当有人想关注您时，将显示在这里"
+            },
+            "accept": "接受",
+            "reject": "拒绝"
+        },
+        "suggested": {
+            "title": "您可能认识的人",
+            "empty": "暂无推荐",
+            "viewAll": "查看全部推荐",
+            "viewLess": "收起",
+            "mutual": "{{ count }}位共同关注者",
+            "follow": "关注",
+            "following": "已关注",
+            "pending": "待确认"
+        },
+        "filters": {
+            "byCountry": "按国家筛选",
+            "allCountries": "所有国家"
+        },
+        "actions": {
+            "talk": "我想交流"
+        },
+        "byCountry": {
+            "title": "按国家的人",
+            "countries": "个国家",
+            "emptyTitle": "没有人可显示",
+            "emptySubtitle": "请尝试其他国家或搜索词"
+        }
+    },
+    "countrySetup": {
+        "title": "您来自哪里？",
+        "subtitle": "您的国旗将显示在您的帖子和消息中，让大家知道您来自哪里。",
+        "detecting": "正在检测您的国家...",
+        "detected": "检测到的国家：",
+        "notDetected": "无法自动检测您的国家。",
+        "manualSelect": "选择您的国家：",
+        "manualPlaceholder": "-- 选择国家 --",
+        "notMyCountry": "这不是我的国家 — 更改",
+        "confirm": "✅ 确认",
+        "saving": "保存中...",
+        "skip": "暂时跳过"
+    },
+    "permissions": {
+        "welcome": {
+            "title": "设置权限",
+            "subtitle": "为了给您提供最佳体验，我们需要访问部分设备权限。",
+            "camera": "直播用摄像头",
+            "microphone": "视频通话用麦克风",
+            "notifications": "消息通知",
+            "later": "稍后设置",
+            "continue": "继续"
+        },
+        "list": {
+            "title": "所需权限",
+            "subtitle": "点击每项权限向设备申请",
+            "granted": "✓ 已授权",
+            "required": "⚠ 必要",
+            "optional": "ℹ 可选",
+            "request": "申请访问",
+            "requestAll": "申请全部",
+            "back": "返回"
+        },
+        "complete": {
+            "title": "设置完成！",
+            "subtitle": "您的权限已正确配置。",
+            "grantedStatus": "已授权",
+            "deniedStatus": "未授权",
+            "redirect": "几秒后将跳转到首页...",
+            "goHome": "立即前往首页"
+        }
+    },
+    "report": {
+        "title": "🚩 举报内容",
+        "subtitle": "选择举报原因",
+        "descriptionLabel": "补充说明（可选）",
+        "descriptionPlaceholder": "告诉我们更多关于该问题...",
+        "cancel": "取消",
+        "submit": "提交举报",
+        "submitting": "提交中..."
+    },
+    "terms": {
+        "title": "条款、条件与隐私",
+        "lastUpdated": "最后更新：2025年1月 · 请在继续之前仔细阅读",
+        "tabs": {
+            "terms": "📄 条款与条件",
+            "privacy": "🔒 隐私政策"
+        },
+        "scroll": {
+            "pending": "向下滚动以继续",
+            "done": "您已阅读完整文档 ✓"
+        },
+        "decline": "拒绝",
+        "accept": "同意并继续"
+    },
+    "common": {
+        "loading": "加载中...",
+        "error": "发生错误",
+        "retry": "重试",
+        "save": "保存",
+        "cancel": "取消",
+        "confirm": "确认",
+        "delete": "删除",
+        "edit": "编辑",
+        "close": "关闭",
+        "back": "返回",
+        "next": "下一步",
+        "skip": "跳过",
+        "search": "搜索",
+        "share": "分享",
+        "report": "举报",
+        "follow": "关注",
+        "unfollow": "取消关注",
+        "following": "已关注",
+        "followers": "粉丝",
+        "posts": "帖子",
+        "videos": "视频"
+    },
+    "settings": {
+        "title": "设置",
+        "nav": {
+            "profile": "个人主页",
+            "account": "账号",
+            "notifications": "通知",
+            "privacy": "隐私",
+            "logout": "退出登录"
+        },
+        "profile": {
+            "title": "编辑资料",
+            "avatarHint": "JPG、PNG 或 WebP · 最大 5MB",
+            "savePhoto": "保存照片",
+            "firstName": "名",
+            "lastName": "姓",
+            "bio": "简介",
+            "bioPlaceholder": "介绍一下自己...",
+            "website": "网站",
+            "websitePlaceholder": "https://your-site.com",
+            "location": "位置",
+            "locationPlaceholder": "城市，国家",
+            "nativeLanguage": "母语",
+            "saveChanges": "保存更改"
+        },
+        "account": {
+            "title": "账号",
+            "email": "电子邮件",
+            "username": "用户名",
+            "verified": "已认证账号",
+            "verifiedYes": "已认证",
+            "verifiedNo": "未认证",
+            "changePassword": "更改密码",
+            "currentPassword": "当前密码",
+            "newPassword": "新密码",
+            "confirmPassword": "确认新密码",
+            "dangerZone": "危险区",
+            "dangerDesc": "这些操作是永久性的，无法撤销。",
+            "deleteAccount": "删除账号",
+            "deleteDesc": "永久删除您的账号、帖子和所有个人数据。"
+        },
+        "deleteModal": {
+            "title": "删除您的账号？",
+            "body": "此操作是永久性的，无法撤销。所有数据将在30天内删除。",
+            "confirmLabel": "输入密码以继续",
+            "confirmBtn": "是的，删除我的账号"
+        },
+        "notifications": {
+            "title": "通知",
+            "push": "推送通知",
+            "pushDesc": "接收应用活动提醒",
+            "email": "邮件通知",
+            "emailDesc": "接收每周摘要和重要提醒",
+            "save": "保存"
+        },
+        "privacy": {
+            "title": "隐私与偏好设置",
+            "privateAccount": "私密账号",
+            "privateDesc": "只有您的粉丝可以查看您的内容",
+            "autoTranslate": "自动翻译",
+            "autoTranslateDesc": "自动翻译其他语言的内容",
+            "prefLang": "首选翻译语言",
+            "prefLangDefault": "与母语相同",
+            "theme": "主题",
+            "themeAuto": "自动",
+            "themeDark": "深色",
+            "themeLight": "浅色",
+            "save": "保存"
+        },
+        "saved": "更改已成功保存"
+    },
+    "notifications": {
+        "title": "通知",
+        "markAllRead": "全部标为已读",
+        "markingAllRead": "标记中...",
+        "clearAll": "清除全部",
+        "filterAll": "全部",
+        "filterUnread": "未读",
+        "loading": "加载通知中...",
+        "emptyAll": "暂无通知",
+        "emptyAllSub": "稍后查看新通知",
+        "emptyUnread": "暂无未读通知",
+        "emptyUnreadSub": "您已是最新状态",
+        "new": "新",
+        "markRead": "标为已读",
+        "markUnread": "标为未读",
+        "delete": "删除"
+    },
+    "sidebar": {
+        "following": "正在关注",
+        "followers": "粉丝",
+        "posts": "帖子",
+        "navigation": "导航",
+        "aiTranslation": "AI翻译",
+        "active": "活跃",
+        "realtimeTranslation": "实时翻译",
+        "realtimeDesc": "视频和帖子",
+        "languages": "24+种语言",
+        "languagesDesc": "全球互联",
+        "instant": "即时处理",
+        "instantDesc": "超高速"
+    },
+    "trending": {
+        "title": "热门",
+        "loading": "加载热门中...",
+        "filterByCountry": "按国家筛选",
+        "global": "全球",
+        "noTrending": "暂无热门话题",
+        "videos": "视频",
+        "views": "次观看",
+        "onlyFrom": "仅来自",
+        "sort": "排序:",
+        "sortTrending": "最热门",
+        "sortViews": "最多观看",
+        "sortRecent": "最新",
+        "trendingBadge": "热门",
+        "watchNow": "立即观看",
+        "gridView": "网格",
+        "listView": "列表"
+    },
+    "lives": {
+        "title": "直播",
+        "chat": "聊天",
+        "live": "直播中",
+        "say": "说点什么...",
+        "send": "发送"
+    },
+    "videoOverlay": {
+        "follow": "关注",
+        "subtitles": "字幕:",
+        "original": "原版",
+        "available": "可用",
+        "requestTranslation": "申请翻译",
+        "translate": "翻译",
+        "translateVideo": "翻译视频",
+        "translateDesc": "为此视频生成AI翻译字幕",
+        "availableLangs": "可用:",
+        "requestLangs": "申请翻译:",
+        "requesting": "申请中...",
+        "request": "申请",
+        "translationPending": "已申请翻译，即将可用。",
+        "close": "关闭"
+    },
+    "stories": {
+        "title": "动态",
+        "add": "添加"
+    }
 }

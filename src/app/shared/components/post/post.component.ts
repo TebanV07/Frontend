@@ -60,7 +60,8 @@ export class PostComponent implements OnInit {
   imageTranslations: { [imageId: number]: ImageTranslationResponse } = {};
   showImageTranslation: { [imageId: number]: boolean } = {};
   translatingImageId: number | null = null;
-
+  imageOverlayUrls: { [imageId: number]: string } = {};
+  translatingOverlayId: number | null = null;
   availableLanguages: Language[] = [];
 
   private readonly apiBaseUrl = environment.apiBaseUrl;
@@ -163,13 +164,11 @@ export class PostComponent implements OnInit {
   }
 
   toggleTranslation(): void {
-    // Si ya está mostrando traducción → ocultar todo
     if (this.showTranslation) {
       this.showTranslation = false;
       return;
     }
 
-    // Si ya tenemos la traducción del texto en el mismo idioma → solo mostrar
     if (this.translatedContent && this.lastTranslatedLanguage === this.selectedTranslationLanguage) {
       this.showTranslation = true;
       return;
@@ -177,7 +176,6 @@ export class PostComponent implements OnInit {
 
     this.isTranslating = true;
 
-    // Traducir texto del post
     this.postsService.translatePost(this.post.id, this.selectedTranslationLanguage).subscribe({
       next: (response) => {
         this.translatedContent = response?.translated_content || response?.content || '';
@@ -190,10 +188,8 @@ export class PostComponent implements OnInit {
       }
     });
 
-    // Traducir imágenes en paralelo
     if (this.post.images?.length) {
       this.post.images.forEach(image => {
-        // Si ya existe traducción para este idioma, no volver a llamar
         if (
           this.imageTranslations[image.id] &&
           this.imageTranslations[image.id].target_language === this.selectedTranslationLanguage
@@ -215,6 +211,38 @@ export class PostComponent implements OnInit {
         }).catch(err => console.error('Error descargando imagen:', err));
       });
     }
+  }
+
+  translateImageOverlay(image: { id: number; image_url: string }): void {
+    if (this.translatingOverlayId === image.id) return;
+
+    if (this.imageOverlayUrls[image.id]) {
+      URL.revokeObjectURL(this.imageOverlayUrls[image.id]);
+      delete this.imageOverlayUrls[image.id];
+      return;
+    }
+
+    this.translatingOverlayId = image.id;
+
+    this.translationService.translateImageWithOverlayFromUrl(
+      image.id,
+      image.image_url,
+      this.selectedTranslationLanguage
+    ).then((obs$: any) => {
+      obs$.subscribe({
+        next: (blob: Blob) => {
+          this.imageOverlayUrls[image.id] = URL.createObjectURL(blob);
+          this.translatingOverlayId = null;
+        },
+        error: (err: unknown) => {
+          console.error('Error con overlay:', err);
+          this.translatingOverlayId = null;
+        }
+      });
+    }).catch((err: unknown) => {
+      console.error('Error descargando imagen para overlay:', err);
+      this.translatingOverlayId = null;
+    });
   }
 
   private simulateTranslation(): void {
@@ -296,5 +324,3 @@ export class PostComponent implements OnInit {
     return `${Math.floor(diffHours / 24)}d`;
   }
 }
-
-

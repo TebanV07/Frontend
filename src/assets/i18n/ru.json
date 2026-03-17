@@ -1,523 +1,538 @@
 {
-    "brand":  {
-                  "name":  "TINKO",
-                  "tagline":  "AI-Powered Global Connection"
-              },
-    "auth":  {
-                 "forgotPass":  {
-                    "title":  "\u0412\u043e\u0441\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c \u043f\u0430\u0440\u043e\u043b\u044c",
-                    "subtitle":  "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 email \u0432\u0430\u0448\u0435\u0433\u043e \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430, \u0438 \u043c\u044b \u043e\u0442\u043f\u0440\u0430\u0432\u0438\u043c \u0441\u0441\u044b\u043b\u043a\u0443 \u0434\u043b\u044f \u0441\u0431\u0440\u043e\u0441\u0430.",
-                    "emailLabel":  "Email",
-                    "emailPlaceholder":  "you@email.com",
-                    "sending":  "\u041e\u0442\u043f\u0440\u0430\u0432\u043a\u0430...",
-                    "submit":  "\u041e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c \u0441\u0441\u044b\u043b\u043a\u0443",
-                    "backToLogin":  "\u0412\u0435\u0440\u043d\u0443\u0442\u044c\u0441\u044f \u0432\u0445\u043e\u0434",
-                    "emailRequired":  "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 email \u0434\u043b\u044f \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0435\u043d\u0438\u044f."
-                },
-"resetPass":  {
-                  "title":  "\u0423\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c \u043d\u043e\u0432\u044b\u0439 \u043f\u0430\u0440\u043e\u043b\u044c",
-                  "subtitle":  "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043d\u0430\u0434\u0451\u0436\u043d\u044b\u0439 \u043d\u043e\u0432\u044b\u0439 \u043f\u0430\u0440\u043e\u043b\u044c \u0434\u043b\u044f \u0432\u0430\u0448\u0435\u0433\u043e \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430.",
-                  "newPasswordLabel":  "\u041d\u043e\u0432\u044b\u0439 \u043f\u0430\u0440\u043e\u043b\u044c",
-                  "newPasswordPlaceholder":  "\u041d\u043e\u0432\u044b\u0439 \u043f\u0430\u0440\u043e\u043b\u044c",
-                  "confirmPasswordLabel":  "\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u043f\u0430\u0440\u043e\u043b\u044c",
-                  "confirmPasswordPlaceholder":  "\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u043f\u0430\u0440\u043e\u043b\u044c",
-                  "updating":  "\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435...",
-                  "submit":  "\u041e\u0431\u043d\u043e\u0432\u0438\u0442\u044c \u043f\u0430\u0440\u043e\u043b\u044c",
-                  "successTitle":  "\u041f\u0430\u0440\u043e\u043b\u044c \u043e\u0431\u043d\u043e\u0432\u043b\u0451\u043d!",
-                  "goToLogin":  "\u041f\u0435\u0440\u0435\u0439\u0442\u0438 \u043a \u0432\u0445\u043e\u0434\u0443",
-                  "errorTitle":  "\u041d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c \u043e\u0431\u043d\u043e\u0432\u0438\u0442\u044c \u043f\u0430\u0440\u043e\u043b\u044c",
-                  "requestNew":  "\u0417\u0430\u043f\u0440\u043e\u0441\u0438\u0442\u044c \u043d\u043e\u0432\u0443\u044e \u0441\u0441\u044b\u043b\u043a\u0443",
-                  "invalidToken":  "\u041d\u0435\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043b\u044c\u043d\u0430\u044f \u0438\u043b\u0438 \u0443\u0441\u0442\u0430\u0440\u0435\u0432\u0448\u0430\u044f \u0441\u0441\u044b\u043b\u043a\u0430.",
-                  "fillBothFields":  "\u0417\u0430\u043f\u043e\u043b\u043d\u0438\u0442\u0435 \u043e\u0431\u0430 \u043f\u043e\u043b\u044f \u043f\u0430\u0440\u043e\u043b\u044f.",
-                  "passwordsMismatch":  "\u041f\u0430\u0440\u043e\u043b\u0438 \u043d\u0435 \u0441\u043e\u0432\u043f\u0430\u0434\u0430\u044e\u0442."
-              },
-"verifyRequired":  {
-                       "title":  "\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 email",
-                       "lead":  "\u0414\u043b\u044f \u0434\u043e\u0441\u0442\u0443\u043f\u0430 \u043a Tinko \u043d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044c \u0430\u0434\u0440\u0435\u0441 \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043d\u043e\u0439 \u043f\u043e\u0447\u0442\u044b.",
-                       "registeredEmail":  "\u041c\u044b \u043e\u0442\u043f\u0440\u0430\u0432\u0438\u043b\u0438 \u0441\u0441\u044b\u043b\u043a\u0443 \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u044f \u043d\u0430 email, \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u043f\u0440\u0438 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438.",
-                       "hint":  "\u0415\u0441\u043b\u0438 \u043d\u0435 \u0432\u0438\u0434\u0438\u0442\u0435, \u043f\u0440\u043e\u0432\u0435\u0440\u044c\u0442\u0435 \u043f\u0430\u043f\u043a\u0443 \u0421\u043f\u0430\u043c.",
-                       "resending":  "\u041f\u043e\u0432\u0442\u043e\u0440\u043d\u0430\u044f \u043e\u0442\u043f\u0440\u0430\u0432\u043a\u0430...",
-                       "resend":  "\u041e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c \u043f\u0438\u0441\u044c\u043c\u043e \u043f\u043e\u0432\u0442\u043e\u0440\u043d\u043e",
-                       "verifying":  "\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430...",
-                       "alreadyVerified":  "\u0423\u0436\u0435 \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d",
-                       "logout":  "\u0412\u044b\u0439\u0442\u0438"
-                   },
-"login":  {
-                               "title":  "С возвращением!",
-                               "subtitle":  "Войдите, чтобы продолжить глобальный опыт",
-                               "submit":  "Войти",
-                               "submitting":  "Вход...",
-                               "noAccount":  "Нет аккаунта?",
-                               "switchToRegister":  "Зарегистрироваться бесплатно",
-                               "rememberMe":  "Запомнить меня",
-                               "forgotPassword":  "Забыли пароль?",
-                               "orContinueWith":  "или продолжить через",
-                               "google":  "Google"
-                           },
-                 "register":  {
-                                  "title":  "Присоединяйтесь к революции!",
-                                  "subtitle":  "Общайтесь с миром без языковых барьеров",
-                                  "submit":  "Создать аккаунт",
-                                  "submitting":  "Создание аккаунта...",
-                                  "hasAccount":  "Уже есть аккаунт?",
-                                  "switchToLogin":  "Войти",
-                                  "usernameHint":  "Если не заполните, будет создан автоматически",
-                                  "nativeLanguageHint":  "Родной язык"
-                              },
-                 "fields":  {
-                                "firstName":  "Имя",
-                                "lastName":  "Фамилия",
-                                "username":  "Имя пользователя (необязательно)",
-                                "email":  "Электронная почта",
-                                "password":  "Пароль",
-                                "nativeLanguage":  "Родной язык"
-                            },
-                 "features":  {
-                                  "title":  "🚀 Что вас ждёт:",
-                                  "videos":  "Видео с переводом в реальном времени",
-                                  "languages":  "Общение на 24+ языках",
-                                  "ai":  "Продвинутый ИИ-перевод"
-                              }
-             },
-    "verify":  {
-                   "loading":  "Проверка почты...",
-                   "success":  {
-                                   "title":  "Почта подтверждена!",
-                                   "message":  "Ваш аккаунт подтверждён. Наслаждайтесь всеми функциями.",
-                                   "goHome":  "На главную"
-                               },
-                   "error":  {
-                                 "title":  "Недействительная ссылка",
-                                 "requestNew":  "Запросить новую ссылку"
-                             }
-               },
-    "header":  {
-                   "search":  "Поиск людей, публикаций...",
-                   "nav":  {
-                               "home":  "Главная",
-                               "trending":  "Тренды",
-                               "videos":  "Видео",
-                               "messages":  "Сообщения",
-                               "notifications":  "Уведомления",
-                               "profile":  "Профиль",
-                               "settings":  "Настройки"
-                           },
-                   "theme":  {
-                                 "light":  "Светлая тема",
-                                 "dark":  "Тёмная тема"
-                             },
-                   "menu":  "Меню"
-               },
-    "chat":  {
-                 "input":  {
-                               "placeholder":  "Напишите сообщение...",
-                               "emojis":  "Эмодзи",
-                               "attach":  "Прикрепить файл",
-                               "camera":  "Сделать фото",
-                               "voice":  "Записать голосовое",
-                               "send":  "Отправить",
-                               "recording":  "Запись...",
-                               "stopRecording":  "Стоп"
-                           },
-                 "window":  {
-                                "noName":  "Без имени",
-                                "selectConversation":  "Выберите беседу",
-                                "selectConversationHint":  "Выберите беседу, чтобы начать чат",
-                                "uploading":  "Загрузка файла...",
-                                "speaksLanguage":  "Говорит на "
-                            },
-                 "bubble":  {
-                                "edited":  "изменено",
-                                "edit":  "Редактировать",
-                                "delete":  "Удалить",
-                                "deleteForMe":  "Удалить у меня",
-                                "forward":  "Переслать",
-                                "share":  "Поделиться",
-                                "translate":  "Перевести"
-                            }
-             },
-    "feed":  {
-                 "loading":  "Загрузка видео...",
-                 "loadingMore":  "Загрузка ещё...",
-                 "empty":  {
-                               "title":  "Нет доступных видео",
-                               "subtitle":  "Будьте первым, кто загрузит видео с ИИ-переводом",
-                               "upload":  "Загрузить видео"
-                           },
-                 "position":  "{{ current }} / {{ total }}",
-                 "aiActive":  "AI Translation Active",
-                 "aiDesc":  "All content automatically translated to your preferred language",
-                 "aiLanguages":  "Languages",
-                 "aiVideos":  "Videos",
-                 "suggestedTitle":  "People you may know",
-                 "suggestedSeeAll":  "See all",
-                 "suggestedFollowers":  "followers",
-                 "suggestedMutual":  "in common",
-                 "following":  "Following",
-                 "follow":  "Follow",
-                 "loadingPosts":  "Loading posts...",
-                 "noPosts":  "No posts yet",
-                 "noPostsSub":  "Be the first to share something!"
-             },
-    "videoPlayer":  {
-                        "loading":  "Загрузка видео...",
-                        "error":  {
-                                      "title":  "Ошибка загрузки видео",
-                                      "subtitle":  "Не удалось воспроизвести это видео",
-                                      "retry":  "Повторить"
-                                  },
-                        "noSupport":  "Ваш браузер не поддерживает тег video."
-                    },
-    "comments":  {
-                     "title":  "Комментарии",
-                     "placeholder":  "Написать комментарий...",
-                     "submit":  "💬 Комментировать",
-                     "submitting":  "Публикация...",
-                     "loading":  "Загрузка...",
-                     "empty":  "Будьте первым, кто оставит комментарий",
-                     "loadMore":  "↓ Показать ещё",
-                     "loadingMore":  "Загрузка...",
-                     "reply":  "Ответить",
-                     "replying":  "Публикация...",
-                     "cancel":  "Отмена",
-                     "save":  "Сохранить",
-                     "edit":  "✏️ Редактировать",
-                     "delete":  "🗑️ Удалить",
-                     "edited":  "· изменено",
-                     "replyTo":  "Ответить @",
-                     "replies":  {
-                                     "one":  "ответ",
-                                     "other":  "ответов"
-                                 }
-                 },
-    "post":  {
-                 "edit":  {
-                              "title":  "Редактировать пост",
-                              "content":  "Содержание:",
-                              "tags":  "Теги (через запятую):",
-                              "public":  "Публичный",
-                              "save":  "Сохранить",
-                              "skip":  "Пропустить"
-                          },
-                 "likes":  {
-                               "like":  "Нравится",
-                               "liked":  "Нравится",
-                               "likedBy":  "Понравилось",
-                               "noLikes":  "Ещё нет лайков",
-                               "loading":  "Загрузка..."
-                           },
-                 "deleteConfirm":  "Delete this post?",
-                 "deleteBody":  "This action cannot be undone.",
-                 "editMenu":  "Edit",
-                 "deleteMenu":  "Delete",
-                 "reportMenu":  "Report",
-                 "shareMenu":  "Share",
-                 "comments":  "comments",
-                 "comment":  "Comment",
-                 "translateText":  "Translate text",
-                 "extracting":  "Extracting...",
-                 "showImage":  "Show image",
-                 "showText":  "Show text",
-                 "originalText":  "Original text",
-                 "noText":  "No text found in this image",
-                 "translatedTo":  "Translated to",
-                 "from":  "from",
-                 "showingTranslation":  "Showing translation",
-                 "translatePost":  "Translate this post",
-                 "translating":  "Translating...",
-                 "showOriginal":  "Show Original",
-                 "translate":  "Translate",
-                 "back":  "Back to feed",
-                 "close":  "Close"
-             },
-    "profile":  {
-                    "tabs":  {
-                                 "posts":  "Посты",
-                                 "videos":  "Видео",
-                                 "liked":  "Понравилось",
-                                 "bookmarks":  "Сохранённое"
-                             },
-                    "content":  {
-                                    "noPosts":  "Постов пока нет",
-                                    "noVideos":  "Видео пока нет",
-                                    "likedPosts":  "Посты, которые вам понравились",
-                                    "savedPosts":  "Сохранённые посты",
-                                    "loadMore":  "Показать ещё",
-                                    "loading":  "Загрузка..."
-                                }
-                },
-    "upload":  {
-                   "title":  "Загрузить видео/пост",
-                   "titleField":  "Заголовок (необязательно)",
-                   "description":  "Описание (необязательно)",
-                   "submit":  "Загрузить",
-                   "submitting":  "Загрузка..."
-               },
-    "explore":  {
-                    "title":  "Найти людей",
-                    "subtitle":  "Находите и общайтесь с людьми со всего мира",
-                    "search":  {
-                                   "placeholder":  "Поиск по имени или нику...",
-                                   "button":  "Найти",
-                                   "searching":  "Поиск...",
-                                   "results":  "Результаты ({{ count }})",
-                                   "noResults":  {
-                                                     "title":  "Ничего не найдено",
-                                                     "subtitle":  "Попробуйте другой запрос"
-                                                 }
-                               },
-                    "followRequests":  {
-                                           "title":  "Запросы на подписку",
-                                           "noPending":  {
-                                                             "title":  "Нет ожидающих запросов",
-                                                             "subtitle":  "Когда кто-то захочет подписаться на вас, он появится здесь"
-                                                         },
-                                           "accept":  "Принять",
-                                           "reject":  "Отклонить"
-                                       },
-                    "suggested":  {
-                                      "title":  "Люди, которых вы знаете",
-                                      "empty":  "Сейчас нет рекомендаций",
-                                      "viewAll":  "Все рекомендации",
-                                      "viewLess":  "Свернуть",
-                                      "mutual":  "{{ count }} общих подписчика",
-                                      "follow":  "Подписаться",
-                                      "following":  "Вы подписаны",
-                                      "pending":  "В ожидании"
-                                  }
-                },
-    "countrySetup":  {
-                         "title":  "Откуда вы?",
-                         "subtitle":  "Ваш флаг будет отображаться на постах и сообщениях, чтобы люди знали, откуда вы.",
-                         "detecting":  "Определение страны...",
-                         "detected":  "Определённая страна:",
-                         "notDetected":  "Не удалось автоматически определить вашу страну.",
-                         "manualSelect":  "Выберите страну:",
-                         "manualPlaceholder":  "-- Выберите страну --",
-                         "notMyCountry":  "Это не моя страна — изменить",
-                         "confirm":  "✅ Подтвердить",
-                         "saving":  "Сохранение...",
-                         "skip":  "Пропустить"
-                     },
-    "permissions":  {
-                        "welcome":  {
-                                        "title":  "Настройка разрешений",
-                                        "subtitle":  "Для лучшего опыта нам нужен доступ к некоторым разрешениям устройства.",
-                                        "camera":  "Камера для прямых эфиров",
-                                        "microphone":  "Микрофон для видеозвонков",
-                                        "notifications":  "Уведомления о сообщениях",
-                                        "later":  "Настроить позже",
-                                        "continue":  "Продолжить"
-                                    },
-                        "list":  {
-                                     "title":  "Необходимые разрешения",
-                                     "subtitle":  "Нажмите на каждое разрешение, чтобы запросить его",
-                                     "granted":  "✓ Разрешено",
-                                     "required":  "⚠ Обязательно",
-                                     "optional":  "ℹ Необязательно",
-                                     "request":  "Запросить доступ",
-                                     "requestAll":  "Запросить все",
-                                     "back":  "Назад"
-                                 },
-                        "complete":  {
-                                         "title":  "Настройка завершена!",
-                                         "subtitle":  "Разрешения настроены корректно.",
-                                         "grantedStatus":  "Разрешено",
-                                         "deniedStatus":  "Не разрешено",
-                                         "redirect":  "Переход на главную через несколько секунд...",
-                                         "goHome":  "Перейти на главную"
-                                     }
-                    },
-    "report":  {
-                   "title":  "🚩 Пожаловаться на контент",
-                   "subtitle":  "Выберите причину жалобы",
-                   "descriptionLabel":  "Дополнительное описание (необязательно)",
-                   "descriptionPlaceholder":  "Расскажите нам больше о проблеме...",
-                   "cancel":  "Отмена",
-                   "submit":  "Отправить жалобу",
-                   "submitting":  "Отправка..."
-               },
-    "terms":  {
-                  "title":  "Условия использования и конфиденциальность",
-                  "lastUpdated":  "Последнее обновление: январь 2025 · Внимательно прочитайте перед продолжением",
-                  "tabs":  {
-                               "terms":  "📄 Условия использования",
-                               "privacy":  "🔒 Политика конфиденциальности"
-                           },
-                  "scroll":  {
-                                 "pending":  "Прокрутите до конца, чтобы продолжить",
-                                 "done":  "Вы прочитали весь документ ✓"
-                             },
-                  "decline":  "Отклонить",
-                  "accept":  "Принять и продолжить"
-              },
-    "common":  {
-                   "loading":  "Загрузка...",
-                   "error":  "Произошла ошибка",
-                   "retry":  "Повторить",
-                   "save":  "Сохранить",
-                   "cancel":  "Отмена",
-                   "confirm":  "Подтвердить",
-                   "delete":  "Удалить",
-                   "edit":  "Редактировать",
-                   "close":  "Закрыть",
-                   "back":  "Назад",
-                   "next":  "Далее",
-                   "skip":  "Пропустить",
-                   "search":  "Поиск",
-                   "share":  "Поделиться",
-                   "report":  "Пожаловаться",
-                   "follow":  "Подписаться",
-                   "unfollow":  "Отписаться",
-                   "following":  "Вы подписаны",
-                   "followers":  "Подписчики",
-                   "posts":  "Посты",
-                   "videos":  "Видео"
-               },
-    "settings":  {
-                     "title":  "Settings",
-                     "nav":  {
-                                 "profile":  "Profile",
-                                 "account":  "Account",
-                                 "notifications":  "Notifications",
-                                 "privacy":  "Privacy",
-                                 "logout":  "Log out"
-                             },
-                     "profile":  {
-                                     "title":  "Edit Profile",
-                                     "avatarHint":  "JPG, PNG or WebP · Max 5MB",
-                                     "savePhoto":  "Save photo",
-                                     "firstName":  "First name",
-                                     "lastName":  "Last name",
-                                     "bio":  "Bio",
-                                     "bioPlaceholder":  "Tell us something about you...",
-                                     "website":  "Website",
-                                     "websitePlaceholder":  "https://your-site.com",
-                                     "location":  "Location",
-                                     "locationPlaceholder":  "City, Country",
-                                     "nativeLanguage":  "Native language",
-                                     "saveChanges":  "Save changes"
-                                 },
-                     "account":  {
-                                     "title":  "Account",
-                                     "email":  "Email",
-                                     "username":  "Username",
-                                     "verified":  "Verified account",
-                                     "verifiedYes":  "Verified",
-                                     "verifiedNo":  "Not verified",
-                                     "changePassword":  "Change password",
-                                     "currentPassword":  "Current password",
-                                     "newPassword":  "New password",
-                                     "confirmPassword":  "Confirm new password",
-                                     "dangerZone":  "Danger zone",
-                                     "dangerDesc":  "These actions are permanent and cannot be undone.",
-                                     "deleteAccount":  "Delete account",
-                                     "deleteDesc":  "Permanently deletes your account, posts and all personal data."
-                                 },
-                     "deleteModal":  {
-                                         "title":  "Delete your account?",
-                                         "body":  "This action is permanent and irreversible. All your data, posts and videos will be deleted within 30 days.",
-                                         "confirmLabel":  "Confirm your password to continue",
-                                         "confirmBtn":  "Yes, delete my account"
-                                     },
-                     "notifications":  {
-                                           "title":  "Notifications",
-                                           "push":  "Push notifications",
-                                           "pushDesc":  "Receive activity alerts in the app",
-                                           "email":  "Email notifications",
-                                           "emailDesc":  "Receive a weekly summary and important alerts",
-                                           "save":  "Save"
-                                       },
-                     "privacy":  {
-                                     "title":  "Privacy and Preferences",
-                                     "privateAccount":  "Private account",
-                                     "privateDesc":  "Only your followers can see your content",
-                                     "autoTranslate":  "Auto-translate",
-                                     "autoTranslateDesc":  "Automatically translate content from other languages",
-                                     "prefLang":  "Preferred translation language",
-                                     "prefLangDefault":  "Same as native",
-                                     "theme":  "Theme",
-                                     "themeAuto":  "Automatic",
-                                     "themeDark":  "Dark",
-                                     "themeLight":  "Light",
-                                     "save":  "Save"
-                                 },
-                     "saved":  "Changes saved successfully"
-                 },
-    "notifications":  {
-                          "title":  "Notifications",
-                          "markAllRead":  "Mark all as read",
-                          "markingAllRead":  "Marking...",
-                          "clearAll":  "Clear all",
-                          "filterAll":  "All",
-                          "filterUnread":  "Unread",
-                          "loading":  "Loading notifications...",
-                          "emptyAll":  "No notifications",
-                          "emptyAllSub":  "Check back later for new notifications",
-                          "emptyUnread":  "No unread notifications",
-                          "emptyUnreadSub":  "You are up to date",
-                          "new":  "New",
-                          "markRead":  "Mark as read",
-                          "markUnread":  "Mark as unread",
-                          "delete":  "Delete"
-                      },
-    "sidebar":  {
-                    "following":  "Following",
-                    "followers":  "Followers",
-                    "posts":  "Posts",
-                    "navigation":  "Navigation",
-                    "aiTranslation":  "AI Translation",
-                    "active":  "Active",
-                    "realtimeTranslation":  "Real-time Translation",
-                    "realtimeDesc":  "Videos \u0026 Posts",
-                    "languages":  "24+ Languages",
-                    "languagesDesc":  "Global connectivity",
-                    "instant":  "Instant Processing",
-                    "instantDesc":  "Lightning fast"
-                },
-    "trending":  {
-                     "title":  "Trending",
-                     "loading":  "Loading trends...",
-                     "filterByCountry":  "Filter by country",
-                     "global":  "Global",
-                     "noTrending":  "No trending topics available",
-                     "videos":  "videos",
-                     "views":  "views",
-                     "onlyFrom":  "Only from",
-                     "sort":  "Sort:",
-                     "sortTrending":  "Most trending",
-                     "sortViews":  "Most views",
-                     "sortRecent":  "Most recent",
-                     "trendingBadge":  "Trending",
-                     "watchNow":  "Watch now",
-                     "gridView":  "Grid",
-                     "listView":  "List"
-                 },
-    "lives":  {
-                  "title":  "Live",
-                  "chat":  "Chat",
-                  "live":  "LIVE",
-                  "say":  "Say something...",
-                  "send":  "Send"
-              },
-    "videoOverlay":  {
-                         "follow":  "Follow",
-                         "subtitles":  "Subtitles:",
-                         "original":  "Original",
-                         "available":  "Available",
-                         "requestTranslation":  "Request translation",
-                         "translate":  "Translate",
-                         "translateVideo":  "Translate Video",
-                         "translateDesc":  "Generate AI translated subtitles for this video",
-                         "availableLangs":  "Available:",
-                         "requestLangs":  "Request translation:",
-                         "requesting":  "Requesting...",
-                         "request":  "Request",
-                         "translationPending":  "Translation requested! It will be available shortly.",
-                         "close":  "Close"
-                     },
-    "stories":  {
-                    "title":  "Stories",
-                    "add":  "Add"
-                }
+    "brand": {
+        "name": "TINKO",
+        "tagline": "AI-Powered Global Connection"
+    },
+    "auth": {
+        "forgotPass": {
+            "title": "Восстановить пароль",
+            "subtitle": "Введите email вашего аккаунта, и мы отправим ссылку для сброса.",
+            "emailLabel": "Email",
+            "emailPlaceholder": "you@email.com",
+            "sending": "Отправка...",
+            "submit": "Отправить ссылку",
+            "backToLogin": "Вернуться ко входу",
+            "emailRequired": "Введите email для продолжения."
+        },
+        "resetPass": {
+            "title": "Установить новый пароль",
+            "subtitle": "Выберите надёжный новый пароль для вашего аккаунта.",
+            "newPasswordLabel": "Новый пароль",
+            "newPasswordPlaceholder": "Новый пароль",
+            "confirmPasswordLabel": "Подтвердите пароль",
+            "confirmPasswordPlaceholder": "Подтвердите пароль",
+            "updating": "Обновление...",
+            "submit": "Обновить пароль",
+            "successTitle": "Пароль обновлён!",
+            "goToLogin": "Перейти ко входу",
+            "errorTitle": "Не удалось обновить пароль",
+            "requestNew": "Запросить новую ссылку",
+            "invalidToken": "Недействительная или устаревшая ссылка.",
+            "fillBothFields": "Заполните оба поля пароля.",
+            "passwordsMismatch": "Пароли не совпадают."
+        },
+        "verifyRequired": {
+            "title": "Подтвердите email",
+            "lead": "Для доступа к Tinko необходимо подтвердить адрес электронной почты.",
+            "registeredEmail": "Мы отправили ссылку подтверждения на email, использованный при регистрации.",
+            "hint": "Если не видите, проверьте папку Спам.",
+            "resending": "Повторная отправка...",
+            "resend": "Отправить письмо повторно",
+            "verifying": "Проверка...",
+            "alreadyVerified": "Уже подтверждён",
+            "logout": "Выйти"
+        },
+        "login": {
+            "title": "С возвращением!",
+            "subtitle": "Войдите, чтобы продолжить глобальный опыт",
+            "submit": "Войти",
+            "submitting": "Вход...",
+            "noAccount": "Нет аккаунта?",
+            "switchToRegister": "Зарегистрироваться бесплатно",
+            "rememberMe": "Запомнить меня",
+            "forgotPassword": "Забыли пароль?",
+            "orContinueWith": "или продолжить через",
+            "google": "Google"
+        },
+        "register": {
+            "title": "Присоединяйтесь к революции!",
+            "subtitle": "Общайтесь с миром без языковых барьеров",
+            "submit": "Создать аккаунт",
+            "submitting": "Создание аккаунта...",
+            "hasAccount": "Уже есть аккаунт?",
+            "switchToLogin": "Войти",
+            "usernameHint": "Если не заполните, будет создан автоматически",
+            "nativeLanguageHint": "Родной язык"
+        },
+        "fields": {
+            "firstName": "Имя",
+            "lastName": "Фамилия",
+            "username": "Имя пользователя (необязательно)",
+            "email": "Электронная почта",
+            "password": "Пароль",
+            "nativeLanguage": "Родной язык"
+        },
+        "features": {
+            "title": "🚀 Что вас ждёт:",
+            "videos": "Видео с переводом в реальном времени",
+            "languages": "Общение на 24+ языках",
+            "ai": "Продвинутый ИИ-перевод"
+        }
+    },
+    "verify": {
+        "loading": "Проверка почты...",
+        "success": {
+            "title": "Почта подтверждена!",
+            "message": "Ваш аккаунт подтверждён. Наслаждайтесь всеми функциями.",
+            "goHome": "На главную"
+        },
+        "error": {
+            "title": "Недействительная ссылка",
+            "requestNew": "Запросить новую ссылку"
+        }
+    },
+    "header": {
+        "search": "Поиск людей, публикаций...",
+        "nav": {
+            "home": "Главная",
+            "trending": "Тренды",
+            "videos": "Видео",
+            "messages": "Сообщения",
+            "notifications": "Уведомления",
+            "profile": "Профиль",
+            "settings": "Настройки"
+        },
+        "theme": {
+            "light": "Светлая тема",
+            "dark": "Тёмная тема"
+        },
+        "menu": "Меню"
+    },
+    "chat": {
+        "input": {
+            "placeholder": "Напишите сообщение...",
+            "emojis": "Эмодзи",
+            "attach": "Прикрепить файл",
+            "camera": "Сделать фото",
+            "voice": "Записать голосовое",
+            "send": "Отправить",
+            "recording": "Запись...",
+            "stopRecording": "Стоп"
+        },
+        "window": {
+            "noName": "Без имени",
+            "selectConversation": "Выберите беседу",
+            "selectConversationHint": "Выберите беседу, чтобы начать чат",
+            "uploading": "Загрузка файла...",
+            "speaksLanguage": "Говорит на "
+        },
+        "bubble": {
+            "edited": "изменено",
+            "edit": "Редактировать",
+            "delete": "Удалить",
+            "deleteForMe": "Удалить у меня",
+            "forward": "Переслать",
+            "share": "Поделиться",
+            "translate": "Перевести"
+        }
+    },
+    "feed": {
+        "loading": "Загрузка видео...",
+        "loadingMore": "Загрузка ещё...",
+        "empty": {
+            "title": "Нет доступных видео",
+            "subtitle": "Будьте первым, кто загрузит видео с ИИ-переводом",
+            "upload": "Загрузить видео"
+        },
+        "position": "{{ current }} / {{ total }}",
+        "aiActive": "ИИ-перевод активен",
+        "aiDesc": "Весь контент автоматически переводится на ваш предпочтительный язык",
+        "aiLanguages": "Языки",
+        "aiVideos": "Видео",
+        "suggestedTitle": "Люди, которых вы знаете",
+        "suggestedSeeAll": "Все",
+        "suggestedFollowers": "подписчиков",
+        "suggestedMutual": "общих",
+        "following": "Вы подписаны",
+        "follow": "Подписаться",
+        "loadingPosts": "Загрузка постов...",
+        "noPosts": "Постов пока нет",
+        "noPostsSub": "Будьте первым, кто что-то опубликует!"
+    },
+    "videoPlayer": {
+        "loading": "Загрузка видео...",
+        "error": {
+            "title": "Ошибка загрузки видео",
+            "subtitle": "Не удалось воспроизвести это видео",
+            "retry": "Повторить"
+        },
+        "noSupport": "Ваш браузер не поддерживает тег video."
+    },
+    "comments": {
+        "title": "Комментарии",
+        "placeholder": "Написать комментарий...",
+        "submit": "💬 Комментировать",
+        "submitting": "Публикация...",
+        "loading": "Загрузка...",
+        "empty": "Будьте первым, кто оставит комментарий",
+        "loadMore": "↓ Показать ещё",
+        "loadingMore": "Загрузка...",
+        "reply": "Ответить",
+        "replying": "Публикация...",
+        "cancel": "Отмена",
+        "save": "Сохранить",
+        "edit": "✏️ Редактировать",
+        "delete": "🗑️ Удалить",
+        "edited": "· изменено",
+        "replyTo": "Ответить @",
+        "replies": {
+            "one": "ответ",
+            "other": "ответов"
+        }
+    },
+    "post": {
+        "edit": {
+            "title": "Редактировать пост",
+            "content": "Содержание:",
+            "tags": "Теги (через запятую):",
+            "public": "Публичный",
+            "save": "Сохранить",
+            "skip": "Пропустить"
+        },
+        "likes": {
+            "like": "Нравится",
+            "liked": "Нравится",
+            "likedBy": "Понравилось",
+            "noLikes": "Ещё нет лайков",
+            "loading": "Загрузка..."
+        },
+        "deleteConfirm": "Удалить этот пост?",
+        "deleteBody": "Это действие нельзя отменить.",
+        "editMenu": "Редактировать",
+        "deleteMenu": "Удалить",
+        "reportMenu": "Пожаловаться",
+        "shareMenu": "Поделиться",
+        "comments": "комментарии",
+        "comment": "Комментировать",
+        "translateText": "Перевести текст",
+        "extracting": "Извлечение...",
+        "showImage": "Показать изображение",
+        "showText": "Показать текст",
+        "originalText": "Оригинальный текст",
+        "noText": "Текст в этом изображении не найден",
+        "translatedTo": "Переведено на",
+        "from": "с",
+        "showingTranslation": "Показ перевода",
+        "translatePost": "Перевести этот пост",
+        "translating": "Перевод...",
+        "showOriginal": "Показать оригинал",
+        "translate": "Перевести",
+        "back": "Вернуться в ленту",
+        "close": "Закрыть",
+        "translateOverlay": "Перевести на изображении",
+        "showOriginalImage": "Показать оригинал"
+    },
+    "profile": {
+        "tabs": {
+            "posts": "Посты",
+            "videos": "Видео",
+            "liked": "Понравилось",
+            "bookmarks": "Сохранённое"
+        },
+        "content": {
+            "noPosts": "Постов пока нет",
+            "noVideos": "Видео пока нет",
+            "likedPosts": "Посты, которые вам понравились",
+            "savedPosts": "Сохранённые посты",
+            "loadMore": "Показать ещё",
+            "loading": "Загрузка..."
+        }
+    },
+    "upload": {
+        "title": "Загрузить видео/пост",
+        "titleField": "Заголовок (необязательно)",
+        "description": "Описание (необязательно)",
+        "submit": "Загрузить",
+        "submitting": "Загрузка..."
+    },
+    "explore": {
+        "title": "Найти людей",
+        "subtitle": "Находите и общайтесь с людьми со всего мира",
+        "search": {
+            "placeholder": "Поиск по имени или нику...",
+            "button": "Найти",
+            "searching": "Поиск...",
+            "results": "Результаты ({{ count }})",
+            "noResults": {
+                "title": "Ничего не найдено",
+                "subtitle": "Попробуйте другой запрос"
+            }
+        },
+        "followRequests": {
+            "title": "Запросы на подписку",
+            "noPending": {
+                "title": "Нет ожидающих запросов",
+                "subtitle": "Когда кто-то захочет подписаться на вас, он появится здесь"
+            },
+            "accept": "Принять",
+            "reject": "Отклонить"
+        },
+        "suggested": {
+            "title": "Люди, которых вы знаете",
+            "empty": "Сейчас нет рекомендаций",
+            "viewAll": "Все рекомендации",
+            "viewLess": "Свернуть",
+            "mutual": "{{ count }} общих подписчика",
+            "follow": "Подписаться",
+            "following": "Вы подписаны",
+            "pending": "В ожидании"
+        },
+        "filters": {
+            "byCountry": "Фильтр по стране",
+            "allCountries": "Все страны"
+        },
+        "actions": {
+            "talk": "Хочу поговорить"
+        },
+        "byCountry": {
+            "title": "Люди по странам",
+            "countries": "стран",
+            "emptyTitle": "Нет людей для показа",
+            "emptySubtitle": "Попробуйте другую страну или запрос"
+        }
+    },
+    "countrySetup": {
+        "title": "Откуда вы?",
+        "subtitle": "Ваш флаг будет отображаться на постах и сообщениях, чтобы люди знали, откуда вы.",
+        "detecting": "Определение страны...",
+        "detected": "Определённая страна:",
+        "notDetected": "Не удалось автоматически определить вашу страну.",
+        "manualSelect": "Выберите страну:",
+        "manualPlaceholder": "-- Выберите страну --",
+        "notMyCountry": "Это не моя страна — изменить",
+        "confirm": "✅ Подтвердить",
+        "saving": "Сохранение...",
+        "skip": "Пропустить"
+    },
+    "permissions": {
+        "welcome": {
+            "title": "Настройка разрешений",
+            "subtitle": "Для лучшего опыта нам нужен доступ к некоторым разрешениям устройства.",
+            "camera": "Камера для прямых эфиров",
+            "microphone": "Микрофон для видеозвонков",
+            "notifications": "Уведомления о сообщениях",
+            "later": "Настроить позже",
+            "continue": "Продолжить"
+        },
+        "list": {
+            "title": "Необходимые разрешения",
+            "subtitle": "Нажмите на каждое разрешение, чтобы запросить его",
+            "granted": "✓ Разрешено",
+            "required": "⚠ Обязательно",
+            "optional": "ℹ Необязательно",
+            "request": "Запросить доступ",
+            "requestAll": "Запросить все",
+            "back": "Назад"
+        },
+        "complete": {
+            "title": "Настройка завершена!",
+            "subtitle": "Разрешения настроены корректно.",
+            "grantedStatus": "Разрешено",
+            "deniedStatus": "Не разрешено",
+            "redirect": "Переход на главную через несколько секунд...",
+            "goHome": "Перейти на главную"
+        }
+    },
+    "report": {
+        "title": "🚩 Пожаловаться на контент",
+        "subtitle": "Выберите причину жалобы",
+        "descriptionLabel": "Дополнительное описание (необязательно)",
+        "descriptionPlaceholder": "Расскажите нам больше о проблеме...",
+        "cancel": "Отмена",
+        "submit": "Отправить жалобу",
+        "submitting": "Отправка..."
+    },
+    "terms": {
+        "title": "Условия использования и конфиденциальность",
+        "lastUpdated": "Последнее обновление: январь 2025 · Внимательно прочитайте перед продолжением",
+        "tabs": {
+            "terms": "📄 Условия использования",
+            "privacy": "🔒 Политика конфиденциальности"
+        },
+        "scroll": {
+            "pending": "Прокрутите до конца, чтобы продолжить",
+            "done": "Вы прочитали весь документ ✓"
+        },
+        "decline": "Отклонить",
+        "accept": "Принять и продолжить"
+    },
+    "common": {
+        "loading": "Загрузка...",
+        "error": "Произошла ошибка",
+        "retry": "Повторить",
+        "save": "Сохранить",
+        "cancel": "Отмена",
+        "confirm": "Подтвердить",
+        "delete": "Удалить",
+        "edit": "Редактировать",
+        "close": "Закрыть",
+        "back": "Назад",
+        "next": "Далее",
+        "skip": "Пропустить",
+        "search": "Поиск",
+        "share": "Поделиться",
+        "report": "Пожаловаться",
+        "follow": "Подписаться",
+        "unfollow": "Отписаться",
+        "following": "Вы подписаны",
+        "followers": "Подписчики",
+        "posts": "Посты",
+        "videos": "Видео"
+    },
+    "settings": {
+        "title": "Настройки",
+        "nav": {
+            "profile": "Профиль",
+            "account": "Аккаунт",
+            "notifications": "Уведомления",
+            "privacy": "Конфиденциальность",
+            "logout": "Выйти"
+        },
+        "profile": {
+            "title": "Редактировать профиль",
+            "avatarHint": "JPG, PNG или WebP · Макс. 5 МБ",
+            "savePhoto": "Сохранить фото",
+            "firstName": "Имя",
+            "lastName": "Фамилия",
+            "bio": "О себе",
+            "bioPlaceholder": "Расскажите о себе...",
+            "website": "Сайт",
+            "websitePlaceholder": "https://your-site.com",
+            "location": "Местоположение",
+            "locationPlaceholder": "Город, Страна",
+            "nativeLanguage": "Родной язык",
+            "saveChanges": "Сохранить изменения"
+        },
+        "account": {
+            "title": "Аккаунт",
+            "email": "Email",
+            "username": "Имя пользователя",
+            "verified": "Верифицированный аккаунт",
+            "verifiedYes": "Верифицирован",
+            "verifiedNo": "Не верифицирован",
+            "changePassword": "Изменить пароль",
+            "currentPassword": "Текущий пароль",
+            "newPassword": "Новый пароль",
+            "confirmPassword": "Подтвердить новый пароль",
+            "dangerZone": "Опасная зона",
+            "dangerDesc": "Эти действия необратимы.",
+            "deleteAccount": "Удалить аккаунт",
+            "deleteDesc": "Навсегда удаляет ваш аккаунт, посты и все личные данные."
+        },
+        "deleteModal": {
+            "title": "Удалить аккаунт?",
+            "body": "Это действие необратимо. Все данные будут удалены в течение 30 дней.",
+            "confirmLabel": "Подтвердите пароль для продолжения",
+            "confirmBtn": "Да, удалить мой аккаунт"
+        },
+        "notifications": {
+            "title": "Уведомления",
+            "push": "Push-уведомления",
+            "pushDesc": "Получайте уведомления об активности в приложении",
+            "email": "Email-уведомления",
+            "emailDesc": "Получайте еженедельные сводки и важные уведомления",
+            "save": "Сохранить"
+        },
+        "privacy": {
+            "title": "Конфиденциальность и настройки",
+            "privateAccount": "Приватный аккаунт",
+            "privateDesc": "Только ваши подписчики могут видеть ваш контент",
+            "autoTranslate": "Автоперевод",
+            "autoTranslateDesc": "Автоматически переводить контент с других языков",
+            "prefLang": "Предпочтительный язык перевода",
+            "prefLangDefault": "Как родной язык",
+            "theme": "Тема",
+            "themeAuto": "Авто",
+            "themeDark": "Тёмная",
+            "themeLight": "Светлая",
+            "save": "Сохранить"
+        },
+        "saved": "Изменения успешно сохранены"
+    },
+    "notifications": {
+        "title": "Уведомления",
+        "markAllRead": "Отметить все как прочитанные",
+        "markingAllRead": "Отмечаем...",
+        "clearAll": "Очистить все",
+        "filterAll": "Все",
+        "filterUnread": "Непрочитанные",
+        "loading": "Загрузка уведомлений...",
+        "emptyAll": "Нет уведомлений",
+        "emptyAllSub": "Загляните позже",
+        "emptyUnread": "Нет непрочитанных уведомлений",
+        "emptyUnreadSub": "Вы в курсе всего",
+        "new": "Новое",
+        "markRead": "Отметить как прочитанное",
+        "markUnread": "Отметить как непрочитанное",
+        "delete": "Удалить"
+    },
+    "sidebar": {
+        "following": "Подписки",
+        "followers": "Подписчики",
+        "posts": "Посты",
+        "navigation": "Навигация",
+        "aiTranslation": "ИИ-перевод",
+        "active": "Активен",
+        "realtimeTranslation": "Перевод в реальном времени",
+        "realtimeDesc": "Видео и посты",
+        "languages": "24+ языка",
+        "languagesDesc": "Глобальная связь",
+        "instant": "Мгновенная обработка",
+        "instantDesc": "Молниеносно"
+    },
+    "trending": {
+        "title": "Тренды",
+        "loading": "Загрузка трендов...",
+        "filterByCountry": "Фильтр по стране",
+        "global": "Глобальный",
+        "noTrending": "Нет доступных трендов",
+        "videos": "видео",
+        "views": "просмотров",
+        "onlyFrom": "Только из",
+        "sort": "Сортировка:",
+        "sortTrending": "Самые трендовые",
+        "sortViews": "Больше просмотров",
+        "sortRecent": "Последние",
+        "trendingBadge": "Тренд",
+        "watchNow": "Смотреть",
+        "gridView": "Сетка",
+        "listView": "Список"
+    },
+    "lives": {
+        "title": "Прямой эфир",
+        "chat": "Чат",
+        "live": "ПРЯМОЙ ЭФИР",
+        "say": "Напишите что-нибудь...",
+        "send": "Отправить"
+    },
+    "videoOverlay": {
+        "follow": "Подписаться",
+        "subtitles": "Субтитры:",
+        "original": "Оригинал",
+        "available": "Доступно",
+        "requestTranslation": "Запросить перевод",
+        "translate": "Перевести",
+        "translateVideo": "Перевести видео",
+        "translateDesc": "Создать ИИ-переведённые субтитры для этого видео",
+        "availableLangs": "Доступно:",
+        "requestLangs": "Запросить перевод:",
+        "requesting": "Запрашиваем...",
+        "request": "Запросить",
+        "translationPending": "Перевод запрошен. Скоро будет доступен.",
+        "close": "Закрыть"
+    },
+    "stories": {
+        "title": "Истории",
+        "add": "Добавить"
+    }
 }

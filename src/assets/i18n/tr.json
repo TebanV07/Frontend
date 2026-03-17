@@ -1,523 +1,538 @@
 {
-    "brand":  {
-                  "name":  "TINKO",
-                  "tagline":  "AI-Powered Global Connection"
-              },
-    "auth":  {
-                 "forgotPass":  {
-                    "title":  "\u015eifreyi kurtar",
-                    "subtitle":  "Hesab\u0131n\u0131z\u0131n e-posta adresini girin, size s\u0131f\u0131rlama ba\u011flant\u0131s\u0131 g\u00f6nderelim.",
-                    "emailLabel":  "E-posta",
-                    "emailPlaceholder":  "siz@email.com",
-                    "sending":  "G\u00f6nderiliyor...",
-                    "submit":  "Kurtarma ba\u011flant\u0131s\u0131 g\u00f6nder",
-                    "backToLogin":  "Girişe d\u00f6n",
-                    "emailRequired":  "Devam etmek i\u00e7in e-posta adresinizi girin."
-                },
-"resetPass":  {
-                  "title":  "Yeni \u015fifre belirle",
-                  "subtitle":  "Hesab\u0131n\u0131z i\u00e7in g\u00fc\u00e7l\u00fc bir yeni \u015fifre se\u00e7in.",
-                  "newPasswordLabel":  "Yeni \u015fifre",
-                  "newPasswordPlaceholder":  "Yeni \u015fifre",
-                  "confirmPasswordLabel":  "\u015eifreyi onayla",
-                  "confirmPasswordPlaceholder":  "\u015eifreyi onayla",
-                  "updating":  "G\u00fcncelleniyor...",
-                  "submit":  "\u015eifreyi g\u00fcncelle",
-                  "successTitle":  "\u015eifre g\u00fcncellendi!",
-                  "goToLogin":  "Girişe git",
-                  "errorTitle":  "\u015eifre g\u00fcncellenemedi",
-                  "requestNew":  "Yeni kurtarma ba\u011flant\u0131s\u0131 iste",
-                  "invalidToken":  "Ge\u00e7ersiz veya s\u00fcresi dolmu\u015f kurtarma ba\u011flant\u0131s\u0131.",
-                  "fillBothFields":  "Her iki \u015fifre alan\u0131n\u0131 doldurun.",
-                  "passwordsMismatch":  "\u015eifreler e\u015fle\u015fmiyor."
-              },
-"verifyRequired":  {
-                       "title":  "E-postay\u0131 do\u011frula",
-                       "lead":  "Tinko'ya eri\u015fmeden \u00f6nce e-posta adresinizi do\u011frulaman\u0131z gerekiyor.",
-                       "registeredEmail":  "Kay\u0131t s\u0131ras\u0131nda kulland\u0131\u011f\u0131n\u0131z e-posta adresine do\u011frulama ba\u011flant\u0131s\u0131 g\u00f6nderdik.",
-                       "hint":  "G\u00f6remediyseniz spam klas\u00f6r\u00fcn\u00fc kontrol edin.",
-                       "resending":  "Yeniden g\u00f6nderiliyor...",
-                       "resend":  "Do\u011frulama e-postas\u0131n\u0131 yeniden g\u00f6nder",
-                       "verifying":  "Do\u011frulan\u0131yor...",
-                       "alreadyVerified":  "Zaten do\u011fruland\u0131m",
-                       "logout":  "\u00c7\u0131k\u0131\u015f"
-                   },
-"login":  {
-                               "title":  "Tekrar hoş geldin!",
-                               "subtitle":  "Küresel deneyimine devam etmek için giriş yap",
-                               "submit":  "Giriş yap",
-                               "submitting":  "Giriş yapılıyor...",
-                               "noAccount":  "HesabÄ±n yok mu?",
-                               "switchToRegister":  "Ücretsiz kaydol",
-                               "rememberMe":  "Beni hatÄ±rla",
-                               "forgotPassword":  "Åžifreni mi unuttun?",
-                               "orContinueWith":  "veya şununla devam et",
-                               "google":  "Google"
-                           },
-                 "register":  {
-                                  "title":  "Devrime katÄ±l!",
-                                  "subtitle":  "Dil engeli olmadan dünyayla bağlan",
-                                  "submit":  "Hesap oluştur",
-                                  "submitting":  "Hesap oluşturuluyor...",
-                                  "hasAccount":  "Zaten hesabÄ±n var mÄ±?",
-                                  "switchToLogin":  "Giriş yap",
-                                  "usernameHint":  "Girmezsen otomatik oluşturulacak",
-                                  "nativeLanguageHint":  "Ana dil"
-                              },
-                 "fields":  {
-                                "firstName":  "Ad",
-                                "lastName":  "Soyad",
-                                "username":  "Kullanıcı adı (isteğe bağlı)",
-                                "email":  "E-posta adresi",
-                                "password":  "Åžifre",
-                                "nativeLanguage":  "Ana dil"
-                            },
-                 "features":  {
-                                  "title":  "🚀 Seni bekleyenler:",
-                                  "videos":  "Gerçek zamanlı çevrilmiş videolar",
-                                  "languages":  "24+ dilde bağlan",
-                                  "ai":  "Gelişmiş AI çevirisi"
-                              }
-             },
-    "verify":  {
-                   "loading":  "E-posta doğrulanıyor...",
-                   "success":  {
-                                   "title":  "E-posta doğrulandı!",
-                                   "message":  "Hesabın doğrulandı. Tüm özelliklerin keyfini çıkar.",
-                                   "goHome":  "Ana sayfaya git"
-                               },
-                   "error":  {
-                                 "title":  "Geçersiz bağlantı",
-                                 "requestNew":  "Yeni bağlantı iste"
-                             }
-               },
-    "header":  {
-                   "search":  "Kişileri, gönderileri ara...",
-                   "nav":  {
-                               "home":  "Ana Sayfa",
-                               "trending":  "Trendler",
-                               "videos":  "Videolar",
-                               "messages":  "Mesajlar",
-                               "notifications":  "Bildirimler",
-                               "profile":  "Profil",
-                               "settings":  "Ayarlar"
-                           },
-                   "theme":  {
-                                 "light":  "AÃ§Ä±k mod",
-                                 "dark":  "Koyu mod"
-                             },
-                   "menu":  "Menü"
-               },
-    "chat":  {
-                 "input":  {
-                               "placeholder":  "Bir mesaj yaz...",
-                               "emojis":  "Emojiler",
-                               "attach":  "Dosya ekle",
-                               "camera":  "Fotoğraf çek",
-                               "voice":  "Sesli mesaj kaydet",
-                               "send":  "Gönder",
-                               "recording":  "Kaydediliyor...",
-                               "stopRecording":  "Durdur"
-                           },
-                 "window":  {
-                                "noName":  "Ä°simsiz",
-                                "selectConversation":  "Bir konuşma seç",
-                                "selectConversationHint":  "Sohbet başlatmak için bir konuşma seç",
-                                "uploading":  "Dosya yükleniyor...",
-                                "speaksLanguage":  "Konuştuğu dil: "
-                            },
-                 "bubble":  {
-                                "edited":  "düzenlendi",
-                                "edit":  "Düzenle",
-                                "delete":  "Sil",
-                                "deleteForMe":  "Benim iÃ§in sil",
-                                "forward":  "Ä°let",
-                                "share":  "Paylaş",
-                                "translate":  "Çevir"
-                            }
-             },
-    "feed":  {
-                 "loading":  "Videolar yükleniyor...",
-                 "loadingMore":  "Daha fazla video yükleniyor...",
-                 "empty":  {
-                               "title":  "KullanÄ±labilir video yok",
-                               "subtitle":  "AI çevirisiyle ilk videoyu yükleyen sen ol",
-                               "upload":  "Video Yükle"
-                           },
-                 "position":  "{{ current }} / {{ total }}",
-                 "aiActive":  "AI Translation Active",
-                 "aiDesc":  "All content automatically translated to your preferred language",
-                 "aiLanguages":  "Languages",
-                 "aiVideos":  "Videos",
-                 "suggestedTitle":  "People you may know",
-                 "suggestedSeeAll":  "See all",
-                 "suggestedFollowers":  "followers",
-                 "suggestedMutual":  "in common",
-                 "following":  "Following",
-                 "follow":  "Follow",
-                 "loadingPosts":  "Loading posts...",
-                 "noPosts":  "No posts yet",
-                 "noPostsSub":  "Be the first to share something!"
-             },
-    "videoPlayer":  {
-                        "loading":  "Video yükleniyor...",
-                        "error":  {
-                                      "title":  "Video yükleme hatası",
-                                      "subtitle":  "Bu video oynatÄ±lamadÄ±",
-                                      "retry":  "Tekrar dene"
-                                  },
-                        "noSupport":  "TarayÄ±cÄ±n video etiketini desteklemiyor."
-                    },
-    "comments":  {
-                     "title":  "Yorumlar",
-                     "placeholder":  "Yorum yaz...",
-                     "submit":  "💬 Yorum yap",
-                     "submitting":  "YayÄ±nlanÄ±yor...",
-                     "loading":  "Yükleniyor...",
-                     "empty":  "Ä°lk yorum yapan sen ol",
-                     "loadMore":  "↓ Daha fazla yorum",
-                     "loadingMore":  "Yükleniyor...",
-                     "reply":  "YanÄ±tla",
-                     "replying":  "YayÄ±nlanÄ±yor...",
-                     "cancel":  "Ä°ptal",
-                     "save":  "Kaydet",
-                     "edit":  "✏️ Düzenle",
-                     "delete":  "🗑️ Sil",
-                     "edited":  "· düzenlendi",
-                     "replyTo":  "@\u0027ya yanÄ±tla",
-                     "replies":  {
-                                     "one":  "yanÄ±t",
-                                     "other":  "yanÄ±t"
-                                 }
-                 },
-    "post":  {
-                 "edit":  {
-                              "title":  "Gönderiyi düzenle",
-                              "content":  "Ä°Ã§erik:",
-                              "tags":  "Etiketler (virgülle ayır):",
-                              "public":  "Herkese aÃ§Ä±k",
-                              "save":  "Kaydet",
-                              "skip":  "Atla"
-                          },
-                 "likes":  {
-                               "like":  "Beğen",
-                               "liked":  "Beğenildi",
-                               "likedBy":  "Beğenenler",
-                               "noLikes":  "Henüz beğeni yok",
-                               "loading":  "Yükleniyor..."
-                           },
-                 "deleteConfirm":  "Delete this post?",
-                 "deleteBody":  "This action cannot be undone.",
-                 "editMenu":  "Edit",
-                 "deleteMenu":  "Delete",
-                 "reportMenu":  "Report",
-                 "shareMenu":  "Share",
-                 "comments":  "comments",
-                 "comment":  "Comment",
-                 "translateText":  "Translate text",
-                 "extracting":  "Extracting...",
-                 "showImage":  "Show image",
-                 "showText":  "Show text",
-                 "originalText":  "Original text",
-                 "noText":  "No text found in this image",
-                 "translatedTo":  "Translated to",
-                 "from":  "from",
-                 "showingTranslation":  "Showing translation",
-                 "translatePost":  "Translate this post",
-                 "translating":  "Translating...",
-                 "showOriginal":  "Show Original",
-                 "translate":  "Translate",
-                 "back":  "Back to feed",
-                 "close":  "Close"
-             },
-    "profile":  {
-                    "tabs":  {
-                                 "posts":  "Gönderiler",
-                                 "videos":  "Videolar",
-                                 "liked":  "Beğendiklerim",
-                                 "bookmarks":  "Kaydedilenler"
-                             },
-                    "content":  {
-                                    "noPosts":  "Henüz gönderi yok",
-                                    "noVideos":  "Henüz video yok",
-                                    "likedPosts":  "Beğendiğin gönderiler",
-                                    "savedPosts":  "Kaydedilen gönderiler",
-                                    "loadMore":  "Daha fazla gör",
-                                    "loading":  "Yükleniyor..."
-                                }
-                },
-    "upload":  {
-                   "title":  "Video/gönderi yükle",
-                   "titleField":  "Başlık (isteğe bağlı)",
-                   "description":  "Açıklama (isteğe bağlı)",
-                   "submit":  "Yükle",
-                   "submitting":  "Yükleniyor..."
-               },
-    "explore":  {
-                    "title":  "Kişileri keşfet",
-                    "subtitle":  "Dünyanın dört bir yanından insanları bul ve bağlan",
-                    "search":  {
-                                   "placeholder":  "Ä°sim veya kullanÄ±cÄ± adÄ±yla ara...",
-                                   "button":  "Ara",
-                                   "searching":  "AranÄ±yor...",
-                                   "results":  "SonuÃ§lar ({{ count }})",
-                                   "noResults":  {
-                                                     "title":  "SonuÃ§ bulunamadÄ±",
-                                                     "subtitle":  "FarklÄ± bir arama terimi dene"
-                                                 }
-                               },
-                    "followRequests":  {
-                                           "title":  "Takip istekleri",
-                                           "noPending":  {
-                                                             "title":  "Bekleyen istek yok",
-                                                             "subtitle":  "Biri seni takip etmek istediğinde burada görünecek"
-                                                         },
-                                           "accept":  "Kabul et",
-                                           "reject":  "Reddet"
-                                       },
-                    "suggested":  {
-                                      "title":  "Tanıyor olabileceğin kişiler",
-                                      "empty":  "Şu an öneri yok",
-                                      "viewAll":  "Tüm önerileri gör",
-                                      "viewLess":  "Daha az gör",
-                                      "mutual":  "{{ count }} ortak takipÃ§i",
-                                      "follow":  "Takip et",
-                                      "following":  "Takip ediliyor",
-                                      "pending":  "Beklemede"
-                                  }
-                },
-    "countrySetup":  {
-                         "title":  "Nereden geliyorsun?",
-                         "subtitle":  "Bayrak gönderilerinde ve mesajlarında görünecek, insanlar nereden olduğunu öğrenecek.",
-                         "detecting":  "Ülken tespit ediliyor...",
-                         "detected":  "Tespit edilen ülke:",
-                         "notDetected":  "Ülkeni otomatik olarak tespit edemedik.",
-                         "manualSelect":  "Ülkeni seç:",
-                         "manualPlaceholder":  "-- Ülkeni seç --",
-                         "notMyCountry":  "Bu benim ülkem değil — değiştir",
-                         "confirm":  "✅ Onayla",
-                         "saving":  "Kaydediliyor...",
-                         "skip":  "Åžimdilik atla"
-                     },
-    "permissions":  {
-                        "welcome":  {
-                                        "title":  "Ä°zinleri ayarla",
-                                        "subtitle":  "En iyi deneyimi sunabilmek için bazı cihaz izinlerine erişmemiz gerekiyor.",
-                                        "camera":  "CanlÄ± yayÄ±n iÃ§in kamera",
-                                        "microphone":  "Görüntülü görüşme için mikrofon",
-                                        "notifications":  "Mesaj bildirimleri",
-                                        "later":  "Sonra ayarla",
-                                        "continue":  "Devam et"
-                                    },
-                        "list":  {
-                                     "title":  "Gerekli izinler",
-                                     "subtitle":  "Her izne tÄ±klayarak cihazÄ±ndan iste",
-                                     "granted":  "✓ Verildi",
-                                     "required":  "⚠ Gerekli",
-                                     "optional":  "ℹ İsteğe bağlı",
-                                     "request":  "Erişim iste",
-                                     "requestAll":  "Tümünü iste",
-                                     "back":  "Geri"
-                                 },
-                        "complete":  {
-                                         "title":  "Kurulum tamamlandÄ±!",
-                                         "subtitle":  "İzinlerin doğru şekilde yapılandırıldı.",
-                                         "grantedStatus":  "Verildi",
-                                         "deniedStatus":  "Verilmedi",
-                                         "redirect":  "Birkaç saniye içinde ana sayfaya yönlendiriliyor...",
-                                         "goHome":  "Åžimdi Ana Sayfaya Git"
-                                     }
-                    },
-    "report":  {
-                   "title":  "🚩 İçeriği şikayet et",
-                   "subtitle":  "Åžikayet nedenini seÃ§",
-                   "descriptionLabel":  "Ek açıklama (isteğe bağlı)",
-                   "descriptionPlaceholder":  "Sorun hakkÄ±nda daha fazla bilgi ver...",
-                   "cancel":  "Ä°ptal",
-                   "submit":  "Şikayet gönder",
-                   "submitting":  "Gönderiliyor..."
-               },
-    "terms":  {
-                  "title":  "Åžartlar ve Gizlilik",
-                  "lastUpdated":  "Son güncelleme: Ocak 2025 · Devam etmeden önce dikkatlice oku",
-                  "tabs":  {
-                               "terms":  "📄 Kullanım Şartları",
-                               "privacy":  "🔒 Gizlilik Politikası"
-                           },
-                  "scroll":  {
-                                 "pending":  "Devam etmek için aşağı kaydır",
-                                 "done":  "Belgenin tamamını okudun ✓"
-                             },
-                  "decline":  "Reddet",
-                  "accept":  "Kabul et ve devam et"
-              },
-    "common":  {
-                   "loading":  "Yükleniyor...",
-                   "error":  "Bir hata oluştu",
-                   "retry":  "Tekrar dene",
-                   "save":  "Kaydet",
-                   "cancel":  "Ä°ptal",
-                   "confirm":  "Onayla",
-                   "delete":  "Sil",
-                   "edit":  "Düzenle",
-                   "close":  "Kapat",
-                   "back":  "Geri",
-                   "next":  "Ä°leri",
-                   "skip":  "Atla",
-                   "search":  "Ara",
-                   "share":  "Paylaş",
-                   "report":  "Åžikayet et",
-                   "follow":  "Takip et",
-                   "unfollow":  "Takibi bÄ±rak",
-                   "following":  "Takip ediliyor",
-                   "followers":  "TakipÃ§iler",
-                   "posts":  "Gönderiler",
-                   "videos":  "Videolar"
-               },
-    "settings":  {
-                     "title":  "Settings",
-                     "nav":  {
-                                 "profile":  "Profile",
-                                 "account":  "Account",
-                                 "notifications":  "Notifications",
-                                 "privacy":  "Privacy",
-                                 "logout":  "Log out"
-                             },
-                     "profile":  {
-                                     "title":  "Edit Profile",
-                                     "avatarHint":  "JPG, PNG or WebP · Max 5MB",
-                                     "savePhoto":  "Save photo",
-                                     "firstName":  "First name",
-                                     "lastName":  "Last name",
-                                     "bio":  "Bio",
-                                     "bioPlaceholder":  "Tell us something about you...",
-                                     "website":  "Website",
-                                     "websitePlaceholder":  "https://your-site.com",
-                                     "location":  "Location",
-                                     "locationPlaceholder":  "City, Country",
-                                     "nativeLanguage":  "Native language",
-                                     "saveChanges":  "Save changes"
-                                 },
-                     "account":  {
-                                     "title":  "Account",
-                                     "email":  "Email",
-                                     "username":  "Username",
-                                     "verified":  "Verified account",
-                                     "verifiedYes":  "Verified",
-                                     "verifiedNo":  "Not verified",
-                                     "changePassword":  "Change password",
-                                     "currentPassword":  "Current password",
-                                     "newPassword":  "New password",
-                                     "confirmPassword":  "Confirm new password",
-                                     "dangerZone":  "Danger zone",
-                                     "dangerDesc":  "These actions are permanent and cannot be undone.",
-                                     "deleteAccount":  "Delete account",
-                                     "deleteDesc":  "Permanently deletes your account, posts and all personal data."
-                                 },
-                     "deleteModal":  {
-                                         "title":  "Delete your account?",
-                                         "body":  "This action is permanent and irreversible. All your data, posts and videos will be deleted within 30 days.",
-                                         "confirmLabel":  "Confirm your password to continue",
-                                         "confirmBtn":  "Yes, delete my account"
-                                     },
-                     "notifications":  {
-                                           "title":  "Notifications",
-                                           "push":  "Push notifications",
-                                           "pushDesc":  "Receive activity alerts in the app",
-                                           "email":  "Email notifications",
-                                           "emailDesc":  "Receive a weekly summary and important alerts",
-                                           "save":  "Save"
-                                       },
-                     "privacy":  {
-                                     "title":  "Privacy and Preferences",
-                                     "privateAccount":  "Private account",
-                                     "privateDesc":  "Only your followers can see your content",
-                                     "autoTranslate":  "Auto-translate",
-                                     "autoTranslateDesc":  "Automatically translate content from other languages",
-                                     "prefLang":  "Preferred translation language",
-                                     "prefLangDefault":  "Same as native",
-                                     "theme":  "Theme",
-                                     "themeAuto":  "Automatic",
-                                     "themeDark":  "Dark",
-                                     "themeLight":  "Light",
-                                     "save":  "Save"
-                                 },
-                     "saved":  "Changes saved successfully"
-                 },
-    "notifications":  {
-                          "title":  "Notifications",
-                          "markAllRead":  "Mark all as read",
-                          "markingAllRead":  "Marking...",
-                          "clearAll":  "Clear all",
-                          "filterAll":  "All",
-                          "filterUnread":  "Unread",
-                          "loading":  "Loading notifications...",
-                          "emptyAll":  "No notifications",
-                          "emptyAllSub":  "Check back later for new notifications",
-                          "emptyUnread":  "No unread notifications",
-                          "emptyUnreadSub":  "You are up to date",
-                          "new":  "New",
-                          "markRead":  "Mark as read",
-                          "markUnread":  "Mark as unread",
-                          "delete":  "Delete"
-                      },
-    "sidebar":  {
-                    "following":  "Following",
-                    "followers":  "Followers",
-                    "posts":  "Posts",
-                    "navigation":  "Navigation",
-                    "aiTranslation":  "AI Translation",
-                    "active":  "Active",
-                    "realtimeTranslation":  "Real-time Translation",
-                    "realtimeDesc":  "Videos \u0026 Posts",
-                    "languages":  "24+ Languages",
-                    "languagesDesc":  "Global connectivity",
-                    "instant":  "Instant Processing",
-                    "instantDesc":  "Lightning fast"
-                },
-    "trending":  {
-                     "title":  "Trending",
-                     "loading":  "Loading trends...",
-                     "filterByCountry":  "Filter by country",
-                     "global":  "Global",
-                     "noTrending":  "No trending topics available",
-                     "videos":  "videos",
-                     "views":  "views",
-                     "onlyFrom":  "Only from",
-                     "sort":  "Sort:",
-                     "sortTrending":  "Most trending",
-                     "sortViews":  "Most views",
-                     "sortRecent":  "Most recent",
-                     "trendingBadge":  "Trending",
-                     "watchNow":  "Watch now",
-                     "gridView":  "Grid",
-                     "listView":  "List"
-                 },
-    "lives":  {
-                  "title":  "Live",
-                  "chat":  "Chat",
-                  "live":  "LIVE",
-                  "say":  "Say something...",
-                  "send":  "Send"
-              },
-    "videoOverlay":  {
-                         "follow":  "Follow",
-                         "subtitles":  "Subtitles:",
-                         "original":  "Original",
-                         "available":  "Available",
-                         "requestTranslation":  "Request translation",
-                         "translate":  "Translate",
-                         "translateVideo":  "Translate Video",
-                         "translateDesc":  "Generate AI translated subtitles for this video",
-                         "availableLangs":  "Available:",
-                         "requestLangs":  "Request translation:",
-                         "requesting":  "Requesting...",
-                         "request":  "Request",
-                         "translationPending":  "Translation requested! It will be available shortly.",
-                         "close":  "Close"
-                     },
-    "stories":  {
-                    "title":  "Stories",
-                    "add":  "Add"
-                }
+    "brand": {
+        "name": "TINKO",
+        "tagline": "AI-Powered Global Connection"
+    },
+    "auth": {
+        "forgotPass": {
+            "title": "Şifreyi kurtar",
+            "subtitle": "Hesabınızın e-posta adresini girin, size sıfırlama bağlantısı gönderelim.",
+            "emailLabel": "E-posta",
+            "emailPlaceholder": "siz@email.com",
+            "sending": "Gönderiliyor...",
+            "submit": "Kurtarma bağlantısı gönder",
+            "backToLogin": "Girişe dön",
+            "emailRequired": "Devam etmek için e-posta adresinizi girin."
+        },
+        "resetPass": {
+            "title": "Yeni şifre belirle",
+            "subtitle": "Hesabınız için güçlü bir yeni şifre seçin.",
+            "newPasswordLabel": "Yeni şifre",
+            "newPasswordPlaceholder": "Yeni şifre",
+            "confirmPasswordLabel": "Şifreyi onayla",
+            "confirmPasswordPlaceholder": "Şifreyi onayla",
+            "updating": "Güncelleniyor...",
+            "submit": "Şifreyi güncelle",
+            "successTitle": "Şifre güncellendi!",
+            "goToLogin": "Girişe git",
+            "errorTitle": "Şifre güncellenemedi",
+            "requestNew": "Yeni kurtarma bağlantısı iste",
+            "invalidToken": "Geçersiz veya süresi dolmuş kurtarma bağlantısı.",
+            "fillBothFields": "Her iki şifre alanını doldurun.",
+            "passwordsMismatch": "Şifreler eşleşmiyor."
+        },
+        "verifyRequired": {
+            "title": "E-postayı doğrula",
+            "lead": "Tinko'ya erişmeden önce e-posta adresinizi doğrulamanız gerekiyor.",
+            "registeredEmail": "Kayıt sırasında kullandığınız e-posta adresine doğrulama bağlantısı gönderdik.",
+            "hint": "Göremediyseniz spam klasörünü kontrol edin.",
+            "resending": "Yeniden gönderiliyor...",
+            "resend": "Doğrulama e-postasını yeniden gönder",
+            "verifying": "Doğrulanıyor...",
+            "alreadyVerified": "Zaten doğrulandım",
+            "logout": "Çıkış"
+        },
+        "login": {
+            "title": "Tekrar hoş geldin!",
+            "subtitle": "Küresel deneyimine devam etmek için giriş yap",
+            "submit": "Giriş yap",
+            "submitting": "Giriş yapılıyor...",
+            "noAccount": "Hesabın yok mu?",
+            "switchToRegister": "Ücretsiz kaydol",
+            "rememberMe": "Beni hatırla",
+            "forgotPassword": "Şifreni mi unuttun?",
+            "orContinueWith": "veya şununla devam et",
+            "google": "Google"
+        },
+        "register": {
+            "title": "Devrime katıl!",
+            "subtitle": "Dil engeli olmadan dünyayla bağlan",
+            "submit": "Hesap oluştur",
+            "submitting": "Hesap oluşturuluyor...",
+            "hasAccount": "Zaten hesabın var mı?",
+            "switchToLogin": "Giriş yap",
+            "usernameHint": "Girmezsen otomatik oluşturulacak",
+            "nativeLanguageHint": "Ana dil"
+        },
+        "fields": {
+            "firstName": "Ad",
+            "lastName": "Soyad",
+            "username": "Kullanıcı adı (isteğe bağlı)",
+            "email": "E-posta adresi",
+            "password": "Şifre",
+            "nativeLanguage": "Ana dil"
+        },
+        "features": {
+            "title": "🚀 Seni bekleyenler:",
+            "videos": "Gerçek zamanlı çevrilmiş videolar",
+            "languages": "24+ dilde bağlan",
+            "ai": "Gelişmiş AI çevirisi"
+        }
+    },
+    "verify": {
+        "loading": "E-posta doğrulanıyor...",
+        "success": {
+            "title": "E-posta doğrulandı!",
+            "message": "Hesabın doğrulandı. Tüm özelliklerin keyfini çıkar.",
+            "goHome": "Ana sayfaya git"
+        },
+        "error": {
+            "title": "Geçersiz bağlantı",
+            "requestNew": "Yeni bağlantı iste"
+        }
+    },
+    "header": {
+        "search": "Kişileri, gönderileri ara...",
+        "nav": {
+            "home": "Ana Sayfa",
+            "trending": "Trendler",
+            "videos": "Videolar",
+            "messages": "Mesajlar",
+            "notifications": "Bildirimler",
+            "profile": "Profil",
+            "settings": "Ayarlar"
+        },
+        "theme": {
+            "light": "Açık mod",
+            "dark": "Koyu mod"
+        },
+        "menu": "Menü"
+    },
+    "chat": {
+        "input": {
+            "placeholder": "Bir mesaj yaz...",
+            "emojis": "Emojiler",
+            "attach": "Dosya ekle",
+            "camera": "Fotoğraf çek",
+            "voice": "Sesli mesaj kaydet",
+            "send": "Gönder",
+            "recording": "Kaydediliyor...",
+            "stopRecording": "Durdur"
+        },
+        "window": {
+            "noName": "İsimsiz",
+            "selectConversation": "Bir konuşma seç",
+            "selectConversationHint": "Sohbet başlatmak için bir konuşma seç",
+            "uploading": "Dosya yükleniyor...",
+            "speaksLanguage": "Konuştuğu dil: "
+        },
+        "bubble": {
+            "edited": "düzenlendi",
+            "edit": "Düzenle",
+            "delete": "Sil",
+            "deleteForMe": "Benim için sil",
+            "forward": "İlet",
+            "share": "Paylaş",
+            "translate": "Çevir"
+        }
+    },
+    "feed": {
+        "loading": "Videolar yükleniyor...",
+        "loadingMore": "Daha fazla video yükleniyor...",
+        "empty": {
+            "title": "Kullanılabilir video yok",
+            "subtitle": "AI çevirisiyle ilk videoyu yükleyen sen ol",
+            "upload": "Video Yükle"
+        },
+        "position": "{{ current }} / {{ total }}",
+        "aiActive": "AI Çevirisi Aktif",
+        "aiDesc": "Tüm içerik otomatik olarak tercih ettiğin dile çevrilir",
+        "aiLanguages": "Diller",
+        "aiVideos": "Videolar",
+        "suggestedTitle": "Tanıyor olabileceğin kişiler",
+        "suggestedSeeAll": "Tümünü gör",
+        "suggestedFollowers": "takipçi",
+        "suggestedMutual": "ortak",
+        "following": "Takip ediliyor",
+        "follow": "Takip et",
+        "loadingPosts": "Gönderiler yükleniyor...",
+        "noPosts": "Henüz gönderi yok",
+        "noPostsSub": "İlk paylaşımı yapan sen ol!"
+    },
+    "videoPlayer": {
+        "loading": "Video yükleniyor...",
+        "error": {
+            "title": "Video yükleme hatası",
+            "subtitle": "Bu video oynatılamadı",
+            "retry": "Tekrar dene"
+        },
+        "noSupport": "Tarayıcın video etiketini desteklemiyor."
+    },
+    "comments": {
+        "title": "Yorumlar",
+        "placeholder": "Yorum yaz...",
+        "submit": "💬 Yorum yap",
+        "submitting": "Yayınlanıyor...",
+        "loading": "Yükleniyor...",
+        "empty": "İlk yorum yapan sen ol",
+        "loadMore": "↓ Daha fazla yorum",
+        "loadingMore": "Yükleniyor...",
+        "reply": "Yanıtla",
+        "replying": "Yayınlanıyor...",
+        "cancel": "İptal",
+        "save": "Kaydet",
+        "edit": "✏️ Düzenle",
+        "delete": "🗑️ Sil",
+        "edited": "· düzenlendi",
+        "replyTo": "@'ya yanıtla",
+        "replies": {
+            "one": "yanıt",
+            "other": "yanıt"
+        }
+    },
+    "post": {
+        "edit": {
+            "title": "Gönderiyi düzenle",
+            "content": "İçerik:",
+            "tags": "Etiketler (virgülle ayır):",
+            "public": "Herkese açık",
+            "save": "Kaydet",
+            "skip": "Atla"
+        },
+        "likes": {
+            "like": "Beğen",
+            "liked": "Beğenildi",
+            "likedBy": "Beğenenler",
+            "noLikes": "Henüz beğeni yok",
+            "loading": "Yükleniyor..."
+        },
+        "deleteConfirm": "Bu gönderiyi sil?",
+        "deleteBody": "Bu işlem geri alınamaz.",
+        "editMenu": "Düzenle",
+        "deleteMenu": "Sil",
+        "reportMenu": "Şikayet et",
+        "shareMenu": "Paylaş",
+        "comments": "yorumlar",
+        "comment": "Yorum yap",
+        "translateText": "Metni çevir",
+        "extracting": "Çıkarılıyor...",
+        "showImage": "Görseli göster",
+        "showText": "Metni göster",
+        "originalText": "Orijinal metin",
+        "noText": "Bu görselde metin bulunamadı",
+        "translatedTo": "Çeviri:",
+        "from": "kaynak",
+        "showingTranslation": "Çeviri gösteriliyor",
+        "translatePost": "Bu gönderiyi çevir",
+        "translating": "Çevriliyor...",
+        "showOriginal": "Orijinali göster",
+        "translate": "Çevir",
+        "back": "Akışa dön",
+        "close": "Kapat",
+        "translateOverlay": "Görselde çevir",
+        "showOriginalImage": "Orijinali göster"
+    },
+    "profile": {
+        "tabs": {
+            "posts": "Gönderiler",
+            "videos": "Videolar",
+            "liked": "Beğendiklerim",
+            "bookmarks": "Kaydedilenler"
+        },
+        "content": {
+            "noPosts": "Henüz gönderi yok",
+            "noVideos": "Henüz video yok",
+            "likedPosts": "Beğendiğin gönderiler",
+            "savedPosts": "Kaydedilen gönderiler",
+            "loadMore": "Daha fazla gör",
+            "loading": "Yükleniyor..."
+        }
+    },
+    "upload": {
+        "title": "Video/gönderi yükle",
+        "titleField": "Başlık (isteğe bağlı)",
+        "description": "Açıklama (isteğe bağlı)",
+        "submit": "Yükle",
+        "submitting": "Yükleniyor..."
+    },
+    "explore": {
+        "title": "Kişileri keşfet",
+        "subtitle": "Dünyanın dört bir yanından insanları bul ve bağlan",
+        "search": {
+            "placeholder": "İsim veya kullanıcı adıyla ara...",
+            "button": "Ara",
+            "searching": "Aranıyor...",
+            "results": "Sonuçlar ({{ count }})",
+            "noResults": {
+                "title": "Sonuç bulunamadı",
+                "subtitle": "Farklı bir arama terimi dene"
+            }
+        },
+        "followRequests": {
+            "title": "Takip istekleri",
+            "noPending": {
+                "title": "Bekleyen istek yok",
+                "subtitle": "Biri seni takip etmek istediğinde burada görünecek"
+            },
+            "accept": "Kabul et",
+            "reject": "Reddet"
+        },
+        "suggested": {
+            "title": "Tanıyor olabileceğin kişiler",
+            "empty": "Şu an öneri yok",
+            "viewAll": "Tüm önerileri gör",
+            "viewLess": "Daha az gör",
+            "mutual": "{{ count }} ortak takipçi",
+            "follow": "Takip et",
+            "following": "Takip ediliyor",
+            "pending": "Beklemede"
+        },
+        "filters": {
+            "byCountry": "Ülkeye göre filtrele",
+            "allCountries": "Tüm ülkeler"
+        },
+        "actions": {
+            "talk": "Konuşmak istiyorum"
+        },
+        "byCountry": {
+            "title": "Ülkeye göre kişiler",
+            "countries": "ülke",
+            "emptyTitle": "Gösterilecek kişi yok",
+            "emptySubtitle": "Farklı bir ülke veya arama terimi deneyin"
+        }
+    },
+    "countrySetup": {
+        "title": "Nereden geliyorsun?",
+        "subtitle": "Bayrak gönderilerinde ve mesajlarında görünecek, insanlar nereden olduğunu öğrenecek.",
+        "detecting": "Ülken tespit ediliyor...",
+        "detected": "Tespit edilen ülke:",
+        "notDetected": "Ülkeni otomatik olarak tespit edemedik.",
+        "manualSelect": "Ülkeni seç:",
+        "manualPlaceholder": "-- Ülkeni seç --",
+        "notMyCountry": "Bu benim ülkem değil — değiştir",
+        "confirm": "✅ Onayla",
+        "saving": "Kaydediliyor...",
+        "skip": "Şimdilik atla"
+    },
+    "permissions": {
+        "welcome": {
+            "title": "İzinleri ayarla",
+            "subtitle": "En iyi deneyimi sunabilmek için bazı cihaz izinlerine erişmemiz gerekiyor.",
+            "camera": "Canlı yayın için kamera",
+            "microphone": "Görüntülü görüşme için mikrofon",
+            "notifications": "Mesaj bildirimleri",
+            "later": "Sonra ayarla",
+            "continue": "Devam et"
+        },
+        "list": {
+            "title": "Gerekli izinler",
+            "subtitle": "Her izne tıklayarak cihazından iste",
+            "granted": "✓ Verildi",
+            "required": "⚠ Gerekli",
+            "optional": "ℹ İsteğe bağlı",
+            "request": "Erişim iste",
+            "requestAll": "Tümünü iste",
+            "back": "Geri"
+        },
+        "complete": {
+            "title": "Kurulum tamamlandı!",
+            "subtitle": "İzinlerin doğru şekilde yapılandırıldı.",
+            "grantedStatus": "Verildi",
+            "deniedStatus": "Verilmedi",
+            "redirect": "Birkaç saniye içinde ana sayfaya yönlendiriliyor...",
+            "goHome": "Şimdi Ana Sayfaya Git"
+        }
+    },
+    "report": {
+        "title": "🚩 İçeriği şikayet et",
+        "subtitle": "Şikayet nedenini seç",
+        "descriptionLabel": "Ek açıklama (isteğe bağlı)",
+        "descriptionPlaceholder": "Sorun hakkında daha fazla bilgi ver...",
+        "cancel": "İptal",
+        "submit": "Şikayet gönder",
+        "submitting": "Gönderiliyor..."
+    },
+    "terms": {
+        "title": "Şartlar ve Gizlilik",
+        "lastUpdated": "Son güncelleme: Ocak 2025 · Devam etmeden önce dikkatlice oku",
+        "tabs": {
+            "terms": "📄 Kullanım Şartları",
+            "privacy": "🔒 Gizlilik Politikası"
+        },
+        "scroll": {
+            "pending": "Devam etmek için aşağı kaydır",
+            "done": "Belgenin tamamını okudun ✓"
+        },
+        "decline": "Reddet",
+        "accept": "Kabul et ve devam et"
+    },
+    "common": {
+        "loading": "Yükleniyor...",
+        "error": "Bir hata oluştu",
+        "retry": "Tekrar dene",
+        "save": "Kaydet",
+        "cancel": "İptal",
+        "confirm": "Onayla",
+        "delete": "Sil",
+        "edit": "Düzenle",
+        "close": "Kapat",
+        "back": "Geri",
+        "next": "İleri",
+        "skip": "Atla",
+        "search": "Ara",
+        "share": "Paylaş",
+        "report": "Şikayet et",
+        "follow": "Takip et",
+        "unfollow": "Takibi bırak",
+        "following": "Takip ediliyor",
+        "followers": "Takipçiler",
+        "posts": "Gönderiler",
+        "videos": "Videolar"
+    },
+    "settings": {
+        "title": "Ayarlar",
+        "nav": {
+            "profile": "Profil",
+            "account": "Hesap",
+            "notifications": "Bildirimler",
+            "privacy": "Gizlilik",
+            "logout": "Çıkış yap"
+        },
+        "profile": {
+            "title": "Profili düzenle",
+            "avatarHint": "JPG, PNG veya WebP · Maks. 5 MB",
+            "savePhoto": "Fotoğrafı kaydet",
+            "firstName": "Ad",
+            "lastName": "Soyad",
+            "bio": "Biyografi",
+            "bioPlaceholder": "Kendiniz hakkında bir şeyler anlatın...",
+            "website": "Web sitesi",
+            "websitePlaceholder": "https://siteniz.com",
+            "location": "Konum",
+            "locationPlaceholder": "Şehir, Ülke",
+            "nativeLanguage": "Ana dil",
+            "saveChanges": "Değişiklikleri kaydet"
+        },
+        "account": {
+            "title": "Hesap",
+            "email": "E-posta",
+            "username": "Kullanıcı adı",
+            "verified": "Doğrulanmış hesap",
+            "verifiedYes": "Doğrulandı",
+            "verifiedNo": "Doğrulanmadı",
+            "changePassword": "Şifre değiştir",
+            "currentPassword": "Mevcut şifre",
+            "newPassword": "Yeni şifre",
+            "confirmPassword": "Yeni şifreyi onayla",
+            "dangerZone": "Tehlike bölgesi",
+            "dangerDesc": "Bu işlemler kalıcıdır ve geri alınamaz.",
+            "deleteAccount": "Hesabı sil",
+            "deleteDesc": "Hesabını, gönderilerini ve tüm kişisel verilerini kalıcı olarak siler."
+        },
+        "deleteModal": {
+            "title": "Hesabını sil?",
+            "body": "Bu işlem kalıcı ve geri alınamaz. Tüm veriler 30 gün içinde silinir.",
+            "confirmLabel": "Devam etmek için şifreni onayla",
+            "confirmBtn": "Evet, hesabımı sil"
+        },
+        "notifications": {
+            "title": "Bildirimler",
+            "push": "Push bildirimleri",
+            "pushDesc": "Uygulamada etkinlik uyarıları al",
+            "email": "E-posta bildirimleri",
+            "emailDesc": "Haftalık özet ve önemli uyarılar al",
+            "save": "Kaydet"
+        },
+        "privacy": {
+            "title": "Gizlilik ve tercihler",
+            "privateAccount": "Gizli hesap",
+            "privateDesc": "Yalnızca takipçilerin içeriğini görebilir",
+            "autoTranslate": "Otomatik çeviri",
+            "autoTranslateDesc": "Diğer dillerdeki içerikleri otomatik çevir",
+            "prefLang": "Tercih edilen çeviri dili",
+            "prefLangDefault": "Ana dille aynı",
+            "theme": "Tema",
+            "themeAuto": "Otomatik",
+            "themeDark": "Koyu",
+            "themeLight": "Açık",
+            "save": "Kaydet"
+        },
+        "saved": "Değişiklikler başarıyla kaydedildi"
+    },
+    "notifications": {
+        "title": "Bildirimler",
+        "markAllRead": "Tümünü okundu işaretle",
+        "markingAllRead": "İşaretleniyor...",
+        "clearAll": "Tümünü temizle",
+        "filterAll": "Tümü",
+        "filterUnread": "Okunmamış",
+        "loading": "Bildirimler yükleniyor...",
+        "emptyAll": "Bildirim yok",
+        "emptyAllSub": "Yeni bildirimler için daha sonra tekrar kontrol edin",
+        "emptyUnread": "Okunmamış bildirim yok",
+        "emptyUnreadSub": "Güncel durumdasın",
+        "new": "Yeni",
+        "markRead": "Okundu işaretle",
+        "markUnread": "Okunmadı işaretle",
+        "delete": "Sil"
+    },
+    "sidebar": {
+        "following": "Takip edilenler",
+        "followers": "Takipçiler",
+        "posts": "Gönderiler",
+        "navigation": "Navigasyon",
+        "aiTranslation": "AI Çevirisi",
+        "active": "Aktif",
+        "realtimeTranslation": "Gerçek zamanlı çeviri",
+        "realtimeDesc": "Videolar ve Gönderiler",
+        "languages": "24+ Dil",
+        "languagesDesc": "Küresel bağlantı",
+        "instant": "Anında işleme",
+        "instantDesc": "Yıldırım hızında"
+    },
+    "trending": {
+        "title": "Trendler",
+        "loading": "Trendler yükleniyor...",
+        "filterByCountry": "Ülkeye göre filtrele",
+        "global": "Küresel",
+        "noTrending": "Trend konu yok",
+        "videos": "video",
+        "views": "görüntüleme",
+        "onlyFrom": "Yalnızca",
+        "sort": "Sırala:",
+        "sortTrending": "En çok trend",
+        "sortViews": "En çok görüntülenen",
+        "sortRecent": "En yeni",
+        "trendingBadge": "Trend",
+        "watchNow": "Şimdi izle",
+        "gridView": "Izgara",
+        "listView": "Liste"
+    },
+    "lives": {
+        "title": "Canlı",
+        "chat": "Sohbet",
+        "live": "CANLI",
+        "say": "Bir şeyler söyle...",
+        "send": "Gönder"
+    },
+    "videoOverlay": {
+        "follow": "Takip et",
+        "subtitles": "Altyazılar:",
+        "original": "Orijinal",
+        "available": "Mevcut",
+        "requestTranslation": "Çeviri talep et",
+        "translate": "Çevir",
+        "translateVideo": "Videoyu çevir",
+        "translateDesc": "Bu video için AI çevirili altyazı oluştur",
+        "availableLangs": "Mevcut:",
+        "requestLangs": "Çeviri talep et:",
+        "requesting": "Talep ediliyor...",
+        "request": "Talep et",
+        "translationPending": "Çeviri talep edildi. Yakında kullanılabilir olacak.",
+        "close": "Kapat"
+    },
+    "stories": {
+        "title": "Hikayeler",
+        "add": "Ekle"
+    }
 }
