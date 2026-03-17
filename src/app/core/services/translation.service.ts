@@ -63,7 +63,12 @@ export interface ImageTranslationResponse {
   cost_usd: number;
   from_cache: boolean;
 }
-
+export interface ImageOverlayResponse {
+  imageUrl: string;           // URL temporal del blob para mostrar en <img>
+  sourceLanguage: string;
+  targetLanguage: string;
+  blocksTranslated: number;
+}
 // ==================== SERVICIO ====================
 
 @Injectable({
@@ -271,5 +276,58 @@ export class TranslationService {
 
     return this.translateImage(imageId, file, targetLanguage, sourceLanguage);
   }
+
+  // ==================== TRADUCCIÓN CON OVERLAY EN IMAGEN ====================
+
+translateImageWithOverlay(
+  imageId: number,
+  imageFile: File,
+  targetLanguage: string,
+  sourceLanguage?: string
+): Observable<Blob> {
+  const formData = new FormData();
+  formData.append('file', imageFile);
+  formData.append('target_language', targetLanguage);
+  if (sourceLanguage) {
+    formData.append('source_language', sourceLanguage);
+  }
+
+  return this.http.post(
+    `${this.apiUrl}/translations/images/${imageId}/overlay`,
+    formData,
+    {
+      headers: this.getHeadersForFormData(),
+      responseType: 'blob'
+    }
+  ).pipe(
+    catchError(error => {
+      console.error('Error translating image with overlay:', error);
+      return throwError(() => error);
+    })
+  );
 }
 
+/**
+ * Descarga la imagen desde URL y aplica traducción con overlay.
+ */
+async translateImageWithOverlayFromUrl(
+  imageId: number,
+  imageUrl: string,
+  targetLanguage: string,
+  sourceLanguage?: string
+): Promise<Observable<Blob>> {
+  const fullUrl = imageUrl.startsWith('http')
+    ? imageUrl
+    : `${environment.apiBaseUrl}${imageUrl}`;
+
+  const blob = await this.http.get(fullUrl, {
+    headers: this.getHeadersForFormData(),
+    responseType: 'blob'
+  }).toPromise();
+
+  const fileName = imageUrl.split('/').pop() || 'image.jpg';
+  const file = new File([blob!], fileName, { type: blob!.type });
+
+  return this.translateImageWithOverlay(imageId, file, targetLanguage, sourceLanguage);
+}
+}

@@ -1,523 +1,538 @@
 {
-    "brand":  {
-                  "name":  "TINKO",
-                  "tagline":  "AI-Powered Global Connection"
-              },
-    "auth":  {
-                 "forgotPass":  {
-                    "title":  "\u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u0930\u093f\u0915\u0935\u0930 \u0915\u0930\u0947\u0902",
-                    "subtitle":  "\u0905\u092a\u0928\u0947 \u0916\u093e\u0924\u0947 \u0915\u093e \u0908\u092e\u0947\u0932 \u0926\u0930\u094d\u091c \u0915\u0930\u0947\u0902 \u0914\u0930 \u0939\u092e \u0906\u092a\u0915\u094b \u0930\u0940\u0938\u0947\u091f \u0932\u093f\u0902\u0915 \u092d\u0947\u091c\u0947\u0902\u0917\u0947.",
-                    "emailLabel":  "\u0908\u092e\u0947\u0932",
-                    "emailPlaceholder":  "you@email.com",
-                    "sending":  "\u092d\u0947\u091c\u093e \u091c\u093e \u0930\u0939\u093e \u0939\u0948...",
-                    "submit":  "\u0930\u093f\u0915\u0935\u0930\u0940 \u0932\u093f\u0902\u0915 \u092d\u0947\u091c\u0947\u0902",
-                    "backToLogin":  "\u0932\u0949\u0917\u093f\u0928 \u0932\u094c\u091f\u0947\u0902",
-                    "emailRequired":  "\u091c\u093e\u0930\u0940 \u0930\u0916\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f \u0908\u092e\u0947\u0932 \u0926\u0930\u094d\u091c \u0915\u0930\u0947\u0902."
-                },
-"resetPass":  {
-                  "title":  "\u0928\u092f\u093e \u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u0938\u0947\u091f \u0915\u0930\u0947\u0902",
-                  "subtitle":  "\u0905\u092a\u0928\u0947 \u0916\u093e\u0924\u0947 \u0915\u0947 \u0932\u093f\u090f \u090f\u0915 \u092e\u091c\u092c\u0942\u0924 \u0928\u092f\u093e \u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u091a\u0941\u0928\u0947\u0902.",
-                  "newPasswordLabel":  "\u0928\u092f\u093e \u092a\u093e\u0938\u0935\u0930\u094d\u0921",
-                  "newPasswordPlaceholder":  "\u0928\u092f\u093e \u092a\u093e\u0938\u0935\u0930\u094d\u0921",
-                  "confirmPasswordLabel":  "\u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u0915\u0928\u092b\u093c\u0930\u094d\u092e \u0915\u0930\u0947\u0902",
-                  "confirmPasswordPlaceholder":  "\u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u0915\u0928\u092b\u093c\u0930\u094d\u092e \u0915\u0930\u0947\u0902",
-                  "updating":  "\u0905\u092a\u0921\u0947\u091f \u0939\u094b \u0930\u0939\u093e \u0939\u0948...",
-                  "submit":  "\u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u0905\u092a\u0921\u0947\u091f \u0915\u0930\u0947\u0902",
-                  "successTitle":  "\u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u0905\u092a\u0921\u0947\u091f \u0939\u094b \u0917\u092f\u093e!",
-                  "goToLogin":  "\u0932\u0949\u0917\u093f\u0928 \u092a\u0930 \u091c\u093e\u090f\u0902",
-                  "errorTitle":  "\u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u0905\u092a\u0921\u0947\u091f \u0928\u0939\u0940\u0902 \u0939\u094b \u0938\u0915\u093e",
-                  "requestNew":  "\u0928\u0908 \u0930\u093f\u0915\u0935\u0930\u0940 \u0932\u093f\u0902\u0915 \u0915\u0947 \u0932\u093f\u090f \u0905\u0928\u0941\u0930\u094b\u0927 \u0915\u0930\u0947\u0902",
-                  "invalidToken":  "\u0905\u092e\u093e\u0928\u094d\u092f \u092f\u093e \u090f\u0995\u094d\u0938\u092a\u093e\u092f\u0930\u094d\u0921 \u0930\u093f\u0915\u0935\u0930\u0940 \u0932\u093f\u0902\u0915.",
-                  "fillBothFields":  "\u0926\u094b\u0928\u094b\u0902 \u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u092b\u093c\u0940\u0932\u094d\u0921 \u092d\u0930\u0947\u0902.",
-                  "passwordsMismatch":  "\u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u092e\u0947\u0932 \u0928\u0939\u0940\u0902 \u0916\u093e\u0924\u0947."
-              },
-"verifyRequired":  {
-                       "title":  "\u0908\u092e\u0947\u0932 \u0938\u0924\u094d\u092f\u093e\u092a\u093f\u0924 \u0915\u0930\u0947\u0902",
-                       "lead":  "Tinko \u090f\u0915\u094d\u0938\u0947\u0938 \u0938\u0947 \u092a\u0939\u0932\u0947 \u0908\u092e\u0947\u0932 \u0938\u0924\u094d\u092f\u093e\u092a\u093f\u0924 \u0915\u0930\u0928\u093e \u0906\u0935\u0936\u094d\u092f\u0915 \u0939\u0948.",
-                       "registeredEmail":  "\u0939\u092e\u0928\u0947 \u0930\u091c\u093f\u0938\u094d\u0920\u0930\u0940\u0915\u0930\u0923 \u0915\u0947 \u0938\u092e\u092f \u0909\u092a\u092f\u094b\u0917 \u0915\u093f\u090f \u0908\u092e\u0947\u0932 \u092a\u0930 \u0935\u0947\u0930\u093f\u092b\u093c\u093f\u0915\u0947\u0936\u0928 \u0932\u093f\u0902\u0915 \u092d\u0947\u091c\u093e \u0939\u0948.",
-                       "hint":  "\u0905\u0917\u0930 \u0928\u0939\u0940\u0902 \u092e\u093f\u0932\u093e, \u090f\u0938\u092a\u0948\u092e \u092b\u093c\u094b\u0932\u094d\u0921\u0930 \u091a\u0947\u0915 \u0915\u0930\u0947\u0902.",
-                       "resending":  "\u092a\u0941\u0928\u0903 \u092d\u0947\u091c\u093e \u091c\u093e \u0930\u0939\u093e \u0939\u0948...",
-                       "resend":  "\u0935\u0947\u0930\u093f\u092b\u093c\u093f\u0915\u0947\u0936\u0928 \u0908\u092e\u0947\u0932 \u092a\u0941\u0928\u0903 \u092d\u0947\u091c\u0947\u0902",
-                       "verifying":  "\u0938\u0924\u094d\u092f\u093e\u092a\u093f\u0924 \u0939\u094b \u0930\u0939\u093e \u0939\u0948...",
-                       "alreadyVerified":  "\u092a\u0939\u0932\u0947 \u0938\u0947 \u0938\u0924\u094d\u092f\u093e\u092a\u093f\u0924",
-                       "logout":  "\u0932\u0949\u0917\u0906\u0909\u091f"
-                   },
-"login":  {
-                               "title":  "वापसी पर स्वागत है!",
-                               "subtitle":  "अपना वैश्विक अनुभव जारी रखने के लिए लॉग इन करें",
-                               "submit":  "लॉग इन करें",
-                               "submitting":  "लॉग इन हो रहा है...",
-                               "noAccount":  "खाता नहीं है?",
-                               "switchToRegister":  "मुफ्त में साइन अप करें",
-                               "rememberMe":  "मुझे याद रखें",
-                               "forgotPassword":  "पासवर्ड भूल गए?",
-                               "orContinueWith":  "या इससे जारी रखें",
-                               "google":  "Google"
-                           },
-                 "register":  {
-                                  "title":  "क्रांति में शामिल हों!",
-                                  "subtitle":  "भाषा की बाधाओं के बिना दुनिया से जुड़ें",
-                                  "submit":  "खाता बनाएं",
-                                  "submitting":  "खाता बन रहा है...",
-                                  "hasAccount":  "पहले से खाता है?",
-                                  "switchToLogin":  "लॉग इन करें",
-                                  "usernameHint":  "यदि नहीं भरते हैं, तो स्वचालित रूप से बनाया जाएगा",
-                                  "nativeLanguageHint":  "मातृभाषा"
-                              },
-                 "fields":  {
-                                "firstName":  "पहला नाम",
-                                "lastName":  "अंतिम नाम",
-                                "username":  "उपयोगकर्ता नाम (वैकल्पिक)",
-                                "email":  "ईमेल पता",
-                                "password":  "पासवर्ड",
-                                "nativeLanguage":  "मातृभाषा"
-                            },
-                 "features":  {
-                                  "title":  "🚀 आपका इंतजार क्या है:",
-                                  "videos":  "रियल टाइम में अनुवादित वीडियो",
-                                  "languages":  "24+ भाषाओं में जुड़ें",
-                                  "ai":  "उन्नत AI अनुवाद"
-                              }
-             },
-    "verify":  {
-                   "loading":  "ईमेल सत्यापित हो रहा है...",
-                   "success":  {
-                                   "title":  "ईमेल सत्यापित!",
-                                   "message":  "आपका खाता सत्यापित हो गया है। सभी सुविधाओं का आनंद लें।",
-                                   "goHome":  "होम पर जाएं"
-                               },
-                   "error":  {
-                                 "title":  "अमान्य लिंक",
-                                 "requestNew":  "नया लिंक अनुरोध करें"
-                             }
-               },
-    "header":  {
-                   "search":  "लोग, पोस्ट खोजें...",
-                   "nav":  {
-                               "home":  "होम",
-                               "trending":  "ट्रेंडिंग",
-                               "videos":  "वीडियो",
-                               "messages":  "संदेश",
-                               "notifications":  "सूचनाएं",
-                               "profile":  "प्रोफ़ाइल",
-                               "settings":  "सेटिंग्स"
-                           },
-                   "theme":  {
-                                 "light":  "लाइट मोड",
-                                 "dark":  "डार्क मोड"
-                             },
-                   "menu":  "मेनू"
-               },
-    "chat":  {
-                 "input":  {
-                               "placeholder":  "संदेश लिखें...",
-                               "emojis":  "इमोजी",
-                               "attach":  "फ़ाइल संलग्न करें",
-                               "camera":  "फोटो लें",
-                               "voice":  "वॉयस मैसेज रिकॉर्ड करें",
-                               "send":  "भेजें",
-                               "recording":  "रिकॉर्ड हो रहा है...",
-                               "stopRecording":  "रोकें"
-                           },
-                 "window":  {
-                                "noName":  "कोई नाम नहीं",
-                                "selectConversation":  "बातचीत चुनें",
-                                "selectConversationHint":  "चैट शुरू करने के लिए एक बातचीत चुनें",
-                                "uploading":  "फ़ाइल अपलोड हो रही है...",
-                                "speaksLanguage":  "बोलता है "
-                            },
-                 "bubble":  {
-                                "edited":  "संपादित",
-                                "edit":  "संपादित करें",
-                                "delete":  "हटाएं",
-                                "deleteForMe":  "मेरे लिए हटाएं",
-                                "forward":  "फॉरवर्ड करें",
-                                "share":  "साझा करें",
-                                "translate":  "अनुवाद करें"
-                            }
-             },
-    "feed":  {
-                 "loading":  "वीडियो लोड हो रहे हैं...",
-                 "loadingMore":  "और वीडियो लोड हो रहे हैं...",
-                 "empty":  {
-                               "title":  "कोई वीडियो उपलब्ध नहीं",
-                               "subtitle":  "AI अनुवाद के साथ पहला वीडियो अपलोड करें",
-                               "upload":  "वीडियो अपलोड करें"
-                           },
-                 "position":  "{{ current }} / {{ total }}",
-                 "aiActive":  "AI Translation Active",
-                 "aiDesc":  "All content automatically translated to your preferred language",
-                 "aiLanguages":  "Languages",
-                 "aiVideos":  "Videos",
-                 "suggestedTitle":  "People you may know",
-                 "suggestedSeeAll":  "See all",
-                 "suggestedFollowers":  "followers",
-                 "suggestedMutual":  "in common",
-                 "following":  "Following",
-                 "follow":  "Follow",
-                 "loadingPosts":  "Loading posts...",
-                 "noPosts":  "No posts yet",
-                 "noPostsSub":  "Be the first to share something!"
-             },
-    "videoPlayer":  {
-                        "loading":  "वीडियो लोड हो रहा है...",
-                        "error":  {
-                                      "title":  "वीडियो लोड करने में त्रुटि",
-                                      "subtitle":  "यह वीडियो नहीं चला सका",
-                                      "retry":  "पुनः प्रयास करें"
-                                  },
-                        "noSupport":  "आपका ब्राउज़र वीडियो टैग का समर्थन नहीं करता।"
-                    },
-    "comments":  {
-                     "title":  "टिप्पणियां",
-                     "placeholder":  "टिप्पणी लिखें...",
-                     "submit":  "💬 टिप्पणी करें",
-                     "submitting":  "पोस्ट हो रहा है...",
-                     "loading":  "लोड हो रहा है...",
-                     "empty":  "पहली टिप्पणी करें",
-                     "loadMore":  "↓ और टिप्पणियां देखें",
-                     "loadingMore":  "लोड हो रहा है...",
-                     "reply":  "जवाब दें",
-                     "replying":  "पोस्ट हो रहा है...",
-                     "cancel":  "रद्द करें",
-                     "save":  "सहेजें",
-                     "edit":  "✏️ संपादित करें",
-                     "delete":  "🗑️ हटाएं",
-                     "edited":  "· संपादित",
-                     "replyTo":  "@ को जवाब दें",
-                     "replies":  {
-                                     "one":  "जवाब",
-                                     "other":  "जवाब"
-                                 }
-                 },
-    "post":  {
-                 "edit":  {
-                              "title":  "पोस्ट संपादित करें",
-                              "content":  "सामग्री:",
-                              "tags":  "टैग (कॉमा से अलग करें):",
-                              "public":  "सार्वजनिक",
-                              "save":  "सहेजें",
-                              "skip":  "छोड़ें"
-                          },
-                 "likes":  {
-                               "like":  "पसंद",
-                               "liked":  "पसंद किया",
-                               "likedBy":  "किसे पसंद आया",
-                               "noLikes":  "अभी तक कोई पसंद नहीं",
-                               "loading":  "लोड हो रहा है..."
-                           },
-                 "deleteConfirm":  "Delete this post?",
-                 "deleteBody":  "This action cannot be undone.",
-                 "editMenu":  "Edit",
-                 "deleteMenu":  "Delete",
-                 "reportMenu":  "Report",
-                 "shareMenu":  "Share",
-                 "comments":  "comments",
-                 "comment":  "Comment",
-                 "translateText":  "Translate text",
-                 "extracting":  "Extracting...",
-                 "showImage":  "Show image",
-                 "showText":  "Show text",
-                 "originalText":  "Original text",
-                 "noText":  "No text found in this image",
-                 "translatedTo":  "Translated to",
-                 "from":  "from",
-                 "showingTranslation":  "Showing translation",
-                 "translatePost":  "Translate this post",
-                 "translating":  "Translating...",
-                 "showOriginal":  "Show Original",
-                 "translate":  "Translate",
-                 "back":  "Back to feed",
-                 "close":  "Close"
-             },
-    "profile":  {
-                    "tabs":  {
-                                 "posts":  "पोस्ट",
-                                 "videos":  "वीडियो",
-                                 "liked":  "पसंद",
-                                 "bookmarks":  "सहेजे गए"
-                             },
-                    "content":  {
-                                    "noPosts":  "अभी तक कोई पोस्ट नहीं",
-                                    "noVideos":  "अभी तक कोई वीडियो नहीं",
-                                    "likedPosts":  "आपकी पसंद की पोस्ट",
-                                    "savedPosts":  "सहेजी गई पोस्ट",
-                                    "loadMore":  "और देखें",
-                                    "loading":  "लोड हो रहा है..."
-                                }
-                },
-    "upload":  {
-                   "title":  "वीडियो/पोस्ट अपलोड करें",
-                   "titleField":  "शीर्षक (वैकल्पिक)",
-                   "description":  "विवरण (वैकल्पिक)",
-                   "submit":  "अपलोड करें",
-                   "submitting":  "अपलोड हो रहा है..."
-               },
-    "explore":  {
-                    "title":  "लोगों की खोज करें",
-                    "subtitle":  "दुनिया भर के लोगों को ढूंढें और जुड़ें",
-                    "search":  {
-                                   "placeholder":  "नाम या उपयोगकर्ता नाम से खोजें...",
-                                   "button":  "खोजें",
-                                   "searching":  "खोज रहे हैं...",
-                                   "results":  "परिणाम ({{ count }})",
-                                   "noResults":  {
-                                                     "title":  "कोई परिणाम नहीं मिला",
-                                                     "subtitle":  "किसी अन्य शब्द से खोजें"
-                                                 }
-                               },
-                    "followRequests":  {
-                                           "title":  "फॉलो अनुरोध",
-                                           "noPending":  {
-                                                             "title":  "कोई लंबित अनुरोध नहीं",
-                                                             "subtitle":  "जब कोई आपको फॉलो करना चाहेगा, यहां दिखाई देगा"
-                                                         },
-                                           "accept":  "स्वीकार करें",
-                                           "reject":  "अस्वीकार करें"
-                                       },
-                    "suggested":  {
-                                      "title":  "जिन्हें आप जानते हों",
-                                      "empty":  "अभी कोई सुझाव नहीं",
-                                      "viewAll":  "सभी सुझाव देखें",
-                                      "viewLess":  "कम देखें",
-                                      "mutual":  "{{ count }} साझा फॉलोवर",
-                                      "follow":  "फॉलो करें",
-                                      "following":  "फॉलो कर रहे हैं",
-                                      "pending":  "लंबित"
-                                  }
-                },
-    "countrySetup":  {
-                         "title":  "आप कहाँ से हैं?",
-                         "subtitle":  "आपका झंडा आपकी पोस्ट और संदेशों पर दिखेगा ताकि लोग जान सकें आप कहाँ से हैं।",
-                         "detecting":  "आपका देश पता लगाया जा रहा है...",
-                         "detected":  "पता लगाया गया देश:",
-                         "notDetected":  "हम आपका देश स्वचालित रूप से नहीं पहचान सके।",
-                         "manualSelect":  "अपना देश चुनें:",
-                         "manualPlaceholder":  "-- अपना देश चुनें --",
-                         "notMyCountry":  "यह मेरा देश नहीं है — बदलें",
-                         "confirm":  "✅ पुष्टि करें",
-                         "saving":  "सहेजा जा रहा है...",
-                         "skip":  "अभी के लिए छोड़ें"
-                     },
-    "permissions":  {
-                        "welcome":  {
-                                        "title":  "अनुमतियां सेट करें",
-                                        "subtitle":  "सर्वोत्तम अनुभव देने के लिए हमें कुछ डिवाइस अनुमतियों की जरूरत है।",
-                                        "camera":  "लाइव स्ट्रीम के लिए कैमरा",
-                                        "microphone":  "वीडियो कॉल के लिए माइक्रोफ़ोन",
-                                        "notifications":  "संदेश सूचनाएं",
-                                        "later":  "बाद में सेट करें",
-                                        "continue":  "जारी रखें"
-                                    },
-                        "list":  {
-                                     "title":  "आवश्यक अनुमतियां",
-                                     "subtitle":  "प्रत्येक अनुमति पर क्लिक करके उसे अनुरोध करें",
-                                     "granted":  "✓ दी गई",
-                                     "required":  "⚠ आवश्यक",
-                                     "optional":  "ℹ वैकल्पिक",
-                                     "request":  "एक्सेस का अनुरोध करें",
-                                     "requestAll":  "सभी का अनुरोध करें",
-                                     "back":  "वापस"
-                                 },
-                        "complete":  {
-                                         "title":  "सेटअप पूर्ण!",
-                                         "subtitle":  "आपकी अनुमतियां सही तरह से कॉन्फ़िगर हो गई हैं।",
-                                         "grantedStatus":  "दी गई",
-                                         "deniedStatus":  "नहीं दी गई",
-                                         "redirect":  "कुछ सेकंड में होम पर जाएंगे...",
-                                         "goHome":  "अभी होम पर जाएं"
-                                     }
-                    },
-    "report":  {
-                   "title":  "🚩 सामग्री की रिपोर्ट करें",
-                   "subtitle":  "रिपोर्ट का कारण चुनें",
-                   "descriptionLabel":  "अतिरिक्त विवरण (वैकल्पिक)",
-                   "descriptionPlaceholder":  "समस्या के बारे में और बताएं...",
-                   "cancel":  "रद्द करें",
-                   "submit":  "रिपोर्ट भेजें",
-                   "submitting":  "भेजा जा रहा है..."
-               },
-    "terms":  {
-                  "title":  "नियम, शर्तें और गोपनीयता",
-                  "lastUpdated":  "अंतिम अपडेट: जनवरी 2025 · जारी रखने से पहले ध्यान से पढ़ें",
-                  "tabs":  {
-                               "terms":  "📄 नियम और शर्तें",
-                               "privacy":  "🔒 गोपनीयता नीति"
-                           },
-                  "scroll":  {
-                                 "pending":  "जारी रखने के लिए नीचे स्क्रॉल करें",
-                                 "done":  "आपने पूरा दस्तावेज़ पढ़ लिया ✓"
-                             },
-                  "decline":  "अस्वीकार करें",
-                  "accept":  "स्वीकार करें और जारी रखें"
-              },
-    "common":  {
-                   "loading":  "लोड हो रहा है...",
-                   "error":  "एक त्रुटि हुई",
-                   "retry":  "पुनः प्रयास करें",
-                   "save":  "सहेजें",
-                   "cancel":  "रद्द करें",
-                   "confirm":  "पुष्टि करें",
-                   "delete":  "हटाएं",
-                   "edit":  "संपादित करें",
-                   "close":  "बंद करें",
-                   "back":  "वापस",
-                   "next":  "अगला",
-                   "skip":  "छोड़ें",
-                   "search":  "खोजें",
-                   "share":  "साझा करें",
-                   "report":  "रिपोर्ट करें",
-                   "follow":  "फॉलो करें",
-                   "unfollow":  "अनफॉलो करें",
-                   "following":  "फॉलो कर रहे हैं",
-                   "followers":  "फॉलोवर",
-                   "posts":  "पोस्ट",
-                   "videos":  "वीडियो"
-               },
-    "settings":  {
-                     "title":  "Settings",
-                     "nav":  {
-                                 "profile":  "Profile",
-                                 "account":  "Account",
-                                 "notifications":  "Notifications",
-                                 "privacy":  "Privacy",
-                                 "logout":  "Log out"
-                             },
-                     "profile":  {
-                                     "title":  "Edit Profile",
-                                     "avatarHint":  "JPG, PNG or WebP · Max 5MB",
-                                     "savePhoto":  "Save photo",
-                                     "firstName":  "First name",
-                                     "lastName":  "Last name",
-                                     "bio":  "Bio",
-                                     "bioPlaceholder":  "Tell us something about you...",
-                                     "website":  "Website",
-                                     "websitePlaceholder":  "https://your-site.com",
-                                     "location":  "Location",
-                                     "locationPlaceholder":  "City, Country",
-                                     "nativeLanguage":  "Native language",
-                                     "saveChanges":  "Save changes"
-                                 },
-                     "account":  {
-                                     "title":  "Account",
-                                     "email":  "Email",
-                                     "username":  "Username",
-                                     "verified":  "Verified account",
-                                     "verifiedYes":  "Verified",
-                                     "verifiedNo":  "Not verified",
-                                     "changePassword":  "Change password",
-                                     "currentPassword":  "Current password",
-                                     "newPassword":  "New password",
-                                     "confirmPassword":  "Confirm new password",
-                                     "dangerZone":  "Danger zone",
-                                     "dangerDesc":  "These actions are permanent and cannot be undone.",
-                                     "deleteAccount":  "Delete account",
-                                     "deleteDesc":  "Permanently deletes your account, posts and all personal data."
-                                 },
-                     "deleteModal":  {
-                                         "title":  "Delete your account?",
-                                         "body":  "This action is permanent and irreversible. All your data, posts and videos will be deleted within 30 days.",
-                                         "confirmLabel":  "Confirm your password to continue",
-                                         "confirmBtn":  "Yes, delete my account"
-                                     },
-                     "notifications":  {
-                                           "title":  "Notifications",
-                                           "push":  "Push notifications",
-                                           "pushDesc":  "Receive activity alerts in the app",
-                                           "email":  "Email notifications",
-                                           "emailDesc":  "Receive a weekly summary and important alerts",
-                                           "save":  "Save"
-                                       },
-                     "privacy":  {
-                                     "title":  "Privacy and Preferences",
-                                     "privateAccount":  "Private account",
-                                     "privateDesc":  "Only your followers can see your content",
-                                     "autoTranslate":  "Auto-translate",
-                                     "autoTranslateDesc":  "Automatically translate content from other languages",
-                                     "prefLang":  "Preferred translation language",
-                                     "prefLangDefault":  "Same as native",
-                                     "theme":  "Theme",
-                                     "themeAuto":  "Automatic",
-                                     "themeDark":  "Dark",
-                                     "themeLight":  "Light",
-                                     "save":  "Save"
-                                 },
-                     "saved":  "Changes saved successfully"
-                 },
-    "notifications":  {
-                          "title":  "Notifications",
-                          "markAllRead":  "Mark all as read",
-                          "markingAllRead":  "Marking...",
-                          "clearAll":  "Clear all",
-                          "filterAll":  "All",
-                          "filterUnread":  "Unread",
-                          "loading":  "Loading notifications...",
-                          "emptyAll":  "No notifications",
-                          "emptyAllSub":  "Check back later for new notifications",
-                          "emptyUnread":  "No unread notifications",
-                          "emptyUnreadSub":  "You are up to date",
-                          "new":  "New",
-                          "markRead":  "Mark as read",
-                          "markUnread":  "Mark as unread",
-                          "delete":  "Delete"
-                      },
-    "sidebar":  {
-                    "following":  "Following",
-                    "followers":  "Followers",
-                    "posts":  "Posts",
-                    "navigation":  "Navigation",
-                    "aiTranslation":  "AI Translation",
-                    "active":  "Active",
-                    "realtimeTranslation":  "Real-time Translation",
-                    "realtimeDesc":  "Videos \u0026 Posts",
-                    "languages":  "24+ Languages",
-                    "languagesDesc":  "Global connectivity",
-                    "instant":  "Instant Processing",
-                    "instantDesc":  "Lightning fast"
-                },
-    "trending":  {
-                     "title":  "Trending",
-                     "loading":  "Loading trends...",
-                     "filterByCountry":  "Filter by country",
-                     "global":  "Global",
-                     "noTrending":  "No trending topics available",
-                     "videos":  "videos",
-                     "views":  "views",
-                     "onlyFrom":  "Only from",
-                     "sort":  "Sort:",
-                     "sortTrending":  "Most trending",
-                     "sortViews":  "Most views",
-                     "sortRecent":  "Most recent",
-                     "trendingBadge":  "Trending",
-                     "watchNow":  "Watch now",
-                     "gridView":  "Grid",
-                     "listView":  "List"
-                 },
-    "lives":  {
-                  "title":  "Live",
-                  "chat":  "Chat",
-                  "live":  "LIVE",
-                  "say":  "Say something...",
-                  "send":  "Send"
-              },
-    "videoOverlay":  {
-                         "follow":  "Follow",
-                         "subtitles":  "Subtitles:",
-                         "original":  "Original",
-                         "available":  "Available",
-                         "requestTranslation":  "Request translation",
-                         "translate":  "Translate",
-                         "translateVideo":  "Translate Video",
-                         "translateDesc":  "Generate AI translated subtitles for this video",
-                         "availableLangs":  "Available:",
-                         "requestLangs":  "Request translation:",
-                         "requesting":  "Requesting...",
-                         "request":  "Request",
-                         "translationPending":  "Translation requested! It will be available shortly.",
-                         "close":  "Close"
-                     },
-    "stories":  {
-                    "title":  "Stories",
-                    "add":  "Add"
-                }
+    "brand": {
+        "name": "TINKO",
+        "tagline": "AI-Powered Global Connection"
+    },
+    "auth": {
+        "forgotPass": {
+            "title": "पासवर्ड रिकवर करें",
+            "subtitle": "अपने खाते का ईमेल दर्ज करें और हम आपको रीसेट लिंक भेजेंगे।",
+            "emailLabel": "ईमेल",
+            "emailPlaceholder": "you@email.com",
+            "sending": "भेजा जा रहा है...",
+            "submit": "रिकवरी लिंक भेजें",
+            "backToLogin": "लॉगिन लौटें",
+            "emailRequired": "जारी रखने के लिए ईमेल दर्ज करें।"
+        },
+        "resetPass": {
+            "title": "नया पासवर्ड सेट करें",
+            "subtitle": "अपने खाते के लिए एक मजबूत नया पासवर्ड चुनें।",
+            "newPasswordLabel": "नया पासवर्ड",
+            "newPasswordPlaceholder": "नया पासवर्ड",
+            "confirmPasswordLabel": "पासवर्ड कन्फर्म करें",
+            "confirmPasswordPlaceholder": "पासवर्ड कन्फर्म करें",
+            "updating": "अपडेट हो रहा है...",
+            "submit": "पासवर्ड अपडेट करें",
+            "successTitle": "पासवर्ड अपडेट हो गया!",
+            "goToLogin": "लॉगिन पर जाएं",
+            "errorTitle": "पासवर्ड अपडेट नहीं हो सका",
+            "requestNew": "नई रिकवरी लिंक के लिए अनुरोध करें",
+            "invalidToken": "अमान्य या एक्सपायर्ड रिकवरी लिंक।",
+            "fillBothFields": "दोनों पासवर्ड फ़ील्ड भरें।",
+            "passwordsMismatch": "पासवर्ड मेल नहीं खाते।"
+        },
+        "verifyRequired": {
+            "title": "ईमेल सत्यापित करें",
+            "lead": "Tinko एक्सेस से पहले ईमेल सत्यापित करना आवश्यक है।",
+            "registeredEmail": "हमने पंजीकरण के समय उपयोग किए ईमेल पर सत्यापन लिंक भेजा है।",
+            "hint": "अगर नहीं मिला, स्पैम फ़ोल्डर चेक करें।",
+            "resending": "पुनः भेजा जा रहा है...",
+            "resend": "वेरिफिकेशन ईमेल पुनः भेजें",
+            "verifying": "सत्यापित हो रहा है...",
+            "alreadyVerified": "पहले से सत्यापित",
+            "logout": "लॉगआउट"
+        },
+        "login": {
+            "title": "वापसी पर स्वागत है!",
+            "subtitle": "अपना वैश्विक अनुभव जारी रखने के लिए लॉग इन करें",
+            "submit": "लॉग इन करें",
+            "submitting": "लॉग इन हो रहा है...",
+            "noAccount": "खाता नहीं है?",
+            "switchToRegister": "मुफ्त में साइन अप करें",
+            "rememberMe": "मुझे याद रखें",
+            "forgotPassword": "पासवर्ड भूल गए?",
+            "orContinueWith": "या इससे जारी रखें",
+            "google": "Google"
+        },
+        "register": {
+            "title": "क्रांति में शामिल हों!",
+            "subtitle": "भाषा की बाधाओं के बिना दुनिया से जुड़ें",
+            "submit": "खाता बनाएं",
+            "submitting": "खाता बन रहा है...",
+            "hasAccount": "पहले से खाता है?",
+            "switchToLogin": "लॉग इन करें",
+            "usernameHint": "यदि नहीं भरते हैं, तो स्वचालित रूप से बनाया जाएगा",
+            "nativeLanguageHint": "मातृभाषा"
+        },
+        "fields": {
+            "firstName": "पहला नाम",
+            "lastName": "अंतिम नाम",
+            "username": "उपयोगकर्ता नाम (वैकल्पिक)",
+            "email": "ईमेल पता",
+            "password": "पासवर्ड",
+            "nativeLanguage": "मातृभाषा"
+        },
+        "features": {
+            "title": "🚀 आपका इंतजार क्या है:",
+            "videos": "रियल टाइम में अनुवादित वीडियो",
+            "languages": "24+ भाषाओं में जुड़ें",
+            "ai": "उन्नत AI अनुवाद"
+        }
+    },
+    "verify": {
+        "loading": "ईमेल सत्यापित हो रहा है...",
+        "success": {
+            "title": "ईमेल सत्यापित!",
+            "message": "आपका खाता सत्यापित हो गया है। सभी सुविधाओं का आनंद लें।",
+            "goHome": "होम पर जाएं"
+        },
+        "error": {
+            "title": "अमान्य लिंक",
+            "requestNew": "नया लिंक अनुरोध करें"
+        }
+    },
+    "header": {
+        "search": "लोग, पोस्ट खोजें...",
+        "nav": {
+            "home": "होम",
+            "trending": "ट्रेंडिंग",
+            "videos": "वीडियो",
+            "messages": "संदेश",
+            "notifications": "सूचनाएं",
+            "profile": "प्रोफ़ाइल",
+            "settings": "सेटिंग्स"
+        },
+        "theme": {
+            "light": "लाइट मोड",
+            "dark": "डार्क मोड"
+        },
+        "menu": "मेनू"
+    },
+    "chat": {
+        "input": {
+            "placeholder": "संदेश लिखें...",
+            "emojis": "इमोजी",
+            "attach": "फ़ाइल संलग्न करें",
+            "camera": "फोटो लें",
+            "voice": "वॉयस मैसेज रिकॉर्ड करें",
+            "send": "भेजें",
+            "recording": "रिकॉर्ड हो रहा है...",
+            "stopRecording": "रोकें"
+        },
+        "window": {
+            "noName": "कोई नाम नहीं",
+            "selectConversation": "बातचीत चुनें",
+            "selectConversationHint": "चैट शुरू करने के लिए एक बातचीत चुनें",
+            "uploading": "फ़ाइल अपलोड हो रही है...",
+            "speaksLanguage": "बोलता है "
+        },
+        "bubble": {
+            "edited": "संपादित",
+            "edit": "संपादित करें",
+            "delete": "हटाएं",
+            "deleteForMe": "मेरे लिए हटाएं",
+            "forward": "फॉरवर्ड करें",
+            "share": "साझा करें",
+            "translate": "अनुवाद करें"
+        }
+    },
+    "feed": {
+        "loading": "वीडियो लोड हो रहे हैं...",
+        "loadingMore": "और वीडियो लोड हो रहे हैं...",
+        "empty": {
+            "title": "कोई वीडियो उपलब्ध नहीं",
+            "subtitle": "AI अनुवाद के साथ पहला वीडियो अपलोड करें",
+            "upload": "वीडियो अपलोड करें"
+        },
+        "position": "{{ current }} / {{ total }}",
+        "aiActive": "AI अनुवाद सक्रिय",
+        "aiDesc": "सभी सामग्री स्वचालित रूप से आपकी पसंदीदा भाषा में अनुवादित होती है",
+        "aiLanguages": "भाषाएं",
+        "aiVideos": "वीडियो",
+        "suggestedTitle": "जिन्हें आप जानते हों",
+        "suggestedSeeAll": "सभी देखें",
+        "suggestedFollowers": "फॉलोवर",
+        "suggestedMutual": "साझा",
+        "following": "फॉलो कर रहे हैं",
+        "follow": "फॉलो करें",
+        "loadingPosts": "पोस्ट लोड हो रहे हैं...",
+        "noPosts": "अभी तक कोई पोस्ट नहीं",
+        "noPostsSub": "पहले कुछ साझा करें!"
+    },
+    "videoPlayer": {
+        "loading": "वीडियो लोड हो रहा है...",
+        "error": {
+            "title": "वीडियो लोड करने में त्रुटि",
+            "subtitle": "यह वीडियो नहीं चला सका",
+            "retry": "पुनः प्रयास करें"
+        },
+        "noSupport": "आपका ब्राउज़र वीडियो टैग का समर्थन नहीं करता।"
+    },
+    "comments": {
+        "title": "टिप्पणियां",
+        "placeholder": "टिप्पणी लिखें...",
+        "submit": "💬 टिप्पणी करें",
+        "submitting": "पोस्ट हो रहा है...",
+        "loading": "लोड हो रहा है...",
+        "empty": "पहली टिप्पणी करें",
+        "loadMore": "↓ और टिप्पणियां देखें",
+        "loadingMore": "लोड हो रहा है...",
+        "reply": "जवाब दें",
+        "replying": "पोस्ट हो रहा है...",
+        "cancel": "रद्द करें",
+        "save": "सहेजें",
+        "edit": "✏️ संपादित करें",
+        "delete": "🗑️ हटाएं",
+        "edited": "· संपादित",
+        "replyTo": "@ को जवाब दें",
+        "replies": {
+            "one": "जवाब",
+            "other": "जवाब"
+        }
+    },
+    "post": {
+        "edit": {
+            "title": "पोस्ट संपादित करें",
+            "content": "सामग्री:",
+            "tags": "टैग (कॉमा से अलग करें):",
+            "public": "सार्वजनिक",
+            "save": "सहेजें",
+            "skip": "छोड़ें"
+        },
+        "likes": {
+            "like": "पसंद",
+            "liked": "पसंद किया",
+            "likedBy": "किसे पसंद आया",
+            "noLikes": "अभी तक कोई पसंद नहीं",
+            "loading": "लोड हो रहा है..."
+        },
+        "deleteConfirm": "इस पोस्ट को हटाएं?",
+        "deleteBody": "इस क्रिया को पूर्ववत नहीं किया जा सकता।",
+        "editMenu": "संपादित करें",
+        "deleteMenu": "हटाएं",
+        "reportMenu": "रिपोर्ट करें",
+        "shareMenu": "साझा करें",
+        "comments": "टिप्पणियां",
+        "comment": "टिप्पणी करें",
+        "translateText": "टेक्स्ट अनुवाद करें",
+        "extracting": "निकाला जा रहा है...",
+        "showImage": "छवि दिखाएं",
+        "showText": "टेक्स्ट दिखाएं",
+        "originalText": "मूल टेक्स्ट",
+        "noText": "इस छवि में कोई टेक्स्ट नहीं मिला",
+        "translatedTo": "अनुवादित",
+        "from": "से",
+        "showingTranslation": "अनुवाद दिखाया जा रहा है",
+        "translatePost": "इस पोस्ट का अनुवाद करें",
+        "translating": "अनुवाद हो रहा है...",
+        "showOriginal": "मूल दिखाएं",
+        "translate": "अनुवाद करें",
+        "back": "फ़ीड पर वापस जाएं",
+        "close": "बंद करें",
+        "translateOverlay": "छवि में अनुवाद करें",
+        "showOriginalImage": "मूल दिखाएं"
+    },
+    "profile": {
+        "tabs": {
+            "posts": "पोस्ट",
+            "videos": "वीडियो",
+            "liked": "पसंद",
+            "bookmarks": "सहेजे गए"
+        },
+        "content": {
+            "noPosts": "अभी तक कोई पोस्ट नहीं",
+            "noVideos": "अभी तक कोई वीडियो नहीं",
+            "likedPosts": "आपकी पसंद की पोस्ट",
+            "savedPosts": "सहेजी गई पोस्ट",
+            "loadMore": "और देखें",
+            "loading": "लोड हो रहा है..."
+        }
+    },
+    "upload": {
+        "title": "वीडियो/पोस्ट अपलोड करें",
+        "titleField": "शीर्षक (वैकल्पिक)",
+        "description": "विवरण (वैकल्पिक)",
+        "submit": "अपलोड करें",
+        "submitting": "अपलोड हो रहा है..."
+    },
+    "explore": {
+        "title": "लोगों की खोज करें",
+        "subtitle": "दुनिया भर के लोगों को ढूंढें और जुड़ें",
+        "search": {
+            "placeholder": "नाम या उपयोगकर्ता नाम से खोजें...",
+            "button": "खोजें",
+            "searching": "खोज रहे हैं...",
+            "results": "परिणाम ({{ count }})",
+            "noResults": {
+                "title": "कोई परिणाम नहीं मिला",
+                "subtitle": "किसी अन्य शब्द से खोजें"
+            }
+        },
+        "followRequests": {
+            "title": "फॉलो अनुरोध",
+            "noPending": {
+                "title": "कोई लंबित अनुरोध नहीं",
+                "subtitle": "जब कोई आपको फॉलो करना चाहेगा, यहां दिखाई देगा"
+            },
+            "accept": "स्वीकार करें",
+            "reject": "अस्वीकार करें"
+        },
+        "suggested": {
+            "title": "जिन्हें आप जानते हों",
+            "empty": "अभी कोई सुझाव नहीं",
+            "viewAll": "सभी सुझाव देखें",
+            "viewLess": "कम देखें",
+            "mutual": "{{ count }} साझा फॉलोवर",
+            "follow": "फॉलो करें",
+            "following": "फॉलो कर रहे हैं",
+            "pending": "लंबित"
+        },
+        "filters": {
+            "byCountry": "देश से फ़िल्टर करें",
+            "allCountries": "सभी देश"
+        },
+        "actions": {
+            "talk": "मैं बात करना चाहता हूं"
+        },
+        "byCountry": {
+            "title": "देश के अनुसार लोग",
+            "countries": "देश",
+            "emptyTitle": "दिखाने के लिए कोई व्यक्ति नहीं",
+            "emptySubtitle": "दूसरे देश या खोज शब्द से खोजें"
+        }
+    },
+    "countrySetup": {
+        "title": "आप कहाँ से हैं?",
+        "subtitle": "आपका झंडा आपकी पोस्ट और संदेशों पर दिखेगा ताकि लोग जान सकें आप कहाँ से हैं।",
+        "detecting": "आपका देश पता लगाया जा रहा है...",
+        "detected": "पता लगाया गया देश:",
+        "notDetected": "हम आपका देश स्वचालित रूप से नहीं पहचान सके।",
+        "manualSelect": "अपना देश चुनें:",
+        "manualPlaceholder": "-- अपना देश चुनें --",
+        "notMyCountry": "यह मेरा देश नहीं है — बदलें",
+        "confirm": "✅ पुष्टि करें",
+        "saving": "सहेजा जा रहा है...",
+        "skip": "अभी के लिए छोड़ें"
+    },
+    "permissions": {
+        "welcome": {
+            "title": "अनुमतियां सेट करें",
+            "subtitle": "सर्वोत्तम अनुभव देने के लिए हमें कुछ डिवाइस अनुमतियों की जरूरत है।",
+            "camera": "लाइव स्ट्रीम के लिए कैमरा",
+            "microphone": "वीडियो कॉल के लिए माइक्रोफ़ोन",
+            "notifications": "संदेश सूचनाएं",
+            "later": "बाद में सेट करें",
+            "continue": "जारी रखें"
+        },
+        "list": {
+            "title": "आवश्यक अनुमतियां",
+            "subtitle": "प्रत्येक अनुमति पर क्लिक करके उसे अनुरोध करें",
+            "granted": "✓ दी गई",
+            "required": "⚠ आवश्यक",
+            "optional": "ℹ वैकल्पिक",
+            "request": "एक्सेस का अनुरोध करें",
+            "requestAll": "सभी का अनुरोध करें",
+            "back": "वापस"
+        },
+        "complete": {
+            "title": "सेटअप पूर्ण!",
+            "subtitle": "आपकी अनुमतियां सही तरह से कॉन्फ़िगर हो गई हैं।",
+            "grantedStatus": "दी गई",
+            "deniedStatus": "नहीं दी गई",
+            "redirect": "कुछ सेकंड में होम पर जाएंगे...",
+            "goHome": "अभी होम पर जाएं"
+        }
+    },
+    "report": {
+        "title": "🚩 सामग्री की रिपोर्ट करें",
+        "subtitle": "रिपोर्ट का कारण चुनें",
+        "descriptionLabel": "अतिरिक्त विवरण (वैकल्पिक)",
+        "descriptionPlaceholder": "समस्या के बारे में और बताएं...",
+        "cancel": "रद्द करें",
+        "submit": "रिपोर्ट भेजें",
+        "submitting": "भेजा जा रहा है..."
+    },
+    "terms": {
+        "title": "नियम, शर्तें और गोपनीयता",
+        "lastUpdated": "अंतिम अपडेट: जनवरी 2025 · जारी रखने से पहले ध्यान से पढ़ें",
+        "tabs": {
+            "terms": "📄 नियम और शर्तें",
+            "privacy": "🔒 गोपनीयता नीति"
+        },
+        "scroll": {
+            "pending": "जारी रखने के लिए नीचे स्क्रॉल करें",
+            "done": "आपने पूरा दस्तावेज़ पढ़ लिया ✓"
+        },
+        "decline": "अस्वीकार करें",
+        "accept": "स्वीकार करें और जारी रखें"
+    },
+    "common": {
+        "loading": "लोड हो रहा है...",
+        "error": "एक त्रुटि हुई",
+        "retry": "पुनः प्रयास करें",
+        "save": "सहेजें",
+        "cancel": "रद्द करें",
+        "confirm": "पुष्टि करें",
+        "delete": "हटाएं",
+        "edit": "संपादित करें",
+        "close": "बंद करें",
+        "back": "वापस",
+        "next": "अगला",
+        "skip": "छोड़ें",
+        "search": "खोजें",
+        "share": "साझा करें",
+        "report": "रिपोर्ट करें",
+        "follow": "फॉलो करें",
+        "unfollow": "अनफॉलो करें",
+        "following": "फॉलो कर रहे हैं",
+        "followers": "फॉलोवर",
+        "posts": "पोस्ट",
+        "videos": "वीडियो"
+    },
+    "settings": {
+        "title": "सेटिंग्स",
+        "nav": {
+            "profile": "प्रोफ़ाइल",
+            "account": "खाता",
+            "notifications": "सूचनाएं",
+            "privacy": "गोपनीयता",
+            "logout": "लॉग आउट"
+        },
+        "profile": {
+            "title": "प्रोफ़ाइल संपादित करें",
+            "avatarHint": "JPG, PNG या WebP · अधिकतम 5MB",
+            "savePhoto": "फ़ोटो सहेजें",
+            "firstName": "पहला नाम",
+            "lastName": "अंतिम नाम",
+            "bio": "बायो",
+            "bioPlaceholder": "अपने बारे में कुछ बताएं...",
+            "website": "वेबसाइट",
+            "websitePlaceholder": "https://your-site.com",
+            "location": "स्थान",
+            "locationPlaceholder": "शहर, देश",
+            "nativeLanguage": "मातृभाषा",
+            "saveChanges": "परिवर्तन सहेजें"
+        },
+        "account": {
+            "title": "खाता",
+            "email": "ईमेल",
+            "username": "उपयोगकर्ता नाम",
+            "verified": "सत्यापित खाता",
+            "verifiedYes": "सत्यापित",
+            "verifiedNo": "असत्यापित",
+            "changePassword": "पासवर्ड बदलें",
+            "currentPassword": "वर्तमान पासवर्ड",
+            "newPassword": "नया पासवर्ड",
+            "confirmPassword": "नया पासवर्ड पुष्टि करें",
+            "dangerZone": "खतरनाक क्षेत्र",
+            "dangerDesc": "ये क्रियाएं स्थायी हैं और पूर्ववत नहीं की जा सकतीं।",
+            "deleteAccount": "खाता हटाएं",
+            "deleteDesc": "आपका खाता, पोस्ट और सभी व्यक्तिगत डेटा स्थायी रूप से हटा देता है।"
+        },
+        "deleteModal": {
+            "title": "अपना खाता हटाएं?",
+            "body": "यह क्रिया स्थायी और अपरिवर्तनीय है। आपका सभी डेटा 30 दिनों में हटा दिया जाएगा।",
+            "confirmLabel": "जारी रखने के लिए पासवर्ड पुष्टि करें",
+            "confirmBtn": "हाँ, मेरा खाता हटाएं"
+        },
+        "notifications": {
+            "title": "सूचनाएं",
+            "push": "पुश सूचनाएं",
+            "pushDesc": "ऐप में गतिविधि अलर्ट प्राप्त करें",
+            "email": "ईमेल सूचनाएं",
+            "emailDesc": "साप्ताहिक सारांश और महत्वपूर्ण अलर्ट प्राप्त करें",
+            "save": "सहेजें"
+        },
+        "privacy": {
+            "title": "गोपनीयता और प्राथमिकताएं",
+            "privateAccount": "निजी खाता",
+            "privateDesc": "केवल आपके फॉलोवर आपकी सामग्री देख सकते हैं",
+            "autoTranslate": "स्वचालित अनुवाद",
+            "autoTranslateDesc": "अन्य भाषाओं की सामग्री स्वचालित रूप से अनुवाद करें",
+            "prefLang": "पसंदीदा अनुवाद भाषा",
+            "prefLangDefault": "मातृभाषा जैसी",
+            "theme": "थीम",
+            "themeAuto": "स्वचालित",
+            "themeDark": "डार्क",
+            "themeLight": "लाइट",
+            "save": "सहेजें"
+        },
+        "saved": "परिवर्तन सफलतापूर्वक सहेजे गए"
+    },
+    "notifications": {
+        "title": "सूचनाएं",
+        "markAllRead": "सभी पढ़ा हुआ चिह्नित करें",
+        "markingAllRead": "चिह्नित किया जा रहा है...",
+        "clearAll": "सभी साफ़ करें",
+        "filterAll": "सभी",
+        "filterUnread": "अपठित",
+        "loading": "सूचनाएं लोड हो रही हैं...",
+        "emptyAll": "कोई सूचना नहीं",
+        "emptyAllSub": "नई सूचनाओं के लिए बाद में देखें",
+        "emptyUnread": "कोई अपठित सूचना नहीं",
+        "emptyUnreadSub": "आप अप टू डेट हैं",
+        "new": "नया",
+        "markRead": "पढ़ा हुआ चिह्नित करें",
+        "markUnread": "अपठित चिह्नित करें",
+        "delete": "हटाएं"
+    },
+    "sidebar": {
+        "following": "फॉलो कर रहे हैं",
+        "followers": "फॉलोवर",
+        "posts": "पोस्ट",
+        "navigation": "नेविगेशन",
+        "aiTranslation": "AI अनुवाद",
+        "active": "सक्रिय",
+        "realtimeTranslation": "रियल-टाइम अनुवाद",
+        "realtimeDesc": "वीडियो और पोस्ट",
+        "languages": "24+ भाषाएं",
+        "languagesDesc": "वैश्विक कनेक्टिविटी",
+        "instant": "तत्काल प्रसंस्करण",
+        "instantDesc": "अति तेज़"
+    },
+    "trending": {
+        "title": "ट्रेंडिंग",
+        "loading": "ट्रेंड्स लोड हो रहे हैं...",
+        "filterByCountry": "देश से फ़िल्टर करें",
+        "global": "वैश्विक",
+        "noTrending": "कोई ट्रेंडिंग विषय नहीं",
+        "videos": "वीडियो",
+        "views": "व्यू",
+        "onlyFrom": "केवल से",
+        "sort": "क्रमबद्ध:",
+        "sortTrending": "सबसे ट्रेंडिंग",
+        "sortViews": "सबसे अधिक व्यू",
+        "sortRecent": "हाल के",
+        "trendingBadge": "ट्रेंडिंग",
+        "watchNow": "अभी देखें",
+        "gridView": "ग्रिड",
+        "listView": "सूची"
+    },
+    "lives": {
+        "title": "लाइव",
+        "chat": "चैट",
+        "live": "LIVE",
+        "say": "कुछ कहें...",
+        "send": "भेजें"
+    },
+    "videoOverlay": {
+        "follow": "फॉलो करें",
+        "subtitles": "उपशीर्षक:",
+        "original": "मूल",
+        "available": "उपलब्ध",
+        "requestTranslation": "अनुवाद का अनुरोध करें",
+        "translate": "अनुवाद करें",
+        "translateVideo": "वीडियो अनुवाद करें",
+        "translateDesc": "इस वीडियो के लिए AI अनुवादित उपशीर्षक बनाएं",
+        "availableLangs": "उपलब्ध:",
+        "requestLangs": "अनुवाद का अनुरोध करें:",
+        "requesting": "अनुरोध हो रहा है...",
+        "request": "अनुरोध",
+        "translationPending": "अनुवाद का अनुरोध किया गया। जल्द उपलब्ध होगा।",
+        "close": "बंद करें"
+    },
+    "stories": {
+        "title": "स्टोरीज़",
+        "add": "जोड़ें"
+    }
 }

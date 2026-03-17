@@ -405,7 +405,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
         const wasPlaying = !activeVideoEl.paused;
         const currentTime = activeVideoEl.currentTime;
         activeVideoEl.pause();
-        activeVideoEl.src = dubbed.translated_video_url;
+        activeVideoEl.src = this.getFullUrl(dubbed.translated_video_url);
         activeVideoEl.load();
         activeVideoEl.onloadedmetadata = () => {
           activeVideoEl.currentTime = currentTime;
@@ -419,7 +419,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
         this.videoService.getSubtitles(video.id, language).subscribe({
           next: (subtitles) => {
             if (subtitles.subtitle_url) {
-              this.currentSubtitleUrl = subtitles.subtitle_url;
+              this.currentSubtitleUrl = this.getFullUrl(subtitles.subtitle_url);
               setTimeout(() => activeVideoEl.load(), 100);
             }
             alert(`Subt�tulos en ${this.getLanguageName(language)}`);

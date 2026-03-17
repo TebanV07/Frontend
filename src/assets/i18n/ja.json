@@ -1,523 +1,538 @@
 {
-    "brand":  {
-                  "name":  "TINKO",
-                  "tagline":  "AI-Powered Global Connection"
-              },
-    "auth":  {
-                 "forgotPass":  {
-                    "title":  "\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u5fa9\u5143",
-                    "subtitle":  "\u30a2\u30ab\u30a6\u30f3\u30c8\u306e\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3059\u308b\u3068\u3001\u30ea\u30bb\u30c3\u30c8\u30ea\u30f3\u30af\u3092\u9001\u4fe1\u3057\u307e\u3059\u3002",
-                    "emailLabel":  "\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9",
-                    "emailPlaceholder":  "you@email.com",
-                    "sending":  "\u9001\u4fe1\u4e2d\u2026",
-                    "submit":  "\u5fa9\u5143\u30ea\u30f3\u30af\u3092\u9001\u4fe1",
-                    "backToLogin":  "\u30ed\u30b0\u30a4\u30f3\u306b\u623b\u308b",
-                    "emailRequired":  "\u7d9a\u884c\u3059\u308b\u306b\u306f\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
-                },
-"resetPass":  {
-                  "title":  "\u65b0\u3057\u3044\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u8a2d\u5b9a",
-                  "subtitle":  "\u30a2\u30ab\u30a6\u30f3\u30c8\u306e\u5f37\u529b\u306a\u65b0\u3057\u3044\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u9078\u3093\u3067\u304f\u3060\u3055\u3044\u3002",
-                  "newPasswordLabel":  "\u65b0\u3057\u3044\u30d1\u30b9\u30ef\u30fc\u30c9",
-                  "newPasswordPlaceholder":  "\u65b0\u3057\u3044\u30d1\u30b9\u30ef\u30fc\u30c9",
-                  "confirmPasswordLabel":  "\u30d1\u30b9\u30ef\u30fc\u30c9\u306e\u78ba\u8a8d",
-                  "confirmPasswordPlaceholder":  "\u30d1\u30b9\u30ef\u30fc\u30c9\u306e\u78ba\u8a8d",
-                  "updating":  "\u66f4\u65b0\u4e2d\u2026",
-                  "submit":  "\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u66f4\u65b0",
-                  "successTitle":  "\u30d1\u30b9\u30ef\u30fc\u30c9\u304c\u66f4\u65b0\u3055\u308c\u307e\u3057\u305f\uff01",
-                  "goToLogin":  "\u30ed\u30b0\u30a4\u30f3\u306b\u79fb\u52d5",
-                  "errorTitle":  "\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u66f4\u65b0\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f",
-                  "requestNew":  "\u65b0\u3057\u3044\u5fa9\u5143\u30ea\u30f3\u30af\u3092\u30ea\u30af\u30a8\u30b9\u30c8",
-                  "invalidToken":  "\u7121\u52b9\u307e\u305f\u306f\u671f\u9650\u5207\u308c\u306e\u5fa9\u5143\u30ea\u30f3\u30af\u3067\u3059\u3002",
-                  "fillBothFields":  "\u4e21\u65b9\u306e\u30d1\u30b9\u30ef\u30fc\u30c9\u30d5\u30a3\u30fc\u30eb\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
-                  "passwordsMismatch":  "\u30d1\u30b9\u30ef\u30fc\u30c9\u304c\u4e00\u81f4\u3057\u307e\u305b\u3093\u3002"
-              },
-"verifyRequired":  {
-                       "title":  "\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u8a8d\u8a3c",
-                       "lead":  "Tinko\u306b\u30a2\u30af\u30bb\u30b9\u3059\u308b\u524d\u306b\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u306e\u8a8d\u8a3c\u304c\u5fc5\u8981\u3067\u3059\u3002",
-                       "registeredEmail":  "\u767b\u9332\u6642\u306b\u4f7f\u7528\u3057\u305f\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u306b\u8a8d\u8a3c\u30ea\u30f3\u30af\u3092\u9001\u4fe1\u3057\u307e\u3057\u305f\u3002",
-                       "hint":  "\u898b\u3064\u304b\u3089\u306a\u3044\u5834\u5408\u306f\u3001\u30b9\u30d1\u30e0\u30d5\u30a9\u30eb\u30c0\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
-                       "resending":  "\u518d\u9001\u4fe1\u4e2d\u2026",
-                       "resend":  "\u8a8d\u8a3c\u30e1\u30fc\u30eb\u3092\u518d\u9001\u4fe1",
-                       "verifying":  "\u8a8d\u8a3c\u4e2d\u2026",
-                       "alreadyVerified":  "\u8a8d\u8a3c\u6e08\u307f\u3067\u3059",
-                       "logout":  "\u30ed\u30b0\u30a2\u30a6\u30c8"
-                   },
-"login":  {
-                               "title":  "おかえりなさい！",
-                               "subtitle":  "ログインしてグローバルな体験を続けましょう",
-                               "submit":  "ログイン",
-                               "submitting":  "ログイン中...",
-                               "noAccount":  "アカウントをお持ちでないですか？",
-                               "switchToRegister":  "無料で登録",
-                               "rememberMe":  "ログイン状態を保持",
-                               "forgotPassword":  "パスワードをお忘れですか？",
-                               "orContinueWith":  "または以下で続ける",
-                               "google":  "Google"
-                           },
-                 "register":  {
-                                  "title":  "革命に参加しよう！",
-                                  "subtitle":  "言語の壁なく世界とつながろう",
-                                  "submit":  "アカウント作成",
-                                  "submitting":  "アカウント作成中...",
-                                  "hasAccount":  "すでにアカウントをお持ちですか？",
-                                  "switchToLogin":  "ログイン",
-                                  "usernameHint":  "入力しない場合は自動生成されます",
-                                  "nativeLanguageHint":  "母国語"
-                              },
-                 "fields":  {
-                                "firstName":  "名前",
-                                "lastName":  "苗字",
-                                "username":  "ユーザー名（任意）",
-                                "email":  "メールアドレス",
-                                "password":  "パスワード",
-                                "nativeLanguage":  "母国語"
-                            },
-                 "features":  {
-                                  "title":  "🚀 あなたを待っているもの：",
-                                  "videos":  "リアルタイムで翻訳される動画",
-                                  "languages":  "24以上の言語でつながる",
-                                  "ai":  "高度なAI翻訳"
-                              }
-             },
-    "verify":  {
-                   "loading":  "メールを確認中...",
-                   "success":  {
-                                   "title":  "メール認証完了！",
-                                   "message":  "アカウントが認証されました。すべての機能をお楽しみください。",
-                                   "goHome":  "ホームへ"
-                               },
-                   "error":  {
-                                 "title":  "無効なリンク",
-                                 "requestNew":  "新しいリンクをリクエスト"
-                             }
-               },
-    "header":  {
-                   "search":  "人や投稿を検索...",
-                   "nav":  {
-                               "home":  "ホーム",
-                               "trending":  "トレンド",
-                               "videos":  "動画",
-                               "messages":  "メッセージ",
-                               "notifications":  "通知",
-                               "profile":  "プロフィール",
-                               "settings":  "設定"
-                           },
-                   "theme":  {
-                                 "light":  "ライトモード",
-                                 "dark":  "ダークモード"
-                             },
-                   "menu":  "メニュー"
-               },
-    "chat":  {
-                 "input":  {
-                               "placeholder":  "メッセージを入力...",
-                               "emojis":  "絵文字",
-                               "attach":  "ファイルを添付",
-                               "camera":  "写真を撮る",
-                               "voice":  "音声メッセージを録音",
-                               "send":  "é€ä¿¡",
-                               "recording":  "録音中...",
-                               "stopRecording":  "停止"
-                           },
-                 "window":  {
-                                "noName":  "名前なし",
-                                "selectConversation":  "会話を選択してください",
-                                "selectConversationHint":  "チャットを始める会話を選んでください",
-                                "uploading":  "ファイルをアップロード中...",
-                                "speaksLanguage":  "話す言語："
-                            },
-                 "bubble":  {
-                                "edited":  "編集済み",
-                                "edit":  "編集",
-                                "delete":  "削除",
-                                "deleteForMe":  "自分だけ削除",
-                                "forward":  "è»¢é€",
-                                "share":  "シェア",
-                                "translate":  "翻訳"
-                            }
-             },
-    "feed":  {
-                 "loading":  "動画を読み込み中...",
-                 "loadingMore":  "さらに動画を読み込み中...",
-                 "empty":  {
-                               "title":  "動画がありません",
-                               "subtitle":  "AI翻訳付きの動画を最初にアップロードしよう",
-                               "upload":  "動画をアップロード"
-                           },
-                 "position":  "{{ current }} / {{ total }}",
-                 "aiActive":  "AI Translation Active",
-                 "aiDesc":  "All content automatically translated to your preferred language",
-                 "aiLanguages":  "Languages",
-                 "aiVideos":  "Videos",
-                 "suggestedTitle":  "People you may know",
-                 "suggestedSeeAll":  "See all",
-                 "suggestedFollowers":  "followers",
-                 "suggestedMutual":  "in common",
-                 "following":  "Following",
-                 "follow":  "Follow",
-                 "loadingPosts":  "Loading posts...",
-                 "noPosts":  "No posts yet",
-                 "noPostsSub":  "Be the first to share something!"
-             },
-    "videoPlayer":  {
-                        "loading":  "動画を読み込み中...",
-                        "error":  {
-                                      "title":  "動画の読み込みエラー",
-                                      "subtitle":  "この動画を再生できませんでした",
-                                      "retry":  "再試行"
-                                  },
-                        "noSupport":  "お使いのブラウザはビデオタグをサポートしていません。"
-                    },
-    "comments":  {
-                     "title":  "コメント",
-                     "placeholder":  "コメントを書く...",
-                     "submit":  "💬 コメントする",
-                     "submitting":  "投稿中...",
-                     "loading":  "読み込み中...",
-                     "empty":  "最初にコメントしてみよう",
-                     "loadMore":  "↓ コメントをもっと見る",
-                     "loadingMore":  "読み込み中...",
-                     "reply":  "è¿”ä¿¡",
-                     "replying":  "投稿中...",
-                     "cancel":  "キャンセル",
-                     "save":  "保存",
-                     "edit":  "✏️ 編集",
-                     "delete":  "🗑️ 削除",
-                     "edited":  "· 編集済み",
-                     "replyTo":  "@に返信",
-                     "replies":  {
-                                     "one":  "件の返信",
-                                     "other":  "件の返信"
-                                 }
-                 },
-    "post":  {
-                 "edit":  {
-                              "title":  "投稿を編集",
-                              "content":  "内容：",
-                              "tags":  "タグ（カンマ区切り）：",
-                              "public":  "公開",
-                              "save":  "保存",
-                              "skip":  "スキップ"
-                          },
-                 "likes":  {
-                               "like":  "いいね",
-                               "liked":  "いいね済み",
-                               "likedBy":  "いいねしたユーザー",
-                               "noLikes":  "まだいいねがありません",
-                               "loading":  "読み込み中..."
-                           },
-                 "deleteConfirm":  "Delete this post?",
-                 "deleteBody":  "This action cannot be undone.",
-                 "editMenu":  "Edit",
-                 "deleteMenu":  "Delete",
-                 "reportMenu":  "Report",
-                 "shareMenu":  "Share",
-                 "comments":  "comments",
-                 "comment":  "Comment",
-                 "translateText":  "Translate text",
-                 "extracting":  "Extracting...",
-                 "showImage":  "Show image",
-                 "showText":  "Show text",
-                 "originalText":  "Original text",
-                 "noText":  "No text found in this image",
-                 "translatedTo":  "Translated to",
-                 "from":  "from",
-                 "showingTranslation":  "Showing translation",
-                 "translatePost":  "Translate this post",
-                 "translating":  "Translating...",
-                 "showOriginal":  "Show Original",
-                 "translate":  "Translate",
-                 "back":  "Back to feed",
-                 "close":  "Close"
-             },
-    "profile":  {
-                    "tabs":  {
-                                 "posts":  "投稿",
-                                 "videos":  "動画",
-                                 "liked":  "いいね",
-                                 "bookmarks":  "保存済み"
-                             },
-                    "content":  {
-                                    "noPosts":  "まだ投稿がありません",
-                                    "noVideos":  "まだ動画がありません",
-                                    "likedPosts":  "いいねした投稿",
-                                    "savedPosts":  "保存した投稿",
-                                    "loadMore":  "もっと見る",
-                                    "loading":  "読み込み中..."
-                                }
-                },
-    "upload":  {
-                   "title":  "動画/投稿をアップロード",
-                   "titleField":  "タイトル（任意）",
-                   "description":  "説明（任意）",
-                   "submit":  "アップロード",
-                   "submitting":  "アップロード中..."
-               },
-    "explore":  {
-                    "title":  "人を発見",
-                    "subtitle":  "世界中の人々を見つけてつながろう",
-                    "search":  {
-                                   "placeholder":  "名前またはユーザー名で検索...",
-                                   "button":  "検索",
-                                   "searching":  "検索中...",
-                                   "results":  "結果（{{ count }}件）",
-                                   "noResults":  {
-                                                     "title":  "結果が見つかりません",
-                                                     "subtitle":  "別の検索ワードをお試しください"
-                                                 }
-                               },
-                    "followRequests":  {
-                                           "title":  "フォローリクエスト",
-                                           "noPending":  {
-                                                             "title":  "保留中のリクエストはありません",
-                                                             "subtitle":  "誰かがフォローリクエストを送ると、ここに表示されます"
-                                                         },
-                                           "accept":  "承認",
-                                           "reject":  "拒否"
-                                       },
-                    "suggested":  {
-                                      "title":  "知り合いかもしれない人",
-                                      "empty":  "現在、おすすめはありません",
-                                      "viewAll":  "すべてのおすすめを見る",
-                                      "viewLess":  "表示を減らす",
-                                      "mutual":  "{{ count }}人の共通フォロワー",
-                                      "follow":  "フォロー",
-                                      "following":  "フォロー中",
-                                      "pending":  "保留中"
-                                  }
-                },
-    "countrySetup":  {
-                         "title":  "どこから来ましたか？",
-                         "subtitle":  "あなたの国旗が投稿やメッセージに表示され、どこの出身かがわかります。",
-                         "detecting":  "あなたの国を検出中...",
-                         "detected":  "検出された国：",
-                         "notDetected":  "自動で国を検出できませんでした。",
-                         "manualSelect":  "国を選択：",
-                         "manualPlaceholder":  "-- 国を選んでください --",
-                         "notMyCountry":  "私の国ではない — 変更",
-                         "confirm":  "✅ 確認",
-                         "saving":  "保存中...",
-                         "skip":  "今はスキップ"
-                     },
-    "permissions":  {
-                        "welcome":  {
-                                        "title":  "権限を設定",
-                                        "subtitle":  "最高の体験を提供するために、デバイスの権限へのアクセスが必要です。",
-                                        "camera":  "ライブ配信用カメラ",
-                                        "microphone":  "ビデオ通話用マイク",
-                                        "notifications":  "メッセージ通知",
-                                        "later":  "後で設定",
-                                        "continue":  "続ける"
-                                    },
-                        "list":  {
-                                     "title":  "必要な権限",
-                                     "subtitle":  "各権限をクリックしてデバイスにリクエストしてください",
-                                     "granted":  "✓ 許可済み",
-                                     "required":  "⚠ 必須",
-                                     "optional":  "ℹ 任意",
-                                     "request":  "アクセスをリクエスト",
-                                     "requestAll":  "すべてリクエスト",
-                                     "back":  "戻る"
-                                 },
-                        "complete":  {
-                                         "title":  "設定完了！",
-                                         "subtitle":  "権限が正しく設定されました。",
-                                         "grantedStatus":  "許可済み",
-                                         "deniedStatus":  "未許可",
-                                         "redirect":  "数秒後にホームにリダイレクトします...",
-                                         "goHome":  "今すぐホームへ"
-                                     }
-                    },
-    "report":  {
-                   "title":  "🚩 コンテンツを報告",
-                   "subtitle":  "報告の理由を選択してください",
-                   "descriptionLabel":  "追加の説明（任意）",
-                   "descriptionPlaceholder":  "問題についてもっと教えてください...",
-                   "cancel":  "キャンセル",
-                   "submit":  "報告を送信",
-                   "submitting":  "é€ä¿¡ä¸­..."
-               },
-    "terms":  {
-                  "title":  "利用規約・プライバシー",
-                  "lastUpdated":  "最終更新：2025年1月 · 続ける前に注意してお読みください",
-                  "tabs":  {
-                               "terms":  "📄 利用規約",
-                               "privacy":  "🔒 プライバシーポリシー"
-                           },
-                  "scroll":  {
-                                 "pending":  "続けるには下にスクロールしてください",
-                                 "done":  "全文を読みました ✓"
-                             },
-                  "decline":  "拒否",
-                  "accept":  "同意して続ける"
-              },
-    "common":  {
-                   "loading":  "読み込み中...",
-                   "error":  "エラーが発生しました",
-                   "retry":  "再試行",
-                   "save":  "保存",
-                   "cancel":  "キャンセル",
-                   "confirm":  "確認",
-                   "delete":  "削除",
-                   "edit":  "編集",
-                   "close":  "閉じる",
-                   "back":  "戻る",
-                   "next":  "次へ",
-                   "skip":  "スキップ",
-                   "search":  "検索",
-                   "share":  "シェア",
-                   "report":  "報告",
-                   "follow":  "フォロー",
-                   "unfollow":  "フォロー解除",
-                   "following":  "フォロー中",
-                   "followers":  "フォロワー",
-                   "posts":  "投稿",
-                   "videos":  "動画"
-               },
-    "settings":  {
-                     "title":  "Settings",
-                     "nav":  {
-                                 "profile":  "Profile",
-                                 "account":  "Account",
-                                 "notifications":  "Notifications",
-                                 "privacy":  "Privacy",
-                                 "logout":  "Log out"
-                             },
-                     "profile":  {
-                                     "title":  "Edit Profile",
-                                     "avatarHint":  "JPG, PNG or WebP · Max 5MB",
-                                     "savePhoto":  "Save photo",
-                                     "firstName":  "First name",
-                                     "lastName":  "Last name",
-                                     "bio":  "Bio",
-                                     "bioPlaceholder":  "Tell us something about you...",
-                                     "website":  "Website",
-                                     "websitePlaceholder":  "https://your-site.com",
-                                     "location":  "Location",
-                                     "locationPlaceholder":  "City, Country",
-                                     "nativeLanguage":  "Native language",
-                                     "saveChanges":  "Save changes"
-                                 },
-                     "account":  {
-                                     "title":  "Account",
-                                     "email":  "Email",
-                                     "username":  "Username",
-                                     "verified":  "Verified account",
-                                     "verifiedYes":  "Verified",
-                                     "verifiedNo":  "Not verified",
-                                     "changePassword":  "Change password",
-                                     "currentPassword":  "Current password",
-                                     "newPassword":  "New password",
-                                     "confirmPassword":  "Confirm new password",
-                                     "dangerZone":  "Danger zone",
-                                     "dangerDesc":  "These actions are permanent and cannot be undone.",
-                                     "deleteAccount":  "Delete account",
-                                     "deleteDesc":  "Permanently deletes your account, posts and all personal data."
-                                 },
-                     "deleteModal":  {
-                                         "title":  "Delete your account?",
-                                         "body":  "This action is permanent and irreversible. All your data, posts and videos will be deleted within 30 days.",
-                                         "confirmLabel":  "Confirm your password to continue",
-                                         "confirmBtn":  "Yes, delete my account"
-                                     },
-                     "notifications":  {
-                                           "title":  "Notifications",
-                                           "push":  "Push notifications",
-                                           "pushDesc":  "Receive activity alerts in the app",
-                                           "email":  "Email notifications",
-                                           "emailDesc":  "Receive a weekly summary and important alerts",
-                                           "save":  "Save"
-                                       },
-                     "privacy":  {
-                                     "title":  "Privacy and Preferences",
-                                     "privateAccount":  "Private account",
-                                     "privateDesc":  "Only your followers can see your content",
-                                     "autoTranslate":  "Auto-translate",
-                                     "autoTranslateDesc":  "Automatically translate content from other languages",
-                                     "prefLang":  "Preferred translation language",
-                                     "prefLangDefault":  "Same as native",
-                                     "theme":  "Theme",
-                                     "themeAuto":  "Automatic",
-                                     "themeDark":  "Dark",
-                                     "themeLight":  "Light",
-                                     "save":  "Save"
-                                 },
-                     "saved":  "Changes saved successfully"
-                 },
-    "notifications":  {
-                          "title":  "Notifications",
-                          "markAllRead":  "Mark all as read",
-                          "markingAllRead":  "Marking...",
-                          "clearAll":  "Clear all",
-                          "filterAll":  "All",
-                          "filterUnread":  "Unread",
-                          "loading":  "Loading notifications...",
-                          "emptyAll":  "No notifications",
-                          "emptyAllSub":  "Check back later for new notifications",
-                          "emptyUnread":  "No unread notifications",
-                          "emptyUnreadSub":  "You are up to date",
-                          "new":  "New",
-                          "markRead":  "Mark as read",
-                          "markUnread":  "Mark as unread",
-                          "delete":  "Delete"
-                      },
-    "sidebar":  {
-                    "following":  "Following",
-                    "followers":  "Followers",
-                    "posts":  "Posts",
-                    "navigation":  "Navigation",
-                    "aiTranslation":  "AI Translation",
-                    "active":  "Active",
-                    "realtimeTranslation":  "Real-time Translation",
-                    "realtimeDesc":  "Videos \u0026 Posts",
-                    "languages":  "24+ Languages",
-                    "languagesDesc":  "Global connectivity",
-                    "instant":  "Instant Processing",
-                    "instantDesc":  "Lightning fast"
-                },
-    "trending":  {
-                     "title":  "Trending",
-                     "loading":  "Loading trends...",
-                     "filterByCountry":  "Filter by country",
-                     "global":  "Global",
-                     "noTrending":  "No trending topics available",
-                     "videos":  "videos",
-                     "views":  "views",
-                     "onlyFrom":  "Only from",
-                     "sort":  "Sort:",
-                     "sortTrending":  "Most trending",
-                     "sortViews":  "Most views",
-                     "sortRecent":  "Most recent",
-                     "trendingBadge":  "Trending",
-                     "watchNow":  "Watch now",
-                     "gridView":  "Grid",
-                     "listView":  "List"
-                 },
-    "lives":  {
-                  "title":  "Live",
-                  "chat":  "Chat",
-                  "live":  "LIVE",
-                  "say":  "Say something...",
-                  "send":  "Send"
-              },
-    "videoOverlay":  {
-                         "follow":  "Follow",
-                         "subtitles":  "Subtitles:",
-                         "original":  "Original",
-                         "available":  "Available",
-                         "requestTranslation":  "Request translation",
-                         "translate":  "Translate",
-                         "translateVideo":  "Translate Video",
-                         "translateDesc":  "Generate AI translated subtitles for this video",
-                         "availableLangs":  "Available:",
-                         "requestLangs":  "Request translation:",
-                         "requesting":  "Requesting...",
-                         "request":  "Request",
-                         "translationPending":  "Translation requested! It will be available shortly.",
-                         "close":  "Close"
-                     },
-    "stories":  {
-                    "title":  "Stories",
-                    "add":  "Add"
-                }
+    "brand": {
+        "name": "TINKO",
+        "tagline": "AI-Powered Global Connection"
+    },
+    "auth": {
+        "forgotPass": {
+            "title": "パスワードを復元",
+            "subtitle": "アカウントのメールアドレスを入力すると、リセットリンクを送信します。",
+            "emailLabel": "メールアドレス",
+            "emailPlaceholder": "you@email.com",
+            "sending": "送信中…",
+            "submit": "復元リンクを送信",
+            "backToLogin": "ログインに戻る",
+            "emailRequired": "続けるにはメールアドレスを入力してください。"
+        },
+        "resetPass": {
+            "title": "新しいパスワードを設定",
+            "subtitle": "アカウントの強力な新しいパスワードを選んでください。",
+            "newPasswordLabel": "新しいパスワード",
+            "newPasswordPlaceholder": "新しいパスワード",
+            "confirmPasswordLabel": "パスワードの確認",
+            "confirmPasswordPlaceholder": "パスワードの確認",
+            "updating": "更新中…",
+            "submit": "パスワードを更新",
+            "successTitle": "パスワードが更新されました！",
+            "goToLogin": "ログインに移動",
+            "errorTitle": "パスワードを更新できませんでした",
+            "requestNew": "新しい復元リンクをリクエスト",
+            "invalidToken": "無効または期限切れの復元リンクです。",
+            "fillBothFields": "両方のパスワードフィールドを入力してください。",
+            "passwordsMismatch": "パスワードが一致しません。"
+        },
+        "verifyRequired": {
+            "title": "メールアドレスを認証",
+            "lead": "Tinkoにアクセスする前にメールアドレスの認証が必要です。",
+            "registeredEmail": "登録時に使用したメールアドレスに認証リンクを送信しました。",
+            "hint": "見つからない場合は、スパムフォルダを確認してください。",
+            "resending": "再送信中…",
+            "resend": "認証メールを再送信",
+            "verifying": "認証中…",
+            "alreadyVerified": "認証済みです",
+            "logout": "ログアウト"
+        },
+        "login": {
+            "title": "おかえりなさい！",
+            "subtitle": "ログインしてグローバルな体験を続けましょう",
+            "submit": "ログイン",
+            "submitting": "ログイン中...",
+            "noAccount": "アカウントをお持ちでないですか？",
+            "switchToRegister": "無料で登録",
+            "rememberMe": "ログイン状態を保持",
+            "forgotPassword": "パスワードをお忘れですか？",
+            "orContinueWith": "または以下で続ける",
+            "google": "Google"
+        },
+        "register": {
+            "title": "革命に参加しよう！",
+            "subtitle": "言語の壁なく世界とつながろう",
+            "submit": "アカウント作成",
+            "submitting": "アカウント作成中...",
+            "hasAccount": "すでにアカウントをお持ちですか？",
+            "switchToLogin": "ログイン",
+            "usernameHint": "入力しない場合は自動生成されます",
+            "nativeLanguageHint": "母国語"
+        },
+        "fields": {
+            "firstName": "名前",
+            "lastName": "苗字",
+            "username": "ユーザー名（任意）",
+            "email": "メールアドレス",
+            "password": "パスワード",
+            "nativeLanguage": "母国語"
+        },
+        "features": {
+            "title": "🚀 あなたを待っているもの：",
+            "videos": "リアルタイムで翻訳される動画",
+            "languages": "24以上の言語でつながる",
+            "ai": "高度なAI翻訳"
+        }
+    },
+    "verify": {
+        "loading": "メールを確認中...",
+        "success": {
+            "title": "メール認証完了！",
+            "message": "アカウントが認証されました。すべての機能をお楽しみください。",
+            "goHome": "ホームへ"
+        },
+        "error": {
+            "title": "無効なリンク",
+            "requestNew": "新しいリンクをリクエスト"
+        }
+    },
+    "header": {
+        "search": "人や投稿を検索...",
+        "nav": {
+            "home": "ホーム",
+            "trending": "トレンド",
+            "videos": "動画",
+            "messages": "メッセージ",
+            "notifications": "通知",
+            "profile": "プロフィール",
+            "settings": "設定"
+        },
+        "theme": {
+            "light": "ライトモード",
+            "dark": "ダークモード"
+        },
+        "menu": "メニュー"
+    },
+    "chat": {
+        "input": {
+            "placeholder": "メッセージを入力...",
+            "emojis": "絵文字",
+            "attach": "ファイルを添付",
+            "camera": "写真を撮る",
+            "voice": "音声メッセージを録音",
+            "send": "送信",
+            "recording": "録音中...",
+            "stopRecording": "停止"
+        },
+        "window": {
+            "noName": "名前なし",
+            "selectConversation": "会話を選択してください",
+            "selectConversationHint": "チャットを始める会話を選んでください",
+            "uploading": "ファイルをアップロード中...",
+            "speaksLanguage": "話す言語："
+        },
+        "bubble": {
+            "edited": "編集済み",
+            "edit": "編集",
+            "delete": "削除",
+            "deleteForMe": "自分だけ削除",
+            "forward": "転送",
+            "share": "シェア",
+            "translate": "翻訳"
+        }
+    },
+    "feed": {
+        "loading": "動画を読み込み中...",
+        "loadingMore": "さらに動画を読み込み中...",
+        "empty": {
+            "title": "動画がありません",
+            "subtitle": "AI翻訳付きの動画を最初にアップロードしよう",
+            "upload": "動画をアップロード"
+        },
+        "position": "{{ current }} / {{ total }}",
+        "aiActive": "AI翻訳アクティブ",
+        "aiDesc": "すべてのコンテンツが自動的にあなたの好みの言語に翻訳されます",
+        "aiLanguages": "言語",
+        "aiVideos": "動画",
+        "suggestedTitle": "知り合いかもしれない人",
+        "suggestedSeeAll": "すべて見る",
+        "suggestedFollowers": "フォロワー",
+        "suggestedMutual": "共通",
+        "following": "フォロー中",
+        "follow": "フォロー",
+        "loadingPosts": "投稿を読み込み中...",
+        "noPosts": "まだ投稿がありません",
+        "noPostsSub": "最初に何かをシェアしよう！"
+    },
+    "videoPlayer": {
+        "loading": "動画を読み込み中...",
+        "error": {
+            "title": "動画の読み込みエラー",
+            "subtitle": "この動画を再生できませんでした",
+            "retry": "再試行"
+        },
+        "noSupport": "お使いのブラウザはビデオタグをサポートしていません。"
+    },
+    "comments": {
+        "title": "コメント",
+        "placeholder": "コメントを書く...",
+        "submit": "💬 コメントする",
+        "submitting": "投稿中...",
+        "loading": "読み込み中...",
+        "empty": "最初にコメントしてみよう",
+        "loadMore": "↓ コメントをもっと見る",
+        "loadingMore": "読み込み中...",
+        "reply": "返信",
+        "replying": "投稿中...",
+        "cancel": "キャンセル",
+        "save": "保存",
+        "edit": "✏️ 編集",
+        "delete": "🗑️ 削除",
+        "edited": "· 編集済み",
+        "replyTo": "@に返信",
+        "replies": {
+            "one": "件の返信",
+            "other": "件の返信"
+        }
+    },
+    "post": {
+        "edit": {
+            "title": "投稿を編集",
+            "content": "内容：",
+            "tags": "タグ（カンマ区切り）：",
+            "public": "公開",
+            "save": "保存",
+            "skip": "スキップ"
+        },
+        "likes": {
+            "like": "いいね",
+            "liked": "いいね済み",
+            "likedBy": "いいねしたユーザー",
+            "noLikes": "まだいいねがありません",
+            "loading": "読み込み中..."
+        },
+        "deleteConfirm": "この投稿を削除しますか？",
+        "deleteBody": "この操作は元に戻せません。",
+        "editMenu": "編集",
+        "deleteMenu": "削除",
+        "reportMenu": "報告",
+        "shareMenu": "シェア",
+        "comments": "コメント",
+        "comment": "コメントする",
+        "translateText": "テキストを翻訳",
+        "extracting": "抽出中...",
+        "showImage": "画像を表示",
+        "showText": "テキストを表示",
+        "originalText": "元のテキスト",
+        "noText": "この画像にテキストが見つかりません",
+        "translatedTo": "翻訳先",
+        "from": "から",
+        "showingTranslation": "翻訳を表示中",
+        "translatePost": "この投稿を翻訳",
+        "translating": "翻訳中...",
+        "showOriginal": "元を表示",
+        "translate": "翻訳",
+        "back": "フィードに戻る",
+        "close": "閉じる",
+        "translateOverlay": "画像内で翻訳",
+        "showOriginalImage": "元の画像を表示"
+    },
+    "profile": {
+        "tabs": {
+            "posts": "投稿",
+            "videos": "動画",
+            "liked": "いいね",
+            "bookmarks": "保存済み"
+        },
+        "content": {
+            "noPosts": "まだ投稿がありません",
+            "noVideos": "まだ動画がありません",
+            "likedPosts": "いいねした投稿",
+            "savedPosts": "保存した投稿",
+            "loadMore": "もっと見る",
+            "loading": "読み込み中..."
+        }
+    },
+    "upload": {
+        "title": "動画/投稿をアップロード",
+        "titleField": "タイトル（任意）",
+        "description": "説明（任意）",
+        "submit": "アップロード",
+        "submitting": "アップロード中..."
+    },
+    "explore": {
+        "title": "人を発見",
+        "subtitle": "世界中の人々を見つけてつながろう",
+        "search": {
+            "placeholder": "名前またはユーザー名で検索...",
+            "button": "検索",
+            "searching": "検索中...",
+            "results": "結果（{{ count }}件）",
+            "noResults": {
+                "title": "結果が見つかりません",
+                "subtitle": "別の検索ワードをお試しください"
+            }
+        },
+        "followRequests": {
+            "title": "フォローリクエスト",
+            "noPending": {
+                "title": "保留中のリクエストはありません",
+                "subtitle": "誰かがフォローリクエストを送ると、ここに表示されます"
+            },
+            "accept": "承認",
+            "reject": "拒否"
+        },
+        "suggested": {
+            "title": "知り合いかもしれない人",
+            "empty": "現在、おすすめはありません",
+            "viewAll": "すべてのおすすめを見る",
+            "viewLess": "表示を減らす",
+            "mutual": "{{ count }}人の共通フォロワー",
+            "follow": "フォロー",
+            "following": "フォロー中",
+            "pending": "保留中"
+        },
+        "filters": {
+            "byCountry": "国でフィルター",
+            "allCountries": "すべての国"
+        },
+        "actions": {
+            "talk": "話したい"
+        },
+        "byCountry": {
+            "title": "国別の人々",
+            "countries": "カ国",
+            "emptyTitle": "表示する人がいません",
+            "emptySubtitle": "別の国や検索ワードをお試しください"
+        }
+    },
+    "countrySetup": {
+        "title": "どこから来ましたか？",
+        "subtitle": "あなたの国旗が投稿やメッセージに表示され、どこの出身かがわかります。",
+        "detecting": "あなたの国を検出中...",
+        "detected": "検出された国：",
+        "notDetected": "自動で国を検出できませんでした。",
+        "manualSelect": "国を選択：",
+        "manualPlaceholder": "-- 国を選んでください --",
+        "notMyCountry": "私の国ではない — 変更",
+        "confirm": "✅ 確認",
+        "saving": "保存中...",
+        "skip": "今はスキップ"
+    },
+    "permissions": {
+        "welcome": {
+            "title": "権限を設定",
+            "subtitle": "最高の体験を提供するために、デバイスの権限へのアクセスが必要です。",
+            "camera": "ライブ配信用カメラ",
+            "microphone": "ビデオ通話用マイク",
+            "notifications": "メッセージ通知",
+            "later": "後で設定",
+            "continue": "続ける"
+        },
+        "list": {
+            "title": "必要な権限",
+            "subtitle": "各権限をクリックしてデバイスにリクエストしてください",
+            "granted": "✓ 許可済み",
+            "required": "⚠ 必須",
+            "optional": "ℹ 任意",
+            "request": "アクセスをリクエスト",
+            "requestAll": "すべてリクエスト",
+            "back": "戻る"
+        },
+        "complete": {
+            "title": "設定完了！",
+            "subtitle": "権限が正しく設定されました。",
+            "grantedStatus": "許可済み",
+            "deniedStatus": "未許可",
+            "redirect": "数秒後にホームにリダイレクトします...",
+            "goHome": "今すぐホームへ"
+        }
+    },
+    "report": {
+        "title": "🚩 コンテンツを報告",
+        "subtitle": "報告の理由を選択してください",
+        "descriptionLabel": "追加の説明（任意）",
+        "descriptionPlaceholder": "問題についてもっと教えてください...",
+        "cancel": "キャンセル",
+        "submit": "報告を送信",
+        "submitting": "送信中..."
+    },
+    "terms": {
+        "title": "利用規約・プライバシー",
+        "lastUpdated": "最終更新：2025年1月 · 続ける前に注意してお読みください",
+        "tabs": {
+            "terms": "📄 利用規約",
+            "privacy": "🔒 プライバシーポリシー"
+        },
+        "scroll": {
+            "pending": "続けるには下にスクロールしてください",
+            "done": "全文を読みました ✓"
+        },
+        "decline": "拒否",
+        "accept": "同意して続ける"
+    },
+    "common": {
+        "loading": "読み込み中...",
+        "error": "エラーが発生しました",
+        "retry": "再試行",
+        "save": "保存",
+        "cancel": "キャンセル",
+        "confirm": "確認",
+        "delete": "削除",
+        "edit": "編集",
+        "close": "閉じる",
+        "back": "戻る",
+        "next": "次へ",
+        "skip": "スキップ",
+        "search": "検索",
+        "share": "シェア",
+        "report": "報告",
+        "follow": "フォロー",
+        "unfollow": "フォロー解除",
+        "following": "フォロー中",
+        "followers": "フォロワー",
+        "posts": "投稿",
+        "videos": "動画"
+    },
+    "settings": {
+        "title": "設定",
+        "nav": {
+            "profile": "プロフィール",
+            "account": "アカウント",
+            "notifications": "通知",
+            "privacy": "プライバシー",
+            "logout": "ログアウト"
+        },
+        "profile": {
+            "title": "プロフィール編集",
+            "avatarHint": "JPG、PNGまたはWebP · 最大5MB",
+            "savePhoto": "写真を保存",
+            "firstName": "名前",
+            "lastName": "苗字",
+            "bio": "自己紹介",
+            "bioPlaceholder": "自己紹介を書いてください...",
+            "website": "ウェブサイト",
+            "websitePlaceholder": "https://your-site.com",
+            "location": "場所",
+            "locationPlaceholder": "市区町村、国",
+            "nativeLanguage": "母国語",
+            "saveChanges": "変更を保存"
+        },
+        "account": {
+            "title": "アカウント",
+            "email": "メール",
+            "username": "ユーザー名",
+            "verified": "認証済みアカウント",
+            "verifiedYes": "認証済み",
+            "verifiedNo": "未認証",
+            "changePassword": "パスワード変更",
+            "currentPassword": "現在のパスワード",
+            "newPassword": "新しいパスワード",
+            "confirmPassword": "新しいパスワードの確認",
+            "dangerZone": "危険ゾーン",
+            "dangerDesc": "これらの操作は永久的で元に戻せません。",
+            "deleteAccount": "アカウント削除",
+            "deleteDesc": "アカウント、投稿、すべての個人データを永久に削除します。"
+        },
+        "deleteModal": {
+            "title": "アカウントを削除しますか？",
+            "body": "この操作は永久的で元に戻せません。すべてのデータは30日以内に削除されます。",
+            "confirmLabel": "続けるにはパスワードを確認",
+            "confirmBtn": "はい、アカウントを削除"
+        },
+        "notifications": {
+            "title": "通知",
+            "push": "プッシュ通知",
+            "pushDesc": "アプリでアクティビティアラートを受け取る",
+            "email": "メール通知",
+            "emailDesc": "週次サマリーと重要なアラートを受け取る",
+            "save": "保存"
+        },
+        "privacy": {
+            "title": "プライバシーと設定",
+            "privateAccount": "非公開アカウント",
+            "privateDesc": "フォロワーのみコンテンツを見られます",
+            "autoTranslate": "自動翻訳",
+            "autoTranslateDesc": "他言語のコンテンツを自動翻訳",
+            "prefLang": "翻訳の優先言語",
+            "prefLangDefault": "母国語と同じ",
+            "theme": "テーマ",
+            "themeAuto": "自動",
+            "themeDark": "ダーク",
+            "themeLight": "ライト",
+            "save": "保存"
+        },
+        "saved": "変更が正常に保存されました"
+    },
+    "notifications": {
+        "title": "通知",
+        "markAllRead": "すべて既読にする",
+        "markingAllRead": "マーク中...",
+        "clearAll": "すべてクリア",
+        "filterAll": "すべて",
+        "filterUnread": "未読",
+        "loading": "通知を読み込み中...",
+        "emptyAll": "通知はありません",
+        "emptyAllSub": "後で新しい通知を確認してください",
+        "emptyUnread": "未読通知はありません",
+        "emptyUnreadSub": "最新の状態です",
+        "new": "新規",
+        "markRead": "既読にする",
+        "markUnread": "未読にする",
+        "delete": "削除"
+    },
+    "sidebar": {
+        "following": "フォロー中",
+        "followers": "フォロワー",
+        "posts": "投稿",
+        "navigation": "ナビゲーション",
+        "aiTranslation": "AI翻訳",
+        "active": "アクティブ",
+        "realtimeTranslation": "リアルタイム翻訳",
+        "realtimeDesc": "動画と投稿",
+        "languages": "24以上の言語",
+        "languagesDesc": "グローバル接続",
+        "instant": "即時処理",
+        "instantDesc": "超高速"
+    },
+    "trending": {
+        "title": "トレンド",
+        "loading": "トレンドを読み込み中...",
+        "filterByCountry": "国でフィルター",
+        "global": "グローバル",
+        "noTrending": "トレンドはありません",
+        "videos": "本の動画",
+        "views": "回視聴",
+        "onlyFrom": "のみ",
+        "sort": "並べ替え:",
+        "sortTrending": "最もトレンド",
+        "sortViews": "最多視聴",
+        "sortRecent": "最新",
+        "trendingBadge": "トレンド",
+        "watchNow": "今すぐ見る",
+        "gridView": "グリッド",
+        "listView": "リスト"
+    },
+    "lives": {
+        "title": "ライブ",
+        "chat": "チャット",
+        "live": "LIVE",
+        "say": "何か言ってください...",
+        "send": "送信"
+    },
+    "videoOverlay": {
+        "follow": "フォロー",
+        "subtitles": "字幕:",
+        "original": "オリジナル",
+        "available": "利用可能",
+        "requestTranslation": "翻訳をリクエスト",
+        "translate": "翻訳",
+        "translateVideo": "動画を翻訳",
+        "translateDesc": "この動画のAI翻訳字幕を生成",
+        "availableLangs": "利用可能:",
+        "requestLangs": "翻訳をリクエスト:",
+        "requesting": "リクエスト中...",
+        "request": "リクエスト",
+        "translationPending": "翻訳がリクエストされました。間もなく利用可能になります。",
+        "close": "閉じる"
+    },
+    "stories": {
+        "title": "ストーリー",
+        "add": "追加"
+    }
 }

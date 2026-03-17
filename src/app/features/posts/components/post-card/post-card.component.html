@@ -160,19 +160,21 @@
           *ngFor="let image of post.images"
           class="image-item">
 
-          <!-- Imagen -->
+          <!-- Imagen — muestra overlay si existe, original si no -->
           <img
-            [src]="getFullImageUrl(image.image_url)"
+            [src]="imageOverlayUrls[image.id] || getFullImageUrl(image.image_url)"
             [alt]="image.alt_text || 'Post image'"
             class="media-image"
             (error)="onImageError($event)">
 
-          <!-- Botón traducir imagen -->
+          <!-- Botones de traducción de imagen -->
           <div class="img-translate-bar">
+
+            <!-- Botón OCR (texto debajo) — comportamiento existente -->
             <ng-container *ngIf="!imageTranslations[image.id]">
               <button
                 class="btn-img-translate"
-                [disabled]="translatingImageId === image.id"
+                [disabled]="translatingImageId === image.id || translatingOverlayId === image.id"
                 (click)="$event.stopPropagation(); translateImage(image)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
                   fill="none" stroke="currentColor" stroke-width="2">
@@ -197,6 +199,26 @@
                 <span>{{ (showImageTranslation[image.id] ? 'post.showImage' : 'post.showText') | translate }}</span>
               </button>
             </ng-container>
+
+            <!-- Botón OVERLAY (texto sobre la imagen) — nuevo -->
+            <button
+              class="btn-img-overlay"
+              [disabled]="translatingOverlayId === image.id || translatingImageId === image.id"
+              [class.active]="imageOverlayUrls[image.id]"
+              (click)="$event.stopPropagation(); translateImageOverlay(image)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>
+              </svg>
+              <span *ngIf="translatingOverlayId !== image.id && !imageOverlayUrls[image.id]">
+                {{ 'post.translateOverlay' | translate }}
+              </span>
+              <span *ngIf="translatingOverlayId === image.id">⏳</span>
+              <span *ngIf="translatingOverlayId !== image.id && imageOverlayUrls[image.id]">
+                {{ 'post.showOriginalImage' | translate }}
+              </span>
+            </button>
+
           </div>
 
           <!-- Panel resultado OCR + traducción -->
@@ -304,4 +326,3 @@
   </div>
 
 </article>
-

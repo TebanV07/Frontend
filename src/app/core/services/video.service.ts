@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders, HttpEventType, HttpParams } from '@angular/com
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { UserBasic } from '../models/user.model';
-import { environment } from '../../../environments/environment';
 
 // ==================== INTERFACES ====================
 
