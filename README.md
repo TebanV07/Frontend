@@ -36,16 +36,34 @@ Disponible como **aplicación web** y **app Android** (via Capacitor).
 ```
 src/
 ├── app/
-│   ├── components/       # Componentes reutilizables de UI
-│   ├── pages/            # Vistas y pantallas principales
-│   ├── services/         # Servicios y lógica de negocio
-│   ├── models/           # Interfaces y tipos TypeScript
-│   └── guards/           # Guards de rutas
+│   ├── core/                  # Núcleo de la aplicación
+│   │   ├── guards/            # Guards de rutas
+│   │   ├── interceptors/      # Interceptores HTTP
+│   │   ├── models/            # Interfaces y tipos TypeScript
+│   │   ├── services/          # Servicios y lógica de negocio
+│   │   └── utils/             # Utilidades generales
+│   ├── features/              # Módulos por funcionalidad
+│   │   ├── admin/
+│   │   ├── auth/
+│   │   ├── chat/
+│   │   ├── feed/
+│   │   ├── lives/
+│   │   ├── posts/
+│   │   ├── profile/
+│   │   ├── settings/
+│   │   ├── trending/
+│   │   ├── upload/
+│   │   ├── users/
+│   │   └── videos/
+│   └── shared/                # Elementos reutilizables
+│       ├── components/        # Componentes compartidos de UI
+│       ├── directives/        # Directivas personalizadas
+│       └── pipes/             # Pipes personalizados
 ├── assets/
-│   ├── i18n/             # Archivos de traducción (ngx-translate)
-│   └── images/           # Imágenes y recursos estáticos
-├── styles/               # Estilos globales SCSS y variables
-└── environments/         # Configuración por entorno
+│   └── i18n/                  # Archivos de traducción (ngx-translate)
+├── environments/              # Configuración por entorno
+├── styles/                    # Estilos globales SCSS y variables
+└── styles.scss                # Entrada principal de estilos
 ```
 
 ---
