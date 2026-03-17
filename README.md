@@ -1,27 +1,57 @@
-# Frontend
+Tinko
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Red social con inteligencia artificial integrada — construida con Angular y SCSS.
 
-## Development server
+🌐 tinko.lat
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+¿Qué es Tinko?
+Tinko es una red social moderna que integra inteligencia artificial para mejorar la experiencia de sus usuarios. Permite publicaciones, interacciones en comunidad y funciones potenciadas por IA como transcripción de voz, generación de contenido y más.
 
-## Code scaffolding
+Stack tecnológico
+CapaTecnologíaFrameworkAngular 17EstilosSCSSDeployVercelInternacionalizaciónngx-translate
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Estructura del proyecto
+src/
+├── app/
+│   ├── components/       # Componentes reutilizables de UI
+│   ├── pages/            # Vistas y pantallas principales
+│   ├── services/         # Servicios y lógica de negocio
+│   ├── models/           # Interfaces y tipos TypeScript
+│   └── guards/           # Guards de rutas
+├── assets/               # Imágenes, íconos y recursos estáticos
+├── styles/               # Estilos globales SCSS y variables
+└── environments/         # Configuración por entorno
 
-## Build
+Instalación y desarrollo local
+Requisitos previos
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Node.js 18+
+Angular CLI 17
 
-## Running unit tests
+Pasos
+bash# 1. Clonar el repositorio
+git clone https://github.com/TebanV07/Frontend.git
+cd Frontend
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# 2. Instalar dependencias
+npm install
 
-## Running end-to-end tests
+# 3. Correr en desarrollo
+ng serve
+Navega a http://localhost:4200/. La app recarga automáticamente al guardar cambios.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Estilos y diseño
+Los estilos están organizados en SCSS modular:
+src/styles/
+├── _variables.scss    # Colores, tipografía y espaciados globales
+├── _mixins.scss       # Mixins reutilizables
+└── styles.scss        # Entrada principal de estilos
+Para modificar la paleta de colores o tipografía, el punto de entrada es src/styles/_variables.scss.
 
-## Further help
+Build para producción
+bashng build
+Los archivos compilados se generan en /dist. El deploy en producción se hace automáticamente vía Vercel al hacer push a main.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Internacionalización (i18n)
+El proyecto usa ngx-translate para soporte multilenguaje. Los archivos de traducción están en:
+src/assets/i18n/
