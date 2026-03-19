@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Post } from '../../../core/models/post.model';
@@ -29,7 +29,7 @@ import { ReportModalComponent } from '../report-modal/report-modal.component';
     LikeCountComponent,
     ReportModalComponent, TranslateModule],
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, OnChanges {
   @Input() post!: Post;
   @Input() currentUserId?: number;
   @Output() postDeleted = new EventEmitter<number>();
@@ -73,6 +73,13 @@ export class PostComponent implements OnInit {
     private translationService: TranslationService,
     private languageService: LanguageService
   ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['currentUserId']) return; // ignorar cambios de userId
+    // Limpiar overlays y traducciones de imágenes al cambiar cualquier input relevante
+    this.imageOverlayUrls     = {};
+    this.translatingOverlayId = null;
+  }
 
   ngOnInit(): void {
     this.availableLanguages = this.languageService.SUPPORTED_LANGUAGES;
@@ -154,11 +161,17 @@ export class PostComponent implements OnInit {
   onTranslationLanguageChange(event: Event): void {
     const newLanguage = (event.target as HTMLSelectElement).value;
     this.selectedTranslationLanguage = newLanguage;
-    if (this.showTranslation) {
-      this.translatedContent = '';
-      this.lastTranslatedLanguage = '';
-      this.showTranslation = false;
-      this.imageTranslations = {};
+    // Limpiar siempre, aunque no esté mostrando traducción
+    this.translatedContent      = '';
+    this.lastTranslatedLanguage = '';
+    this.showTranslation        = false;
+    this.imageTranslations      = {};
+    // Limpiar overlays — son específicos por idioma
+    Object.values(this.imageOverlayUrls).forEach(url => URL.revokeObjectURL(url));
+    this.imageOverlayUrls     = {};
+    this.translatingOverlayId = null;
+    // Solo re-traducir si ya estaba activa la traducción
+    if (newLanguage !== this.lastTranslatedLanguage) {
       this.toggleTranslation();
     }
   }
@@ -287,7 +300,11 @@ export class PostComponent implements OnInit {
   }
 
   onImageError(event: Event): void {
-    (event.target as HTMLImageElement).src = '/assets/default-image.png';
+    const img = event.target as HTMLImageElement;
+    if (!img.src.includes('default-image.png') &&
+        !img.src.includes('default-avatar.png')) {
+      img.src = '/assets/default-image.png';
+    }
   }
 
   onVideoError(event: Event): void {

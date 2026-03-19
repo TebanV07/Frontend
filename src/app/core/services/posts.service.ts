@@ -1,6 +1,5 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post } from '../models/post.model';
 import { environment } from '../../../environments/environment';
@@ -49,45 +48,8 @@ export { Post } from '../models/post.model';
 })
 export class PostsService {
   private apiUrl = environment.apiUrl;
-  private isBrowser: boolean;
 
-  constructor(
-    private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: object
-  ) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-  }
-
-  /**
-   * Obtener el token de autenticación
-   */
-  private getAuthHeaders(): HttpHeaders {
-    let token = '';
-
-    if (this.isBrowser) {
-      token = localStorage.getItem('access_token') || '';
-    }
-
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-  }
-
-  /**
-   * Obtener headers para FormData (sin Content-Type)
-   */
-  private getAuthHeadersForFormData(): HttpHeaders {
-    let token = '';
-
-    if (this.isBrowser) {
-      token = localStorage.getItem('access_token') || '';
-    }
-
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-  }
+  constructor(private http: HttpClient) {}
 
   /**
    * Crear un nuevo post
@@ -96,8 +58,7 @@ export class PostsService {
     // backend acepta video_id dentro del cuerpo JSON
     return this.http.post<CreatePostResponse>(
       `${this.apiUrl}/posts`,
-      postData,
-      { headers: this.getAuthHeaders() }
+      postData
     );
   }
 
@@ -124,8 +85,7 @@ export class PostsService {
 
     return this.http.post<any>(
       `${this.apiUrl}/upload/`,
-      formData,
-      { headers: this.getAuthHeadersForFormData() }
+      formData
     );
   }
 
@@ -168,8 +128,7 @@ createVideo(
 
   return this.http.post<VideoResponse>(
     `${this.apiUrl}/videos/`,
-    formData,
-    { headers: this.getAuthHeadersForFormData() }
+    formData
   );
 }
 
@@ -180,8 +139,7 @@ createVideo(
    */
   getVideoById(videoId: number): Observable<VideoResponse> {
     return this.http.get<VideoResponse>(
-      `${this.apiUrl}/videos/${videoId}`,
-      { headers: this.getAuthHeaders() }
+      `${this.apiUrl}/videos/${videoId}`
     );
   }
 
@@ -192,8 +150,7 @@ createVideo(
    */
   getVideoByUuid(videoUuid: string): Observable<VideoResponse> {
     return this.http.get<VideoResponse>(
-      `${this.apiUrl}/videos/uuid/${videoUuid}`,
-      { headers: this.getAuthHeaders() }
+      `${this.apiUrl}/videos/uuid/${videoUuid}`
     );
   }
 
@@ -204,8 +161,7 @@ createVideo(
    */
   getVideos(skip: number = 0, limit: number = 20): Observable<VideoResponse[]> {
     return this.http.get<VideoResponse[]>(
-      `${this.apiUrl}/videos/?skip=${skip}&limit=${limit}`,
-      { headers: this.getAuthHeaders() }
+      `${this.apiUrl}/videos/?skip=${skip}&limit=${limit}`
     );
   }
 
@@ -217,8 +173,7 @@ createVideo(
   updateVideo(videoId: number, data: Partial<CreateVideoRequest>): Observable<VideoResponse> {
     return this.http.put<VideoResponse>(
       `${this.apiUrl}/videos/${videoId}`,
-      data,
-      { headers: this.getAuthHeaders() }
+      data
     );
   }
 
@@ -229,8 +184,7 @@ createVideo(
    */
   deleteVideo(videoId: number): Observable<any> {
     return this.http.delete(
-      `${this.apiUrl}/videos/${videoId}`,
-      { headers: this.getAuthHeaders() }
+      `${this.apiUrl}/videos/${videoId}`
     );
   }
 
@@ -242,8 +196,7 @@ createVideo(
   translateVideo(videoId: number, targetLanguage: string): Observable<any> {
     return this.http.post(
       `${this.apiUrl}/videos/${videoId}/translate`,
-      { target_language: targetLanguage },
-      { headers: this.getAuthHeaders() }
+      { target_language: targetLanguage }
     );
   }
 
@@ -254,8 +207,7 @@ createVideo(
    */
   getVideoTranslations(videoId: number): Observable<any[]> {
     return this.http.get<any[]>(
-      `${this.apiUrl}/videos/${videoId}/translations`,
-      { headers: this.getAuthHeaders() }
+      `${this.apiUrl}/videos/${videoId}/translations`
     );
   }
 
@@ -267,8 +219,7 @@ createVideo(
   likeVideo(videoId: number): Observable<any> {
     return this.http.post(
       `${this.apiUrl}/videos/${videoId}/like`,
-      {},
-      { headers: this.getAuthHeaders() }
+      {}
     );
   }
 
@@ -280,8 +231,7 @@ createVideo(
   saveVideo(videoId: number): Observable<any> {
     return this.http.post(
       `${this.apiUrl}/videos/${videoId}/save`,
-      {},
-      { headers: this.getAuthHeaders() }
+      {}
     );
   }
 
@@ -293,8 +243,7 @@ createVideo(
   shareVideo(videoId: number): Observable<any> {
     return this.http.post(
       `${this.apiUrl}/videos/${videoId}/share`,
-      {},
-      { headers: this.getAuthHeaders() }
+      {}
     );
   }
 
@@ -303,8 +252,7 @@ createVideo(
    */
   getPosts(page: number = 1, pageSize: number = 10): Observable<GetPostsResponse> {
     return this.http.get<GetPostsResponse>(
-      `${this.apiUrl}/posts/?page=${page}&page_size=${pageSize}`,
-      { headers: this.getAuthHeaders() }
+      `${this.apiUrl}/posts/?page=${page}&page_size=${pageSize}`
     );
   }
 
@@ -313,8 +261,7 @@ createVideo(
    */
   getPostById(postId: string): Observable<Post> {
     return this.http.get<Post>(
-      `${this.apiUrl}/posts/${postId}`,
-      { headers: this.getAuthHeaders() }
+      `${this.apiUrl}/posts/${postId}`
     );
   }
 
@@ -338,8 +285,7 @@ createVideo(
     }
     return this.http.put<Post>(
       `${this.apiUrl}/posts/${postId}`,
-      form,
-      { headers: this.getAuthHeadersForFormData() }
+      form
     );
   }
 
@@ -348,8 +294,7 @@ createVideo(
    */
   getUserPosts(userId: number, page: number = 1, pageSize: number = 10): Observable<GetPostsResponse> {
     return this.http.get<GetPostsResponse>(
-      `${this.apiUrl}/posts/user/${userId}?page=${page}&page_size=${pageSize}`,
-      { headers: this.getAuthHeaders() }
+      `${this.apiUrl}/posts/user/${userId}?page=${page}&page_size=${pageSize}`
     );
   }
 
@@ -361,8 +306,7 @@ createVideo(
     console.log('📡 URL:', `${this.apiUrl}/likes/posts/${postId}/like`);
     return this.http.post(
       `${this.apiUrl}/likes/posts/${postId}/like`,
-      {},
-      { headers: this.getAuthHeaders() }
+      {}
     );
   }
 
@@ -371,8 +315,7 @@ createVideo(
    */
   unlikePost(postId: string): Observable<any> {
     return this.http.delete(
-      `${this.apiUrl}/likes/posts/${postId}/unlike`,
-      { headers: this.getAuthHeaders() }
+      `${this.apiUrl}/likes/posts/${postId}/unlike`
     );
   }
 
@@ -381,8 +324,7 @@ createVideo(
    */
   getLikeStatus(postId: string): Observable<{ is_liked: boolean; likes_count: number }> {
     return this.http.get<{ is_liked: boolean; likes_count: number }>(
-      `${this.apiUrl}/likes/posts/${postId}/status`,
-      { headers: this.getAuthHeaders() }
+      `${this.apiUrl}/likes/posts/${postId}/status`
     );
   }
   createPostWithMedia(
@@ -435,29 +377,25 @@ createVideo(
 
   return this.http.post<Post>(
     `${this.apiUrl}/posts/`,
-    formData,
-    { headers: this.getAuthHeadersForFormData() }
+    formData
   );
 }
 
 toggleSavePost(postId: number): Observable<any> {
   return this.http.post(
     `${this.apiUrl}/posts/${postId}/save`,
-    {},
-    { headers: this.getAuthHeaders() }
+    {}
   );
 }
 getSavedPosts(skip: number = 0, limit: number = 20): Observable<Post[]> {
   return this.http.get<Post[]>(
-    `${this.apiUrl}/posts/saved/me?skip=${skip}&limit=${limit}`,
-    { headers: this.getAuthHeaders() }
+    `${this.apiUrl}/posts/saved/me?skip=${skip}&limit=${limit}`
   );
 }
 sharePost(postId: number): Observable<any> {
   return this.http.post(
     `${this.apiUrl}/posts/${postId}/share`,
-    {},
-    { headers: this.getAuthHeaders() }
+    {}
   );
 }
 translatePost(postId: number, targetLanguage: string, forceRetranslate = false): Observable<any> {
@@ -466,8 +404,7 @@ translatePost(postId: number, targetLanguage: string, forceRetranslate = false):
     {
       target_language: targetLanguage,
       force_retranslate: forceRetranslate
-    },
-    { headers: this.getAuthHeaders() }
+    }
   );
 }
 /**
@@ -490,23 +427,18 @@ translateImageWithOverlay(
   return this.http.post(
     `${this.apiUrl}/translations/images/${imageId}/overlay`,
     formData,
-    {
-      headers: this.getAuthHeadersForFormData(),
-      responseType: 'blob'
-    }
+    { responseType: 'blob' }
   );
 }
 deletePost(postId: string): Observable<void> {
   return this.http.delete<void>(
-    `${this.apiUrl}/posts/${postId}`,
-    { headers: this.getAuthHeadersForFormData() }
+    `${this.apiUrl}/posts/${postId}`
   );
 }
 reportPost(postId: number, reason: string, description?: string): Observable<any> {
   return this.http.post(
     `${this.apiUrl}/reports`,
-    { content_type: 'post', content_id: postId, reason, description },
-    { headers: this.getAuthHeaders() }
+    { content_type: 'post', content_id: postId, reason, description }
   );
 }
 }
