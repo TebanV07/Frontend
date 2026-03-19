@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
@@ -18,7 +18,7 @@ import { TranslationService, ImageTranslationResponse } from '../../../../core/s
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.scss']
 })
-export class PostCardComponent {
+export class PostCardComponent implements OnChanges {
   @Input() post!: Post;
   @Input() currentUserId?: number;
   @Input() userLanguage = 'en';
@@ -57,6 +57,17 @@ export class PostCardComponent {
     private postsService:       PostsService,
     private translationService: TranslationService
   ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Si cambia el idioma destino, limpiar todas las traducciones cacheadas
+    if (changes['userLanguage'] && !changes['userLanguage'].firstChange) {
+      this.imageTranslations    = {};
+      this.showImageTranslation = {};
+      this.imageOverlayUrls     = {};
+      this.translatingImageId   = null;
+      this.translatingOverlayId = null;
+    }
+  }
 
   get isOwnPost(): boolean {
     return this.currentUserId === this.post.user_id;
@@ -121,7 +132,11 @@ export class PostCardComponent {
   onVideoError(_event: Event): void { this.isPlaying = false; }
 
   onImageError(event: Event): void {
-    (event.target as HTMLImageElement).src = '/assets/default-image.png';
+    const img = event.target as HTMLImageElement;
+    if (!img.src.includes('default-image.png') &&
+        !img.src.includes('default-avatar.png')) {
+      img.src = '/assets/default-image.png';
+    }
   }
 
   // ── Dropdown ─────────────────────────────────────────────

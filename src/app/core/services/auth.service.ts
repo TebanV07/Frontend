@@ -95,17 +95,7 @@ export class AuthService {
     @Inject(PLATFORM_ID) private platformId: object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-
-    if (this.isBrowser) {
-      const savedUser = localStorage.getItem('currentUser');
-      if (savedUser) {
-        const user = JSON.parse(savedUser);
-        this.currentUserSubject.next(user);
-        if (user?.id) {
-          this.getFollowService().loadInitialData(user.id);
-        }
-      }
-    }
+    this._restoreSession();
   }
 
   private getFollowService() {
@@ -157,8 +147,7 @@ export class AuthService {
   resendVerificationEmail(): Observable<VerificationEmailResponse> {
     return this.http.post<VerificationEmailResponse>(
       `${this.apiUrl}/users/me/verify-email/send`,
-      {},
-      this._getAuthRequestOptions()
+      {}
     );
   }
 
@@ -166,11 +155,9 @@ export class AuthService {
     if (!this.isBrowser || !this.getToken()) {
       return EMPTY;
     }
-
-    return this.http.get<any>(`${this.apiUrl}/users/me`, this._getAuthRequestOptions())
-      .pipe(
-        tap(user => this._updateCurrentUser(user))
-      );
+    return this.http.get<any>(`${this.apiUrl}/users/me`).pipe(
+      tap(user => this._updateCurrentUser(user))
+    );
   }
 
   // ============================================
@@ -317,8 +304,8 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!this.getCurrentUser() &&
-      (this.isBrowser ? !!localStorage.getItem('access_token') : false);
+    if (!this.isBrowser) return false;
+    return !!localStorage.getItem('access_token') && !!this.currentUserSubject.value;
   }
 
   getToken(): string | null {
@@ -332,6 +319,35 @@ export class AuthService {
   // ============================================
   // MÉTODOS PRIVADOS
   // ============================================
+
+  private _restoreSession(): void {
+    if (!this.isBrowser) return;
+
+    const token = localStorage.getItem('access_token');
+    if (!token) return;
+
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+      try {
+        const user = JSON.parse(savedUser);
+        this.currentUserSubject.next(user);
+        if (user?.id) {
+          this.getFollowService().loadInitialData(user.id);
+        }
+      } catch {
+        this.logout();
+        return;
+      }
+    }
+
+    this.syncCurrentUser().subscribe({
+      error: (err) => {
+        if (err.status === 401) {
+          this.logout();
+        }
+      }
+    });
+  }
 
   /** Guardar tokens y usuario en localStorage y BehaviorSubject */
   private _saveSession(accessToken: string, refreshToken: string, user: any): void {

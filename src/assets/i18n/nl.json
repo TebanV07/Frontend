@@ -1,34 +1,538 @@
 {
-    "brand": { "name": "TINKO", "tagline": "AI-Powered Global Connection" },
-    "auth": {
-        "forgotPass": { "title": "Wachtwoord herstellen", "subtitle": "Voer het e-mailadres van je account in en we sturen je een herstelkoppeling.", "emailLabel": "E-mailadres", "emailPlaceholder": "jij@email.com", "sending": "Verzenden...", "submit": "Herstelkoppeling versturen", "backToLogin": "Terug naar inloggen", "emailRequired": "Voer je e-mailadres in om door te gaan." },
-        "resetPass": { "title": "Nieuw wachtwoord instellen", "subtitle": "Kies een sterk nieuw wachtwoord voor je account.", "newPasswordLabel": "Nieuw wachtwoord", "newPasswordPlaceholder": "Nieuw wachtwoord", "confirmPasswordLabel": "Bevestig wachtwoord", "confirmPasswordPlaceholder": "Bevestig wachtwoord", "updating": "Bijwerken...", "submit": "Wachtwoord bijwerken", "successTitle": "Wachtwoord bijgewerkt!", "goToLogin": "Ga naar inloggen", "errorTitle": "Kon wachtwoord niet bijwerken", "requestNew": "Nieuwe herstelkoppeling aanvragen", "invalidToken": "Ongeldige of verlopen herstelkoppeling.", "fillBothFields": "Vul beide wachtwoordvelden in.", "passwordsMismatch": "Wachtwoorden komen niet overeen." },
-        "verifyRequired": { "title": "Verifieer je e-mailadres", "lead": "Je moet je e-mailadres verifiëren voordat je toegang hebt tot Tinko.", "registeredEmail": "We hebben een verificatielink gestuurd naar het e-mailadres waarmee je je hebt geregistreerd.", "hint": "Als je het niet ziet, controleer dan je spammap.", "resending": "Opnieuw versturen...", "resend": "Verificatie-e-mail opnieuw versturen", "verifying": "Verificatie...", "alreadyVerified": "Ik heb al geverifieerd", "logout": "Uitloggen" },
-        "login": { "title": "Welkom terug!", "subtitle": "Log in om je wereldwijde ervaring voort te zetten", "submit": "Inloggen", "submitting": "Bezig met inloggen...", "noAccount": "Heb je geen account?", "switchToRegister": "Gratis registreren", "rememberMe": "Onthoud mij", "forgotPassword": "Wachtwoord vergeten?", "orContinueWith": "of ga verder met", "google": "Google" },
-        "register": { "title": "Doe mee aan de revolutie!", "subtitle": "Verbind met de wereld zonder taalbarrières", "submit": "Account aanmaken", "submitting": "Account aanmaken...", "hasAccount": "Heb je al een account?", "switchToLogin": "Inloggen", "usernameHint": "Als je dit leeg laat, wordt het automatisch gegenereerd", "nativeLanguageHint": "Moedertaal" },
-        "fields": { "firstName": "Voornaam", "lastName": "Achternaam", "username": "Gebruikersnaam (optioneel)", "email": "E-mailadres", "password": "Wachtwoord", "nativeLanguage": "Moedertaal" },
-        "features": { "title": "🚀 Wat je te wachten staat:", "videos": "Video's in realtime vertaald", "languages": "Verbind met 24+ talen", "ai": "Geavanceerde AI-vertaling" }
+    "brand": {
+        "name": "TINKO",
+        "tagline": "AI-Powered Global Connection"
     },
-    "verify": { "loading": "E-mail verifiëren...", "success": { "title": "E-mail geverifieerd!", "message": "Je account is nu geverifieerd. Geniet van alle functies.", "goHome": "Naar home" }, "error": { "title": "Ongeldige link", "requestNew": "Nieuwe link aanvragen" } },
-    "header": { "search": "Zoek mensen, berichten...", "nav": { "home": "Home", "trending": "Trending", "videos": "Video's", "messages": "Berichten", "notifications": "Meldingen", "profile": "Profiel", "settings": "Instellingen" }, "theme": { "light": "Lichte modus", "dark": "Donkere modus" }, "menu": "Menu" },
-    "chat": { "input": { "placeholder": "Schrijf een bericht...", "emojis": "Emoji's", "attach": "Bestand bijvoegen", "camera": "Foto nemen", "voice": "Voicebericht opnemen", "send": "Verzenden", "recording": "Opnemen...", "stopRecording": "Stop" }, "window": { "noName": "Geen naam", "selectConversation": "Selecteer een gesprek", "selectConversationHint": "Kies een gesprek om te beginnen met chatten", "uploading": "Bestand uploaden...", "speaksLanguage": "Spreekt " }, "bubble": { "edited": "bewerkt", "edit": "Bewerken", "delete": "Verwijderen", "deleteForMe": "Verwijder voor mij", "forward": "Doorsturen", "share": "Delen", "translate": "Vertalen" } },
-    "feed": { "loading": "Video's laden...", "loadingMore": "Meer video's laden...", "empty": { "title": "Geen video's beschikbaar", "subtitle": "Wees de eerste die een video upload met AI-vertaling", "upload": "Video uploaden" }, "position": "{{ current }} / {{ total }}", "aiActive": "AI-vertaling actief", "aiDesc": "Alle inhoud automatisch vertaald naar je voorkeurstaal", "aiLanguages": "Talen", "aiVideos": "Video's", "suggestedTitle": "Mensen die je misschien kent", "suggestedSeeAll": "Alles zien", "suggestedFollowers": "volgers", "suggestedMutual": "gemeenschappelijk", "following": "Volgend", "follow": "Volgen", "loadingPosts": "Berichten laden...", "noPosts": "Nog geen berichten", "noPostsSub": "Wees de eerste die iets deelt" },
-    "videoPlayer": { "loading": "Video laden...", "error": { "title": "Fout bij het laden van video", "subtitle": "Deze video kon niet worden afgespeeld", "retry": "Opnieuw proberen" }, "noSupport": "Je browser ondersteunt de videotag niet." },
-    "comments": { "title": "Reacties", "placeholder": "Schrijf een reactie...", "submit": "💬 Reageren", "submitting": "Plaatsen...", "loading": "Laden...", "empty": "Wees de eerste die reageert", "loadMore": "↓ Meer reacties laden", "loadingMore": "Laden...", "reply": "Reageren", "replying": "Plaatsen...", "cancel": "Annuleren", "save": "Opslaan", "edit": "✏️ Bewerken", "delete": "🗑️ Verwijderen", "edited": "· bewerkt", "replyTo": "Reageren op @", "replies": { "one": "antwoord", "other": "antwoorden" } },
-    "post": { "edit": { "title": "Bericht bewerken", "content": "Inhoud:", "tags": "Tags (komma's):", "public": "Openbaar", "save": "Opslaan", "skip": "Overslaan" }, "likes": { "like": "Vind ik leuk", "liked": "Geliked", "likedBy": "Geliked door", "noLikes": "Nog geen likes", "loading": "Laden..." }, "deleteConfirm": "Dit bericht verwijderen?", "deleteBody": "Deze actie kan niet ongedaan worden gemaakt.", "editMenu": "Bewerken", "deleteMenu": "Verwijderen", "reportMenu": "Rapporteren", "shareMenu": "Delen", "comments": "reacties", "comment": "Reageren", "translateText": "Tekst vertalen", "extracting": "Extraheren...", "showImage": "Afbeelding tonen", "showText": "Tekst tonen", "originalText": "Originele tekst", "noText": "Geen tekst gevonden in deze afbeelding", "translatedTo": "Vertaald naar", "from": "van", "showingTranslation": "Vertaling weergeven", "translatePost": "Dit bericht vertalen", "translating": "Vertalen...", "showOriginal": "Origineel tonen", "translate": "Vertalen", "back": "Terug naar feed", "close": "Sluiten", "translateOverlay": "Vertalen in afbeelding", "showOriginalImage": "Origineel tonen" },
-    "profile": { "tabs": { "posts": "Berichten", "videos": "Video's", "liked": "Vind ik leuk", "bookmarks": "Opgeslagen" }, "content": { "noPosts": "Nog geen berichten", "noVideos": "Nog geen video's", "likedPosts": "Berichten die je leuk vond", "savedPosts": "Opgeslagen berichten", "loadMore": "Meer laden", "loading": "Laden..." } },
-    "upload": { "title": "Video/bericht uploaden", "titleField": "Titel (optioneel)", "description": "Beschrijving (optioneel)", "submit": "Uploaden", "submitting": "Uploaden..." },
-    "explore": { "title": "Mensen ontdekken", "subtitle": "Vind en verbind met mensen van over de hele wereld", "search": { "placeholder": "Zoek mensen op naam of gebruikersnaam...", "button": "Zoeken", "searching": "Zoeken...", "results": "Resultaten ({{ count }})", "noResults": { "title": "Geen resultaten gevonden", "subtitle": "Probeer een andere zoekterm" } }, "followRequests": { "title": "Volgverzoeken", "noPending": { "title": "Geen openstaande verzoeken", "subtitle": "Wanneer iemand je wil volgen, verschijnt hij hier" }, "accept": "Accepteren", "reject": "Weigeren" }, "suggested": { "title": "Mensen die je misschien kent", "empty": "Momenteel geen suggesties", "viewAll": "Alle suggesties bekijken", "viewLess": "Minder weergeven", "mutual": "{{ count }} gemeenschappelijke volgers", "follow": "Volgen", "following": "Volgend", "pending": "In behandeling" }, "filters": { "byCountry": "Filteren op land", "allCountries": "Alle landen" }, "actions": { "talk": "Ik wil praten" }, "byCountry": { "title": "Mensen per land", "countries": "landen", "emptyTitle": "Geen mensen om te tonen", "emptySubtitle": "Probeer een ander land of zoekterm" } },
-    "countrySetup": { "title": "Waar kom je vandaan?", "subtitle": "Je vlag verschijnt op je berichten zodat mensen weten waar je vandaan komt.", "detecting": "Je land detecteren...", "detected": "Gedetecteerd land:", "notDetected": "We konden je land niet automatisch detecteren.", "manualSelect": "Selecteer je land:", "manualPlaceholder": "-- Kies je land --", "notMyCountry": "Dat is mijn land niet — wijzigen", "confirm": "✅ Bevestigen", "saving": "Opslaan...", "skip": "Nu overslaan" },
-    "permissions": { "welcome": { "title": "Machtigingen instellen", "subtitle": "Om je de beste ervaring te bieden, hebben we toegang tot enkele apparaatmachtigingen nodig.", "camera": "Camera voor livestreams", "microphone": "Microfoon voor videogesprekken", "notifications": "Berichtmeldingen", "later": "Later instellen", "continue": "Doorgaan" }, "list": { "title": "Vereiste machtigingen", "subtitle": "Klik op elke machtiging om deze aan te vragen", "granted": "✓ Toegestaan", "required": "⚠ Vereist", "optional": "ℹ Optioneel", "request": "Toegang aanvragen", "requestAll": "Alles aanvragen", "back": "Terug" }, "complete": { "title": "Installatie voltooid!", "subtitle": "Je machtigingen zijn correct geconfigureerd.", "grantedStatus": "Toegestaan", "deniedStatus": "Niet toegestaan", "redirect": "Over enkele seconden doorsturen naar home...", "goHome": "Nu naar home gaan" } },
-    "report": { "title": "🚩 Inhoud melden", "subtitle": "Selecteer de reden voor je melding", "descriptionLabel": "Aanvullende beschrijving (optioneel)", "descriptionPlaceholder": "Vertel ons meer over het probleem...", "cancel": "Annuleren", "submit": "Melding versturen", "submitting": "Verzenden..." },
-    "terms": { "title": "Voorwaarden en Privacy", "lastUpdated": "Laatste update: januari 2025 · Lees aandachtig voor je doorgaat", "tabs": { "terms": "📄 Algemene voorwaarden", "privacy": "🔒 Privacybeleid" }, "scroll": { "pending": "Scroll naar beneden om verder te gaan", "done": "Je hebt het volledige document gelezen ✓" }, "decline": "Weigeren", "accept": "Accepteren en doorgaan" },
-    "common": { "loading": "Laden...", "error": "Er is een fout opgetreden", "retry": "Opnieuw proberen", "save": "Opslaan", "cancel": "Annuleren", "confirm": "Bevestigen", "delete": "Verwijderen", "edit": "Bewerken", "close": "Sluiten", "back": "Terug", "next": "Volgende", "skip": "Overslaan", "search": "Zoeken", "share": "Delen", "report": "Melden", "follow": "Volgen", "unfollow": "Ontvolgen", "following": "Volgend", "followers": "Volgers", "posts": "Berichten", "videos": "Video's" },
-    "settings": { "title": "Instellingen", "nav": { "profile": "Profiel", "account": "Account", "notifications": "Meldingen", "privacy": "Privacy", "logout": "Uitloggen" }, "profile": { "title": "Profiel bewerken", "avatarHint": "JPG, PNG of WebP · Max. 5 MB", "savePhoto": "Foto opslaan", "firstName": "Voornaam", "lastName": "Achternaam", "bio": "Bio", "bioPlaceholder": "Vertel ons iets over jezelf...", "website": "Website", "websitePlaceholder": "https://jouw-site.com", "location": "Locatie", "locationPlaceholder": "Stad, Land", "nativeLanguage": "Moedertaal", "saveChanges": "Wijzigingen opslaan" }, "account": { "title": "Account", "email": "E-mailadres", "username": "Gebruikersnaam", "verified": "Account geverifieerd", "verifiedYes": "Geverifieerd", "verifiedNo": "Niet geverifieerd", "changePassword": "Wachtwoord wijzigen", "currentPassword": "Huidig wachtwoord", "newPassword": "Nieuw wachtwoord", "confirmPassword": "Bevestig nieuw wachtwoord", "dangerZone": "Gevaarlijke zone", "dangerDesc": "Deze acties zijn permanent en kunnen niet ongedaan worden gemaakt.", "deleteAccount": "Account verwijderen", "deleteDesc": "Verwijdert permanent je account, berichten en alle persoonlijke gegevens." }, "deleteModal": { "title": "Je account verwijderen?", "body": "Deze actie is permanent en onomkeerbaar. Al je gegevens worden binnen 30 dagen verwijderd.", "confirmLabel": "Bevestig je wachtwoord om door te gaan", "confirmBtn": "Ja, mijn account verwijderen" }, "notifications": { "title": "Meldingen", "push": "Pushmeldingen", "pushDesc": "Ontvang activiteitsmeldingen in de app", "email": "E-mailmeldingen", "emailDesc": "Ontvang een wekelijks overzicht en belangrijke meldingen", "save": "Opslaan" }, "privacy": { "title": "Privacy en voorkeuren", "privateAccount": "Privaccount", "privateDesc": "Alleen je volgers kunnen je inhoud zien", "autoTranslate": "Automatisch vertalen", "autoTranslateDesc": "Vertaalt automatisch inhoud in andere talen", "prefLang": "Voorkeurstaal voor vertaling", "prefLangDefault": "Zelfde als moedertaal", "theme": "Thema", "themeAuto": "Automatisch", "themeDark": "Donker", "themeLight": "Licht", "save": "Opslaan" }, "saved": "Wijzigingen succesvol opgeslagen" },
-    "notifications": { "title": "Meldingen", "markAllRead": "Alles als gelezen markeren", "markingAllRead": "Markeren...", "clearAll": "Alles wissen", "filterAll": "Alle", "filterUnread": "Ongelezen", "loading": "Meldingen laden...", "emptyAll": "Geen meldingen", "emptyAllSub": "Kom later terug voor nieuwe meldingen", "emptyUnread": "Geen ongelezen meldingen", "emptyUnreadSub": "Je bent bijgewerkt", "new": "Nieuw", "markRead": "Als gelezen markeren", "markUnread": "Als ongelezen markeren", "delete": "Verwijderen" },
-    "sidebar": { "following": "Volgend", "followers": "Volgers", "posts": "Berichten", "navigation": "Navigatie", "aiTranslation": "AI-vertaling", "active": "Actief", "realtimeTranslation": "Realtime vertaling", "realtimeDesc": "Video's en berichten", "languages": "24+ talen", "languagesDesc": "Wereldwijde connectiviteit", "instant": "Directe verwerking", "instantDesc": "Ultrasnel" },
-    "trending": { "title": "Trending", "loading": "Trending laden...", "filterByCountry": "Filteren op land", "global": "Globaal", "noTrending": "Geen trending beschikbaar", "videos": "video's", "views": "weergaven", "onlyFrom": "Alleen van", "sort": "Sorteren:", "sortTrending": "Meest trending", "sortViews": "Meest bekeken", "sortRecent": "Meest recent", "trendingBadge": "Trending", "watchNow": "Nu bekijken", "gridView": "Raster", "listView": "Lijst" },
-    "lives": { "title": "Live", "chat": "Chat", "live": "LIVE", "say": "Zeg iets...", "send": "Verzenden" },
-    "videoOverlay": { "follow": "Volgen", "subtitles": "Ondertitels:", "original": "Origineel", "available": "Beschikbaar", "requestTranslation": "Vertaling aanvragen", "translate": "Vertalen", "translateVideo": "Video vertalen", "translateDesc": "Genereer met AI vertaalde ondertitels voor deze video", "availableLangs": "Beschikbaar:", "requestLangs": "Vertaling aanvragen:", "requesting": "Aanvragen...", "request": "Aanvragen", "translationPending": "Vertaling aangevraagd. Binnenkort beschikbaar.", "close": "Sluiten" },
-    "stories": { "title": "Verhalen", "add": "Toevoegen" }
+    "auth": {
+        "forgotPass": {
+            "title": "Wachtwoord herstellen",
+            "subtitle": "Voer het e-mailadres van je account in en we sturen je een herstelkoppeling.",
+            "emailLabel": "E-mailadres",
+            "emailPlaceholder": "jij@email.com",
+            "sending": "Verzenden...",
+            "submit": "Herstelkoppeling versturen",
+            "backToLogin": "Terug naar inloggen",
+            "emailRequired": "Voer je e-mailadres in om door te gaan."
+        },
+        "resetPass": {
+            "title": "Nieuw wachtwoord instellen",
+            "subtitle": "Kies een sterk nieuw wachtwoord voor je account.",
+            "newPasswordLabel": "Nieuw wachtwoord",
+            "newPasswordPlaceholder": "Nieuw wachtwoord",
+            "confirmPasswordLabel": "Bevestig wachtwoord",
+            "confirmPasswordPlaceholder": "Bevestig wachtwoord",
+            "updating": "Bijwerken...",
+            "submit": "Wachtwoord bijwerken",
+            "successTitle": "Wachtwoord bijgewerkt!",
+            "goToLogin": "Ga naar inloggen",
+            "errorTitle": "Kon wachtwoord niet bijwerken",
+            "requestNew": "Nieuwe herstelkoppeling aanvragen",
+            "invalidToken": "Ongeldige of verlopen herstelkoppeling.",
+            "fillBothFields": "Vul beide wachtwoordvelden in.",
+            "passwordsMismatch": "Wachtwoorden komen niet overeen."
+        },
+        "verifyRequired": {
+            "title": "Verifieer je e-mailadres",
+            "lead": "Je moet je e-mailadres verifiëren voordat je toegang hebt tot Tinko.",
+            "registeredEmail": "We hebben een verificatielink gestuurd naar het e-mailadres waarmee je je hebt geregistreerd.",
+            "hint": "Als je het niet ziet, controleer dan je spammap.",
+            "resending": "Opnieuw versturen...",
+            "resend": "Verificatie-e-mail opnieuw versturen",
+            "verifying": "Verificatie...",
+            "alreadyVerified": "Ik heb al geverifieerd",
+            "logout": "Uitloggen"
+        },
+        "login": {
+            "title": "Welkom terug!",
+            "subtitle": "Log in om je wereldwijde ervaring voort te zetten",
+            "submit": "Inloggen",
+            "submitting": "Bezig met inloggen...",
+            "noAccount": "Heb je geen account?",
+            "switchToRegister": "Gratis registreren",
+            "rememberMe": "Onthoud mij",
+            "forgotPassword": "Wachtwoord vergeten?",
+            "orContinueWith": "of ga verder met",
+            "google": "Google"
+        },
+        "register": {
+            "title": "Doe mee aan de revolutie!",
+            "subtitle": "Verbind met de wereld zonder taalbarrières",
+            "submit": "Account aanmaken",
+            "submitting": "Account aanmaken...",
+            "hasAccount": "Heb je al een account?",
+            "switchToLogin": "Inloggen",
+            "usernameHint": "Als je dit leeg laat, wordt het automatisch gegenereerd",
+            "nativeLanguageHint": "Moedertaal"
+        },
+        "fields": {
+            "firstName": "Voornaam",
+            "lastName": "Achternaam",
+            "username": "Gebruikersnaam (optioneel)",
+            "email": "E-mailadres",
+            "password": "Wachtwoord",
+            "nativeLanguage": "Moedertaal"
+        },
+        "features": {
+            "title": "🚀 Wat je te wachten staat:",
+            "videos": "Video's in realtime vertaald",
+            "languages": "Verbind met 24+ talen",
+            "ai": "Geavanceerde AI-vertaling"
+        }
+    },
+    "verify": {
+        "loading": "E-mail verifiëren...",
+        "success": {
+            "title": "E-mail geverifieerd!",
+            "message": "Je account is nu geverifieerd. Geniet van alle functies.",
+            "goHome": "Naar home"
+        },
+        "error": {
+            "title": "Ongeldige link",
+            "requestNew": "Nieuwe link aanvragen"
+        }
+    },
+    "header": {
+        "search": "Zoek mensen, berichten...",
+        "nav": {
+            "home": "Home",
+            "trending": "Trending",
+            "videos": "Video's",
+            "messages": "Berichten",
+            "notifications": "Meldingen",
+            "profile": "Profiel",
+            "settings": "Instellingen"
+        },
+        "theme": {
+            "light": "Lichte modus",
+            "dark": "Donkere modus"
+        },
+        "menu": "Menu"
+    },
+    "chat": {
+        "input": {
+            "placeholder": "Schrijf een bericht...",
+            "emojis": "Emoji's",
+            "attach": "Bestand bijvoegen",
+            "camera": "Foto nemen",
+            "voice": "Voicebericht opnemen",
+            "send": "Verzenden",
+            "recording": "Opnemen...",
+            "stopRecording": "Stop"
+        },
+        "window": {
+            "noName": "Geen naam",
+            "selectConversation": "Selecteer een gesprek",
+            "selectConversationHint": "Kies een gesprek om te beginnen met chatten",
+            "uploading": "Bestand uploaden...",
+            "speaksLanguage": "Spreekt "
+        },
+        "bubble": {
+            "edited": "bewerkt",
+            "edit": "Bewerken",
+            "delete": "Verwijderen",
+            "deleteForMe": "Verwijder voor mij",
+            "forward": "Doorsturen",
+            "share": "Delen",
+            "translate": "Vertalen"
+        }
+    },
+    "feed": {
+        "loading": "Video's laden...",
+        "loadingMore": "Meer video's laden...",
+        "empty": {
+            "title": "Geen video's beschikbaar",
+            "subtitle": "Wees de eerste die een video upload met AI-vertaling",
+            "upload": "Video uploaden"
+        },
+        "position": "{{ current }} / {{ total }}",
+        "aiActive": "AI-vertaling actief",
+        "aiDesc": "Alle inhoud automatisch vertaald naar je voorkeurstaal",
+        "aiLanguages": "Talen",
+        "aiVideos": "Video's",
+        "suggestedTitle": "Mensen die je misschien kent",
+        "suggestedSeeAll": "Alles zien",
+        "suggestedFollowers": "volgers",
+        "suggestedMutual": "gemeenschappelijk",
+        "following": "Volgend",
+        "follow": "Volgen",
+        "loadingPosts": "Berichten laden...",
+        "noPosts": "Nog geen berichten",
+        "noPostsSub": "Wees de eerste die iets deelt"
+    },
+    "videoPlayer": {
+        "loading": "Video laden...",
+        "error": {
+            "title": "Fout bij het laden van video",
+            "subtitle": "Deze video kon niet worden afgespeeld",
+            "retry": "Opnieuw proberen"
+        },
+        "noSupport": "Je browser ondersteunt de videotag niet."
+    },
+    "comments": {
+        "title": "Reacties",
+        "placeholder": "Schrijf een reactie...",
+        "submit": "💬 Reageren",
+        "submitting": "Plaatsen...",
+        "loading": "Laden...",
+        "empty": "Wees de eerste die reageert",
+        "loadMore": "↓ Meer reacties laden",
+        "loadingMore": "Laden...",
+        "reply": "Reageren",
+        "replying": "Plaatsen...",
+        "cancel": "Annuleren",
+        "save": "Opslaan",
+        "edit": "✏️ Bewerken",
+        "delete": "🗑️ Verwijderen",
+        "edited": "· bewerkt",
+        "replyTo": "Reageren op @",
+        "replies": {
+            "one": "antwoord",
+            "other": "antwoorden"
+        }
+    },
+    "post": {
+        "edit": {
+            "title": "Bericht bewerken",
+            "content": "Inhoud:",
+            "tags": "Tags (komma's):",
+            "public": "Openbaar",
+            "save": "Opslaan",
+            "skip": "Overslaan"
+        },
+        "likes": {
+            "like": "Vind ik leuk",
+            "liked": "Geliked",
+            "likedBy": "Geliked door",
+            "noLikes": "Nog geen likes",
+            "loading": "Laden..."
+        },
+        "deleteConfirm": "Dit bericht verwijderen?",
+        "deleteBody": "Deze actie kan niet ongedaan worden gemaakt.",
+        "editMenu": "Bewerken",
+        "deleteMenu": "Verwijderen",
+        "reportMenu": "Rapporteren",
+        "shareMenu": "Delen",
+        "comments": "reacties",
+        "comment": "Reageren",
+        "translateText": "Tekst vertalen",
+        "extracting": "Extraheren...",
+        "showImage": "Afbeelding tonen",
+        "showText": "Tekst tonen",
+        "originalText": "Originele tekst",
+        "noText": "Geen tekst gevonden in deze afbeelding",
+        "translatedTo": "Vertaald naar",
+        "from": "van",
+        "showingTranslation": "Vertaling weergeven",
+        "translatePost": "Dit bericht vertalen",
+        "translating": "Vertalen...",
+        "showOriginal": "Origineel tonen",
+        "translate": "Vertalen",
+        "back": "Terug naar feed",
+        "close": "Sluiten",
+        "translateOverlay": "Vertalen in afbeelding",
+        "showOriginalImage": "Origineel tonen"
+    },
+    "profile": {
+        "tabs": {
+            "posts": "Berichten",
+            "videos": "Video's",
+            "liked": "Vind ik leuk",
+            "bookmarks": "Opgeslagen"
+        },
+        "content": {
+            "noPosts": "Nog geen berichten",
+            "noVideos": "Nog geen video's",
+            "likedPosts": "Berichten die je leuk vond",
+            "savedPosts": "Opgeslagen berichten",
+            "loadMore": "Meer laden",
+            "loading": "Laden..."
+        }
+    },
+    "upload": {
+        "title": "Video/bericht uploaden",
+        "titleField": "Titel (optioneel)",
+        "description": "Beschrijving (optioneel)",
+        "submit": "Uploaden",
+        "submitting": "Uploaden..."
+    },
+    "explore": {
+        "title": "Mensen ontdekken",
+        "subtitle": "Vind en verbind met mensen van over de hele wereld",
+        "search": {
+            "placeholder": "Zoek mensen op naam of gebruikersnaam...",
+            "button": "Zoeken",
+            "searching": "Zoeken...",
+            "results": "Resultaten ({{ count }})",
+            "noResults": {
+                "title": "Geen resultaten gevonden",
+                "subtitle": "Probeer een andere zoekterm"
+            }
+        },
+        "followRequests": {
+            "title": "Volgverzoeken",
+            "noPending": {
+                "title": "Geen openstaande verzoeken",
+                "subtitle": "Wanneer iemand je wil volgen, verschijnt hij hier"
+            },
+            "accept": "Accepteren",
+            "reject": "Weigeren"
+        },
+        "suggested": {
+            "title": "Mensen die je misschien kent",
+            "empty": "Momenteel geen suggesties",
+            "viewAll": "Alle suggesties bekijken",
+            "viewLess": "Minder weergeven",
+            "mutual": "{{ count }} gemeenschappelijke volgers",
+            "follow": "Volgen",
+            "following": "Volgend",
+            "pending": "In behandeling"
+        },
+        "filters": {
+            "byCountry": "Filteren op land",
+            "allCountries": "Alle landen"
+        },
+        "actions": {
+            "talk": "Ik wil praten"
+        },
+        "byCountry": {
+            "title": "Mensen per land",
+            "countries": "landen",
+            "emptyTitle": "Geen mensen om te tonen",
+            "emptySubtitle": "Probeer een ander land of zoekterm"
+        }
+    },
+    "countrySetup": {
+        "title": "Waar kom je vandaan?",
+        "subtitle": "Je vlag verschijnt op je berichten zodat mensen weten waar je vandaan komt.",
+        "detecting": "Je land detecteren...",
+        "detected": "Gedetecteerd land:",
+        "notDetected": "We konden je land niet automatisch detecteren.",
+        "manualSelect": "Selecteer je land:",
+        "manualPlaceholder": "-- Kies je land --",
+        "notMyCountry": "Dat is mijn land niet — wijzigen",
+        "confirm": "✅ Bevestigen",
+        "saving": "Opslaan...",
+        "skip": "Nu overslaan"
+    },
+    "permissions": {
+        "welcome": {
+            "title": "Machtigingen instellen",
+            "subtitle": "Om je de beste ervaring te bieden, hebben we toegang tot enkele apparaatmachtigingen nodig.",
+            "camera": "Camera voor livestreams",
+            "microphone": "Microfoon voor videogesprekken",
+            "notifications": "Berichtmeldingen",
+            "later": "Later instellen",
+            "continue": "Doorgaan"
+        },
+        "list": {
+            "title": "Vereiste machtigingen",
+            "subtitle": "Klik op elke machtiging om deze aan te vragen",
+            "granted": "✓ Toegestaan",
+            "required": "⚠ Vereist",
+            "optional": "ℹ Optioneel",
+            "request": "Toegang aanvragen",
+            "requestAll": "Alles aanvragen",
+            "back": "Terug"
+        },
+        "complete": {
+            "title": "Installatie voltooid!",
+            "subtitle": "Je machtigingen zijn correct geconfigureerd.",
+            "grantedStatus": "Toegestaan",
+            "deniedStatus": "Niet toegestaan",
+            "redirect": "Over enkele seconden doorsturen naar home...",
+            "goHome": "Nu naar home gaan"
+        }
+    },
+    "report": {
+        "title": "🚩 Inhoud melden",
+        "subtitle": "Selecteer de reden voor je melding",
+        "descriptionLabel": "Aanvullende beschrijving (optioneel)",
+        "descriptionPlaceholder": "Vertel ons meer over het probleem...",
+        "cancel": "Annuleren",
+        "submit": "Melding versturen",
+        "submitting": "Verzenden..."
+    },
+    "terms": {
+        "title": "Voorwaarden en Privacy",
+        "lastUpdated": "Laatste update: januari 2025 · Lees aandachtig voor je doorgaat",
+        "tabs": {
+            "terms": "📄 Algemene voorwaarden",
+            "privacy": "🔒 Privacybeleid"
+        },
+        "scroll": {
+            "pending": "Scroll naar beneden om verder te gaan",
+            "done": "Je hebt het volledige document gelezen ✓"
+        },
+        "decline": "Weigeren",
+        "accept": "Accepteren en doorgaan"
+    },
+    "common": {
+        "loading": "Laden...",
+        "error": "Er is een fout opgetreden",
+        "retry": "Opnieuw proberen",
+        "save": "Opslaan",
+        "cancel": "Annuleren",
+        "confirm": "Bevestigen",
+        "delete": "Verwijderen",
+        "edit": "Bewerken",
+        "close": "Sluiten",
+        "back": "Terug",
+        "next": "Volgende",
+        "skip": "Overslaan",
+        "search": "Zoeken",
+        "share": "Delen",
+        "report": "Melden",
+        "follow": "Volgen",
+        "unfollow": "Ontvolgen",
+        "following": "Volgend",
+        "followers": "Volgers",
+        "posts": "Berichten",
+        "videos": "Video's"
+    },
+    "settings": {
+        "title": "Instellingen",
+        "nav": {
+            "profile": "Profiel",
+            "account": "Account",
+            "notifications": "Meldingen",
+            "privacy": "Privacy",
+            "logout": "Uitloggen"
+        },
+        "profile": {
+            "title": "Profiel bewerken",
+            "avatarHint": "JPG, PNG of WebP · Max. 5 MB",
+            "savePhoto": "Foto opslaan",
+            "firstName": "Voornaam",
+            "lastName": "Achternaam",
+            "bio": "Bio",
+            "bioPlaceholder": "Vertel ons iets over jezelf...",
+            "website": "Website",
+            "websitePlaceholder": "https://jouw-site.com",
+            "location": "Locatie",
+            "locationPlaceholder": "Stad, Land",
+            "nativeLanguage": "Moedertaal",
+            "saveChanges": "Wijzigingen opslaan"
+        },
+        "account": {
+            "title": "Account",
+            "email": "E-mailadres",
+            "username": "Gebruikersnaam",
+            "verified": "Account geverifieerd",
+            "verifiedYes": "Geverifieerd",
+            "verifiedNo": "Niet geverifieerd",
+            "changePassword": "Wachtwoord wijzigen",
+            "currentPassword": "Huidig wachtwoord",
+            "newPassword": "Nieuw wachtwoord",
+            "confirmPassword": "Bevestig nieuw wachtwoord",
+            "dangerZone": "Gevaarlijke zone",
+            "dangerDesc": "Deze acties zijn permanent en kunnen niet ongedaan worden gemaakt.",
+            "deleteAccount": "Account verwijderen",
+            "deleteDesc": "Verwijdert permanent je account, berichten en alle persoonlijke gegevens."
+        },
+        "deleteModal": {
+            "title": "Je account verwijderen?",
+            "body": "Deze actie is permanent en onomkeerbaar. Al je gegevens worden binnen 30 dagen verwijderd.",
+            "confirmLabel": "Bevestig je wachtwoord om door te gaan",
+            "confirmBtn": "Ja, mijn account verwijderen"
+        },
+        "notifications": {
+            "title": "Meldingen",
+            "push": "Pushmeldingen",
+            "pushDesc": "Ontvang activiteitsmeldingen in de app",
+            "email": "E-mailmeldingen",
+            "emailDesc": "Ontvang een wekelijks overzicht en belangrijke meldingen",
+            "save": "Opslaan"
+        },
+        "privacy": {
+            "title": "Privacy en voorkeuren",
+            "privateAccount": "Privaccount",
+            "privateDesc": "Alleen je volgers kunnen je inhoud zien",
+            "autoTranslate": "Automatisch vertalen",
+            "autoTranslateDesc": "Vertaalt automatisch inhoud in andere talen",
+            "prefLang": "Voorkeurstaal voor vertaling",
+            "prefLangDefault": "Zelfde als moedertaal",
+            "theme": "Thema",
+            "themeAuto": "Automatisch",
+            "themeDark": "Donker",
+            "themeLight": "Licht",
+            "save": "Opslaan"
+        },
+        "saved": "Wijzigingen succesvol opgeslagen"
+    },
+    "notifications": {
+        "title": "Meldingen",
+        "markAllRead": "Alles als gelezen markeren",
+        "markingAllRead": "Markeren...",
+        "clearAll": "Alles wissen",
+        "filterAll": "Alle",
+        "filterUnread": "Ongelezen",
+        "loading": "Meldingen laden...",
+        "emptyAll": "Geen meldingen",
+        "emptyAllSub": "Kom later terug voor nieuwe meldingen",
+        "emptyUnread": "Geen ongelezen meldingen",
+        "emptyUnreadSub": "Je bent bijgewerkt",
+        "new": "Nieuw",
+        "markRead": "Als gelezen markeren",
+        "markUnread": "Als ongelezen markeren",
+        "delete": "Verwijderen"
+    },
+    "sidebar": {
+        "following": "Volgend",
+        "followers": "Volgers",
+        "posts": "Berichten",
+        "navigation": "Navigatie",
+        "aiTranslation": "AI-vertaling",
+        "active": "Actief",
+        "realtimeTranslation": "Realtime vertaling",
+        "realtimeDesc": "Video's en berichten",
+        "languages": "24+ talen",
+        "languagesDesc": "Wereldwijde connectiviteit",
+        "instant": "Directe verwerking",
+        "instantDesc": "Ultrasnel"
+    },
+    "trending": {
+        "title": "Trending",
+        "loading": "Trending laden...",
+        "filterByCountry": "Filteren op land",
+        "global": "Globaal",
+        "noTrending": "Geen trending beschikbaar",
+        "videos": "video's",
+        "views": "weergaven",
+        "onlyFrom": "Alleen van",
+        "sort": "Sorteren:",
+        "sortTrending": "Meest trending",
+        "sortViews": "Meest bekeken",
+        "sortRecent": "Meest recent",
+        "trendingBadge": "Trending",
+        "watchNow": "Nu bekijken",
+        "gridView": "Raster",
+        "listView": "Lijst"
+    },
+    "lives": {
+        "title": "Live",
+        "chat": "Chat",
+        "live": "LIVE",
+        "say": "Zeg iets...",
+        "send": "Verzenden"
+    },
+    "videoOverlay": {
+        "follow": "Volgen",
+        "subtitles": "Ondertitels:",
+        "original": "Origineel",
+        "available": "Beschikbaar",
+        "requestTranslation": "Vertaling aanvragen",
+        "translate": "Vertalen",
+        "translateVideo": "Video vertalen",
+        "translateDesc": "Genereer met AI vertaalde ondertitels voor deze video",
+        "availableLangs": "Beschikbaar:",
+        "requestLangs": "Vertaling aanvragen:",
+        "requesting": "Aanvragen...",
+        "request": "Aanvragen",
+        "translationPending": "Vertaling aangevraagd. Binnenkort beschikbaar.",
+        "close": "Sluiten"
+    },
+    "stories": {
+        "title": "Verhalen",
+        "add": "Toevoegen"
+    }
 }
