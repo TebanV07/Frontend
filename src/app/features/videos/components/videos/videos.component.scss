@@ -1,3 +1,24 @@
+      // ===== BOTÓN ELIMINAR =====
+      .delete-btn {
+        background: rgba(239, 68, 68, 0.12);
+        border-radius: 50%;
+        border: 1.5px solid rgba(239, 68, 68, 0.25);
+        transition: background 0.18s, border 0.18s, transform 0.18s;
+        .icon {
+          color: #ef4444;
+          filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5));
+        }
+        &:hover {
+          background: rgba(239, 68, 68, 0.25);
+          border-color: #ef4444;
+          transform: scale(1.13);
+        }
+        &:active {
+          background: rgba(239, 68, 68, 0.35);
+          border-color: #b91c1c;
+          transform: scale(0.97);
+        }
+      }
 :host {
   outline: 3px solid red !important;
 }
