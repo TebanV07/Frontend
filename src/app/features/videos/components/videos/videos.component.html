@@ -98,6 +98,17 @@
           <span class="count">{{ formatNumber(currentVideo.shares_count) }}</span>
         </button>
 
+        <!-- Botón eliminar video (solo si es del usuario actual) -->
+        <button
+          class="action-btn delete-btn"
+          *ngIf="currentUserId !== null && currentVideo &&
+                 (currentVideo.user_id === currentUserId ||
+                  currentVideo.user?.id === currentUserId)"
+          (click)="currentVideo && deleteVideo(currentVideo)">
+          <span class="icon">🗑️</span>
+          <span class="count">{{ 'common.delete' | translate }}</span>
+        </button>
+
         <!-- Traducción -->
         <div class="translation-container">
           <button class="action-btn translation-btn" [class.active]="showLanguageMenu" (click)="toggleTranslation()">
