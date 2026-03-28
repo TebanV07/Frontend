@@ -43,8 +43,7 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
   ttsProvider: 'openai' | 'elevenlabs' = 'openai';
   cloneVoice = false;
   currentDubbedVideoUrl: string | null = null;
-
-  currentUserId: number = 1;
+  currentUserId: number | undefined = undefined;
 
   private observer?: IntersectionObserver;
   private routeSubscription?: Subscription;
@@ -62,16 +61,20 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
     this.currentLanguage = this.languageService.getCurrentLanguage();
   }
 
-  ngOnInit(): void {
-    this.routeSubscription = this.route.paramMap.subscribe(paramMap => {
-      this.requestedVideoRef = paramMap.get('id');
-      if (this.videos.length > 0) {
-        this.focusRequestedVideo();
-      }
-    });
+ngOnInit(): void {
+  // Leer usuario real desde localStorage
+  const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  this.currentUserId = user?.id ?? null;
 
-    this.loadVideos();
-  }
+  this.routeSubscription = this.route.paramMap.subscribe(paramMap => {
+    this.requestedVideoRef = paramMap.get('id');
+    if (this.videos.length > 0) {
+      this.focusRequestedVideo();
+    }
+  });
+
+  this.loadVideos();
+}
 
   ngAfterViewInit(): void {
     this.setupObserver();
@@ -308,6 +311,22 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  deleteVideo(video: Video): void {
+  if (!confirm('¿Eliminar este video? Esta acción no se puede deshacer.')) return;
+
+  this.videoService.deleteVideo(video.id).subscribe({
+    next: () => {
+      this.videos = this.videos.filter(v => v.id !== video.id);
+      if (this.currentVideoIndex >= this.videos.length) {
+        this.currentVideoIndex = Math.max(0, this.videos.length - 1);
+      }
+    },
+    error: (err) => {
+      console.error('Error eliminando video:', err);
+      alert('Error al eliminar el video.');
+    }
+  });
+}
   followUser(user: any): void {
     console.log('Follow user:', user?.username);
   }

@@ -570,6 +570,28 @@ switchToLanguage(language: string) {
     });
   }
 
+  deleteVideo(video: Video): void {
+  if (!confirm('¿Eliminar este video? Esta acción no se puede deshacer.')) return;
+
+  this.videoService.deleteVideo(video.id).subscribe({
+    next: () => {
+      // Quitar el video de la lista local
+      this.videos = this.videos.filter(v => v.id !== video.id);
+
+      // Ajustar índice si hace falta
+      if (this.currentVideoIndex >= this.videos.length) {
+        this.currentVideoIndex = Math.max(0, this.videos.length - 1);
+      }
+
+      this.showMessage('Video eliminado correctamente');
+    },
+    error: (err) => {
+      console.error('Error eliminando video:', err);
+      this.showMessage('Error al eliminar el video. Intenta de nuevo.');
+    }
+  });
+}
+
 openComments(video: Video): void {
   this.showCommentsPanel = !this.showCommentsPanel;
 }

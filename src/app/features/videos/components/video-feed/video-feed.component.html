@@ -81,6 +81,15 @@
           <span>{{ video.is_liked ? '❤️' : '🤍' }}</span>
           <span class="count">{{ formatNumber(video.likes_count) }}</span>
         </button>
+        <!-- Botón eliminar (solo dueño del video) -->
+        <button
+          class="action-btn delete-btn"
+          *ngIf="currentUserId !== null &&
+                (video.user_id === currentUserId || video.user?.id === currentUserId)"
+          (click)="deleteVideo(video)">
+          <span>🗑️</span>
+          <span class="count">Eliminar</span>
+        </button>
 
         <!-- ✅ Botón de comentarios con toggle -->
         <button class="action-btn" [class.active]="showComments" (click)="toggleComments()">
