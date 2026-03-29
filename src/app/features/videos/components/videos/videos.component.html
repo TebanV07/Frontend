@@ -1,3 +1,10 @@
+<!-- DEBUG TEMPORAL -->
+<div style="background:red;color:white;font-size:10px;padding:4px;
+            position:absolute;top:0;left:0;z-index:9999;">
+  currentUserId: {{ currentUserId }} |
+  video.user_id: {{ currentVideo?.user_id }} |
+  video.user?.id: {{ currentVideo?.user?.id }}
+</div>
 <app-header></app-header>
 <div class="videos-container" *ngIf="!isLoading && currentVideo">
   <div class="video-player">
@@ -25,7 +32,10 @@
           [srclang]="currentLanguage"
           [label]="getLanguageName(currentLanguage)"
           default>
-      </video>
+
+
+        </video>
+
 
       <!-- Overlay play -->
       <div class="video-overlay" (click)="togglePlay()">

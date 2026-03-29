@@ -62,9 +62,9 @@ export class VideoFeedComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 ngOnInit(): void {
-  // Leer usuario real desde localStorage
   const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
-  this.currentUserId = user?.id ?? null;
+  this.currentUserId = user?.id ?? undefined;  // ← null → undefined
+
 
   this.routeSubscription = this.route.paramMap.subscribe(paramMap => {
     this.requestedVideoRef = paramMap.get('id');
