@@ -40,6 +40,7 @@ export class TrendingComponent implements OnInit {
   selectedCountry: string | null = null;
   availableCountries: CountryOption[] = [];
   isLoadingCountries = false;
+  activeHashtagFilter: string | null = null;
 
   private apiUrl = environment.apiUrl;
   private baseUrl = environment.apiBaseUrl;
@@ -76,6 +77,7 @@ export class TrendingComponent implements OnInit {
   }
 
   selectCountry(code: string | null) {
+    this.activeHashtagFilter = null;
     this.selectedCountry = code;
     this.loadTrendingTopics();
   }
@@ -264,6 +266,58 @@ export class TrendingComponent implements OnInit {
 
   getUserCountryName(video: Video): string {
     return this.flagService.getCountryName(this.getUserCountryCode(video));
+  }
+
+  filterByHashtag(tag: string, event?: Event): void {
+    event?.preventDefault();
+    event?.stopPropagation();
+    const normalized = tag.toLowerCase().replace(/^#/, '').trim();
+    if (this.activeHashtagFilter === normalized) {
+      this.clearHashtagFilter();
+      return;
+    }
+    this.activeHashtagFilter = normalized;
+    const matchingTopic = this.trendingTopics.find(t => t.hashtag === normalized);
+    if (matchingTopic) {
+      this.selectTrending(matchingTopic);
+    } else {
+      this.selectedTrending = null;
+      this.loadFallbackVideosWithHashtag(normalized);
+    }
+  }
+
+  clearHashtagFilter(): void {
+    this.activeHashtagFilter = null;
+    this.selectedTrending = null;
+    this.fallbackVideos = [];
+    this.fallbackVideosTotal = 0;
+    if (this.trendingTopics.length > 0) {
+      this.selectTrending(this.trendingTopics[0]);
+    } else {
+      this.loadFallbackVideos();
+    }
+  }
+
+  private loadFallbackVideosWithHashtag(hashtag: string): void {
+    this.isLoadingFallbackVideos = true;
+    this.fallbackVideos = [];
+    this.videoService.getTrendingVideosByCountry({
+      page: 1, pageSize: 20,
+      countryCode: this.selectedCountry,
+      hashtag,
+    }).subscribe({
+      next: (response) => {
+        this.fallbackVideos = response.videos || [];
+        this.fallbackVideosTotal = response.total || this.fallbackVideos.length;
+        this.sortVideos(this.fallbackVideos);
+        this.isLoadingFallbackVideos = false;
+      },
+      error: () => {
+        this.fallbackVideos = [];
+        this.fallbackVideosTotal = 0;
+        this.isLoadingFallbackVideos = false;
+      }
+    });
   }
 }
 

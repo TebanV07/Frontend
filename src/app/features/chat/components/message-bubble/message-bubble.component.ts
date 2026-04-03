@@ -1,8 +1,9 @@
 import { Component, Input, Output, EventEmitter, HostBinding, HostListener, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import type { Message } from '../../../../core/models';
+import { ChatService } from '../../../../core/services/chat.service';
 
 @Component({
   selector: 'app-message-bubble',
@@ -27,7 +28,15 @@ export class MessageBubbleComponent implements OnChanges {
   showActions: boolean = false;
   private longPressTimeout: any;
 
-  constructor(private elementRef: ElementRef) {}
+  // Estado de traducción de imagen y audio
+  imageTranslations: { [messageId: number]: { text: string | null; loading: boolean; visible: boolean; hasText: boolean } } = {};
+  audioTranslations: { [messageId: number]: { transcript: string | null; translation: string | null; loading: boolean; visible: boolean } } = {};
+
+  constructor(
+    private elementRef: ElementRef,
+    private chatService: ChatService,
+    private translateService: TranslateService
+  ) {}
 
 
   @HostBinding('class.sent') get sent() {
@@ -213,6 +222,62 @@ export class MessageBubbleComponent implements OnChanges {
 
   hasTranslation(): boolean {
     return !!this.translatedContent;
+  }
+
+  translateImage(message: Message): void {
+    const id = message.id;
+    if (this.imageTranslations[id]?.visible) {
+      this.imageTranslations[id].visible = false;
+      return;
+    }
+    if (this.imageTranslations[id]?.text !== undefined) {
+      this.imageTranslations[id].visible = true;
+      return;
+    }
+    this.imageTranslations[id] = { text: null, loading: true, visible: true, hasText: false };
+    const targetLang = this.translateService.currentLang || 'en';
+
+    this.chatService.translateImageInMessage(id, targetLang).subscribe({
+      next: (res) => {
+        this.imageTranslations[id] = {
+          text: res.translated_text,
+          loading: false,
+          visible: true,
+          hasText: res.has_text
+        };
+      },
+      error: () => {
+        this.imageTranslations[id] = { text: null, loading: false, visible: false, hasText: false };
+      }
+    });
+  }
+
+  translateAudio(message: Message): void {
+    const id = message.id;
+    if (this.audioTranslations[id]?.visible) {
+      this.audioTranslations[id].visible = false;
+      return;
+    }
+    if (this.audioTranslations[id]?.translation !== undefined) {
+      this.audioTranslations[id].visible = true;
+      return;
+    }
+    this.audioTranslations[id] = { transcript: null, translation: null, loading: true, visible: true };
+    const targetLang = this.translateService.currentLang || 'en';
+
+    this.chatService.translateAudioInMessage(id, targetLang).subscribe({
+      next: (res) => {
+        this.audioTranslations[id] = {
+          transcript: res.original_transcript,
+          translation: res.translated_text,
+          loading: false,
+          visible: true
+        };
+      },
+      error: () => {
+        this.audioTranslations[id] = { transcript: null, translation: null, loading: false, visible: false };
+      }
+    });
   }
 }
 

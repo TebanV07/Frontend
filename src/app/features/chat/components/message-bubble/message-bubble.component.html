@@ -26,6 +26,47 @@
       </ng-container>
     </div>
 
+    <!-- Botón traducir imagen -->
+    <div class="image-translate-bar" *ngIf="message.media_type === 'image' && message.media_urls?.length">
+      <button class="translate-img-btn" (click)="translateImage(message)" [disabled]="imageTranslations[message.id]?.loading">
+        {{ imageTranslations[message.id]?.loading
+            ? ('chat.bubble.translating' | translate)
+            : (imageTranslations[message.id]?.visible
+                ? ('chat.bubble.hideTranslation' | translate)
+                : ('chat.bubble.translateImage' | translate)) }}
+      </button>
+      <div class="image-translation-result"
+           *ngIf="imageTranslations[message.id]?.visible && !imageTranslations[message.id]?.loading">
+        <span *ngIf="!imageTranslations[message.id]?.hasText" class="no-text-found">
+          {{ 'chat.bubble.noTextInImage' | translate }}
+        </span>
+        <span *ngIf="imageTranslations[message.id]?.hasText">
+          {{ imageTranslations[message.id]?.text }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Botón traducir audio -->
+    <div class="audio-translate-bar" *ngIf="message.media_type === 'audio' && message.media_urls?.length">
+      <button class="translate-audio-btn" (click)="translateAudio(message)" [disabled]="audioTranslations[message.id]?.loading">
+        {{ audioTranslations[message.id]?.loading
+            ? ('chat.bubble.transcribing' | translate)
+            : (audioTranslations[message.id]?.visible
+                ? ('chat.bubble.hideTranscript' | translate)
+                : ('chat.bubble.translateAudio' | translate)) }}
+      </button>
+      <div class="audio-translation-result"
+           *ngIf="audioTranslations[message.id]?.visible && !audioTranslations[message.id]?.loading">
+        <p class="transcript-original" *ngIf="audioTranslations[message.id]?.transcript">
+          <em>{{ 'chat.bubble.originalTranscript' | translate }}:</em>
+          {{ audioTranslations[message.id]?.transcript }}
+        </p>
+        <p class="transcript-translated">
+          {{ audioTranslations[message.id]?.translation }}
+        </p>
+      </div>
+    </div>
+
     <!-- ✅ FIX: eliminado el bloque .message-header con avatar (solo queda en el sidebar) -->
 
     <!-- Controles de edición/eliminación (para mensajes propios) -->

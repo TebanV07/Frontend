@@ -100,7 +100,8 @@
             "messages": "Berichten",
             "notifications": "Meldingen",
             "profile": "Profiel",
-            "settings": "Instellingen"
+            "settings": "Instellingen",
+            "explore": "Mensen verkennen"
         },
         "theme": {
             "light": "Lichte modus",
@@ -133,7 +134,15 @@
             "deleteForMe": "Verwijder voor mij",
             "forward": "Doorsturen",
             "share": "Delen",
-            "translate": "Vertalen"
+            "translate": "Vertalen",
+            "translateImage": "Afbeelding vertalen",
+            "translateAudio": "Audio vertalen",
+            "translating": "Vertalen...",
+            "transcribing": "Transcriberen...",
+            "hideTranslation": "Vertaling verbergen",
+            "hideTranscript": "Transcriptie verbergen",
+            "noTextInImage": "Geen leesbare tekst gevonden in deze afbeelding",
+            "originalTranscript": "Origineel"
         }
     },
     "feed": {
@@ -289,7 +298,13 @@
         },
         "filters": {
             "byCountry": "Filteren op land",
-            "allCountries": "Alle landen"
+            "allCountries": "Alle landen",
+            "byHashtag": "Filteren op hashtag",
+            "clearHashtag": "Hashtag wissen",
+            "noHashtags": "Geen trending hashtags",
+            "showingHashtag": "Gebruikers tonen met affiniteit voor #{{ tag }}",
+            "noUsersForHashtag": "Geen gebruikers gevonden voor deze hashtag",
+            "tryOtherHashtag": "Probeer een andere hashtag"
         },
         "actions": {
             "talk": "Ik wil praten"
@@ -506,7 +521,15 @@
         "trendingBadge": "Trending",
         "watchNow": "Nu bekijken",
         "gridView": "Raster",
-        "listView": "Lijst"
+        "listView": "Lijst",
+        "filterByHashtag": "Filteren op hashtag",
+        "clearFilter": "Filter wissen",
+        "noVideosForHashtag": "Geen video's voor #{{ tag }}",
+        "noVideosAvailable": "Geen video's beschikbaar",
+        "tryOtherHashtag": "Probeer een andere hashtag",
+        "tryGlobal": "Probeer 'Global' of een ander land",
+        "beFirst": "Wees de eerste om inhoud te uploaden",
+        "noTrendingHint": "Verander land of upload video's met hashtags"
     },
     "lives": {
         "title": "Live",

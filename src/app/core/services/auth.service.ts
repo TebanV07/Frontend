@@ -85,6 +85,8 @@ export class AuthService {
 
   private apiUrl = environment.apiUrl;
   private currentUserSubject = new BehaviorSubject<any>(null);
+  private _authReady = new BehaviorSubject<boolean>(false);
+  public authReady$ = this._authReady.asObservable();
   public currentUser$ = this.currentUserSubject.asObservable();
   private isBrowser: boolean;
 
@@ -102,7 +104,10 @@ export class AuthService {
     const { FollowService } = require('./follow.service');
     return this.injector.get(FollowService);
   }
-
+private getNotificationService() {
+  const { NotificationService } = require('./notification.service');
+  return this.injector.get(NotificationService);
+}
   private getLanguageService() {
     const { LanguageService } = require('./language.service');
     return this.injector.get(LanguageService);
@@ -287,6 +292,7 @@ export class AuthService {
       localStorage.removeItem('currentUser');
     }
     this.currentUserSubject.next(null);
+    this.getNotificationService().setPollingActive(false);
     this.router.navigate(['/login']);
   }
 
@@ -319,35 +325,48 @@ export class AuthService {
   // ============================================
   // MÉTODOS PRIVADOS
   // ============================================
-
-  private _restoreSession(): void {
-    if (!this.isBrowser) return;
-
-    const token = localStorage.getItem('access_token');
-    if (!token) return;
-
-    const savedUser = localStorage.getItem('currentUser');
-    if (savedUser) {
-      try {
-        const user = JSON.parse(savedUser);
-        this.currentUserSubject.next(user);
-        if (user?.id) {
-          this.getFollowService().loadInitialData(user.id);
-        }
-      } catch {
-        this.logout();
-        return;
-      }
-    }
-
-    this.syncCurrentUser().subscribe({
-      error: (err) => {
-        if (err.status === 401) {
-          this.logout();
-        }
-      }
-    });
+private _restoreSession(): void {
+  if (!this.isBrowser) {
+    this._authReady.next(true); // SSR: marcar como listo de inmediato
+    return;
   }
+
+  const token = localStorage.getItem('access_token');
+  if (!token) {
+    this._authReady.next(true); // Sin token: no hay sesión que restaurar
+    return;
+  }
+
+  // Cargar usuario del localStorage mientras validamos con el backend
+  const savedUser = localStorage.getItem('currentUser');
+  if (savedUser) {
+    try {
+      const user = JSON.parse(savedUser);
+      this.currentUserSubject.next(user);
+      if (user?.id) {
+        this.getFollowService().loadInitialData(user.id);
+      }
+    } catch {
+      this.logout();
+      this._authReady.next(true);
+      return;
+    }
+  }
+
+  // Validar token con el backend
+this.syncCurrentUser().subscribe({
+  next: () => {
+    this._authReady.next(true);
+    this.getNotificationService().startPolling(); // ← NUEVO
+  },
+  error: (err) => {
+    if (err.status === 401) {
+      this.logout();
+    }
+    this._authReady.next(true);
+  }
+});
+}
 
   /** Guardar tokens y usuario en localStorage y BehaviorSubject */
   private _saveSession(accessToken: string, refreshToken: string, user: any): void {
@@ -395,6 +414,7 @@ export class AuthService {
       },
       error: () => { /* silencioso — no interrumpir el login */ }
     });
+    this.getNotificationService().startPolling()
   }
 
   /**

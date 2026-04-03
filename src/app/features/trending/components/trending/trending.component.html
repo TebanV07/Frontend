@@ -44,6 +44,15 @@
         </div>
       </div>
 
+      <!-- Chip de filtro por hashtag activo -->
+      <div class="active-hashtag-filter" *ngIf="activeHashtagFilter">
+        <span class="filter-label">{{ 'trending.filterByHashtag' | translate }}</span>
+        <div class="hashtag-chip active">
+          <span>#{{ activeHashtagFilter }}</span>
+          <button class="chip-remove" (click)="clearHashtagFilter()">✕</button>
+        </div>
+      </div>
+
       <!-- Lista de trending topics -->
       <div class="trending-list">
         <div
@@ -64,7 +73,7 @@
               <span class="videos-count">{{ formatNumber(trending.videosCount) }} {{ 'trending.videos' | translate }}</span>
               <span *ngIf="trending.category" class="category-badge">{{ trending.category }}</span>
             </div>
-            <div class="trending-views">👁️ {{ formatNumber(trending.views) }} views</div>
+            <div class="trending-views">👁️ {{ formatNumber(trending.views) }} {{ 'trending.views' | translate }}</div>
           </div>
 
           <div class="trending-arrow">→</div>
@@ -162,7 +171,13 @@
                     <span class="verified" *ngIf="isUserVerified(video)">✓</span>
                   </p>
                   <div class="video-tags" *ngIf="getVideoTags(video).length > 0">
-                    <span *ngFor="let tag of getVideoTags(video)" class="tag">#{{ tag }}</span>
+                    <button
+                      *ngFor="let tag of getVideoTags(video)"
+                      class="tag"
+                      [class.tag-active]="activeHashtagFilter === tag.toLowerCase()"
+                      (click)="filterByHashtag(tag, $event)">
+                      #{{ tag }}
+                    </button>
                   </div>
                   <button class="watch-btn" [routerLink]="['/videos', video.uuid]">{{ 'trending.watchNow' | translate }} →</button>
                 </div>
@@ -180,15 +195,15 @@
 
         <div class="empty-videos" *ngIf="!isLoadingDisplayedVideos && displayedVideos.length === 0">
           <div class="empty-icon">🎥</div>
-          <h3>No hay videos{{ selectedCountry ? ' de este país' : '' }} aquí</h3>
-          <p>{{ selectedCountry ? 'Prueba con "Global" u otro país' : 'Sé el primero en subir contenido' }}</p>
+          <h3>{{ activeHashtagFilter ? ('trending.noVideosForHashtag' | translate: { tag: activeHashtagFilter }) : ('trending.noVideosAvailable' | translate) }}</h3>
+          <p>{{ activeHashtagFilter ? ('trending.tryOtherHashtag' | translate) : (selectedCountry ? ('trending.tryGlobal' | translate) : ('trending.beFirst' | translate)) }}</p>
         </div>
       </div>
 
       <div class="no-selection" *ngIf="!selectedTrending && !hasDisplayedVideosSection">
         <div class="empty-icon">🔥</div>
-        <h3>No hay tendencias disponibles</h3>
-        <p>Cambia de país o sube videos con hashtags para que aparezcan aquí</p>
+        <h3>{{ 'trending.noTrending' | translate }}</h3>
+        <p>{{ 'trending.noTrendingHint' | translate }}</p>
       </div>
 
     </div>

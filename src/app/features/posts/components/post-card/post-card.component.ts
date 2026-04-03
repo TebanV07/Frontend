@@ -9,7 +9,7 @@ import { LikeCountComponent } from '../../likes/likes-count/likes-count.componen
 import { environment } from '../../../../../environments/environment';
 import { FlagService } from '../../../../core/services/flag.service';
 import { ReportModalComponent } from '../../../../shared/components/report-modal/report-modal.component';
-import { TranslationService, ImageTranslationResponse } from '../../../../core/services/translation.service';
+import { TranslationService } from '../../../../core/services/translation.service';
 
 @Component({
   selector: 'app-post-card',
@@ -36,11 +36,9 @@ export class PostCardComponent implements OnChanges {
   translatedContent = '';
   isTranslating     = false;
 
-  // ── Traducción de IMÁGENES ───────────────────────────────
-  imageTranslations:    { [imageId: number]: ImageTranslationResponse } = {};
-  showImageTranslation: { [imageId: number]: boolean }                  = {};
-  translatingImageId:   number | null = null;
-  // ── Overlay de imágenes ──────────────────────────────────
+  // ── Overlay de imágenes (única modalidad) ────────────────
+  // ✅ ELIMINADO: imageTranslations, showImageTranslation, translatingImageId (OCR)
+  // ✅ MANTENIDO: overlay únicamente
   imageOverlayUrls: { [imageId: number]: string } = {};
   translatingOverlayId: number | null = null;
 
@@ -59,13 +57,13 @@ export class PostCardComponent implements OnChanges {
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Si cambia el idioma destino, limpiar todas las traducciones cacheadas
     if (changes['userLanguage'] && !changes['userLanguage'].firstChange) {
-      this.imageTranslations    = {};
-      this.showImageTranslation = {};
+      // Limpiar overlays al cambiar idioma
+      Object.values(this.imageOverlayUrls).forEach(url => URL.revokeObjectURL(url));
       this.imageOverlayUrls     = {};
-      this.translatingImageId   = null;
       this.translatingOverlayId = null;
+      this.translatedContent    = '';
+      this.showTranslation      = false;
     }
   }
 
@@ -189,13 +187,32 @@ export class PostCardComponent implements OnChanges {
 
   onReportClosed(): void { this.showReportModal = false; }
 
-  // ── Traducción de TEXTO ──────────────────────────────────
+  // ── Traducción ───────────────────────────────────────────
 
   toggleTranslation(): void {
     if (!this.post) return;
-    if (this.showTranslation) { this.showTranslation = false; return; }
-    if (this.translatedContent) { this.showTranslation = true; return; }
 
+    // Desactivar: volver al original y limpiar overlays
+    if (this.showTranslation) {
+      Object.values(this.imageOverlayUrls).forEach(url => URL.revokeObjectURL(url));
+      this.imageOverlayUrls = {};
+      this.showTranslation = false;
+      return;
+    }
+
+    // Activar con caché de texto
+    if (this.translatedContent) {
+      this.showTranslation = true;
+      // Re-aplicar overlay a imágenes que no tengan aún
+      this.post.images?.forEach(img => {
+        if (!this.imageOverlayUrls[img.id]) {
+          this.translateImageOverlay(img);
+        }
+      });
+      return;
+    }
+
+    // Llamar al backend
     this.isTranslating = true;
     this.translatePost.emit(this.post.id);
 
@@ -211,73 +228,44 @@ export class PostCardComponent implements OnChanges {
         this.isTranslating     = false;
       }
     });
+
+    // ✅ Auto-aplicar overlay a TODAS las imágenes al traducir
+    this.post.images?.forEach(img => this.translateImageOverlay(img));
   }
 
-  // ── Traducción de IMÁGENES ───────────────────────────────
+  // ✅ MANTENIDO: overlay sobre imagen (toggle)
+  translateImageOverlay(image: { id: number; image_url: string }): void {
+    if (this.translatingOverlayId === image.id) return;
 
-  translateImage(image: { id: number; image_url: string }): void {
-    if (this.translatingImageId === image.id) return;
-    this.translatingImageId = image.id;
+    if (this.imageOverlayUrls[image.id]) {
+      URL.revokeObjectURL(this.imageOverlayUrls[image.id]);
+      delete this.imageOverlayUrls[image.id];
+      return;
+    }
 
-    this.translationService.translateImageFromUrl(
+    this.translatingOverlayId = image.id;
+
+    this.translationService.translateImageWithOverlayFromUrl(
       image.id,
       image.image_url,
       this.userLanguage
     ).then(obs$ => {
       obs$.subscribe({
-        next: (result) => {
-          this.imageTranslations[image.id]    = result;
-          this.showImageTranslation[image.id] = true;
-          this.translatingImageId             = null;
+        next: (blob) => {
+          this.imageOverlayUrls[image.id] = URL.createObjectURL(blob);
+          this.translatingOverlayId = null;
         },
         error: (err) => {
-          console.error('Error traduciendo imagen:', err);
-          this.translatingImageId = null;
+          console.error('Error con overlay:', err);
+          this.translatingOverlayId = null;
         }
       });
     }).catch(err => {
-      console.error('Error descargando imagen:', err);
-      this.translatingImageId = null;
+      console.error('Error descargando imagen para overlay:', err);
+      this.translatingOverlayId = null;
     });
   }
 
-  toggleImageTranslation(imageId: number): void {
-    this.showImageTranslation[imageId] = !this.showImageTranslation[imageId];
-  }
-
-  translateImageOverlay(image: { id: number; image_url: string }): void {
-  if (this.translatingOverlayId === image.id) return;
-
-  // Si ya tenemos el overlay, alternamos visibilidad usando el mismo toggle
-  if (this.imageOverlayUrls[image.id]) {
-    // Limpiar overlay para volver a la imagen original
-    URL.revokeObjectURL(this.imageOverlayUrls[image.id]);
-    delete this.imageOverlayUrls[image.id];
-    return;
-  }
-
-  this.translatingOverlayId = image.id;
-
-  this.translationService.translateImageWithOverlayFromUrl(
-    image.id,
-    image.image_url,
-    this.userLanguage
-  ).then(obs$ => {
-    obs$.subscribe({
-      next: (blob) => {
-        this.imageOverlayUrls[image.id] = URL.createObjectURL(blob);
-        this.translatingOverlayId = null;
-      },
-      error: (err) => {
-        console.error('Error con overlay:', err);
-        this.translatingOverlayId = null;
-      }
-    });
-  }).catch(err => {
-    console.error('Error descargando imagen para overlay:', err);
-    this.translatingOverlayId = null;
-  });
-}
   // ── Acciones generales ───────────────────────────────────
 
   sharePost(): void { console.log('Share post:', this.post.id); }
@@ -291,5 +279,3 @@ export class PostCardComponent implements OnChanges {
 
   requestTranslateVideo(): void { this.translateVideo.emit(this.post.id); }
 }
-
-
