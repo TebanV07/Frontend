@@ -1,15 +1,19 @@
-/* Shared responsive utilities and component fallbacks */
-/* Apply variable-driven backgrounds and text so components follow dark theme */
-body {
-  background: var(--bg-gradient);
-  background-color: var(--bg-color);
-  color: var(--text-color);
+// ============================================================
+//  TIMQU — responsive.scss
+//  Usa las variables de _theme-variables.scss
+// ============================================================
+
+// ─── SCROLLBAR ───────────────────────────────────────────────
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
 }
 
-/* Generic card styling used by many components */
+// ─── CARDS GENÉRICAS ─────────────────────────────────────────
 .post-card,
 .comment-item,
-.message-bubble,
 .chat-window,
 .conversation-item,
 .create-post-card,
@@ -17,69 +21,112 @@ body {
   background: var(--card-bg);
   color: var(--text-color);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 12px;
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  transition: background var(--transition);
 }
 
-/* Make images & avatars scale nicely */
-img,
-.responsive-img {
-  max-width: 100%;
-  height: auto;
+.message-bubble {
+  background: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 10px 14px;
+  max-width: 85%;
+  word-break: break-word;
+  line-height: 1.45;
 }
 
-/* Flex helpers */
+// ─── INPUTS GLOBALES ─────────────────────────────────────────
+input, textarea, select {
+  font-family: 'Inter', sans-serif;
+  background: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color var(--transition);
+  &::placeholder { color: var(--muted-color); }
+  &:focus { border-color: var(--gold); }
+}
+
+// ─── BOTONES GLOBALES ────────────────────────────────────────
+.btn-gold {
+  background: var(--gold-gradient);
+  color: #1a1000;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 0.5rem 1.4rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: opacity var(--transition), transform var(--transition);
+  &:hover { opacity: 0.88; transform: translateY(-1px); }
+  &:active { transform: scale(0.97); }
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-color);
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  padding: 0.45rem 1.2rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+  &:hover { background: var(--card-bg-hover); border-color: var(--gold); color: var(--gold); }
+}
+
+// ─── UTILIDADES ──────────────────────────────────────────────
+img, .responsive-img { max-width: 100%; height: auto; }
 .row { display: flex; gap: 12px; align-items: center; }
 .col { display: flex; flex-direction: column; gap: 8px; }
 .wrap { flex-wrap: wrap; }
+.muted { color: var(--muted-color); }
+.text-gold { color: var(--gold); }
+.text-secondary { color: var(--text-secondary); }
 
-/* Message bubble specifics */
-.message-bubble {
-  max-width: 85%;
-  word-break: break-word;
-  line-height: 1.35;
+.badge-notification {
+  background: var(--color-danger);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
 }
 
-.chat-window {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
+.desktop-only { display: block; }
+.mobile-only  { display: none; }
 
-/* Conversation list becomes horizontal on small screens */
-.conversation-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+// ─── CHAT ────────────────────────────────────────────────────
+.chat-window { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.conversation-list { display: flex; flex-direction: column; gap: 8px; }
 
-/* Make the conversation list scroll horizontally on mobile */
-@media (max-width: 600px) {
-  .conversation-list { flex-direction: row; overflow-x: auto; gap: 10px; padding: 8px; }
-  .sidebar { display: none; }
-  .main-content { padding: 10px; }
-  .post-card, .comment-item { padding: 10px; }
-  .message-bubble { max-width: 100%; padding: 8px; font-size: 14px; }
-  .header .search-bar { display: none; }
-}
+// ─── EMBEDS / VIDEO ──────────────────────────────────────────
+.embed-responsive, .video-player { width: 100%; max-width: 100%; height: auto; }
 
+// ─── RESPONSIVE ──────────────────────────────────────────────
 @media (max-width: 900px) {
   .two-column { display: block; }
   .left-column, .right-column { width: 100%; }
   .sidebar { width: 56px; }
 }
 
-/* Compact text utility */
-.muted { color: var(--muted-color); }
-
-.desktop-only { display: block; }
-.mobile-only { display: none; }
-
 @media (max-width: 600px) {
+  .conversation-list { flex-direction: row; overflow-x: auto; gap: 10px; padding: 8px; }
+  .sidebar { display: none; }
+  .post-card, .comment-item { padding: 10px; }
+  .message-bubble { max-width: 100%; padding: 8px; font-size: 14px; }
   .desktop-only { display: none; }
-  .mobile-only { display: block; }
+  .mobile-only  { display: block; }
 }
-
-/* Ensure wide embeds and videos fit */
-.embed-responsive, .video-player { width: 100%; max-width: 100%; height: auto; }

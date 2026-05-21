@@ -1,14 +1,14 @@
-$yellow: #f5c518;
-$yellow-bright: #ffd700;
-$yellow-glow: rgba(245, 197, 24, 0.3);
-$dark-bg: #111111;
-$dark-surface: #1c1c1c;
-$dark-card: #242424;
-$dark-card-light: #2c2c2c;
-$dark-border: #2e2e2e;
-$text-primary: #f0f0f0;
-$text-secondary: #a0a0a0;
-$text-muted: #5a5a5a;
+var(--gold): #f5c518;
+var(--gold-light): #ffd700;
+rgba(var(--gold-rgb), 0.3): rgba(245, 197, 24, 0.3);
+var(--bg-color): #111111;
+var(--card-bg): #1c1c1c;
+var(--card-bg): #242424;
+var(--card-bg)-light: #2c2c2c;
+var(--border-color): #2e2e2e;
+var(--text-color): #f0f0f0;
+var(--text-secondary): #a0a0a0;
+var(--muted-color): #5a5a5a;
 
 // ==================== HOST ====================
 :host {
@@ -34,19 +34,19 @@ $text-muted: #5a5a5a;
     flex-direction: row-reverse;
 
     .message-content {
-      background: $yellow;
-      color: $dark-bg;
+      background: var(--gold);
+      color: var(--bg-color);
       border-radius: 18px 18px 4px 18px;
       margin-left: auto;
-      box-shadow: 0 2px 10px rgba($yellow, 0.2), 0 0 0 1px rgba($yellow, 0.1);
+      box-shadow: 0 2px 10px rgba(var(--gold-rgb), 0.2), 0 0 0 1px rgba(var(--gold-rgb), 0.1);
     }
 
     .message-time {
-      color: rgba($dark-bg, 0.55);
+      color: rgba(var(--bg-color), 0.55);
     }
 
     .translation-indicator {
-      color: rgba($dark-bg, 0.7);
+      color: rgba(var(--bg-color), 0.7);
       background: rgba(0, 0, 0, 0.08);
 
       &:hover { background: rgba(0, 0, 0, 0.15); }
@@ -56,21 +56,21 @@ $text-muted: #5a5a5a;
   // ==================== RECIBIDO (IZQUIERDA) ====================
   &.received {
     .message-content {
-      background: $dark-card-light;
-      color: $text-primary;
+      background: var(--card-bg)-light;
+      color: var(--text-color);
       border-radius: 18px 18px 18px 4px;
-      border: 1px solid $dark-border;
+      border: 1px solid var(--border-color);
       margin-right: auto;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
     }
 
-    .message-time { color: $text-muted; }
+    .message-time { color: var(--muted-color); }
 
     .translation-indicator {
-      color: $text-muted;
+      color: var(--muted-color);
       background: rgba(255, 255, 255, 0.03);
 
-      &:hover { background: rgba(255, 255, 255, 0.06); color: $yellow; }
+      &:hover { background: rgba(255, 255, 255, 0.06); color: var(--gold); }
     }
   }
 
@@ -112,19 +112,19 @@ $text-muted: #5a5a5a;
     .saved-lang {
       padding: 2px 6px;
       border-radius: 4px;
-      background: $dark-border;
+      background: var(--border-color);
       font-size: 10px;
       cursor: pointer;
       transition: background 0.2s;
-      color: $text-secondary;
+      color: var(--text-secondary);
 
       &.selected {
-        background: $yellow;
-        color: $dark-bg;
+        background: var(--gold);
+        color: var(--bg-color);
         font-weight: 700;
       }
 
-      &:hover { background: rgba($yellow, 0.2); color: $yellow; }
+      &:hover { background: rgba(var(--gold-rgb), 0.2); color: var(--gold); }
     }
   }
 
@@ -152,8 +152,8 @@ $text-muted: #5a5a5a;
     gap: 4px;
     margin-top: 4px;
 
-    .read-indicator { color: $yellow; font-size: 12px; }
-    .unread-indicator { color: $text-muted; font-size: 12px; }
+    .read-indicator { color: var(--gold); font-size: 12px; }
+    .unread-indicator { color: var(--muted-color); font-size: 12px; }
   }
 
   // ==================== ACCIONES ====================
@@ -162,8 +162,8 @@ $text-muted: #5a5a5a;
     margin-left: 8px;
 
     .translate-btn {
-      background: $dark-card;
-      border: 1px solid $dark-border;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
       border-radius: 50%;
       width: 32px;
       height: 32px;
@@ -173,23 +173,23 @@ $text-muted: #5a5a5a;
       cursor: pointer;
       transition: all 0.2s;
       font-size: 16px;
-      color: $text-muted;
+      color: var(--muted-color);
 
       &:hover {
-        background: $dark-surface;
+        background: var(--card-bg);
         transform: scale(1.05);
-        border-color: rgba($yellow, 0.4);
-        color: $yellow;
-        box-shadow: 0 0 8px rgba($yellow, 0.15);
+        border-color: rgba(var(--gold-rgb), 0.4);
+        color: var(--gold);
+        box-shadow: 0 0 8px rgba(var(--gold-rgb), 0.15);
       }
 
       &:disabled { opacity: 0.4; cursor: not-allowed; }
 
       &.active {
-        background: $yellow;
-        border-color: $yellow;
-        color: $dark-bg;
-        box-shadow: 0 2px 8px $yellow-glow;
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--bg-color);
+        box-shadow: 0 2px 8px rgba(var(--gold-rgb), 0.3);
       }
 
       .spinner { animation: spin 1s linear infinite; }
@@ -201,10 +201,10 @@ $text-muted: #5a5a5a;
     position: absolute;
     top: -10px;
     right: -10px;
-    background: $dark-card;
-    border: 1px solid $dark-border;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba($yellow, 0.05);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(var(--gold-rgb), 0.05);
     padding: 6px;
     display: flex;
     flex-direction: column;
@@ -220,9 +220,9 @@ $text-muted: #5a5a5a;
       width: 100%;
       border-radius: 6px;
       transition: background 0.2s;
-      color: $text-secondary;
+      color: var(--text-secondary);
 
-      &:hover { background: rgba($yellow, 0.08); color: $yellow; }
+      &:hover { background: rgba(var(--gold-rgb), 0.08); color: var(--gold); }
       &.close { font-weight: bold; text-align: center; }
     }
   }
@@ -232,19 +232,19 @@ $text-muted: #5a5a5a;
     position: absolute;
     top: 40px;
     left: 0;
-    background: $dark-card;
+    background: var(--card-bg);
     border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba($yellow, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(var(--gold-rgb), 0.08);
     padding: 8px;
     min-width: 180px;
     z-index: 10;
     animation: slideDown 0.2s ease-out;
-    border: 1px solid $dark-border;
+    border: 1px solid var(--border-color);
 
     .language-menu-header {
       font-size: 12px;
       font-weight: 600;
-      color: $text-muted;
+      color: var(--muted-color);
       padding: 8px 12px 4px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -262,9 +262,9 @@ $text-muted: #5a5a5a;
       width: 100%;
       transition: all 0.2s;
       font-size: 14px;
-      color: $text-secondary;
+      color: var(--text-secondary);
 
-      &:hover { background: rgba($yellow, 0.08); color: $yellow; }
+      &:hover { background: rgba(var(--gold-rgb), 0.08); color: var(--gold); }
 
       .flag { font-size: 20px; }
       .name { color: inherit; }
@@ -287,7 +287,7 @@ $text-muted: #5a5a5a;
       border-radius: 6px;
       transition: background 0.2s;
 
-      &:hover { background: rgba($yellow, 0.1); }
+      &:hover { background: rgba(var(--gold-rgb), 0.1); }
 
       &.delete:hover { background: rgba(255, 82, 82, 0.1); }
     }
@@ -296,10 +296,10 @@ $text-muted: #5a5a5a;
   // ==================== EDICIÓN ====================
   .edit-textarea {
     width: 100%;
-    background: $dark-surface;
-    border: 1px solid $dark-border;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    color: $text-primary;
+    color: var(--text-color);
     font-size: 14px;
     padding: 8px 10px;
     resize: vertical;
@@ -307,7 +307,7 @@ $text-muted: #5a5a5a;
     font-family: inherit;
     transition: border-color 0.2s;
 
-    &:focus { border-color: rgba($yellow, 0.5); }
+    &:focus { border-color: rgba(var(--gold-rgb), 0.5); }
   }
 
   .edit-actions {
@@ -316,8 +316,8 @@ $text-muted: #5a5a5a;
     margin-top: 8px;
 
     .save-btn {
-      background: $yellow;
-      color: $dark-bg;
+      background: var(--gold);
+      color: var(--bg-color);
       border: none;
       border-radius: 6px;
       padding: 5px 14px;
@@ -326,13 +326,13 @@ $text-muted: #5a5a5a;
       cursor: pointer;
       transition: all 0.2s;
 
-      &:hover { background: $yellow-bright; box-shadow: 0 2px 8px $yellow-glow; }
+      &:hover { background: var(--gold-light); box-shadow: 0 2px 8px rgba(var(--gold-rgb), 0.3); }
     }
 
     .cancel-btn {
       background: transparent;
-      color: $text-secondary;
-      border: 1px solid $dark-border;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
       border-radius: 6px;
       padding: 5px 14px;
       font-size: 13px;
@@ -340,19 +340,19 @@ $text-muted: #5a5a5a;
       cursor: pointer;
       transition: all 0.2s;
 
-      &:hover { background: $dark-surface; color: $text-primary; }
+      &:hover { background: var(--card-bg); color: var(--text-color); }
     }
   }
 
   // ==================== FILE LINK ====================
   .file-link {
-    color: $yellow;
+    color: var(--gold);
     text-decoration: none;
     font-size: 14px;
     font-weight: 600;
     transition: color 0.2s;
 
-    &:hover { color: $yellow-bright; text-decoration: underline; }
+    &:hover { color: var(--gold-light); text-decoration: underline; }
   }
 
   // ==================== ERROR DE TRADUCCIÓN ====================

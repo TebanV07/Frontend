@@ -1,22 +1,9 @@
-// ===============================================
-// VARIABLES - VITALITY DARK/YELLOW THEME
-// ===============================================
-$yellow: #f5c518;
-$yellow-bright: #ffd700;
-$yellow-glow: rgba(245, 197, 24, 0.3);
-$dark-bg: #111111;
-$dark-surface: #1c1c1c;
-$dark-card: #242424;
-$dark-border: #2e2e2e;
-$text-primary: #f0f0f0;
-$text-secondary: #a0a0a0;
-$text-muted: #5a5a5a;
-
+// TIMQU: migrated to global CSS variables.
 .sidebar {
   width: 320px;
   padding: 20px;
-  background: $dark-surface;
-  border-left: 1px solid $dark-border;
+  background: var(--card-bg);
+  border-left: 1px solid var(--border-color);
   height: calc(100vh - 70px);
   overflow-y: auto;
   position: sticky;
@@ -35,18 +22,18 @@ $text-muted: #5a5a5a;
   &::-webkit-scrollbar { width: 6px; }
   &::-webkit-scrollbar-track { background: transparent; }
   &::-webkit-scrollbar-thumb {
-    background: $dark-border;
+    background: var(--border-color);
     border-radius: 3px;
-    &:hover { background: $text-muted; }
+    &:hover { background: var(--muted-color); }
   }
 
   .user-profile {
     background: linear-gradient(135deg, #191200 0%, #251900 60%, #1c1c1c 100%);
-    border: 1px solid rgba($yellow, 0.2);
+    border: 1px solid rgba(var(--gold-rgb), 0.2);
     padding: 1.25rem;
     border-radius: 16px;
     margin-bottom: 1.5rem;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba($yellow, 0.08);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(var(--gold-rgb), 0.08);
     position: relative;
     overflow: hidden;
     max-width: 100%;
@@ -55,7 +42,7 @@ $text-muted: #5a5a5a;
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at top right, rgba($yellow, 0.06), transparent);
+      background: radial-gradient(circle at top right, rgba(var(--gold-rgb), 0.06), transparent);
     }
 
     .profile-header {
@@ -70,9 +57,9 @@ $text-muted: #5a5a5a;
         width: 56px;
         height: 56px;
         border-radius: 50%;
-        border: 2px solid rgba($yellow, 0.4);
+        border: 2px solid rgba(var(--gold-rgb), 0.4);
         object-fit: cover;
-        box-shadow: 0 3px 10px $yellow-glow;
+        box-shadow: 0 3px 10px rgba(var(--gold-rgb), 0.3);
         transition: transform 0.3s ease;
         flex-shrink: 0;
 
@@ -87,7 +74,7 @@ $text-muted: #5a5a5a;
           margin: 0 0 0.2rem 0;
           font-size: 1rem;
           font-weight: 700;
-          color: $text-primary;
+          color: var(--text-color);
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -96,7 +83,7 @@ $text-muted: #5a5a5a;
         .profile-username {
           margin: 0;
           font-size: 0.85rem;
-          color: $text-muted;
+          color: var(--muted-color);
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -118,29 +105,29 @@ $text-muted: #5a5a5a;
         align-items: center;
         justify-content: center;
         padding: 0.6rem;
-        background: rgba($yellow, 0.08);
+        background: rgba(var(--gold-rgb), 0.08);
         border-radius: 10px;
-        border: 1px solid rgba($yellow, 0.15);
+        border: 1px solid rgba(var(--gold-rgb), 0.15);
         transition: all 0.3s ease;
         min-width: 0;
 
         &:hover {
-          background: rgba($yellow, 0.14);
+          background: rgba(var(--gold-rgb), 0.14);
           transform: translateY(-2px);
         }
 
         .stat-number {
           font-size: 1.1rem;
           font-weight: 700;
-          color: $yellow;
+          color: var(--gold);
           line-height: 1;
           margin-bottom: 0.2rem;
-          text-shadow: 0 0 8px rgba($yellow, 0.3);
+          text-shadow: 0 0 8px rgba(var(--gold-rgb), 0.3);
         }
 
         .stat-label {
           font-size: 0.7rem;
-          color: $text-muted;
+          color: var(--muted-color);
           text-transform: uppercase;
           letter-spacing: 0.5px;
           font-weight: 600;
@@ -156,7 +143,7 @@ $text-muted: #5a5a5a;
     .section-title {
       font-size: 0.95rem;
       font-weight: 700;
-      color: $text-secondary;
+      color: var(--text-secondary);
       margin: 0 0 1rem 0;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -172,27 +159,27 @@ $text-muted: #5a5a5a;
         align-items: center;
         gap: 1rem;
         padding: 0.875rem 1rem;
-        background: $dark-card;
+        background: var(--card-bg);
         border-radius: 12px;
         cursor: pointer;
         transition: all 0.3s ease;
         border: 1px solid transparent;
 
         &:hover {
-          background: rgba($yellow, 0.07);
-          border-color: rgba($yellow, 0.2);
+          background: rgba(var(--gold-rgb), 0.07);
+          border-color: rgba(var(--gold-rgb), 0.2);
           transform: translateX(4px);
 
           .menu-icon {
-            background: $yellow;
-            color: $dark-bg;
+            background: var(--gold);
+            color: var(--bg-color);
             transform: scale(1.1);
           }
 
           .menu-arrow {
             opacity: 1;
             transform: translateX(4px);
-            color: $yellow;
+            color: var(--gold);
           }
         }
 
@@ -202,11 +189,11 @@ $text-muted: #5a5a5a;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: $dark-surface;
+          background: var(--card-bg);
           border-radius: 10px;
           flex-shrink: 0;
           transition: all 0.3s ease;
-          color: $text-secondary;
+          color: var(--text-secondary);
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
@@ -214,14 +201,14 @@ $text-muted: #5a5a5a;
           flex: 1;
           font-size: 0.95rem;
           font-weight: 600;
-          color: $text-primary;
+          color: var(--text-color);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
 
         .menu-arrow {
-          color: $text-muted;
+          color: var(--muted-color);
           opacity: 0;
           transition: all 0.3s ease;
           flex-shrink: 0;
@@ -232,10 +219,10 @@ $text-muted: #5a5a5a;
 
   .ai-translation-panel {
     background: linear-gradient(135deg, #191200 0%, #1c1900 60%, #1c1c1c 100%);
-    border: 1px solid rgba($yellow, 0.2);
+    border: 1px solid rgba(var(--gold-rgb), 0.2);
     padding: 1.5rem;
     border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba($yellow, 0.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(var(--gold-rgb), 0.05);
     position: relative;
     overflow: hidden;
 
@@ -243,7 +230,7 @@ $text-muted: #5a5a5a;
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at bottom left, rgba($yellow, 0.06), transparent);
+      background: radial-gradient(circle at bottom left, rgba(var(--gold-rgb), 0.06), transparent);
     }
 
     .panel-header {
@@ -257,7 +244,7 @@ $text-muted: #5a5a5a;
       .section-title {
         font-size: 1rem;
         font-weight: 700;
-        color: $yellow;
+        color: var(--gold);
         margin: 0;
       }
 
@@ -265,18 +252,18 @@ $text-muted: #5a5a5a;
         display: flex;
         align-items: center;
         gap: 0.35rem;
-        background: rgba($yellow, 0.15);
+        background: rgba(var(--gold-rgb), 0.15);
         backdrop-filter: blur(10px);
         padding: 0.35rem 0.75rem;
         border-radius: 20px;
-        border: 1px solid rgba($yellow, 0.3);
+        border: 1px solid rgba(var(--gold-rgb), 0.3);
 
-        svg { color: $yellow; flex-shrink: 0; }
+        svg { color: var(--gold); flex-shrink: 0; }
 
         span {
           font-size: 0.75rem;
           font-weight: 700;
-          color: $yellow;
+          color: var(--gold);
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
@@ -295,14 +282,14 @@ $text-muted: #5a5a5a;
         align-items: center;
         gap: 1rem;
         padding: 1rem;
-        background: rgba($yellow, 0.06);
+        background: rgba(var(--gold-rgb), 0.06);
         backdrop-filter: blur(10px);
         border-radius: 12px;
-        border: 1px solid rgba($yellow, 0.12);
+        border: 1px solid rgba(var(--gold-rgb), 0.12);
         transition: all 0.3s ease;
 
         &:hover {
-          background: rgba($yellow, 0.1);
+          background: rgba(var(--gold-rgb), 0.1);
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
@@ -313,12 +300,12 @@ $text-muted: #5a5a5a;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba($yellow, 0.12);
+          background: rgba(var(--gold-rgb), 0.12);
           backdrop-filter: blur(10px);
           border-radius: 10px;
           flex-shrink: 0;
-          color: $yellow;
-          border: 1px solid rgba($yellow, 0.2);
+          color: var(--gold);
+          border: 1px solid rgba(var(--gold-rgb), 0.2);
         }
 
         .info-content {
@@ -331,13 +318,13 @@ $text-muted: #5a5a5a;
           .info-title {
             font-size: 0.95rem;
             font-weight: 700;
-            color: $text-primary;
+            color: var(--text-color);
             line-height: 1.2;
           }
 
           .info-desc {
             font-size: 0.8rem;
-            color: $text-secondary;
+            color: var(--text-secondary);
           }
         }
       }
@@ -351,7 +338,7 @@ $text-muted: #5a5a5a;
   border-left-color: #1a1a1a;
 
   .quick-access {
-    .section-title { color: $text-muted; }
+    .section-title { color: var(--muted-color); }
 
     .access-menu {
       .menu-item {
@@ -359,12 +346,12 @@ $text-muted: #5a5a5a;
         border-color: #1a1a1a;
 
         &:hover {
-          background: rgba($yellow, 0.06);
-          border-color: rgba($yellow, 0.15);
+          background: rgba(var(--gold-rgb), 0.06);
+          border-color: rgba(var(--gold-rgb), 0.15);
         }
 
         .menu-icon { background: #1a1a1a; }
-        .menu-text { color: $text-primary; }
+        .menu-text { color: var(--text-color); }
       }
     }
   }

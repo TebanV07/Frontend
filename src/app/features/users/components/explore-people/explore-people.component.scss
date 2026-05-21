@@ -1,17 +1,4 @@
-// ===============================================
-// VARIABLES - VITALITY DARK/YELLOW THEME
-// ===============================================
-$yellow: #f5c518;
-$yellow-bright: #ffd700;
-$yellow-glow: rgba(245, 197, 24, 0.3);
-$dark-bg: #111111;
-$dark-surface: #1c1c1c;
-$dark-card: #242424;
-$dark-border: #2e2e2e;
-$text-primary: #f0f0f0;
-$text-secondary: #a0a0a0;
-$text-muted: #5a5a5a;
-
+// TIMQU: migrated to global CSS variables.
 .explore-people-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -25,14 +12,14 @@ $text-muted: #5a5a5a;
     margin: 0 0 8px 0;
     font-size: 28px;
     font-weight: 700;
-    color: $yellow;
-    text-shadow: 0 0 20px $yellow-glow;
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(var(--gold-rgb), 0.3);
   }
 
   p {
     margin: 0;
     font-size: 14px;
-    color: $text-secondary;
+    color: var(--text-secondary);
   }
 }
 
@@ -48,19 +35,19 @@ $text-muted: #5a5a5a;
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  background: $dark-card;
-  border: 2px solid $dark-border;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
   border-radius: 12px;
   transition: all 0.3s ease;
 
   &:focus-within {
-    border-color: $yellow;
-    box-shadow: 0 0 0 4px $yellow-glow;
-    background: $dark-surface;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 4px rgba(var(--gold-rgb), 0.3);
+    background: var(--card-bg);
   }
 
   svg {
-    color: $text-muted;
+    color: var(--muted-color);
     flex-shrink: 0;
   }
 
@@ -69,11 +56,11 @@ $text-muted: #5a5a5a;
     border: none;
     outline: none;
     font-size: 14px;
-    color: $text-primary;
+    color: var(--text-color);
     background: transparent;
 
     &::placeholder {
-      color: $text-muted;
+      color: var(--muted-color);
     }
   }
 
@@ -84,19 +71,19 @@ $text-muted: #5a5a5a;
     padding: 4px;
     display: flex;
     align-items: center;
-    color: $text-muted;
+    color: var(--muted-color);
     transition: color 0.2s;
 
     &:hover {
-      color: $yellow;
+      color: var(--gold);
     }
   }
 }
 
 .search-btn {
   padding: 12px 24px;
-  background: $yellow;
-  color: $dark-bg;
+  background: var(--gold);
+  color: var(--bg-color);
   border: none;
   border-radius: 12px;
   font-weight: 700;
@@ -104,9 +91,9 @@ $text-muted: #5a5a5a;
   transition: all 0.3s ease;
 
   &:hover:not(:disabled) {
-    background: $yellow-bright;
+    background: var(--gold-light);
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px $yellow-glow;
+    box-shadow: 0 6px 16px rgba(var(--gold-rgb), 0.3);
   }
 
   &:active:not(:disabled) {
@@ -127,7 +114,7 @@ $text-muted: #5a5a5a;
 
   label {
     font-size: 13px;
-    color: $text-secondary;
+    color: var(--text-secondary);
     font-weight: 600;
     white-space: nowrap;
   }
@@ -135,15 +122,15 @@ $text-muted: #5a5a5a;
   .country-filter-select {
     min-width: 250px;
     padding: 10px 12px;
-    background: $dark-card;
-    border: 1px solid $dark-border;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
-    color: $text-primary;
+    color: var(--text-color);
     outline: none;
 
     &:focus {
-      border-color: $yellow;
-      box-shadow: 0 0 0 3px $yellow-glow;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(var(--gold-rgb), 0.3);
     }
   }
 }
@@ -172,7 +159,7 @@ $text-muted: #5a5a5a;
     margin: 0 0 16px 0;
     font-size: 18px;
     font-weight: 600;
-    color: $text-primary;
+    color: var(--text-color);
   }
 }
 
@@ -183,18 +170,18 @@ $text-muted: #5a5a5a;
 }
 
 .user-card {
-  background: $dark-card;
+  background: var(--card-bg);
   padding: 20px;
   border-radius: 12px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 1px solid $dark-border;
+  border: 1px solid var(--border-color);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px $yellow;
-    border-color: $yellow;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--gold);
+    border-color: var(--gold);
   }
 
   .user-avatar {
@@ -203,25 +190,25 @@ $text-muted: #5a5a5a;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 12px;
-    border: 2px solid $dark-border;
+    border: 2px solid var(--border-color);
     transition: border-color 0.3s ease;
   }
 
   &:hover .user-avatar {
-    border-color: $yellow;
+    border-color: var(--gold);
   }
 
   h4 {
     margin: 0 0 4px 0;
     font-size: 14px;
     font-weight: 600;
-    color: $text-primary;
+    color: var(--text-color);
 
     &[routerLink] {
       cursor: pointer;
 
       &:hover {
-        color: $yellow;
+        color: var(--gold);
       }
     }
   }
@@ -229,13 +216,13 @@ $text-muted: #5a5a5a;
   .username {
     margin: 0 0 8px 0;
     font-size: 12px;
-    color: $text-secondary;
+    color: var(--text-secondary);
   }
 
   .bio {
     margin: 0;
     font-size: 12px;
-    color: $text-secondary;
+    color: var(--text-secondary);
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
@@ -247,7 +234,7 @@ $text-muted: #5a5a5a;
     margin: 8px 0 0;
     font-size: 11px;
     font-weight: 600;
-    color: $yellow;
+    color: var(--gold);
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
@@ -260,15 +247,15 @@ $text-muted: #5a5a5a;
 
     .follow-btn,
     .talk-btn {
-      border: 1px solid $dark-border;
+      border: 1px solid var(--border-color);
       border-radius: 9px;
       padding: 7px 10px;
       font-size: 11px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
-      background: $dark-surface;
-      color: $text-primary;
+      background: var(--card-bg);
+      color: var(--text-color);
 
       &:disabled {
         opacity: 0.6;
@@ -277,13 +264,13 @@ $text-muted: #5a5a5a;
     }
 
     .follow-btn {
-      background: $yellow;
-      color: $dark-bg;
-      border-color: $yellow;
+      background: var(--gold);
+      color: var(--bg-color);
+      border-color: var(--gold);
 
       &:hover:not(:disabled) {
         transform: translateY(-1px);
-        box-shadow: 0 4px 10px $yellow-glow;
+        box-shadow: 0 4px 10px rgba(var(--gold-rgb), 0.3);
       }
 
       &.following {
@@ -301,11 +288,11 @@ $text-muted: #5a5a5a;
 
     .talk-btn {
       background: transparent;
-      color: $text-primary;
+      color: var(--text-color);
 
       &:hover:not(:disabled) {
-        border-color: $yellow;
-        color: $yellow;
+        border-color: var(--gold);
+        color: var(--gold);
       }
     }
   }
@@ -324,12 +311,12 @@ $text-muted: #5a5a5a;
       margin: 0;
       font-size: 18px;
       font-weight: 700;
-      color: $text-primary;
+      color: var(--text-color);
     }
 
     .groups-count {
       font-size: 12px;
-      color: $text-secondary;
+      color: var(--text-secondary);
       font-weight: 600;
     }
   }
@@ -337,16 +324,16 @@ $text-muted: #5a5a5a;
   .loading-country {
     padding: 14px;
     border-radius: 10px;
-    background: $dark-card;
-    border: 1px solid $dark-border;
-    color: $text-secondary;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
     font-size: 13px;
   }
 
   .country-group {
     margin-bottom: 18px;
     padding: 14px;
-    border: 1px solid $dark-border;
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     background: rgba(36, 36, 36, 0.7);
   }
@@ -359,14 +346,14 @@ $text-muted: #5a5a5a;
 
     h4 {
       margin: 0;
-      color: $yellow;
+      color: var(--gold);
       font-size: 15px;
       font-weight: 700;
     }
 
     span {
       font-size: 12px;
-      color: $text-secondary;
+      color: var(--text-secondary);
       font-weight: 600;
     }
   }
@@ -375,12 +362,12 @@ $text-muted: #5a5a5a;
 .no-results {
   text-align: center;
   padding: 60px 20px;
-  background: $dark-card;
+  background: var(--card-bg);
   border-radius: 12px;
-  border: 1px solid $dark-border;
+  border: 1px solid var(--border-color);
 
   svg {
-    color: $text-muted;
+    color: var(--muted-color);
     margin-bottom: 16px;
   }
 
@@ -388,13 +375,13 @@ $text-muted: #5a5a5a;
     margin: 0 0 8px 0;
     font-size: 18px;
     font-weight: 600;
-    color: $text-primary;
+    color: var(--text-color);
   }
 
   p {
     margin: 0;
     font-size: 14px;
-    color: $text-secondary;
+    color: var(--text-secondary);
   }
 }
 

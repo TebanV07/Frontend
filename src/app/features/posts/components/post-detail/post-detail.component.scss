@@ -1,17 +1,4 @@
-// ===============================================
-// VARIABLES - VITALITY DARK/YELLOW THEME
-// ===============================================
-$yellow: #f5c518;
-$yellow-bright: #ffd700;
-$yellow-glow: rgba(245, 197, 24, 0.3);
-$dark-bg: #111111;
-$dark-surface: #1c1c1c;
-$dark-card: #242424;
-$dark-border: #2e2e2e;
-$text-primary: #f0f0f0;
-$text-secondary: #a0a0a0;
-$text-muted: #5a5a5a;
-
+// TIMQU: migrated to global CSS variables.
 .post-detail-container {
   max-width: 800px;
   margin: 0 auto;
@@ -25,13 +12,13 @@ $text-muted: #5a5a5a;
     align-items: center;
     gap: 1rem;
     padding: 3rem 1rem;
-    color: $text-muted;
+    color: var(--muted-color);
 
     .spinner {
       width: 40px;
       height: 40px;
-      border: 3px solid $dark-border;
-      border-top-color: $yellow;
+      border: 3px solid var(--border-color);
+      border-top-color: var(--gold);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
@@ -56,18 +43,18 @@ $text-muted: #5a5a5a;
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    background: $dark-card;
-    border: 1px solid $dark-border;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
-    color: $text-secondary;
+    color: var(--text-secondary);
     font-size: 0.875rem;
     cursor: pointer;
     transition: all 0.2s;
 
     &:hover {
-      background: rgba($yellow, 0.08);
-      border-color: rgba($yellow, 0.3);
-      color: $yellow;
+      background: rgba(var(--gold-rgb), 0.08);
+      border-color: rgba(var(--gold-rgb), 0.3);
+      color: var(--gold);
     }
 
     svg { width: 16px; height: 16px; }
@@ -78,8 +65,8 @@ $text-muted: #5a5a5a;
   .post-detail {
 
     .post-content {
-      background: $dark-surface;
-      border: 1px solid $dark-border;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
       border-radius: 16px;
       overflow: hidden;
       margin-bottom: 1.5rem;
@@ -88,7 +75,7 @@ $text-muted: #5a5a5a;
       // ---- HEADER ----
       .post-header {
         padding: 1.5rem;
-        border-bottom: 1px solid $dark-border;
+        border-bottom: 1px solid var(--border-color);
 
         .author-info {
           display: flex;
@@ -101,8 +88,8 @@ $text-muted: #5a5a5a;
             border-radius: 50%;
             object-fit: cover;
             cursor: pointer;
-            border: 2px solid rgba($yellow, 0.4);
-            box-shadow: 0 2px 8px $yellow-glow;
+            border: 2px solid rgba(var(--gold-rgb), 0.4);
+            box-shadow: 0 2px 8px rgba(var(--gold-rgb), 0.3);
             flex-shrink: 0;
             transition: opacity 0.2s;
 
@@ -126,11 +113,11 @@ $text-muted: #5a5a5a;
             .username {
               font-weight: 600;
               font-size: 1.1rem;
-              color: $text-primary;
+              color: var(--text-color);
               text-decoration: none;
               transition: color 0.2s;
 
-              &:hover { color: $yellow; }
+              &:hover { color: var(--gold); }
             }
 
             // ⭐ Bandera del país
@@ -144,12 +131,12 @@ $text-muted: #5a5a5a;
 
             .full-name {
               font-size: 0.9rem;
-              color: $text-secondary;
+              color: var(--text-secondary);
             }
 
             .timestamp {
               font-size: 0.85rem;
-              color: $text-muted;
+              color: var(--muted-color);
             }
           }
         }
@@ -165,8 +152,8 @@ $text-muted: #5a5a5a;
           align-items: center;
           gap: 0.375rem;
           padding: 0.25rem 0.625rem;
-          background: rgba($yellow, 0.08);
-          border: 1px solid rgba($yellow, 0.2);
+          background: rgba(var(--gold-rgb), 0.08);
+          border: 1px solid rgba(var(--gold-rgb), 0.2);
           border-radius: 20px;
           margin-bottom: 1rem;
 
@@ -179,23 +166,23 @@ $text-muted: #5a5a5a;
           .language-name {
             font-size: 0.75rem;
             font-weight: 600;
-            color: rgba($yellow, 0.85);
+            color: rgba(var(--gold-rgb), 0.85);
           }
         }
 
         .content-text {
           margin: 0 0 1.5rem;
           font-size: 1rem;
-          color: $text-primary;
+          color: var(--text-color);
           line-height: 1.6;
           white-space: pre-wrap;
           word-wrap: break-word;
 
           &.translated {
-            background: rgba($yellow, 0.04);
+            background: rgba(var(--gold-rgb), 0.04);
             padding: 0.75rem;
             border-radius: 8px;
-            border-left: 3px solid $yellow;
+            border-left: 3px solid var(--gold);
           }
         }
 
@@ -220,8 +207,8 @@ $text-muted: #5a5a5a;
           align-items: center;
           justify-content: space-between;
           padding: 0.75rem 1rem;
-          background: rgba($yellow, 0.05);
-          border: 1px solid rgba($yellow, 0.15);
+          background: rgba(var(--gold-rgb), 0.05);
+          border: 1px solid rgba(var(--gold-rgb), 0.15);
           border-radius: 12px;
           margin-top: 1rem;
           flex-wrap: wrap;
@@ -232,7 +219,7 @@ $text-muted: #5a5a5a;
             align-items: center;
             gap: 0.5rem;
             font-size: 0.875rem;
-            color: $text-secondary;
+            color: var(--text-secondary);
           }
 
           .translation-controls {
@@ -241,17 +228,17 @@ $text-muted: #5a5a5a;
             gap: 0.5rem;
 
             select {
-              background: $dark-card;
-              border: 1px solid rgba($yellow, 0.3);
+              background: var(--card-bg);
+              border: 1px solid rgba(var(--gold-rgb), 0.3);
               border-radius: 8px;
-              color: $text-primary;
+              color: var(--text-color);
               padding: 0.4rem 0.75rem;
               font-size: 0.85rem;
               cursor: pointer;
               outline: none;
 
-              &:focus { border-color: $yellow; }
-              option { background: $dark-surface; }
+              &:focus { border-color: var(--gold); }
+              option { background: var(--card-bg); }
             }
 
             .translate-btn {
@@ -259,18 +246,18 @@ $text-muted: #5a5a5a;
               align-items: center;
               gap: 0.4rem;
               padding: 0.5rem 1rem;
-              background: $yellow;
+              background: var(--gold);
               border: none;
               border-radius: 8px;
-              color: $dark-bg;
+              color: var(--bg-color);
               font-weight: 700;
               font-size: 0.875rem;
               cursor: pointer;
               transition: all 0.2s;
-              box-shadow: 0 2px 8px $yellow-glow;
+              box-shadow: 0 2px 8px rgba(var(--gold-rgb), 0.3);
 
-              &:hover { background: $yellow-bright; transform: translateY(-1px); }
-              &.active { background: $dark-card; border: 1px solid rgba($yellow, 0.4); color: $yellow; }
+              &:hover { background: var(--gold-light); transform: translateY(-1px); }
+              &.active { background: var(--card-bg); border: 1px solid rgba(var(--gold-rgb), 0.4); color: var(--gold); }
               &:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
             }
           }
@@ -283,12 +270,12 @@ $text-muted: #5a5a5a;
           gap: 0.4rem;
           flex-wrap: wrap;
           padding: 0.5rem 0.875rem;
-          background: rgba($yellow, 0.06);
-          border: 1px solid rgba($yellow, 0.18);
+          background: rgba(var(--gold-rgb), 0.06);
+          border: 1px solid rgba(var(--gold-rgb), 0.18);
           border-radius: 10px;
           margin-top: 0.75rem;
           font-size: 0.8rem;
-          color: $text-secondary;
+          color: var(--text-secondary);
 
           .lang-flag-small {
             width: 16px;
@@ -301,13 +288,13 @@ $text-muted: #5a5a5a;
       // ---- STATS ----
       .post-stats {
         padding: 1rem 1.5rem;
-        border-top: 1px solid $dark-border;
-        border-bottom: 1px solid $dark-border;
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
         display: flex;
         align-items: center;
         gap: 1rem;
         font-size: 0.875rem;
-        color: $text-muted;
+        color: var(--muted-color);
       }
 
       // ---- ACTIONS ----
@@ -322,18 +309,18 @@ $text-muted: #5a5a5a;
           align-items: center;
           gap: 0.375rem;
           padding: 0.5rem 1rem;
-          background: $dark-card;
-          border: 1px solid $dark-border;
+          background: var(--card-bg);
+          border: 1px solid var(--border-color);
           border-radius: 20px;
           font-size: 0.875rem;
-          color: $text-secondary;
+          color: var(--text-secondary);
           cursor: pointer;
           transition: all 0.2s;
 
           &:hover {
-            background: rgba($yellow, 0.08);
-            border-color: rgba($yellow, 0.25);
-            color: $yellow;
+            background: rgba(var(--gold-rgb), 0.08);
+            border-color: rgba(var(--gold-rgb), 0.25);
+            color: var(--gold);
           }
         }
       }
@@ -342,8 +329,8 @@ $text-muted: #5a5a5a;
     // ==================== COMENTARIOS ====================
 
     .comments-section {
-      background: $dark-surface;
-      border: 1px solid $dark-border;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 4px 16px rgba(0,0,0,0.4);
@@ -353,8 +340,8 @@ $text-muted: #5a5a5a;
         margin: 0;
         font-size: 1.1rem;
         font-weight: 600;
-        color: $text-primary;
-        border-bottom: 1px solid $dark-border;
+        color: var(--text-color);
+        border-bottom: 1px solid var(--border-color);
       }
     }
   }

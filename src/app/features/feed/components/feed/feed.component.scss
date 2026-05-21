@@ -1,22 +1,4 @@
-// ===============================================
-// VARIABLES - VITALITY DARK/YELLOW THEME
-// ===============================================
-$yellow-primary: #f5c518;
-$yellow-bright: #ffd700;
-$yellow-muted: #e6b800;
-$yellow-soft: rgba(245, 197, 24, 0.15);
-$yellow-glow: rgba(245, 197, 24, 0.3);
-
-$dark-bg: #111111;
-$dark-surface: #1c1c1c;
-$dark-card: #242424;
-$dark-border: #2e2e2e;
-$dark-hover: #2a2a2a;
-
-$text-primary: #f0f0f0;
-$text-secondary: #a0a0a0;
-$text-muted: #6b6b6b;
-
+// TIMQU: migrated to global CSS variables.
 // ===============================================
 // FEED CONTAINER
 // ===============================================
@@ -24,7 +6,7 @@ $text-muted: #6b6b6b;
   max-width: 680px;
   margin: 0 auto;
   padding-bottom: 40px;
-  background-color: $dark-bg;
+  background-color: var(--bg-color);
 }
 
 // ===============================================
@@ -32,16 +14,16 @@ $text-muted: #6b6b6b;
 // ===============================================
 .ai-banner {
   background: linear-gradient(135deg, #1a1a00 0%, #3a2d00 60%, #1c1c1c 100%);
-  border: 1px solid rgba($yellow-primary, 0.35);
+  border: 1px solid rgba(var(--gold)-primary, 0.35);
   border-radius: 16px;
   padding: 20px 24px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 20px $yellow-glow, inset 0 1px 0 rgba($yellow-primary, 0.1);
+  box-shadow: 0 4px 20px rgba(var(--gold-rgb), 0.3), inset 0 1px 0 rgba(var(--gold)-primary, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 28px rgba($yellow-primary, 0.4);
+    box-shadow: 0 6px 28px rgba(var(--gold)-primary, 0.4);
   }
 
   .banner-content {
@@ -58,7 +40,7 @@ $text-muted: #6b6b6b;
   .banner-icon {
     font-size: 32px;
     line-height: 1;
-    filter: drop-shadow(0 2px 6px rgba($yellow-primary, 0.5));
+    filter: drop-shadow(0 2px 6px rgba(var(--gold)-primary, 0.5));
   }
 
   .banner-text {
@@ -68,14 +50,14 @@ $text-muted: #6b6b6b;
       margin: 0 0 4px 0;
       font-size: 18px;
       font-weight: 700;
-      color: $yellow-primary;
-      text-shadow: 0 0 12px rgba($yellow-primary, 0.4);
+      color: var(--gold)-primary;
+      text-shadow: 0 0 12px rgba(var(--gold)-primary, 0.4);
     }
 
     p {
       margin: 0;
       font-size: 13px;
-      color: rgba($text-primary, 0.75);
+      color: rgba(var(--text-color), 0.75);
       font-weight: 500;
     }
   }
@@ -98,14 +80,14 @@ $text-muted: #6b6b6b;
       .stat-number {
         font-size: 24px;
         font-weight: 800;
-        color: $yellow-primary;
+        color: var(--gold)-primary;
         line-height: 1;
-        text-shadow: 0 0 10px rgba($yellow-primary, 0.5);
+        text-shadow: 0 0 10px rgba(var(--gold)-primary, 0.5);
       }
 
       .stat-label {
         font-size: 11px;
-        color: $text-secondary;
+        color: var(--text-secondary);
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -119,16 +101,16 @@ $text-muted: #6b6b6b;
 // ===============================================
 .suggested-users-section {
   background: linear-gradient(135deg, #161200 0%, #1e1a00 50%, #1c1c1c 100%);
-  border: 1px solid rgba($yellow-primary, 0.25);
+  border: 1px solid rgba(var(--gold)-primary, 0.25);
   border-radius: 16px;
   padding: 18px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 20px rgba($yellow-primary, 0.15);
+  box-shadow: 0 4px 20px rgba(var(--gold)-primary, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 28px rgba($yellow-primary, 0.22);
+    box-shadow: 0 6px 28px rgba(var(--gold)-primary, 0.22);
   }
 
   .section-header {
@@ -143,32 +125,32 @@ $text-muted: #6b6b6b;
       gap: 8px;
       font-size: 16px;
       font-weight: 700;
-      color: $yellow-primary;
+      color: var(--gold)-primary;
       margin: 0;
 
       svg {
         width: 18px;
         height: 18px;
-        color: $yellow-primary;
-        filter: drop-shadow(0 1px 3px rgba($yellow-primary, 0.4));
+        color: var(--gold)-primary;
+        filter: drop-shadow(0 1px 3px rgba(var(--gold)-primary, 0.4));
       }
     }
 
     .see-all-btn {
       font-size: 13px;
-      color: $dark-bg;
+      color: var(--bg-color);
       font-weight: 700;
       padding: 6px 14px;
-      background: $yellow-primary;
+      background: var(--gold)-primary;
       border: none;
       border-radius: 20px;
       cursor: pointer;
       transition: all 0.3s ease;
 
       &:hover {
-        background: $yellow-bright;
+        background: var(--gold-light);
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px $yellow-glow;
+        box-shadow: 0 4px 12px rgba(var(--gold-rgb), 0.3);
       }
 
       &:active {
@@ -193,8 +175,8 @@ $text-muted: #6b6b6b;
   }
 
   .user-card {
-    background: $dark-card;
-    border: 1px solid $dark-border;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 14px;
     display: flex;
@@ -206,8 +188,8 @@ $text-muted: #6b6b6b;
 
     &:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba($yellow-primary, 0.2);
-      border-color: rgba($yellow-primary, 0.3);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(var(--gold)-primary, 0.2);
+      border-color: rgba(var(--gold)-primary, 0.3);
     }
 
     .user-card-header {
@@ -222,7 +204,7 @@ $text-muted: #6b6b6b;
         top: -8px;
         right: -8px;
         background: #cc3300;
-        border: 2px solid $dark-card;
+        border: 2px solid var(--card-bg);
         border-radius: 50%;
         width: 24px;
         height: 24px;
@@ -252,10 +234,10 @@ $text-muted: #6b6b6b;
       height: 70px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid $yellow-primary;
+      border: 3px solid var(--gold)-primary;
       cursor: pointer;
       transition: transform 0.3s ease;
-      box-shadow: 0 3px 10px $yellow-glow;
+      box-shadow: 0 3px 10px rgba(var(--gold-rgb), 0.3);
 
       &:hover {
         transform: scale(1.08);
@@ -276,7 +258,7 @@ $text-muted: #6b6b6b;
       h4 {
         font-size: 14px;
         font-weight: 700;
-        color: $text-primary;
+        color: var(--text-color);
         margin: 0 0 3px 0;
         white-space: nowrap;
         overflow: hidden;
@@ -284,20 +266,20 @@ $text-muted: #6b6b6b;
         transition: color 0.2s ease;
 
         &:hover {
-          color: $yellow-primary;
+          color: var(--gold)-primary;
         }
       }
 
       .username {
         font-size: 12px;
-        color: $text-muted;
+        color: var(--muted-color);
         margin: 0 0 6px 0;
         font-weight: 500;
       }
 
       .bio {
         font-size: 11px;
-        color: $text-secondary;
+        color: var(--text-secondary);
         line-height: 1.4;
         margin: 6px 0;
         display: -webkit-box;
@@ -309,17 +291,17 @@ $text-muted: #6b6b6b;
 
       .user-stats {
         font-size: 11px;
-        color: $text-secondary;
+        color: var(--text-secondary);
         margin-top: 6px;
         line-height: 1.3;
 
         strong {
-          color: $text-primary;
+          color: var(--text-color);
           font-weight: 700;
         }
 
         .mutual {
-          color: $yellow-primary;
+          color: var(--gold)-primary;
           font-weight: 600;
         }
       }
@@ -328,20 +310,20 @@ $text-muted: #6b6b6b;
     .follow-btn {
       width: 100%;
       padding: 8px 16px;
-      background: $yellow-primary;
-      color: $dark-bg;
+      background: var(--gold)-primary;
+      color: var(--bg-color);
       border: none;
       border-radius: 20px;
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 2px 8px $yellow-glow;
+      box-shadow: 0 2px 8px rgba(var(--gold-rgb), 0.3);
 
       &:hover:not(:disabled) {
-        background: $yellow-bright;
+        background: var(--gold-light);
         transform: translateY(-2px);
-        box-shadow: 0 4px 14px rgba($yellow-primary, 0.5);
+        box-shadow: 0 4px 14px rgba(var(--gold)-primary, 0.5);
       }
 
       &:active:not(:disabled) {
@@ -355,8 +337,8 @@ $text-muted: #6b6b6b;
 
       &.following {
         background: transparent;
-        color: $yellow-primary;
-        border: 2px solid $yellow-primary;
+        color: var(--gold)-primary;
+        border: 2px solid var(--gold)-primary;
         box-shadow: none;
 
         &:hover:not(:disabled) {
@@ -383,14 +365,14 @@ $text-muted: #6b6b6b;
   .loading-spinner {
     width: 48px;
     height: 48px;
-    border: 4px solid rgba($yellow-primary, 0.2);
-    border-top-color: $yellow-primary;
+    border: 4px solid rgba(var(--gold)-primary, 0.2);
+    border-top-color: var(--gold)-primary;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
   }
 
   p {
-    color: $text-secondary;
+    color: var(--text-secondary);
     font-size: 14px;
     font-weight: 500;
   }
@@ -409,13 +391,13 @@ $text-muted: #6b6b6b;
   h3 {
     font-size: 20px;
     font-weight: 700;
-    color: $text-primary;
+    color: var(--text-color);
     margin: 0 0 8px 0;
   }
 
   p {
     font-size: 14px;
-    color: $text-secondary;
+    color: var(--text-secondary);
     margin: 0;
   }
 }
@@ -441,20 +423,20 @@ $text-muted: #6b6b6b;
     align-items: center;
     gap: 8px;
     padding: 12px 28px;
-    background: $yellow-primary;
-    color: $dark-bg;
+    background: var(--gold)-primary;
+    color: var(--bg-color);
     border: none;
     border-radius: 25px;
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px $yellow-glow;
+    box-shadow: 0 4px 12px rgba(var(--gold-rgb), 0.3);
 
     &:hover {
-      background: $yellow-bright;
+      background: var(--gold-light);
       transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba($yellow-primary, 0.5);
+      box-shadow: 0 6px 18px rgba(var(--gold)-primary, 0.5);
     }
 
     &:active {
@@ -473,7 +455,7 @@ $text-muted: #6b6b6b;
 // ===============================================
 .debug-warning {
   background: #1a1200;
-  border: 2px solid $yellow-muted;
+  border: 2px solid var(--gold)-muted;
   border-radius: 12px;
   padding: 16px;
   margin: 16px 0;
@@ -484,21 +466,21 @@ $text-muted: #6b6b6b;
   }
 
   h4 {
-    color: $yellow-primary;
+    color: var(--gold)-primary;
     font-size: 16px;
     font-weight: 700;
     margin: 0 0 12px 0;
   }
 
   .invalid-post {
-    background: $dark-surface;
-    border: 1px solid rgba($yellow-primary, 0.3);
+    background: var(--card-bg);
+    border: 1px solid rgba(var(--gold)-primary, 0.3);
     border-radius: 8px;
     padding: 12px;
     margin-bottom: 8px;
     font-family: monospace;
     font-size: 12px;
-    color: $yellow-muted;
+    color: var(--gold)-muted;
     overflow-x: auto;
 
     &:last-child {
@@ -523,12 +505,12 @@ $text-muted: #6b6b6b;
 .dark-theme {
   .ai-banner {
     background: linear-gradient(135deg, #0d0d00 0%, #1a1500 100%);
-    box-shadow: 0 4px 20px rgba($yellow-primary, 0.2);
+    box-shadow: 0 4px 20px rgba(var(--gold)-primary, 0.2);
   }
 
   .suggested-users-section {
     background: linear-gradient(135deg, #0d0d00 0%, #1a1500 100%);
-    box-shadow: 0 4px 20px rgba($yellow-primary, 0.12);
+    box-shadow: 0 4px 20px rgba(var(--gold)-primary, 0.12);
 
     .user-card {
       background: #191919;
@@ -539,50 +521,50 @@ $text-muted: #6b6b6b;
       }
 
       .user-avatar {
-        border-color: $yellow-primary;
-        box-shadow: 0 3px 10px $yellow-glow;
+        border-color: var(--gold)-primary;
+        box-shadow: 0 3px 10px rgba(var(--gold-rgb), 0.3);
       }
 
       .user-info {
         h4 {
-          color: $text-primary;
+          color: var(--text-color);
 
           &:hover {
-            color: $yellow-primary;
+            color: var(--gold)-primary;
           }
         }
 
         .username,
         .bio {
-          color: $text-muted;
+          color: var(--muted-color);
         }
 
         .user-stats {
-          color: $text-secondary;
+          color: var(--text-secondary);
 
           strong {
-            color: $text-primary;
+            color: var(--text-color);
           }
 
           .mutual {
-            color: $yellow-primary;
+            color: var(--gold)-primary;
           }
         }
       }
 
       .follow-btn {
-        background: $yellow-primary;
-        color: $dark-bg;
-        box-shadow: 0 2px 8px $yellow-glow;
+        background: var(--gold)-primary;
+        color: var(--bg-color);
+        box-shadow: 0 2px 8px rgba(var(--gold-rgb), 0.3);
 
         &:hover:not(:disabled) {
-          box-shadow: 0 4px 14px rgba($yellow-primary, 0.5);
+          box-shadow: 0 4px 14px rgba(var(--gold)-primary, 0.5);
         }
 
         &.following {
           background: transparent;
-          color: $yellow-primary;
-          border-color: $yellow-primary;
+          color: var(--gold)-primary;
+          border-color: var(--gold)-primary;
 
           &:hover:not(:disabled) {
             background: rgba(248, 113, 113, 0.1);
@@ -596,47 +578,47 @@ $text-muted: #6b6b6b;
 
   .loading-container {
     p {
-      color: $text-secondary;
+      color: var(--text-secondary);
     }
 
     .loading-spinner {
-      border-color: rgba($yellow-primary, 0.15);
-      border-top-color: $yellow-primary;
+      border-color: rgba(var(--gold)-primary, 0.15);
+      border-top-color: var(--gold)-primary;
     }
   }
 
   .empty-state {
     h3 {
-      color: $text-primary;
+      color: var(--text-color);
     }
 
     p {
-      color: $text-secondary;
+      color: var(--text-secondary);
     }
   }
 
   .load-more-btn {
-    background: $yellow-primary;
-    color: $dark-bg;
-    box-shadow: 0 4px 12px $yellow-glow;
+    background: var(--gold)-primary;
+    color: var(--bg-color);
+    box-shadow: 0 4px 12px rgba(var(--gold-rgb), 0.3);
 
     &:hover {
-      box-shadow: 0 6px 18px rgba($yellow-primary, 0.5);
+      box-shadow: 0 6px 18px rgba(var(--gold)-primary, 0.5);
     }
   }
 
   .debug-warning {
     background: #100e00;
-    border-color: $yellow-muted;
+    border-color: var(--gold)-muted;
 
     h4 {
-      color: $yellow-primary;
+      color: var(--gold)-primary;
     }
 
     .invalid-post {
       background: #1c1c1c;
-      border-color: rgba($yellow-primary, 0.3);
-      color: $yellow-muted;
+      border-color: rgba(var(--gold)-primary, 0.3);
+      color: var(--gold)-muted;
     }
   }
 }

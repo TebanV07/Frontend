@@ -1,10 +1,10 @@
-$yellow: #fbbf24;
-$yellow-dim: rgba(251, 191, 36, 0.12);
-$bg: #0d0d14;
-$border: rgba(251, 191, 36, 0.1);
-$text-primary: #f1f5f9;
-$text-secondary: #94a3b8;
-$text-muted: #64748b;
+var(--gold): #fbbf24;
+var(--gold)-dim: rgba(251, 191, 36, 0.12);
+var(--bg-color): #0d0d14;
+var(--border-color): rgba(251, 191, 36, 0.1);
+var(--text-color): #f1f5f9;
+var(--text-secondary): #94a3b8;
+var(--muted-color): #64748b;
 
 .profile-header {
   position: relative;
@@ -52,7 +52,7 @@ $text-muted: #64748b;
     width: 96px;
     height: 96px;
     border-radius: 50%;
-    border: 3px solid $yellow;
+    border: 3px solid var(--gold);
     object-fit: cover;
     background: #1a1a26;
     box-shadow: 0 0 0 4px rgba(251,191,36,0.12), 0 8px 24px rgba(0,0,0,0.5);
@@ -64,7 +64,7 @@ $text-muted: #64748b;
     right: 4px;
     width: 24px;
     height: 24px;
-    background: $yellow;
+    background: var(--gold);
     border-radius: 50%;
     border: 2px solid #0d0d14;
     display: flex;
@@ -100,12 +100,12 @@ $text-muted: #64748b;
   .full-name {
     font-size: 1.4rem;
     font-weight: 700;
-    color: $text-primary;
+    color: var(--text-color);
     margin: 0 0 0.2rem;
     line-height: 1.2;
   }
   .username {
-    color: $text-muted;
+    color: var(--muted-color);
     font-size: 0.9rem;
     font-weight: 500;
   }
@@ -135,9 +135,9 @@ $text-muted: #64748b;
   letter-spacing: 0.01em;
 
   &-primary {
-    background: $yellow;
+    background: var(--gold);
     color: #0a0a0f;
-    border-color: $yellow;
+    border-color: var(--gold);
 
     &:hover {
       background: #f59e0b;
@@ -148,32 +148,32 @@ $text-muted: #64748b;
 
   &-outline {
     background: transparent;
-    color: $yellow;
+    color: var(--gold);
     border-color: rgba(251,191,36,0.4);
 
     &:hover {
-      background: $yellow-dim;
-      border-color: $yellow;
+      background: var(--gold)-dim;
+      border-color: var(--gold);
     }
   }
 
   &-icon {
     background: rgba(255,255,255,0.05);
-    color: $text-secondary;
-    border-color: $border;
+    color: var(--text-secondary);
+    border-color: var(--border-color);
     padding: 0.5rem;
 
     &:hover {
-      color: $yellow;
+      color: var(--gold);
       border-color: rgba(251,191,36,0.3);
-      background: $yellow-dim;
+      background: var(--gold)-dim;
     }
   }
 }
 
 // ===== BIO =====
 .bio {
-  color: $text-secondary;
+  color: var(--text-secondary);
   font-size: 0.9rem;
   line-height: 1.55;
   margin: 0 0 0.75rem;
@@ -193,13 +193,13 @@ $text-muted: #64748b;
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    color: $text-muted;
+    color: var(--muted-color);
     font-size: 0.82rem;
 
     svg { flex-shrink: 0; opacity: 0.7; }
 
     a {
-      color: $yellow;
+      color: var(--gold);
       text-decoration: none;
       &:hover { text-decoration: underline; }
     }
@@ -223,13 +223,13 @@ $text-muted: #64748b;
     .stat-value {
       font-size: 1.1rem;
       font-weight: 700;
-      color: $yellow;
+      color: var(--gold);
       line-height: 1;
     }
 
     .stat-label {
       font-size: 0.75rem;
-      color: $text-muted;
+      color: var(--muted-color);
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
@@ -238,6 +238,6 @@ $text-muted: #64748b;
   .stat-sep {
     width: 1px;
     height: 28px;
-    background: $border;
+    background: var(--border-color);
   }
 }

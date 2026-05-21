@@ -1,14 +1,4 @@
-// ===== VARIABLES =====
-$bg-card: #111118;
-$bg-card-hover: #1a1a26;
-$border: rgba(251, 191, 36, 0.1);
-$border-hover: rgba(251, 191, 36, 0.3);
-$yellow: #fbbf24;
-$yellow-dim: rgba(251, 191, 36, 0.15);
-$text-primary: #f1f5f9;
-$text-secondary: #64748b;
-$text-muted: #475569;
-
+// TIMQU: migrated to global CSS variables.
 .profile-content {
   padding: 0 2rem 4rem;
 
@@ -27,16 +17,16 @@ $text-muted: #475569;
 }
 
 .post-card {
-  background: $bg-card;
-  border: 1px solid $border;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   overflow: hidden;
   transition: all 0.25s ease;
   cursor: pointer;
 
   &:hover {
-    border-color: $border-hover;
-    background: $bg-card-hover;
+    border-color: var(--border-color)-hover;
+    background: var(--card-bg)-hover;
     transform: translateY(-2px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(251, 191, 36, 0.08);
   }
@@ -62,7 +52,7 @@ $text-muted: #475569;
       right: 8px;
       background: rgba(0,0,0,0.75);
       backdrop-filter: blur(4px);
-      color: $yellow;
+      color: var(--gold);
       padding: 0.25rem 0.5rem;
       border-radius: 6px;
       font-size: 0.75rem;
@@ -79,7 +69,7 @@ $text-muted: #475569;
       align-items: center;
       justify-content: center;
       background: rgba(0,0,0,0.4);
-      color: $yellow;
+      color: var(--gold);
     }
   }
 
@@ -87,7 +77,7 @@ $text-muted: #475569;
     padding: 0.875rem 1rem;
 
     .post-text {
-      color: $text-primary;
+      color: var(--text-color);
       font-size: 0.9rem;
       line-height: 1.5;
       margin: 0 0 0.6rem;
@@ -104,7 +94,7 @@ $text-muted: #475569;
       margin-bottom: 0.75rem;
 
       .tag {
-        color: $yellow;
+        color: var(--gold);
         font-size: 0.78rem;
         font-weight: 600;
         opacity: 0.8;
@@ -120,15 +110,15 @@ $text-muted: #475569;
         display: flex;
         align-items: center;
         gap: 0.35rem;
-        color: $text-secondary;
+        color: var(--text-secondary);
         font-size: 0.82rem;
 
-        svg { color: $yellow; opacity: 0.7; flex-shrink: 0; }
+        svg { color: var(--gold); opacity: 0.7; flex-shrink: 0; }
       }
 
       .post-time {
         margin-left: auto;
-        color: $text-muted;
+        color: var(--muted-color);
         font-size: 0.78rem;
       }
     }
@@ -147,15 +137,15 @@ $text-muted: #475569;
 }
 
 .video-card {
-  background: $bg-card;
-  border: 1px solid $border;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.25s ease;
 
   &:hover {
-    border-color: $border-hover;
+    border-color: var(--border-color)-hover;
     transform: translateY(-2px);
     box-shadow: 0 8px 32px rgba(0,0,0,0.4);
 
@@ -218,7 +208,7 @@ $text-muted: #475569;
       right: 8px;
       background: rgba(0,0,0,0.75);
       backdrop-filter: blur(4px);
-      color: $yellow;
+      color: var(--gold);
       font-size: 0.75rem;
       font-weight: 700;
       padding: 0.2rem 0.5rem;
@@ -233,7 +223,7 @@ $text-muted: #475569;
     padding: 0.75rem;
 
     h3 {
-      color: $text-primary;
+      color: var(--text-color);
       font-size: 0.85rem;
       font-weight: 600;
       margin: 0 0 0.4rem;
@@ -247,7 +237,7 @@ $text-muted: #475569;
       gap: 0.4rem;
 
       .tag {
-        color: $yellow;
+        color: var(--gold);
         font-size: 0.75rem;
         opacity: 0.75;
       }
@@ -268,7 +258,7 @@ $text-muted: #475569;
   .empty-icon {
     width: 100px;
     height: 100px;
-    background: $yellow-dim;
+    background: var(--gold)-dim;
     border: 1px solid rgba(251, 191, 36, 0.2);
     border-radius: 50%;
     display: flex;
@@ -279,14 +269,14 @@ $text-muted: #475569;
   }
 
   h3 {
-    color: $text-primary;
+    color: var(--text-color);
     font-size: 1.1rem;
     font-weight: 600;
     margin: 0 0 0.5rem;
   }
 
   p {
-    color: $text-secondary;
+    color: var(--text-secondary);
     font-size: 0.9rem;
     margin: 0;
   }

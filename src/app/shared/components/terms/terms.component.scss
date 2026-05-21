@@ -1,18 +1,11 @@
-$yellow: #f5c518;
-$yellow-bright: #ffd700;
-$yellow-glow: rgba(245, 197, 24, 0.3);
-$dark-bg: #111111;
-$dark-surface: #1c1c1c;
-$dark-card: #242424;
-$dark-border: #2e2e2e;
-$text-primary: #f0f0f0;
-$text-secondary: #a0a0a0;
-$text-muted: #5a5a5a;
+/* Using global TIMQU design tokens */
+/* Gold: var(--gold), RGB: var(--gold-rgb) */
+
 
 .terms-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
@@ -22,8 +15,8 @@ $text-muted: #5a5a5a;
 }
 
 .terms-modal {
-  background: $dark-surface;
-  border: 1px solid $dark-border;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   width: 100%;
   max-width: 720px;
@@ -31,12 +24,12 @@ $text-muted: #5a5a5a;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba($yellow, 0.06);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(var(--gold-rgb), 0.06);
 }
 
 .modal-accent-bar {
   height: 3px;
-  background: linear-gradient(90deg, $yellow, $yellow-bright, $yellow);
+  background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
   flex-shrink: 0;
 }
 
@@ -47,33 +40,33 @@ $text-muted: #5a5a5a;
   align-items: flex-start;
   gap: 16px;
   flex-shrink: 0;
-  border-bottom: 1px solid $dark-border;
+  border-bottom: 1px solid var(--border-color);
 
   .header-icon {
     flex-shrink: 0;
     width: 52px;
     height: 52px;
-    background: rgba($yellow, 0.1);
+    background: rgba(var(--gold-rgb), 0.10);
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $yellow;
-    border: 1px solid rgba($yellow, 0.2);
+    color: var(--gold);
+    border: 1px solid rgba(var(--gold-rgb), 0.20);
   }
 
   h1 {
     margin: 0 0 6px 0;
     font-size: 1.35rem;
     font-weight: 700;
-    color: $text-primary;
+    color: var(--text-color);
     line-height: 1.3;
   }
 
   .subtitle {
     margin: 0;
     font-size: 0.82rem;
-    color: $text-muted;
+    color: var(--muted-color);
   }
 }
 
@@ -82,8 +75,8 @@ $text-muted: #5a5a5a;
   display: flex;
   gap: 0;
   flex-shrink: 0;
-  background: $dark-bg;
-  border-bottom: 1px solid $dark-border;
+  background: transparent;
+  border-bottom: 1px solid var(--border-color);
 
   .tab-btn {
     flex: 1;
@@ -92,18 +85,18 @@ $text-muted: #5a5a5a;
     padding: 14px 16px;
     font-size: 0.88rem;
     font-weight: 600;
-    color: $text-muted;
+    color: var(--muted-color);
     cursor: pointer;
     transition: all 0.2s ease;
     border-bottom: 3px solid transparent;
     letter-spacing: 0.01em;
 
-    &:hover { color: $text-secondary; background: rgba($yellow, 0.03); }
+    &:hover { color: var(--text-secondary); background: rgba(var(--gold-rgb), 0.03); }
 
     &.active {
-      color: $yellow;
-      border-bottom-color: $yellow;
-      background: rgba($yellow, 0.05);
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+      background: rgba(var(--gold-rgb), 0.05);
     }
   }
 }
@@ -115,23 +108,23 @@ $text-muted: #5a5a5a;
   padding: 28px 32px;
   scroll-behavior: smooth;
 
-  &::-webkit-scrollbar { width: 6px; }
-  &::-webkit-scrollbar-track { background: transparent; }
-  &::-webkit-scrollbar-thumb {
-    background: $dark-border;
-    border-radius: 3px;
-    &:hover { background: $text-muted; }
-  }
+    &::-webkit-scrollbar { width: 6px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 3px;
+      &:hover { background: var(--muted-color); }
+    }
 
-  .legal-intro {
-    background: rgba($yellow, 0.05);
-    border: 1px solid rgba($yellow, 0.15);
+    .legal-intro {
+    background: rgba(var(--gold-rgb), 0.05);
+    border: 1px solid rgba(var(--gold-rgb), 0.15);
     border-radius: 12px;
     padding: 16px 20px;
     margin-bottom: 28px;
 
-    p { margin: 0; font-size: 0.92rem; color: $text-secondary; line-height: 1.6; }
-    strong { color: $yellow; }
+    p { margin: 0; font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; }
+    strong { color: var(--gold); }
   }
 
   section {
@@ -145,18 +138,18 @@ $text-muted: #5a5a5a;
       gap: 12px;
       font-size: 1rem;
       font-weight: 700;
-      color: $text-primary;
+      color: var(--text-color);
       margin: 0 0 14px 0;
       padding-bottom: 10px;
-      border-bottom: 1px solid $dark-border;
+      border-bottom: 1px solid var(--border-color);
 
       .section-num {
         flex-shrink: 0;
         font-size: 0.7rem;
         font-weight: 800;
-        color: $yellow;
-        background: rgba($yellow, 0.12);
-        border: 1px solid rgba($yellow, 0.2);
+        color: var(--gold);
+        background: rgba(var(--gold-rgb), 0.12);
+        border: 1px solid rgba(var(--gold-rgb), 0.2);
         border-radius: 6px;
         padding: 2px 8px;
         letter-spacing: 0.05em;
@@ -166,7 +159,7 @@ $text-muted: #5a5a5a;
     h3 {
       font-size: 0.88rem;
       font-weight: 700;
-      color: $text-secondary;
+      color: var(--text-secondary);
       margin: 16px 0 8px 0;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -174,14 +167,14 @@ $text-muted: #5a5a5a;
 
     p {
       font-size: 0.9rem;
-      color: $text-secondary;
+      color: var(--text-secondary);
       line-height: 1.7;
       margin: 0 0 12px 0;
 
       &:last-child { margin-bottom: 0; }
 
-      strong { color: $text-primary; font-weight: 600; }
-      em { color: $text-muted; font-style: italic; }
+      strong { color: var(--text-color); font-weight: 600; }
+      em { color: var(--muted-color); font-style: italic; }
     }
 
     ul {
@@ -194,7 +187,7 @@ $text-muted: #5a5a5a;
 
       li {
         font-size: 0.89rem;
-        color: $text-secondary;
+        color: var(--text-secondary);
         line-height: 1.5;
         padding-left: 20px;
         position: relative;
@@ -203,12 +196,12 @@ $text-muted: #5a5a5a;
           content: '▸';
           position: absolute;
           left: 0;
-          color: $yellow;
+          color: var(--gold);
           font-size: 0.75rem;
           top: 3px;
         }
 
-        strong { color: $text-primary; font-weight: 600; }
+        strong { color: var(--text-color); font-weight: 600; }
       }
     }
   }
@@ -221,14 +214,14 @@ $text-muted: #5a5a5a;
     margin-bottom: 12px;
     border-radius: 10px;
     overflow: hidden;
-    border: 1px solid $dark-border;
+    border: 1px solid var(--border-color);
 
-    thead tr {
-      background: rgba($yellow, 0.1);
+      thead tr {
+      background: rgba(var(--gold-rgb), 0.10);
       th {
         padding: 10px 16px;
         text-align: left;
-        color: $yellow;
+        color: var(--gold);
         font-weight: 700;
         font-size: 0.8rem;
         text-transform: uppercase;
@@ -236,19 +229,19 @@ $text-muted: #5a5a5a;
       }
     }
 
-    tbody tr {
-      border-bottom: 1px solid $dark-border;
+      tbody tr {
+      border-bottom: 1px solid var(--border-color);
       transition: background 0.15s ease;
 
       &:last-child { border-bottom: none; }
-      &:hover { background: rgba($yellow, 0.03); }
+      &:hover { background: rgba(var(--gold-rgb), 0.03); }
 
       td {
         padding: 10px 16px;
-        color: $text-secondary;
+        color: var(--text-secondary);
         vertical-align: top;
 
-        &:first-child { color: $text-primary; font-weight: 500; }
+        &:first-child { color: var(--text-color); font-weight: 500; }
       }
     }
   }
@@ -258,8 +251,8 @@ $text-muted: #5a5a5a;
 .terms-footer {
   flex-shrink: 0;
   padding: 16px 32px 24px;
-  border-top: 1px solid $dark-border;
-  background: $dark-bg;
+  border-top: 1px solid var(--border-color);
+  background: transparent;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -269,17 +262,17 @@ $text-muted: #5a5a5a;
     align-items: center;
     gap: 8px;
     font-size: 0.82rem;
-    color: $text-muted;
+    color: var(--muted-color);
     transition: color 0.3s ease;
 
-    &.reached { color: rgba($yellow, 0.8); }
+    &.reached { color: rgba(var(--gold-rgb), 0.8); }
 
     .status-icon {
       width: 22px;
       height: 22px;
       border-radius: 50%;
-      background: $dark-card;
-      border: 1px solid $dark-border;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -287,22 +280,22 @@ $text-muted: #5a5a5a;
       transition: all 0.3s ease;
     }
 
-    &.reached .status-icon {
-      background: rgba($yellow, 0.15);
-      border-color: rgba($yellow, 0.3);
-      color: $yellow;
+      &.reached .status-icon {
+      background: rgba(var(--gold-rgb), 0.15);
+      border-color: rgba(var(--gold-rgb), 0.3);
+      color: var(--gold);
     }
   }
 
-  .progress-bar-wrap {
+    .progress-bar-wrap {
     height: 3px;
-    background: $dark-card;
+    background: var(--card-bg);
     border-radius: 2px;
     overflow: hidden;
 
     .progress-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, $yellow, $yellow-bright);
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
       border-radius: 2px;
       transition: width 0.2s ease;
     }
@@ -325,22 +318,22 @@ $text-muted: #5a5a5a;
       transition: all 0.2s ease;
     }
 
-    .btn-decline {
+      .btn-decline {
       background: none;
-      border: 1px solid $dark-border;
-      color: $text-muted;
+      border: 1px solid var(--border-color);
+      color: var(--muted-color);
 
       &:hover { border-color: rgba(239, 68, 68, 0.4); color: rgb(239, 68, 68); background: rgba(239, 68, 68, 0.05); }
     }
 
     .btn-accept {
-      background: $yellow;
+      background: var(--gold);
       border: none;
-      color: $dark-bg;
+      color: var(--bg-color);
 
       &:not(:disabled):hover {
-        background: $yellow-bright;
-        box-shadow: 0 4px 16px $yellow-glow;
+        background: var(--gold-light);
+        box-shadow: 0 4px 16px rgba(var(--gold-rgb), 0.22);
         transform: translateY(-1px);
       }
 

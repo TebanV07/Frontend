@@ -1,114 +1,194 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import './styles/theme-variables';
 @import './styles/responsive';
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.5;
   color: var(--text-color);
-  background: var(--bg-gradient);
   background-color: var(--bg-color);
+  /* TIMQU background layering: overlay then image then gradient fallback */
+  background-image: var(--bg-overlay), var(--bg-image), var(--bg-gradient);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
   min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease, background-image 0.3s ease;
+  position: relative;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+body:not(.light-theme)::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-color: var(--bg-color);
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.7) 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgba(255,255,255,0.55) 2px, transparent 2px);
+  background-repeat: repeat;
+  background-size: 220px 220px, 320px 320px, 420px 420px;
+  opacity: 0.24;
+  pointer-events: none;
 }
 
+body:not(.light-theme)::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--bg-overlay);
+  pointer-events: none;
+}
+
+body.light-theme {
+  background-color: var(--bg-color);
+  background-image: var(--bg-gradient) !important;
+}
+
+body.light-theme::before,
+body.light-theme::after {
+  content: none;
+}
+
+// ─── SCROLLBAR ───────────────────────────────────────────────
+::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: rgba(0,0,0,0.03); border-radius: 10px; }
-::-webkit-scrollbar-thumb { background: linear-gradient(45deg, var(--accent-1), var(--accent-2)); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { filter: brightness(0.95); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--accent-1), var(--accent-2));
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { filter: brightness(0.9); }
 
-/* Selection */
-::selection { background: rgba(245,197,24,0.18); color: inherit; }
+// ─── SELECTION ───────────────────────────────────────────────
+::selection { background: rgba(201,162,39,0.25); color: inherit; }
 
-/* Utility Classes */
-.glass-effect { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--border-color); }
+// ─── GLASS UTILITY ───────────────────────────────────────────
+.glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--border-color);
+}
 
-/* Focus Styles */
-button:focus, input:focus, textarea:focus, select:focus { outline: 2px solid rgba(245,197,24,0.18); outline-offset: 2px; }
+/* TIMQU Header - floating glass navbar */
+.app-header, .header, nav {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 18px;
+  z-index: 1200;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--border-color);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.45);
+}
 
-/* Animations */
+@media (max-width: 768px) {
+  .app-header, .header, nav { left: 12px; right: 12px; transform: none; width: auto; top: 10px; }
+}
+
+/* TIMQU Feed layout - centered, responsive */
+.app-container .main-content {
+  max-width: 980px;
+  margin: 0 auto;
+  padding-top: calc(var(--header-height) + 28px);
+}
+.app-layout .sidebar {
+  transition: all 0.25s var(--transition);
+}
+@media (max-width: 1100px) {
+  .app-layout .sidebar { display: none; }
+  .app-container .main-content { padding-left: 16px; padding-right: 16px; }
+}
+
+/* TIMQU Card system overrides */
+.post-card,
+.video-card,
+.profile-card,
+.message-bubble,
+.conversation-item,
+.create-post-card,
+.comments,
+.modal-window {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-color) !important;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.24);
+  transition: transform 180ms var(--transition), box-shadow 180ms var(--transition), background 180ms var(--transition);
+}
+.post-card:hover,
+.video-card:hover,
+.profile-card:hover,
+.create-post-card:hover {
+  transform: translateY(-4px);
+  background: var(--card-bg-hover) !important;
+}
+
+/* Modal specific polish */
+.modal-window { max-width: 880px; margin: 28px auto; padding: 18px; }
+
+/* Utility: TIMQU glass tile */
+.timqu-tile { padding: 12px; border-radius: var(--radius-md); }
+
+/* subtle premium hover */
+.timqu-hover-up:hover { transform: translateY(-2px); }
+
+
+// ─── FOCUS ───────────────────────────────────────────────────
+button:focus, input:focus, textarea:focus, select:focus {
+  outline: 2px solid rgba(201,162,39,0.35);
+  outline-offset: 2px;
+}
+
+// ─── ANIMATIONS ──────────────────────────────────────────────
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
+  0%   { background-position: -1000px 0; }
+  100% { background-position:  1000px 0; }
 }
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
-}
-
+.animate-fade-in-up { animation: fadeInUp 0.6s ease-out; }
 .loading-shimmer {
   background: linear-gradient(90deg,
-    rgba(102, 126, 234, 0.1) 25%,
-    rgba(102, 126, 234, 0.2) 50%,
-    rgba(102, 126, 234, 0.1) 75%);
+    rgba(201,162,39,0.08) 25%,
+    rgba(201,162,39,0.18) 50%,
+    rgba(201,162,39,0.08) 75%);
   background-size: 2000px 100%;
   animation: shimmer 2s infinite;
 }
 
-.dark-theme .loading-shimmer {
-  background: linear-gradient(90deg,
-    rgba(50, 130, 184, 0.1) 25%,
-    rgba(50, 130, 184, 0.2) 50%,
-    rgba(50, 130, 184, 0.1) 75%);
-}
-
-/* Responsive Design */
+// ─── RESPONSIVE ──────────────────────────────────────────────
 @media (max-width: 1200px) {
-  .app-container .main-content {
-    padding-top: 70px;
-  }
+  .app-container .main-content { padding-top: 70px; }
 }
-
 @media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-
-  .app-container .content-area {
-    padding: 15px;
-  }
+  body { font-size: 14px; }
+  .app-container .content-area { padding: 15px; }
 }
-
 @media (max-width: 480px) {
-  .app-container .content-area {
-    padding: 10px;
-  }
+  .app-container .content-area { padding: 10px; }
 }
 
-/* Print Styles */
+// ─── PRINT ───────────────────────────────────────────────────
 @media print {
-  .sidebar,
-  .header,
-  .post-actions,
-  .create-post-card,
-  .ai-banner {
-    display: none !important;
-  }
-
+  .sidebar, .header, .post-actions, .create-post-card, .ai-banner { display: none !important; }
   .post-card {
     background: white !important;
     border: 1px solid #ccc !important;
@@ -117,5 +197,8 @@ button:focus, input:focus, textarea:focus, select:focus { outline: 2px solid rgb
     margin-bottom: 20px;
   }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+app-root {
+  display: block;
+  background: transparent !important;
+  min-height: 100vh;
+}
