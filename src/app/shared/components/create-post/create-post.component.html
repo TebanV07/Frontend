@@ -1,25 +1,25 @@
 <div class="create-post-card">
-  <div class="user-info">
-
-    <!-- ✅ Avatar real del usuario autenticado -->
+  <div class="post-header">
     <img
       [src]="getAvatarUrl()"
       alt="Tu avatar"
       class="user-avatar"
       (error)="onAvatarError($event)">
-
-    <div class="input-section">
-      <textarea
-        placeholder="Share your thoughts... 🌍"
-        class="post-input"
-        rows="3"
-        [(ngModel)]="postContent"
-        [disabled]="isPosting">
-      </textarea>
+    <div class="user-details">
+      <span class="user-name">{{ currentUser?.username || currentUser?.name || 'Usuario' }}</span>
     </div>
   </div>
 
-  <!-- Preview de MÚLTIPLES imágenes -->
+  <div class="input-section">
+    <textarea
+      placeholder="Share your thoughts... 🌍"
+      class="post-input"
+      rows="3"
+      [(ngModel)]="postContent"
+      [disabled]="isPosting">
+    </textarea>
+  </div>
+
   <div class="media-preview" *ngIf="selectedImages.length > 0">
     <div class="images-grid"
          [class.single-image]="selectedImages.length === 1"
@@ -40,7 +40,6 @@
     </div>
   </div>
 
-  <!-- Preview de video -->
   <div class="media-preview" *ngIf="videoPreview">
     <div class="preview-container">
       <video [src]="videoPreview" class="preview-video" controls></video>
@@ -52,7 +51,6 @@
       </div>
     </div>
 
-    <!-- Campos adicionales para video -->
     <div class="video-metadata" *ngIf="!isPosting">
       <input
         type="text"
@@ -69,7 +67,6 @@
       </textarea>
     </div>
 
-    <!-- Progress bar de subida -->
     <div class="upload-progress" *ngIf="isUploadingVideo">
       <div class="progress-info">
         <span class="progress-label">{{ uploadProgressText }}</span>
@@ -132,10 +129,8 @@
     </div>
   </div>
 
-  <!-- Inputs ocultos -->
   <input type="file" #imageInput accept="image/*" multiple
          (change)="onImagesSelected($event)" style="display: none;">
   <input type="file" #videoInput accept="video/*"
          (change)="onVideoSelected($event)"  style="display: none;">
 </div>
-

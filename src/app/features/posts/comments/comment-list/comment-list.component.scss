@@ -1,168 +1,161 @@
+// ================================================================
+// comment-list.component.scss
+// ================================================================
+
 .comment-list {
-  background: #1a1a1a;
-  border-radius: 12px;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 16px;
+}
 
-  .new-comment-form {
-    padding: 1rem 1.25rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+// ── New comment form ─────────────────────────────────────────────
+.new-comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
-    .comment-textarea {
-      width: 100%;
-      padding: 0.875rem 1rem;
-      background: #111111;
-      border: 1.5px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      color: #ffffff;
-      font-size: 0.9375rem;
-      font-family: inherit;
-      resize: none;
-      min-height: 72px;
-      max-height: 180px;
-      transition: border-color 0.2s ease;
-      box-sizing: border-box;
+.comment-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--input-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  color: var(--text-main);
+  font-size: 0.85rem;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+  line-height: 1.5;
 
-      &::placeholder { color: #555; }
+  &::placeholder { color: var(--text-dim); }
 
-      &:focus {
-        outline: none;
-        border-color: #f5c518;
-        box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.08);
-      }
-
-      &:disabled { opacity: 0.5; cursor: not-allowed; }
-    }
-
-    .form-actions {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 0.75rem;
-
-      .submit-btn {
-        padding: 0.55rem 1.25rem;
-        background: #f5c518;
-        color: #000000;
-        border: none;
-        border-radius: 8px;
-        font-size: 0.875rem;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.18s ease;
-
-        &:hover:not(:disabled) {
-          background: #ffd740;
-          transform: translateY(-1px);
-          box-shadow: 0 4px 14px rgba(245, 197, 24, 0.3);
-        }
-
-        &:active:not(:disabled) { transform: translateY(0); }
-
-        &:disabled {
-          background: #333;
-          color: #666;
-          cursor: not-allowed;
-        }
-      }
-    }
+  &:focus {
+    border-color: var(--gold);
+    background: rgba(212, 175, 55, 0.04);
   }
 
-  .comments-title {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  &:disabled { opacity: 0.5; }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submit-btn {
+  padding: 8px 20px;
+  border-radius: 10px;
+  border: none;
+  background: var(--gold);
+  color: #000;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+
+  &:hover:not(:disabled) {
+    background: var(--gold-bright, #ffdf00);
+    transform: translateY(-1px);
+  }
+
+  &:disabled { opacity: 0.45; cursor: not-allowed; }
+}
+
+// ── Header ───────────────────────────────────────────────────────
+.comments-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--glass-border);
+
+  .count {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+}
+
+// ── Loading / error / empty ──────────────────────────────────────
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  padding: 16px 0;
+
+  .spinner {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--glass-border);
+    border-top-color: var(--gold);
+    animation: spin 0.8s linear infinite;
+    flex-shrink: 0;
+  }
+}
+
+.error-state {
+  font-size: 0.82rem;
+  color: #ff5252;
+  padding: 12px;
+  background: rgba(255, 82, 82, 0.08);
+  border: 1px solid rgba(255, 82, 82, 0.2);
+  border-radius: 10px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 28px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  .empty-icon { font-size: 1.8rem; }
+
+  p {
+    font-size: 0.82rem;
+    color: var(--text-dim);
     margin: 0;
-    padding: 1rem 1.25rem;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #ffffff;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+}
 
-    .count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 22px;
-      height: 22px;
-      padding: 0 0.4rem;
-      background: rgba(245, 197, 24, 0.15);
-      color: #f5c518;
-      border-radius: 10px;
-      font-size: 0.75rem;
-      font-weight: 700;
-    }
+// ── List ─────────────────────────────────────────────────────────
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+// ── Load more ────────────────────────────────────────────────────
+.load-more-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+
+  &:hover:not(:disabled) {
+    background: var(--input-bg);
+    border-color: var(--gold);
+    color: var(--gold);
   }
 
-  .loading-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 3rem 1.5rem;
-    color: #666;
-
-    .spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid rgba(245, 197, 24, 0.15);
-      border-top-color: #f5c518;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-  }
-
-  .error-state {
-    text-align: center;
-    padding: 1.5rem;
-    margin: 1rem;
-    background: rgba(220, 50, 50, 0.08);
-    border: 1px solid rgba(220, 50, 50, 0.2);
-    border-radius: 8px;
-    color: #ff6b6b;
-    font-size: 0.875rem;
-  }
-
-  .empty-state {
-    text-align: center;
-    padding: 3rem 1.5rem;
-    color: #555;
-
-    .empty-icon { font-size: 3rem; margin-bottom: 0.75rem; opacity: 0.4; }
-    p { margin: 0; font-size: 0.9rem; }
-  }
-
-  .comments {
-    display: flex;
-    flex-direction: column;
-
-    app-comment-item {
-      padding: 0.75rem 1.25rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      transition: background 0.15s;
-
-      &:hover { background: rgba(255, 255, 255, 0.02); }
-      &:last-child { border-bottom: none; }
-    }
-
-    .load-more-btn {
-      margin: 1rem 1.25rem 1.25rem;
-      padding: 0.75rem;
-      background: transparent;
-      border: 1.5px solid rgba(245, 197, 24, 0.3);
-      border-radius: 8px;
-      color: #f5c518;
-      font-size: 0.875rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.18s ease;
-
-      &:hover:not(:disabled) {
-        background: rgba(245, 197, 24, 0.08);
-        border-color: #f5c518;
-      }
-
-      &:disabled { opacity: 0.4; cursor: not-allowed; }
-    }
-  }
+  &:disabled { opacity: 0.5; }
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }

@@ -1,367 +1,175 @@
-// app/features/feed/videos/video-player/video-player.component.scss
+// ================================================================
+// video-player.component.scss
+// El player ocupa 100% del contenedor padre (9/16 vertical-video-card).
+// Sin fondos opacos propios; todo se apoya en variables globales.
+// ================================================================
 
 .video-player-container {
   position: relative;
   width: 100%;
   height: 100%;
   background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: inherit;
   overflow: hidden;
 }
 
-// ==================== VIDEO ELEMENT ====================
-
+// ── Video element ─────────────────────────────────────────────────
 .video-element {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  background: #000;
-  cursor: pointer;
-  
-  // Ocultar controles nativos
-  &::-webkit-media-controls {
-    display: none !important;
-  }
-  
-  &::-webkit-media-controls-enclosure {
-    display: none !important;
-  }
-  
-  // Para otros navegadores
-  &::cue {
-    color: white;
-    background: rgba(0, 0, 0, 0.8);
-    font-size: 18px;
-    font-family: Arial, sans-serif;
-  }
-  
-  // Subtítulos estilizados
-  &::cue-region {
-    writing-mode: horizontal-tb;
-  }
+  object-fit: cover;
+  display: block;
 }
 
-// ==================== LOADING OVERLAY ====================
-
+// ── Loading overlay ───────────────────────────────────────────────
 .loading-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 5;
-  
-  .spinner-large {
-    width: 60px;
-    height: 60px;
-    border: 4px solid rgba(255, 255, 255, 0.2);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-  
+  gap: 14px;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+
   .loading-text {
-    margin-top: 20px;
-    color: white;
-    font-size: 16px;
-    opacity: 0.8;
+    color: rgba(255,255,255,0.75);
+    font-size: 0.82rem;
+    letter-spacing: 0.4px;
   }
 }
 
-// ==================== ERROR OVERLAY ====================
+.spinner-ring {
+  width: 44px;
+  height: 44px;
+  border: 3px solid rgba(255,255,255,0.2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.85s linear infinite;
+}
 
+@keyframes spin { to { transform: rotate(360deg); } }
+
+// ── Error overlay ─────────────────────────────────────────────────
 .error-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 5;
-  
+  background: rgba(0,0,0,0.7);
+
   .error-content {
     text-align: center;
-    padding: 40px;
-    
-    .error-icon {
-      font-size: 60px;
-      margin-bottom: 20px;
-      opacity: 0.8;
-    }
-    
+    padding: 28px 32px;
+    max-width: 260px;
+    border-radius: 16px;
+
+    .error-icon { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+
     h3 {
-      color: white;
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 12px;
+      margin: 0 0 6px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
     }
-    
+
     p {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 16px;
-      margin-bottom: 24px;
+      margin: 0 0 16px;
+      font-size: 0.82rem;
+      color: var(--text-dim);
     }
-    
-    .retry-btn {
-      padding: 12px 32px;
-      background: white;
-      color: #000;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      
-      &:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
-      }
-    }
+  }
+
+  .retry-btn {
+    background: var(--gold);
+    border: none;
+    color: #000;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 9px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: opacity 0.2s;
+
+    &:hover { opacity: 0.85; }
   }
 }
 
-// ==================== PLAY/PAUSE OVERLAY ====================
-
+// ── Play / Pause overlay ──────────────────────────────────────────
 .play-pause-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 3;
   cursor: pointer;
-  
-  .play-icon {
-    opacity: 0;
-    transform: scale(0.8);
-    transition: all 0.3s;
-    pointer-events: none;
-    
-    svg {
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
-    }
-  }
-  
-  &:hover .play-icon {
-    opacity: 1;
-    transform: scale(1);
-  }
-  
-  // Mostrar siempre cuando el video está pausado
-  .play-icon:not(.hidden) {
-    opacity: 1;
-    transform: scale(1);
+
+  .play-icon-wrap {
+    opacity: 0.9;
+    transition: opacity 0.2s, transform 0.2s;
+    animation: pop-in 0.18s ease;
   }
 }
 
-// ==================== PROGRESS BAR ====================
+@keyframes pop-in {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 0.9; }
+}
 
-.progress-bar-container {
+// ── Progress bar ──────────────────────────────────────────────────
+.progress-bar-wrap {
+  position: absolute;
+  bottom: 38px;
+  left: 0;
+  right: 0;
+  padding: 0 14px;
+
+  .progress-track {
+    height: 3px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 2px;
+    overflow: hidden;
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: width 0.3s linear;
+    }
+  }
+}
+
+// ── Bottom bar (time + volume) ────────────────────────────────────
+.player-bottom-bar {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
-  z-index: 4;
-  padding: 0;
-  
-  .progress-bar {
-    width: 100%;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.3);
-    cursor: pointer;
-    position: relative;
-    
-    &:hover {
-      height: 5px;
-      
-      .progress-fill {
-        background: #ff4757;
-      }
-    }
-    
-    .progress-fill {
-      height: 100%;
-      background: white;
-      transition: width 0.1s linear, background 0.2s;
-      position: relative;
-      
-      &::after {
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 12px;
-        height: 12px;
-        background: white;
-        border-radius: 50%;
-        opacity: 0;
-        transition: opacity 0.2s;
-      }
-    }
-  }
-  
-  &:hover .progress-fill::after {
-    opacity: 1;
-  }
-}
-
-// ==================== TIME DISPLAY ====================
-
-.time-display {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
+  right: 0;
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
-  border-radius: 6px;
-  color: white;
-  font-size: 13px;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  z-index: 4;
-  
-  .time-separator {
-    opacity: 0.5;
-  }
-  
-  .duration-time {
-    opacity: 0.7;
-  }
-}
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
 
-// ==================== VOLUME CONTROL ====================
-
-.volume-control {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 4;
-  
-  .volume-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    
-    &:hover {
-      background: rgba(0, 0, 0, 0.9);
-      transform: scale(1.1);
-    }
-    
-    &:active {
-      transform: scale(0.95);
-    }
-  }
-}
-
-// ==================== SUBTITLES STYLING ====================
-
-::cue {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  font-size: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-  font-weight: 600;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  padding: 4px 8px;
-  border-radius: 4px;
-  line-height: 1.4;
-}
-
-// ==================== ANIMATIONS ====================
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-// ==================== RESPONSIVE ====================
-
-@media (max-width: 768px) {
   .time-display {
-    bottom: 8px;
-    left: 8px;
-    font-size: 12px;
-    padding: 4px 10px;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+    letter-spacing: 0.3px;
   }
-  
-  .volume-control {
-    top: 8px;
-    right: 8px;
-    
-    .volume-btn {
-      width: 36px;
-      height: 36px;
-      font-size: 18px;
-    }
-  }
-  
-  .progress-bar-container .progress-bar {
-    height: 2px;
-    
-    &:hover {
-      height: 4px;
-    }
-  }
-  
-  .video-element::cue {
-    font-size: 16px;
-  }
-}
 
-@media (max-width: 480px) {
-  .video-element::cue {
-    font-size: 14px;
-  }
-}
+  .volume-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 2px;
+    line-height: 1;
+    transition: transform 0.15s;
 
-// ==================== DARK MODE (por defecto) ====================
-
-// El componente ya usa fondo negro por defecto para videos
-// Si necesitas ajustes adicionales para dark mode:
-@media (prefers-color-scheme: dark) {
-  .video-player-container {
-    background: #000;
+    &:hover { transform: scale(1.15); }
   }
 }

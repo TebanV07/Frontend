@@ -1,401 +1,445 @@
-var(--gold): #f5c518;
-var(--gold-light): #ffd700;
-rgba(var(--gold-rgb), 0.3): rgba(245, 197, 24, 0.3);
-var(--bg-color): #111111;
-var(--card-bg): #1c1c1c;
-var(--card-bg): #242424;
-var(--card-bg)-light: #2c2c2c;
-var(--border-color): #2e2e2e;
-var(--text-color): #f0f0f0;
-var(--text-secondary): #a0a0a0;
-var(--muted-color): #5a5a5a;
-
-// ==================== HOST ====================
 :host {
-  display: flex;
-  width: 100%;
-  background: transparent;
+  display: block;
+  min-width: 0;
 }
 
-:host(.sent) { justify-content: flex-end; }
-:host(.received) { justify-content: flex-start; }
-
-// ==================== MESSAGE BUBBLE ====================
 .message-bubble {
+  position: relative;
   display: flex;
   align-items: flex-end;
-  margin-bottom: 12px;
+  gap: 10px;
+  max-width: min(82%, 760px);
+  width: fit-content;
+}
+
+.message-bubble.sent {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message-bubble.received {
+  align-self: flex-start;
+}
+
+.message-content {
   position: relative;
-  max-width: 70%;
-  animation: fadeIn 0.3s ease-in;
+  min-width: 0;
+  padding: 14px 16px;
+  border-radius: 22px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-color);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.14);
+  overflow: hidden;
+}
 
-  // ==================== ENVIADO (DERECHA) ====================
-  &.sent {
-    flex-direction: row-reverse;
+.message-bubble.sent .message-content {
+  background: linear-gradient(135deg, rgba(201, 162, 39, 0.97), rgba(232, 193, 74, 0.93));
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #1a1208;
+}
 
-    .message-content {
-      background: var(--gold);
-      color: var(--bg-color);
-      border-radius: 18px 18px 4px 18px;
-      margin-left: auto;
-      box-shadow: 0 2px 10px rgba(var(--gold-rgb), 0.2), 0 0 0 1px rgba(var(--gold-rgb), 0.1);
-    }
+.message-bubble.received .message-content {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-color);
+}
 
-    .message-time {
-      color: rgba(var(--bg-color), 0.55);
-    }
+.media-container {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 10px;
+}
 
-    .translation-indicator {
-      color: rgba(var(--bg-color), 0.7);
-      background: rgba(0, 0, 0, 0.08);
+.media-image,
+.media-video {
+  width: 100%;
+  max-width: 380px;
+  border-radius: 18px;
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.12);
+}
 
-      &:hover { background: rgba(0, 0, 0, 0.15); }
-    }
+.media-video {
+  max-height: 320px;
+}
+
+.media-audio {
+  width: 100%;
+  min-width: 260px;
+}
+
+.file-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid var(--border-color);
+  transition: background var(--transition), transform var(--transition);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.14);
+    transform: translateY(-1px);
+  }
+}
+
+.image-translate-bar,
+.audio-translate-bar {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.translate-img-btn,
+.translate-audio-btn {
+  align-self: flex-start;
+  border: 1px solid rgba(var(--gold-rgb), 0.28);
+  background: rgba(var(--gold-rgb), 0.12);
+  color: var(--gold-light);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--transition), background var(--transition), border-color var(--transition), color var(--transition);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: rgba(var(--gold-rgb), 0.18);
+    border-color: rgba(var(--gold-rgb), 0.38);
   }
 
-  // ==================== RECIBIDO (IZQUIERDA) ====================
-  &.received {
-    .message-content {
-      background: var(--card-bg)-light;
-      color: var(--text-color);
-      border-radius: 18px 18px 18px 4px;
-      border: 1px solid var(--border-color);
-      margin-right: auto;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
-    }
+  &:disabled {
+    cursor: wait;
+    opacity: 0.75;
+  }
+}
 
-    .message-time { color: var(--muted-color); }
+.image-translation-result,
+.audio-translation-result {
+  padding: 12px 13px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: inherit;
+}
 
-    .translation-indicator {
-      color: var(--muted-color);
-      background: rgba(255, 255, 255, 0.03);
+.no-text-found {
+  color: var(--text-secondary);
+  font-style: italic;
+}
 
-      &:hover { background: rgba(255, 255, 255, 0.06); color: var(--gold); }
-    }
+.transcript-original,
+.transcript-translated {
+  margin: 0;
+  line-height: 1.45;
+  color: inherit;
+}
+
+.message-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.ctrl-btn {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  cursor: pointer;
+  transition: transform var(--transition), background var(--transition), opacity var(--transition);
+
+  &:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.14);
+  }
+}
+
+.message-text {
+  min-width: 0;
+
+  p {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.5;
+  }
+}
+
+.translation-langs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.saved-lang {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.05);
+  color: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform var(--transition), background var(--transition), border-color var(--transition);
+
+  &:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.10);
   }
 
-  // ==================== CONTENIDO ====================
-  .message-content {
-    padding: 10px 14px;
-    position: relative;
-    min-width: 100px;
-    word-wrap: break-word;
-    transition: box-shadow 0.2s ease;
+  &.selected {
+    background: rgba(var(--gold-rgb), 0.18);
+    border-color: rgba(var(--gold-rgb), 0.38);
+    color: var(--gold-light);
+  }
+}
+
+.translated-text {
+  margin-top: 10px !important;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  color: inherit;
+  opacity: 0.96;
+}
+
+.translation-indicator {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: var(--gold-light);
+  font-size: 0.8rem;
+  font-weight: 700;
+  user-select: none;
+
+  .icon {
+    font-size: 0.9rem;
+  }
+}
+
+.message-time {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.message-bubble.received .message-time {
+  color: var(--text-secondary);
+}
+
+.read-indicator {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 800;
+}
+
+.unread-indicator {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 800;
+}
+
+.message-actions {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-end;
+}
+
+.translate-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  background: var(--card-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: transform var(--transition), background var(--transition), border-color var(--transition), box-shadow var(--transition);
+
+  &:hover:not(:disabled),
+  &.active {
+    transform: translateY(-1px);
+    background: var(--card-bg-hover);
+    border-color: var(--gold-border);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
   }
 
-  .message-text {
-    font-size: 15px;
-    line-height: 1.4;
-    margin-bottom: 4px;
-
-    p { margin: 0; }
-    .translated-text { font-style: italic; opacity: 0.85; }
+  &:disabled {
+    cursor: wait;
+    opacity: 0.8;
   }
 
-  .media-container {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 6px;
+  .spinner {
+    display: inline-block;
+    animation: spin 0.9s linear infinite;
+  }
+}
 
-    .media-image { max-width: 200px; border-radius: 8px; }
-    .media-video { max-width: 200px; border-radius: 8px; }
-    .media-audio { width: 100%; }
+.language-menu,
+.action-menu {
+  position: absolute;
+  z-index: 25;
+  min-width: 230px;
+  padding: 8px;
+  border-radius: 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: 0 22px 46px rgba(0, 0, 0, 0.28);
+}
+
+.language-menu {
+  top: calc(100% + 10px);
+  right: 0;
+}
+
+.action-menu {
+  bottom: calc(100% + 10px);
+  left: 0;
+}
+
+.language-menu-header {
+  padding: 8px 10px 10px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.language-option,
+.action-item {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--transition), transform var(--transition), color var(--transition);
+
+  &:hover {
+    background: var(--card-bg-hover);
+    transform: translateY(-1px);
   }
 
-  .translation-langs {
-    display: flex;
-    gap: 4px;
-    margin-top: 4px;
-    flex-wrap: wrap;
-
-    .saved-lang {
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: var(--border-color);
-      font-size: 10px;
-      cursor: pointer;
-      transition: background 0.2s;
-      color: var(--text-secondary);
-
-      &.selected {
-        background: var(--gold);
-        color: var(--bg-color);
-        font-weight: 700;
-      }
-
-      &:hover { background: rgba(var(--gold-rgb), 0.2); color: var(--gold); }
-    }
+  &.close {
+    color: var(--color-danger);
   }
 
-  // ==================== INDICADOR DE TRADUCCIÓN ====================
-  .translation-indicator {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 12px;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 12px;
-    margin-top: 6px;
-    transition: all 0.2s;
-
-    .icon { font-size: 14px; }
-    .text { font-size: 11px; }
+  .flag {
+    font-size: 1rem;
+    line-height: 1;
   }
 
-  // ==================== HORA ====================
-  .message-time {
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 4px;
-
-    .read-indicator { color: var(--gold); font-size: 12px; }
-    .unread-indicator { color: var(--muted-color); font-size: 12px; }
-  }
-
-  // ==================== ACCIONES ====================
-  .message-actions {
-    position: relative;
-    margin-left: 8px;
-
-    .translate-btn {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 16px;
-      color: var(--muted-color);
-
-      &:hover {
-        background: var(--card-bg);
-        transform: scale(1.05);
-        border-color: rgba(var(--gold-rgb), 0.4);
-        color: var(--gold);
-        box-shadow: 0 0 8px rgba(var(--gold-rgb), 0.15);
-      }
-
-      &:disabled { opacity: 0.4; cursor: not-allowed; }
-
-      &.active {
-        background: var(--gold);
-        border-color: var(--gold);
-        color: var(--bg-color);
-        box-shadow: 0 2px 8px rgba(var(--gold-rgb), 0.3);
-      }
-
-      .spinner { animation: spin 1s linear infinite; }
-    }
-  }
-
-  // ==================== MENÚ DE ACCIONES ====================
-  .action-menu {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(var(--gold-rgb), 0.05);
-    padding: 6px;
-    display: flex;
-    flex-direction: column;
-    z-index: 20;
-
-    .action-item {
-      background: transparent;
-      border: none;
-      padding: 6px 8px;
-      text-align: left;
-      cursor: pointer;
-      font-size: 14px;
-      width: 100%;
-      border-radius: 6px;
-      transition: background 0.2s;
-      color: var(--text-secondary);
-
-      &:hover { background: rgba(var(--gold-rgb), 0.08); color: var(--gold); }
-      &.close { font-weight: bold; text-align: center; }
-    }
-  }
-
-  // ==================== MENÚ DE IDIOMAS ====================
-  .language-menu {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    background: var(--card-bg);
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(var(--gold-rgb), 0.08);
-    padding: 8px;
-    min-width: 180px;
-    z-index: 10;
-    animation: slideDown 0.2s ease-out;
-    border: 1px solid var(--border-color);
-
-    .language-menu-header {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--muted-color);
-      padding: 8px 12px 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .language-option {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      border-radius: 8px;
-      width: 100%;
-      transition: all 0.2s;
-      font-size: 14px;
-      color: var(--text-secondary);
-
-      &:hover { background: rgba(var(--gold-rgb), 0.08); color: var(--gold); }
-
-      .flag { font-size: 20px; }
-      .name { color: inherit; }
-    }
-  }
-
-  // ==================== CONTROLES EDICIÓN ====================
-  .message-controls {
-    display: flex;
-    gap: 4px;
-    justify-content: flex-end;
-    margin-bottom: 4px;
-
-    .ctrl-btn {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      font-size: 13px;
-      padding: 2px 6px;
-      border-radius: 6px;
-      transition: background 0.2s;
-
-      &:hover { background: rgba(var(--gold-rgb), 0.1); }
-
-      &.delete:hover { background: rgba(255, 82, 82, 0.1); }
-    }
-  }
-
-  // ==================== EDICIÓN ====================
-  .edit-textarea {
-    width: 100%;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    color: var(--text-color);
-    font-size: 14px;
-    padding: 8px 10px;
-    resize: vertical;
-    outline: none;
-    font-family: inherit;
-    transition: border-color 0.2s;
-
-    &:focus { border-color: rgba(var(--gold-rgb), 0.5); }
-  }
-
-  .edit-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 8px;
-
-    .save-btn {
-      background: var(--gold);
-      color: var(--bg-color);
-      border: none;
-      border-radius: 6px;
-      padding: 5px 14px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-
-      &:hover { background: var(--gold-light); box-shadow: 0 2px 8px rgba(var(--gold-rgb), 0.3); }
-    }
-
-    .cancel-btn {
-      background: transparent;
-      color: var(--text-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 5px 14px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-
-      &:hover { background: var(--card-bg); color: var(--text-color); }
-    }
-  }
-
-  // ==================== FILE LINK ====================
-  .file-link {
-    color: var(--gold);
-    text-decoration: none;
-    font-size: 14px;
+  .name {
+    flex: 1;
+    font-size: 0.92rem;
     font-weight: 600;
-    transition: color 0.2s;
-
-    &:hover { color: var(--gold-light); text-decoration: underline; }
-  }
-
-  // ==================== ERROR DE TRADUCCIÓN ====================
-  .translation-error {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 6px;
-    padding: 6px 10px;
-    background: rgba(244, 67, 54, 0.08);
-    border: 1px solid rgba(244, 67, 54, 0.2);
-    border-radius: 8px;
-    font-size: 12px;
-    color: #ff5252;
-
-    .icon { font-size: 14px; }
   }
 }
 
-// ==================== ANIMACIONES ====================
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.translation-error {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--danger-border);
+  background: var(--danger-dim);
+  color: var(--color-danger);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.edit-textarea {
+  width: 100%;
+  min-height: 96px;
+  resize: vertical;
+  border-radius: 16px;
+  border: 1px solid var(--border-input);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-color);
+  padding: 12px 14px;
+  outline: none;
+  font: inherit;
+  line-height: 1.45;
 }
 
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.save-btn,
+.cancel-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--transition), background var(--transition), opacity var(--transition);
+}
+
+.save-btn {
+  background: var(--gold-gradient);
+  color: #1a1208;
+}
+
+.cancel-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-color);
+}
+
+.save-btn:hover,
+.cancel-btn:hover {
+  transform: translateY(-1px);
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-@media (max-width: 600px) {
-  .message-bubble { max-width: 100%; margin-bottom: 8px; }
-  .message-content { padding: 8px 10px; }
-  .message-text { font-size: 14px; }
-  .message-actions .translate-btn { width: 28px; height: 28px; }
+@media (max-width: 720px) {
+  .message-bubble {
+    max-width: 92%;
+  }
+
+  .media-image,
+  .media-video {
+    max-width: 100%;
+  }
+
+  .language-menu,
+  .action-menu {
+    min-width: 200px;
+  }
 }

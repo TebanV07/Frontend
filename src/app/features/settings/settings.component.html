@@ -1,12 +1,11 @@
 <div class="settings-page">
 
-  <!-- Modal eliminar cuenta -->
+  <!-- Delete account modal -->
   <div class="delete-overlay" *ngIf="showDeleteModal" (click)="cancelDelete()">
     <div class="delete-modal" (click)="$event.stopPropagation()">
       <div class="delete-modal-icon">⚠️</div>
       <h2>{{ 'settings.deleteModal.title' | translate }}</h2>
       <p>{{ 'settings.deleteModal.body' | translate }}</p>
-
       <div class="form-field" style="margin: 1.25rem 0 0">
         <label>{{ 'settings.deleteModal.confirmLabel' | translate }}</label>
         <input
@@ -16,9 +15,7 @@
           (keyup.enter)="confirmDelete()"
           [disabled]="isDeletingAccount">
       </div>
-
       <div class="delete-error" *ngIf="deleteError">{{ deleteError }}</div>
-
       <div class="delete-actions">
         <button class="btn-cancel" (click)="cancelDelete()" [disabled]="isDeletingAccount">
           {{ 'common.cancel' | translate }}
@@ -31,87 +28,88 @@
     </div>
   </div>
 
-  <!-- Header -->
-  <div class="settings-header">
-    <h1>
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="3"/>
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-      </svg>
-      {{ 'settings.title' | translate }}
-    </h1>
-  </div>
+  <!-- Settings wrapper: sidebar + panel -->
+  <div class="settings-wrapper">
 
-  <div class="settings-body">
+    <!-- ── Sidebar nav (180px) ── -->
+    <aside class="settings-nav">
 
-    <!-- Sidebar de tabs -->
-    <nav class="settings-nav">
       <button class="nav-item" [class.active]="activeTab === 'profile'" (click)="activeTab = 'profile'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
           <circle cx="12" cy="7" r="4"/>
         </svg>
-        {{ 'settings.nav.profile' | translate }}
+        <span>{{ 'settings.nav.profile' | translate }}</span>
       </button>
+
       <button class="nav-item" [class.active]="activeTab === 'account'" (click)="activeTab = 'account'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
           <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
-        {{ 'settings.nav.account' | translate }}
+        <span>{{ 'settings.nav.account' | translate }}</span>
       </button>
+
       <button class="nav-item" [class.active]="activeTab === 'notifications'" (click)="activeTab = 'notifications'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
           <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
         </svg>
-        {{ 'settings.nav.notifications' | translate }}
+        <span>{{ 'settings.nav.notifications' | translate }}</span>
       </button>
+
       <button class="nav-item" [class.active]="activeTab === 'privacy'" (click)="activeTab = 'privacy'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
         </svg>
-        {{ 'settings.nav.privacy' | translate }}
+        <span>{{ 'settings.nav.privacy' | translate }}</span>
       </button>
 
-      <div class="nav-separator"></div>
+      <div class="nav-sep"></div>
 
-      <button class="nav-item danger" (click)="logout()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <button class="nav-item nav-danger" (click)="logout()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
           <polyline points="16 17 21 12 16 7"/>
           <line x1="21" y1="12" x2="9" y2="12"/>
         </svg>
-        {{ 'settings.nav.logout' | translate }}
+        <span>{{ 'settings.nav.logout' | translate }}</span>
       </button>
-    </nav>
 
-    <!-- Panel de contenido -->
-    <div class="settings-panel">
+    </aside>
 
-      <!-- Toast feedback -->
-      <div class="toast success" *ngIf="saveSuccess">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <!-- ── Main panel ── -->
+    <section class="settings-panel">
+
+      <!-- Toast: success -->
+      <div class="toast toast-success" *ngIf="saveSuccess">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <polyline points="20 6 9 17 4 12"/>
         </svg>
         {{ 'settings.saved' | translate }}
       </div>
-      <div class="toast error" *ngIf="saveError">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+
+      <!-- Toast: error -->
+      <div class="toast toast-error" *ngIf="saveError">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
         </svg>
         {{ saveError }}
       </div>
 
-      <!-- ===== TAB: PERFIL ===== -->
+      <!-- ══ TAB: PROFILE ═══════════════════════════════════════════════════════ -->
       <div class="panel-section" *ngIf="activeTab === 'profile'">
-        <h2>{{ 'settings.profile.title' | translate }}</h2>
+        <div class="section-heading">
+          <h2>{{ 'settings.profile.title' | translate }}</h2>
+          <p>Personaliza cómo te ven los demás usuarios en la red global.</p>
+        </div>
 
-        <div class="avatar-section">
-          <div class="avatar-preview-wrap">
-            <img [src]="getAvatarUrl()" alt="Avatar" class="avatar-preview" (error)="onAvatarError($event)">
-            <label class="avatar-change-btn" [title]="'settings.profile.savePhoto' | translate">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <!-- Avatar -->
+        <div class="avatar-edit-area">
+          <div class="avatar-edit-wrap">
+            <img [src]="getAvatarUrl()" alt="Avatar" class="avatar-edit-img" (error)="onAvatarError($event)">
+            <label class="avatar-cam-btn" [title]="'settings.profile.savePhoto' | translate">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
                 <circle cx="12" cy="13" r="4"/>
               </svg>
@@ -121,35 +119,37 @@
           <div class="avatar-info">
             <p class="avatar-name">{{ currentUser?.first_name || currentUser?.firstName }} {{ currentUser?.last_name || currentUser?.lastName }}</p>
             <p class="avatar-hint">{{ 'settings.profile.avatarHint' | translate }}</p>
-            <button class="btn-save" *ngIf="avatarFile" (click)="uploadAvatar()" [disabled]="isUploadingAvatar">
+            <button class="btn-save-sm" *ngIf="avatarFile" (click)="uploadAvatar()" [disabled]="isUploadingAvatar">
               <span *ngIf="!isUploadingAvatar">{{ 'settings.profile.savePhoto' | translate }}</span>
               <span *ngIf="isUploadingAvatar" class="spinner"></span>
             </button>
           </div>
         </div>
 
+        <!-- Form grid -->
         <div class="form-grid">
-          <div class="form-field">
+          <div class="form-group">
             <label>{{ 'settings.profile.firstName' | translate }}</label>
-            <input type="text" [(ngModel)]="profileForm.first_name" placeholder="Tu nombre">
+            <input type="text" [(ngModel)]="profileForm.first_name" placeholder="Alexander">
           </div>
-          <div class="form-field">
+          <div class="form-group">
             <label>{{ 'settings.profile.lastName' | translate }}</label>
-            <input type="text" [(ngModel)]="profileForm.last_name" placeholder="Tu apellido">
+            <input type="text" [(ngModel)]="profileForm.last_name" placeholder="Pierce">
           </div>
-          <div class="form-field full">
-            <label>{{ 'settings.profile.bio' | translate }}</label>
-            <textarea [(ngModel)]="profileForm.bio" [placeholder]="'settings.profile.bioPlaceholder' | translate" rows="3" maxlength="500"></textarea>
-          </div>
-          <div class="form-field">
+          <div class="form-group">
             <label>{{ 'settings.profile.website' | translate }}</label>
-            <input type="url" [(ngModel)]="profileForm.website" [placeholder]="'settings.profile.websitePlaceholder' | translate">
+            <input type="url" [(ngModel)]="profileForm.website" placeholder="https://misitio.com">
           </div>
-          <div class="form-field">
+          <div class="form-group">
             <label>{{ 'settings.profile.location' | translate }}</label>
-            <input type="text" [(ngModel)]="profileForm.location" [placeholder]="'settings.profile.locationPlaceholder' | translate">
+            <input type="text" [(ngModel)]="profileForm.location" placeholder="Madrid, España">
           </div>
-          <div class="form-field">
+          <div class="form-group full-width">
+            <label>{{ 'settings.profile.bio' | translate }}</label>
+            <textarea [(ngModel)]="profileForm.bio" [placeholder]="'settings.profile.bioPlaceholder' | translate" rows="4" maxlength="160"></textarea>
+            <div class="char-count">{{ (profileForm.bio?.length || 0) }} / 160</div>
+          </div>
+          <div class="form-group">
             <label>{{ 'settings.profile.nativeLanguage' | translate }}</label>
             <select [(ngModel)]="profileForm.native_language">
               <option *ngFor="let lang of languages" [value]="lang.code">{{ lang.name }}</option>
@@ -157,7 +157,7 @@
           </div>
         </div>
 
-        <div class="form-actions">
+        <div class="form-footer">
           <button class="btn-save" (click)="saveProfile()" [disabled]="isSaving">
             <span *ngIf="!isSaving">{{ 'settings.profile.saveChanges' | translate }}</span>
             <span *ngIf="isSaving" class="spinner"></span>
@@ -165,9 +165,11 @@
         </div>
       </div>
 
-      <!-- ===== TAB: CUENTA ===== -->
+      <!-- ══ TAB: ACCOUNT ═══════════════════════════════════════════════════════ -->
       <div class="panel-section" *ngIf="activeTab === 'account'">
-        <h2>{{ 'settings.account.title' | translate }}</h2>
+        <div class="section-heading">
+          <h2>{{ 'settings.account.title' | translate }}</h2>
+        </div>
 
         <div class="info-card">
           <div class="info-row">
@@ -176,64 +178,64 @@
           </div>
           <div class="info-row">
             <span class="info-label">{{ 'settings.account.username' | translate }}</span>
-            <span class="info-value">{{'@' + currentUser?.username }}</span>
+            <span class="info-value">&#64;{{ currentUser?.username }}</span>
           </div>
           <div class="info-row">
             <span class="info-label">{{ 'settings.account.verified' | translate }}</span>
-            <span class="badge" [class.yes]="currentUser?.is_verified || currentUser?.isVerified">
+            <span class="status-badge" [class.verified]="currentUser?.is_verified || currentUser?.isVerified">
               {{ (currentUser?.is_verified || currentUser?.isVerified) ? ('settings.account.verifiedYes' | translate) : ('settings.account.verifiedNo' | translate) }}
             </span>
           </div>
         </div>
 
-        <h3>{{ 'settings.account.changePassword' | translate }}</h3>
+        <h3 class="sub-heading">{{ 'settings.account.changePassword' | translate }}</h3>
         <div class="form-grid">
-          <div class="form-field full">
+          <div class="form-group full-width">
             <label>{{ 'settings.account.currentPassword' | translate }}</label>
             <input type="password" [(ngModel)]="accountForm.current_password" placeholder="••••••••">
           </div>
-          <div class="form-field">
+          <div class="form-group">
             <label>{{ 'settings.account.newPassword' | translate }}</label>
             <input type="password" [(ngModel)]="accountForm.new_password" placeholder="••••••••">
           </div>
-          <div class="form-field">
+          <div class="form-group">
             <label>{{ 'settings.account.confirmPassword' | translate }}</label>
             <input type="password" [(ngModel)]="accountForm.confirm_password" placeholder="••••••••">
           </div>
         </div>
-        <div class="form-actions">
+        <div class="form-footer">
           <button class="btn-save" (click)="changePassword()" [disabled]="isSaving">
             <span *ngIf="!isSaving">{{ 'settings.account.changePassword' | translate }}</span>
             <span *ngIf="isSaving" class="spinner"></span>
           </button>
         </div>
 
-        <!-- Zona de peligro -->
+        <!-- Danger zone -->
         <div class="danger-zone">
           <div class="danger-zone-header">
             <h3>{{ 'settings.account.dangerZone' | translate }}</h3>
             <p>{{ 'settings.account.dangerDesc' | translate }}</p>
           </div>
-          <div class="danger-zone-body">
-            <div class="danger-item">
-              <div class="danger-info">
-                <span class="danger-title">{{ 'settings.account.deleteAccount' | translate }}</span>
-                <span class="danger-desc">{{ 'settings.account.deleteDesc' | translate }}</span>
-              </div>
-              <button class="btn-danger" (click)="openDeleteModal()">
-                {{ 'settings.account.deleteAccount' | translate }}
-              </button>
+          <div class="danger-item">
+            <div class="danger-info">
+              <span class="danger-title">{{ 'settings.account.deleteAccount' | translate }}</span>
+              <span class="danger-desc">{{ 'settings.account.deleteDesc' | translate }}</span>
             </div>
+            <button class="btn-danger" (click)="openDeleteModal()">
+              {{ 'settings.account.deleteAccount' | translate }}
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- ===== TAB: NOTIFICACIONES ===== -->
+      <!-- ══ TAB: NOTIFICATIONS ══════════════════════════════════════════════════ -->
       <div class="panel-section" *ngIf="activeTab === 'notifications'">
-        <h2>{{ 'settings.notifications.title' | translate }}</h2>
+        <div class="section-heading">
+          <h2>{{ 'settings.notifications.title' | translate }}</h2>
+        </div>
 
         <div class="toggle-list">
-          <div class="toggle-item">
+          <div class="toggle-row">
             <div class="toggle-info">
               <span class="toggle-label">{{ 'settings.notifications.push' | translate }}</span>
               <span class="toggle-desc">{{ 'settings.notifications.pushDesc' | translate }}</span>
@@ -243,7 +245,7 @@
               <span class="slider"></span>
             </label>
           </div>
-          <div class="toggle-item">
+          <div class="toggle-row">
             <div class="toggle-info">
               <span class="toggle-label">{{ 'settings.notifications.email' | translate }}</span>
               <span class="toggle-desc">{{ 'settings.notifications.emailDesc' | translate }}</span>
@@ -255,7 +257,7 @@
           </div>
         </div>
 
-        <div class="form-actions">
+        <div class="form-footer">
           <button class="btn-save" (click)="saveSettings()" [disabled]="isSaving">
             <span *ngIf="!isSaving">{{ 'common.save' | translate }}</span>
             <span *ngIf="isSaving" class="spinner"></span>
@@ -263,12 +265,14 @@
         </div>
       </div>
 
-      <!-- ===== TAB: PRIVACIDAD ===== -->
+      <!-- ══ TAB: PRIVACY ════════════════════════════════════════════════════════ -->
       <div class="panel-section" *ngIf="activeTab === 'privacy'">
-        <h2>{{ 'settings.privacy.title' | translate }}</h2>
+        <div class="section-heading">
+          <h2>{{ 'settings.privacy.title' | translate }}</h2>
+        </div>
 
         <div class="toggle-list">
-          <div class="toggle-item">
+          <div class="toggle-row">
             <div class="toggle-info">
               <span class="toggle-label">{{ 'settings.privacy.privateAccount' | translate }}</span>
               <span class="toggle-desc">{{ 'settings.privacy.privateDesc' | translate }}</span>
@@ -278,7 +282,7 @@
               <span class="slider"></span>
             </label>
           </div>
-          <div class="toggle-item">
+          <div class="toggle-row">
             <div class="toggle-info">
               <span class="toggle-label">{{ 'settings.privacy.autoTranslate' | translate }}</span>
               <span class="toggle-desc">{{ 'settings.privacy.autoTranslateDesc' | translate }}</span>
@@ -290,15 +294,15 @@
           </div>
         </div>
 
-        <div class="form-grid" style="margin-top:1.5rem">
-          <div class="form-field">
+        <div class="form-grid" style="margin-top: 1.5rem">
+          <div class="form-group">
             <label>{{ 'settings.privacy.prefLang' | translate }}</label>
             <select [(ngModel)]="privacySettings.preferred_translation_language">
               <option value="">{{ 'settings.privacy.prefLangDefault' | translate }}</option>
               <option *ngFor="let lang of languages" [value]="lang.code">{{ lang.name }}</option>
             </select>
           </div>
-          <div class="form-field">
+          <div class="form-group">
             <label>{{ 'settings.privacy.theme' | translate }}</label>
             <select [(ngModel)]="privacySettings.theme">
               <option value="auto">{{ 'settings.privacy.themeAuto' | translate }}</option>
@@ -308,7 +312,7 @@
           </div>
         </div>
 
-        <div class="form-actions">
+        <div class="form-footer">
           <button class="btn-save" (click)="saveSettings()" [disabled]="isSaving">
             <span *ngIf="!isSaving">{{ 'common.save' | translate }}</span>
             <span *ngIf="isSaving" class="spinner"></span>
@@ -316,7 +320,6 @@
         </div>
       </div>
 
-    </div>
+    </section>
   </div>
 </div>
-

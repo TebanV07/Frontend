@@ -1,39 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import './styles/theme-variables';
-@import './styles/responsive';
 
+// ── RESET ────────────────────────────────────────────────────
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { height: 100%; }
+html, body {
+  width: 100% !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
+// ── BODY: fondo con imagen real ──────────────────────────────
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.5;
   color: var(--text-color);
   background-color: var(--bg-color);
-  /* TIMQU background layering: overlay then image then gradient fallback */
-  background-image: var(--bg-overlay), var(--bg-image), var(--bg-gradient);
+  // SOLO la imagen aquí — el overlay va en ::before
+  background-image: var(--bg-image);
   background-attachment: fixed;
   background-size: cover;
   background-position: center center;
+  background-repeat: no-repeat;
   min-height: 100vh;
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease, background-image 0.3s ease;
-  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+// ── MODO OSCURO: capa de estrellas/partículas adicional ──────
 body:not(.light-theme)::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: -2;
-  background-color: var(--bg-color);
-  background-image:
-    radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px),
-    radial-gradient(circle, rgba(255,255,255,0.7) 1.5px, transparent 1.5px),
-    radial-gradient(circle, rgba(255,255,255,0.55) 2px, transparent 2px);
-  background-repeat: repeat;
-  background-size: 220px 220px, 320px 320px, 420px 420px;
-  opacity: 0.24;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(8,11,20,0.40) 0%, rgba(8,11,20,0.20) 100%);
   pointer-events: none;
 }
 
@@ -45,18 +45,38 @@ body:not(.light-theme)::after {
   background: var(--bg-overlay);
   pointer-events: none;
 }
-
 body.light-theme {
-  background-color: var(--bg-color);
-  background-image: var(--bg-gradient) !important;
+  background-color: var(--bg-color) !important;
+  background-image: none !important;
+  background: var(--bg-gradient) !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
 }
 
 body.light-theme::before,
-body.light-theme::after {
-  content: none;
+body.light-theme::after { content: none; }
+
+// ── CRÍTICO: todos los wrappers raíz deben ser TRANSPARENTES ─
+// Esto soluciona el bug de fondo tapado
+app-root,
+app-main-layout,
+.main-layout,
+.layout-content,
+main,
+.app-wrapper,
+.app-shell,
+.layout-wrapper,
+.page-wrapper,
+mat-sidenav-container,
+mat-sidenav-content,
+mat-sidenav {
+  background: transparent !important;
+  min-height: 100vh;
 }
 
-// ─── SCROLLBAR ───────────────────────────────────────────────
+// ── SCROLLBAR ────────────────────────────────────────────────
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: rgba(0,0,0,0.03); border-radius: 10px; }
 ::-webkit-scrollbar-thumb {
@@ -65,10 +85,9 @@ body.light-theme::after {
 }
 ::-webkit-scrollbar-thumb:hover { filter: brightness(0.9); }
 
-// ─── SELECTION ───────────────────────────────────────────────
 ::selection { background: rgba(201,162,39,0.25); color: inherit; }
 
-// ─── GLASS UTILITY ───────────────────────────────────────────
+// ── GLASS UTILITY ────────────────────────────────────────────
 .glass-effect {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -76,46 +95,52 @@ body.light-theme::after {
   border: 1px solid var(--border-color);
 }
 
-/* TIMQU Header - floating glass navbar */
-.app-header, .header, nav {
-  position: fixed;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  height: var(--header-height);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 18px;
-  z-index: 1200;
-  border-radius: 14px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--border-color);
-  box-shadow: 0 6px 18px rgba(2,6,23,0.45);
+// ── HEADER GLOBAL: corregido (era left:50% + transform) ──────
+// ANTES: left: 50%; transform: translateX(-50%); ← causa el bug de compresión
+// AHORA: left + right explícito = anchura real de pantalla
+.app-header,
+.header,
+app-header {
+  position: fixed !important;
+  top: 8px !important;
+  left: 12px !important;
+  right: 12px !important;
+  width: auto !important;
+  transform: none !important;
+  z-index: 1200 !important;
 }
 
 @media (max-width: 768px) {
-  .app-header, .header, nav { left: 12px; right: 12px; transform: none; width: auto; top: 10px; }
+  .app-header, .header, app-header {
+    left: 8px !important;
+    right: 8px !important;
+    top: 6px !important;
+  }
 }
 
-/* TIMQU Feed layout - centered, responsive */
-.app-container .main-content {
+// ── LAYOUT PRINCIPAL ─────────────────────────────────────────
+.app-container {
+  background: transparent !important;
+  min-height: 100vh;
+}
+
+.main-content {
   max-width: 980px;
   margin: 0 auto;
   padding-top: calc(var(--header-height) + 28px);
-}
-.app-layout .sidebar {
-  transition: all 0.25s var(--transition);
-}
-@media (max-width: 1100px) {
-  .app-layout .sidebar { display: none; }
-  .app-container .main-content { padding-left: 16px; padding-right: 16px; }
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
-/* TIMQU Card system overrides */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+// ── CARDS GLOBALES ───────────────────────────────────────────
 .post-card,
 .video-card,
 .profile-card,
@@ -125,80 +150,89 @@ body.light-theme::after {
 .comments,
 .modal-window {
   background: var(--card-bg) !important;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--border-color) !important;
   border-radius: var(--radius-md) !important;
   color: var(--text-color) !important;
-  box-shadow: 0 6px 18px rgba(2,6,23,0.24);
-  transition: transform 180ms var(--transition), box-shadow 180ms var(--transition), background 180ms var(--transition);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 180ms var(--transition), box-shadow 180ms var(--transition);
 }
+
 .post-card:hover,
 .video-card:hover,
 .profile-card:hover,
 .create-post-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   background: var(--card-bg-hover) !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
 }
 
-/* Modal specific polish */
-.modal-window { max-width: 880px; margin: 28px auto; padding: 18px; }
-
-/* Utility: TIMQU glass tile */
-.timqu-tile { padding: 12px; border-radius: var(--radius-md); }
-
-/* subtle premium hover */
-.timqu-hover-up:hover { transform: translateY(-2px); }
-
-
-// ─── FOCUS ───────────────────────────────────────────────────
-button:focus, input:focus, textarea:focus, select:focus {
+// ── FOCUS ────────────────────────────────────────────────────
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
   outline: 2px solid rgba(201,162,39,0.35);
   outline-offset: 2px;
 }
 
-// ─── ANIMATIONS ──────────────────────────────────────────────
+// ── ANIMATIONS ───────────────────────────────────────────────
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
 @keyframes shimmer {
   0%   { background-position: -1000px 0; }
   100% { background-position:  1000px 0; }
 }
-.animate-fade-in-up { animation: fadeInUp 0.6s ease-out; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-in-up { animation: fadeInUp 0.5s ease-out; }
+
 .loading-shimmer {
   background: linear-gradient(90deg,
-    rgba(201,162,39,0.08) 25%,
-    rgba(201,162,39,0.18) 50%,
-    rgba(201,162,39,0.08) 75%);
+    rgba(201,162,39,0.06) 25%,
+    rgba(201,162,39,0.16) 50%,
+    rgba(201,162,39,0.06) 75%);
   background-size: 2000px 100%;
   animation: shimmer 2s infinite;
 }
 
-// ─── RESPONSIVE ──────────────────────────────────────────────
-@media (max-width: 1200px) {
-  .app-container .main-content { padding-top: 70px; }
-}
+// ── RESPONSIVE ───────────────────────────────────────────────
 @media (max-width: 768px) {
   body { font-size: 14px; }
-  .app-container .content-area { padding: 15px; }
-}
-@media (max-width: 480px) {
-  .app-container .content-area { padding: 10px; }
 }
 
-// ─── PRINT ───────────────────────────────────────────────────
+// ── PRINT ────────────────────────────────────────────────────
 @media print {
-  .sidebar, .header, .post-actions, .create-post-card, .ai-banner { display: none !important; }
+  .header, .ai-banner, .create-post-card { display: none !important; }
   .post-card {
     background: white !important;
     border: 1px solid #ccc !important;
     box-shadow: none !important;
     page-break-inside: avoid;
-    margin-bottom: 20px;
   }
 }
-app-root {
-  display: block;
-  background: transparent !important;
-  min-height: 100vh;
+
+body.light-theme .sidebar,
+body.light-theme .sidebar *,
+body.light-theme .create-post-card,
+body.light-theme .create-post-card *,
+body.light-theme .create-post-btn,
+body.light-theme .create-post-btn * {
+  color: #000 !important;
+}
+
+body:not(.light-theme) .sidebar,
+body:not(.light-theme) .sidebar *,
+body:not(.light-theme) .create-post-card,
+body:not(.light-theme) .create-post-card *,
+body:not(.light-theme) .create-post-btn,
+body:not(.light-theme) .create-post-btn * {
+  color: #fff !important;
 }

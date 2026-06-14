@@ -1,283 +1,299 @@
-// TIMQU: migrated to global CSS variables.
-.profile-content {
-  padding: 0 2rem 4rem;
+// ─── Profile Content ──────────────────────────────────────────────────────────
+:host { display: block; }
 
-  @media (max-width: 768px) { padding: 0 1rem 3rem; }
-}
+.profile-content { padding-bottom: 40px; }
 
-// ===== POSTS GRID =====
-.posts-grid {
+// ─── Content Grid (3 col Instagram-style) ────────────────────────────────────
+.content-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
 }
 
-.post-card {
+// ─── Content Item ─────────────────────────────────────────────────────────────
+.content-item {
+  aspect-ratio: 1 / 1;
+  position: relative;
+  overflow: hidden;
+  background: var(--card-bg);
+  cursor: pointer;
+  border-radius: 0;
+
+  &:first-child { border-radius: var(--radius-sm) 0 0 0; }
+  &:nth-child(3) { border-radius: 0 var(--radius-sm) 0 0; }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  &:hover img { transform: scale(1.06); }
+  &:hover .item-overlay { opacity: 1; }
+}
+
+// ─── Media containers ─────────────────────────────────────────────────────────
+.item-media {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.item-media.video-item { background: #000; }
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  pointer-events: none;
+}
+
+.multi-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(0, 0, 0, 0.65);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 6px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+// ─── Text-only item ───────────────────────────────────────────────────────────
+.item-text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all 0.25s ease;
-  cursor: pointer;
 
-  &:hover {
-    border-color: var(--border-color)-hover;
-    background: var(--card-bg)-hover;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(251, 191, 36, 0.08);
-  }
-
-  .post-media {
-    position: relative;
-    aspect-ratio: 16/9;
+  p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
     overflow: hidden;
-    background: #0a0a12;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-
-    &:hover img { transform: scale(1.03); }
-
-    .media-count {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(4px);
-      color: var(--gold);
-      padding: 0.25rem 0.5rem;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .video-badge {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.4);
-      color: var(--gold);
-    }
-  }
-
-  .post-body {
-    padding: 0.875rem 1rem;
-
-    .post-text {
-      color: var(--text-color);
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin: 0 0 0.6rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .post-tags {
-      display: flex;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-      margin-bottom: 0.75rem;
-
-      .tag {
-        color: var(--gold);
-        font-size: 0.78rem;
-        font-weight: 600;
-        opacity: 0.8;
-      }
-    }
-
-    .post-stats {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-
-      .stat {
-        display: flex;
-        align-items: center;
-        gap: 0.35rem;
-        color: var(--text-secondary);
-        font-size: 0.82rem;
-
-        svg { color: var(--gold); opacity: 0.7; flex-shrink: 0; }
-      }
-
-      .post-time {
-        margin-left: auto;
-        color: var(--muted-color);
-        font-size: 0.78rem;
-      }
-    }
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    text-align: center;
   }
 }
 
-// ===== VIDEOS GRID =====
-.videos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
-
-  @media (max-width: 640px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+// ─── Hover Overlay ────────────────────────────────────────────────────────────
+.item-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
-.video-card {
+.overlay-stat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+// ─── Videos Layout (16/9 cards) ───────────────────────────────────────────────
+.videos-layout {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+
+  .content-item { aspect-ratio: unset; }
+}
+
+.video-card-item {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: transform 0.2s var(--transition), border-color 0.2s;
 
   &:hover {
-    border-color: var(--border-color)-hover;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-
-    .video-overlay { opacity: 1; }
-    img { transform: scale(1.04); }
-  }
-
-  .video-thumbnail {
-    position: relative;
-    aspect-ratio: 9/16;
-    overflow: hidden;
-    background: #0a0a12;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-
-    .video-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.45);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.25s ease;
-
-      .play-btn {
-        width: 52px;
-        height: 52px;
-        background: rgba(251, 191, 36, 0.9);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #0a0a0f;
-        padding-left: 3px;
-      }
-    }
-
-    .video-duration {
-      position: absolute;
-      bottom: 8px;
-      left: 8px;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(4px);
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-    }
-
-    .video-likes {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(4px);
-      color: var(--gold);
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-  }
-
-  .video-info {
-    padding: 0.75rem;
-
-    h3 {
-      color: var(--text-color);
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin: 0 0 0.4rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .video-tags {
-      display: flex;
-      gap: 0.4rem;
-
-      .tag {
-        color: var(--gold);
-        font-size: 0.75rem;
-        opacity: 0.75;
-      }
-    }
+    transform: translateY(-3px);
+    border-color: var(--gold-border);
   }
 }
 
-// ===== EMPTY STATE =====
+.video-thumb-wrap {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  &:hover img { transform: scale(1.05); }
+}
+
+.duration-badge {
+  position: absolute;
+  bottom: 6px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+  backdrop-filter: blur(4px);
+}
+
+.video-meta {
+  padding: 10px 12px;
+}
+
+.video-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.video-stats {
+  display: flex;
+  gap: 12px;
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+}
+
+// ─── Empty State ──────────────────────────────────────────────────────────────
 .empty-state {
-  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 5rem 2rem;
-  text-align: center;
+  gap: 12px;
+  min-height: 200px;
+  padding: 40px 20px;
+}
 
-  .empty-icon {
-    width: 100px;
-    height: 100px;
-    background: var(--gold)-dim;
-    border: 1px solid rgba(251, 191, 36, 0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    color: rgba(251, 191, 36, 0.5);
+.empty-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+}
+
+.empty-state p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+// ─── Skeleton ─────────────────────────────────────────────────────────────────
+.skeleton-grid {
+  .skeleton-card {
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(90deg,
+      var(--card-bg) 25%,
+      rgba(201, 162, 39, 0.06) 50%,
+      var(--card-bg) 75%);
+    background-size: 400% 100%;
+    animation: shimmer 1.6s infinite;
+    border-radius: var(--radius-sm);
+  }
+}
+
+@keyframes shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+// ─── Load More ────────────────────────────────────────────────────────────────
+.load-more {
+  display: flex;
+  justify-content: center;
+  padding: 28px 0 0;
+}
+
+.btn-load-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 28px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-full);
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s var(--transition);
+
+  &:hover:not(:disabled) {
+    background: var(--gold);
+    color: var(--text-inverse);
+    box-shadow: 0 4px 12px rgba(var(--gold-rgb), 0.3);
   }
 
-  h3 {
-    color: var(--text-color);
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0 0 0.5rem;
-  }
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+}
 
-  p {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin: 0;
+.spinner-sm {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(var(--gold-rgb), 0.3);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .content-grid,
+  .videos-layout {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
+
+@media (max-width: 480px) {
+  .content-grid { gap: 2px; }
 }

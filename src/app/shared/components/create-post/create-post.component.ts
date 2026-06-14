@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter, ViewChild, ElementRef, OnInit } from '
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser'; // ✅ Sanitizador importado
 import { Post, PostsService } from '../../../core/services/posts.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { environment } from '../../../../environments/environment';
@@ -32,7 +33,7 @@ export class CreatePostComponent implements OnInit {
   imagePreviews:  string[] = [];
 
   selectedVideo:    File | null = null;
-  videoPreview:     string | null = null;
+  videoPreview:     SafeUrl | null = null; // ✅ Cambiado a SafeUrl para soportar el bypass
   videoTitle        = '';
   videoDescription  = '';
 
@@ -40,7 +41,8 @@ export class CreatePostComponent implements OnInit {
 
   constructor(
     private postsService: PostsService,
-    private authService: AuthService   // ✅ Inyectado
+    private authService: AuthService,
+    private sanitizer: DomSanitizer    // ✅ Sanitizador inyectado
   ) {}
 
   ngOnInit(): void {
@@ -120,9 +122,9 @@ export class CreatePostComponent implements OnInit {
     this.selectedVideo  = file;
     this.mediaType      = 'video';
 
-    const reader = new FileReader();
-    reader.onload = (e) => { this.videoPreview = e.target?.result as string; };
-    reader.readAsDataURL(file);
+    // ✅ Uso de URL temporal para evitar colapsos de memoria y pasar la seguridad de Angular
+    const objectUrl = URL.createObjectURL(file);
+    this.videoPreview = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
   }
 
   removeVideo() {
@@ -168,7 +170,7 @@ export class CreatePostComponent implements OnInit {
         this.postContent.trim(),
         title,
         description,
-        this.userLanguage,   // ✅ Usa el idioma nativo del usuario
+        this.userLanguage,
         undefined,
         [],
         true
@@ -204,7 +206,7 @@ export class CreatePostComponent implements OnInit {
         this.postContent.trim(),
         this.selectedImages.length > 0 ? this.selectedImages : undefined,
         undefined,
-        this.userLanguage   // ✅ Usa el idioma nativo del usuario (antes era 'en' hardcodeado)
+        this.userLanguage
       ).subscribe({
         next: (response) => {
           alert('Post publicado exitosamente');
@@ -250,5 +252,3 @@ export class CreatePostComponent implements OnInit {
     return 'Procesando...';
   }
 }
-
-

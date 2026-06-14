@@ -1,9 +1,4 @@
 <div class="follow-requests-container">
-  <div class="header">
-    <h3>{{ 'explore.followRequests.title' | translate }}</h3>
-    <span class="count-badge" *ngIf="requests.length > 0">{{ requests.length }}</span>
-  </div>
-
   <div class="requests-list">
     <div *ngFor="let request of requests" class="request-card">
       <img

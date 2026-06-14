@@ -11,7 +11,9 @@
     *ngFor="let video of videos; let i = index"
     [class.active]="i === currentVideoIndex">
 
-    <!-- Header del autor -->
+    <!-- ════════════════════════════
+         HEADER DEL AUTOR
+    ════════════════════════════ -->
     <div class="video-header">
       <img
         [src]="getUserAvatar(video)"
@@ -28,10 +30,14 @@
         [alt]="flagService.getCountryName(video.user?.country_code)"
         class="country-flag"
         (error)="$any($event.target).style.display='none'"/>
-      <button class="follow-btn" (click)="followUser(video.user)">{{ 'common.follow' | translate }}</button>
+      <button class="follow-btn" (click)="followUser(video.user)">
+        {{ 'common.follow' | translate }}
+      </button>
     </div>
 
-    <!-- Video wrapper -->
+    <!-- ════════════════════════════
+         VIDEO WRAPPER
+    ════════════════════════════ -->
     <div class="video-wrapper">
       <video
         #videoElem
@@ -54,12 +60,12 @@
           default>
       </video>
 
-      <!-- Overlay play/pause -->
+      <!-- ── Play/pause overlay ── -->
       <div class="video-overlay" (click)="togglePlay(videoElem)">
         <div class="play-icon" *ngIf="i === currentVideoIndex && !isPlaying">▶</div>
       </div>
 
-      <!-- Controles superiores (solo video activo) -->
+      <!-- ── Controles superiores ── -->
       <div class="top-controls" *ngIf="i === currentVideoIndex">
         <div class="video-badges">
           <span class="lang-badge" *ngIf="video.available_languages && video.available_languages.length > 1">
@@ -74,24 +80,23 @@
         </button>
       </div>
 
-      <!-- Acciones lado derecho (solo video activo) -->
+      <!-- ── Acciones lado derecho ── -->
       <div class="video-actions" *ngIf="i === currentVideoIndex">
 
         <button class="action-btn" [class.liked]="video.is_liked" (click)="toggleLike(video)">
           <span>{{ video.is_liked ? '❤️' : '🤍' }}</span>
           <span class="count">{{ formatNumber(video.likes_count) }}</span>
         </button>
-        <!-- Botón eliminar (solo dueño del video) -->
+
         <button
           class="action-btn delete-btn"
           *ngIf="currentUserId !== null &&
                 (video.user_id === currentUserId || video.user?.id === currentUserId)"
           (click)="deleteVideo(video)">
           <span>🗑️</span>
-          <span class="count">Eliminar</span>
+          <span class="count">{{ 'common.delete' | translate }}</span>
         </button>
 
-        <!-- ✅ Botón de comentarios con toggle -->
         <button class="action-btn" [class.active]="showComments" (click)="toggleComments()">
           <span>💬</span>
           <span class="count">{{ formatNumber(video.comments_count) }}</span>
@@ -107,7 +112,7 @@
           <span class="count">{{ formatNumber(video.shares_count) }}</span>
         </button>
 
-        <!-- Botón traducción + menú -->
+        <!-- ── Traducción ── -->
         <div class="translation-container">
           <button
             class="action-btn"
@@ -145,9 +150,10 @@
             </div>
           </div>
         </div>
+
       </div>
 
-      <!-- Info del video -->
+      <!-- ── Info del video ── -->
       <div class="video-info">
         <h2 class="video-title">{{ video.title || '-' }}</h2>
         <p class="video-desc" *ngIf="video.description">{{ video.description }}</p>
@@ -161,13 +167,12 @@
         </div>
       </div>
 
-      <!-- ✅ Drawer de comentarios: solo visible cuando showComments === true y es el video activo -->
+      <!-- ── Drawer de comentarios ── -->
       <div
         class="comments-drawer"
         *ngIf="i === currentVideoIndex && showComments"
         (click)="$event.stopPropagation()">
 
-        <!-- Barra superior del drawer -->
         <div class="drawer-header">
           <div class="drawer-handle"></div>
           <span class="drawer-title">{{ 'comments.title' | translate }}</span>
@@ -180,7 +185,7 @@
         </app-comment-list>
       </div>
 
-      <!-- ✅ Backdrop para cerrar el drawer tocando fuera -->
+      <!-- ── Backdrop ── -->
       <div
         class="comments-backdrop"
         *ngIf="i === currentVideoIndex && showComments"
@@ -192,9 +197,11 @@
   </div>
 </div>
 
+<!-- ════════════════════════════
+     EMPTY STATE
+════════════════════════════ -->
 <div class="no-videos" *ngIf="!isLoading && videos.length === 0">
   <span>🎥</span>
   <h3>{{ 'feed.empty.title' | translate }}</h3>
   <p>{{ 'feed.empty.subtitle' | translate }}</p>
 </div>
-

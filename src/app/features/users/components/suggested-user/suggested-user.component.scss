@@ -1,13 +1,3 @@
-var(--gold): #f5c518;
-var(--gold-light): #ffd700;
-rgba(var(--gold-rgb), 0.3): rgba(245, 197, 24, 0.3);
-var(--bg-color): #111111;
-var(--card-bg): #1c1c1c;
-var(--card-bg): #242424;
-var(--border-color): #2e2e2e;
-var(--text-color): #f0f0f0;
-var(--text-secondary): #a0a0a0;
-var(--muted-color): #5a5a5a;
 
 .suggested-users-container {
   background: var(--card-bg);
@@ -15,17 +5,6 @@ var(--muted-color): #5a5a5a;
   padding: 20px;
   border: 1px solid var(--border-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-.header {
-  margin-bottom: 20px;
-
-  h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text-color);
-  }
 }
 
 .users-list {

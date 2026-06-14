@@ -1,114 +1,173 @@
 <div class="profile-content">
 
-  <!-- ===== TAB: POSTS ===== -->
+  <!-- ═══ TAB: POSTS ═══════════════════════════════════════════════════════════ -->
   <div *ngIf="selectedTab === 'posts'">
-    <!-- Loading inicial -->
-    <div *ngIf="isLoadingPosts && posts.length === 0" class="loading-grid">
+
+    <!-- Skeleton loader -->
+    <div *ngIf="isLoadingPosts && posts.length === 0" class="content-grid skeleton-grid">
       <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5,6]"></div>
     </div>
 
-    <!-- Sin posts -->
+    <!-- Empty state -->
     <div *ngIf="!isLoadingPosts && posts.length === 0" class="empty-state">
-      <span class="empty-icon">📝</span>
+      <div class="empty-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+        </svg>
+      </div>
       <p>{{ 'profile.content.noPosts' | translate }}</p>
     </div>
 
-    <!-- Grid de posts -->
-    <div class="posts-grid" *ngIf="posts.length > 0">
-      <div class="post-card" *ngFor="let post of posts">
+    <!-- Posts grid -->
+    <div class="content-grid" *ngIf="posts.length > 0">
+      <div class="content-item" *ngFor="let post of posts">
 
-        <!-- Post con imagen -->
-        <div class="post-media" *ngIf="post.has_images && post.images?.length > 0">
-          <img [src]="getImageUrl(post.images[0].image_url)"
-               [alt]="post.content"
-               (error)="onImageError($event)" />
-          <span class="media-count" *ngIf="post.images.length > 1">
+        <!-- Image post -->
+        <div class="item-media" *ngIf="post.has_images && post.images?.length > 0">
+          <img
+            [src]="getImageUrl(post.images[0].image_url)"
+            [alt]="post.content"
+            (error)="onImageError($event)" />
+          <span class="multi-badge" *ngIf="post.images.length > 1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="2" y="2" width="9" height="9"/><rect x="13" y="2" width="9" height="9"/>
+              <rect x="2" y="13" width="9" height="9"/><rect x="13" y="13" width="9" height="9"/>
+            </svg>
             +{{ post.images.length - 1 }}
           </span>
         </div>
 
-        <!-- Post con video -->
-        <div class="post-media video-thumb" *ngIf="post.has_video && post.video_url && !post.has_images">
-          <img *ngIf="post.thumbnail_url" [src]="getImageUrl(post.thumbnail_url)" alt="video" />
-          <div class="play-overlay">▶</div>
+        <!-- Video post -->
+        <div class="item-media video-item" *ngIf="post.has_video && post.video_url && !post.has_images">
+          <img *ngIf="post.thumbnail_url"
+               [src]="getImageUrl(post.thumbnail_url)"
+               alt="video" />
+          <div class="play-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </div>
         </div>
 
-        <!-- Post solo texto -->
-        <div class="post-text-only" *ngIf="!post.has_images && !post.has_video">
+        <!-- Text-only post -->
+        <div class="item-text" *ngIf="!post.has_images && !post.has_video">
           <p>{{ post.content }}</p>
         </div>
 
-        <!-- Métricas -->
-        <div class="post-metrics">
-          <span>❤️ {{ formatNumber(post.likes_count) }}</span>
-          <span>💬 {{ formatNumber(post.comments_count) }}</span>
+        <!-- Hover stats overlay -->
+        <div class="item-overlay">
+          <span class="overlay-stat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            {{ formatNumber(post.likes_count) }}
+          </span>
+          <span class="overlay-stat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            {{ formatNumber(post.comments_count) }}
+          </span>
         </div>
+
       </div>
     </div>
 
     <!-- Load more -->
     <div class="load-more" *ngIf="hasMorePosts">
-      <button (click)="loadPosts(true)" [disabled]="isLoadingPosts">
-        {{ isLoadingPosts ? ('profile.content.loading' | translate) : ('profile.content.loadMore' | translate) }}
+      <button class="btn-load-more" (click)="loadPosts(true)" [disabled]="isLoadingPosts">
+        <span *ngIf="!isLoadingPosts">{{ 'profile.content.loadMore' | translate }}</span>
+        <span *ngIf="isLoadingPosts" class="spinner-sm"></span>
       </button>
     </div>
   </div>
 
-  <!-- ===== TAB: VIDEOS ===== -->
+  <!-- ═══ TAB: VIDEOS ═══════════════════════════════════════════════════════════ -->
   <div *ngIf="selectedTab === 'videos'">
-    <!-- Loading inicial -->
-    <div *ngIf="isLoadingVideos && videos.length === 0" class="loading-grid">
+
+    <!-- Skeleton loader -->
+    <div *ngIf="isLoadingVideos && videos.length === 0" class="content-grid skeleton-grid">
       <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5,6]"></div>
     </div>
 
-    <!-- Sin videos -->
+    <!-- Empty state -->
     <div *ngIf="!isLoadingVideos && videos.length === 0" class="empty-state">
-      <span class="empty-icon">🎬</span>
+      <div class="empty-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polygon points="23 7 16 12 23 17 23 7"/>
+          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+        </svg>
+      </div>
       <p>{{ 'profile.content.noVideos' | translate }}</p>
     </div>
 
-    <!-- Grid de videos -->
-    <div class="videos-grid" *ngIf="videos.length > 0">
-      <div class="video-card" *ngFor="let video of videos" (click)="onVideoClick(video.id)">
-        <div class="video-thumb">
+    <!-- Videos grid -->
+    <div class="content-grid videos-layout" *ngIf="videos.length > 0">
+      <div class="video-card-item" *ngFor="let video of videos" (click)="onVideoClick(video.id)">
+
+        <div class="video-thumb-wrap">
           <img *ngIf="video.thumbnail_url"
                [src]="getImageUrl(video.thumbnail_url)"
                [alt]="video.title"
                (error)="onImageError($event)" />
-          <div class="play-overlay">▶</div>
-          <span class="video-duration" *ngIf="video.duration">
-            {{ video.duration }}s
-          </span>
+          <div class="play-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </div>
+          <span class="duration-badge" *ngIf="video.duration">{{ video.duration }}s</span>
         </div>
-        <div class="video-info">
+
+        <div class="video-meta">
           <p class="video-title" *ngIf="video.title">{{ video.title }}</p>
-          <div class="video-metrics">
-            <span>👁 {{ formatNumber(video.views_count) }}</span>
-            <span>❤️ {{ formatNumber(video.likes_count) }}</span>
+          <div class="video-stats">
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              {{ formatNumber(video.views_count) }}
+            </span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+              {{ formatNumber(video.likes_count) }}
+            </span>
           </div>
         </div>
+
       </div>
     </div>
 
     <!-- Load more -->
     <div class="load-more" *ngIf="hasMoreVideos">
-      <button (click)="loadVideos(true)" [disabled]="isLoadingVideos">
-        {{ isLoadingVideos ? ('profile.content.loading' | translate) : ('profile.content.loadMore' | translate) }}
+      <button class="btn-load-more" (click)="loadVideos(true)" [disabled]="isLoadingVideos">
+        <span *ngIf="!isLoadingVideos">{{ 'profile.content.loadMore' | translate }}</span>
+        <span *ngIf="isLoadingVideos" class="spinner-sm"></span>
       </button>
     </div>
   </div>
 
-  <!-- ===== TAB: LIKED ===== -->
+  <!-- ═══ TAB: LIKED ════════════════════════════════════════════════════════════ -->
   <div *ngIf="selectedTab === 'liked'" class="empty-state">
-    <span class="empty-icon">❤️</span>
+    <div class="empty-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </div>
     <p>{{ 'profile.content.likedPosts' | translate }}</p>
   </div>
 
-  <!-- ===== TAB: BOOKMARKS ===== -->
+  <!-- ═══ TAB: BOOKMARKS ════════════════════════════════════════════════════════ -->
   <div *ngIf="selectedTab === 'bookmarks'" class="empty-state">
-    <span class="empty-icon">🔖</span>
+    <div class="empty-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+      </svg>
+    </div>
     <p>{{ 'profile.content.savedPosts' | translate }}</p>
   </div>
 
 </div>
-
