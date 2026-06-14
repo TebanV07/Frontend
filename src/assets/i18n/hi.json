@@ -100,7 +100,8 @@
             "messages": "संदेश",
             "notifications": "सूचनाएं",
             "profile": "प्रोफ़ाइल",
-            "settings": "सेटिंग्स"
+            "settings": "सेटिंग्स",
+            "explore": "लोगों को एक्सप्लोर करें"
         },
         "theme": {
             "light": "लाइट मोड",
@@ -133,7 +134,15 @@
             "deleteForMe": "मेरे लिए हटाएं",
             "forward": "फॉरवर्ड करें",
             "share": "साझा करें",
-            "translate": "अनुवाद करें"
+            "translate": "अनुवाद करें",
+            "translateImage": "छवि अनुवाद करें",
+            "translateAudio": "ऑडियो अनुवाद करें",
+            "translating": "अनुवाद हो रहा है...",
+            "transcribing": "ट्रांसक्राइब हो रहा है...",
+            "hideTranslation": "अनुवाद छिपाएं",
+            "hideTranscript": "प्रतिलेख छिपाएं",
+            "noTextInImage": "इस छवि में कोई पठनीय टेक्स्ट नहीं मिला",
+            "originalTranscript": "मूल"
         }
     },
     "feed": {
@@ -289,7 +298,13 @@
         },
         "filters": {
             "byCountry": "देश से फ़िल्टर करें",
-            "allCountries": "सभी देश"
+            "allCountries": "सभी देश",
+            "byHashtag": "हैशटैग से फ़िल्टर",
+            "clearHashtag": "हैशटैग साफ़ करें",
+            "noHashtags": "कोई ट्रेंडिंग हैशटैग नहीं",
+            "showingHashtag": "#{{ tag }} से जुड़े उपयोगकर्ता दिखा रहे हैं",
+            "noUsersForHashtag": "इस हैशटैग के लिए कोई उपयोगकर्ता नहीं",
+            "tryOtherHashtag": "दूसरा हैशटैग आज़माएं"
         },
         "actions": {
             "talk": "मैं बात करना चाहता हूं"
@@ -506,7 +521,15 @@
         "trendingBadge": "ट्रेंडिंग",
         "watchNow": "अभी देखें",
         "gridView": "ग्रिड",
-        "listView": "सूची"
+        "listView": "सूची",
+        "filterByHashtag": "हैशटैग से फ़िल्टर",
+        "clearFilter": "फ़िल्टर साफ़ करें",
+        "noVideosForHashtag": "#{{ tag }} के लिए कोई वीडियो नहीं",
+        "noVideosAvailable": "यहाँ कोई वीडियो उपलब्ध नहीं",
+        "tryOtherHashtag": "दूसरा हैशटैग आज़माएं",
+        "tryGlobal": "'Global' या किसी अन्य देश को आज़माएं",
+        "beFirst": "पहले सामग्री अपलोड करें",
+        "noTrendingHint": "देश बदलें या हैशटैग के साथ वीडियो अपलोड करें"
     },
     "lives": {
         "title": "लाइव",

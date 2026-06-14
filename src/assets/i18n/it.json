@@ -100,7 +100,8 @@
             "messages": "Messaggi",
             "notifications": "Notifiche",
             "profile": "Profilo",
-            "settings": "Impostazioni"
+            "settings": "Impostazioni",
+            "explore": "Esplora persone"
         },
         "theme": {
             "light": "Modalità chiara",
@@ -133,7 +134,15 @@
             "deleteForMe": "Elimina per me",
             "forward": "Inoltra",
             "share": "Condividi",
-            "translate": "Traduci"
+            "translate": "Traduci",
+            "translateImage": "Traduci immagine",
+            "translateAudio": "Traduci audio",
+            "translating": "Traduzione...",
+            "transcribing": "Trascrizione...",
+            "hideTranslation": "Nascondi traduzione",
+            "hideTranscript": "Nascondi trascrizione",
+            "noTextInImage": "Nessun testo leggibile trovato in questa immagine",
+            "originalTranscript": "Originale"
         }
     },
     "feed": {
@@ -289,7 +298,13 @@
         },
         "filters": {
             "byCountry": "Filtra per paese",
-            "allCountries": "Tutti i paesi"
+            "allCountries": "Tutti i paesi",
+            "byHashtag": "Filtra per hashtag",
+            "clearHashtag": "Cancella hashtag",
+            "noHashtags": "Nessun hashtag di tendenza",
+            "showingHashtag": "Utenti con affinita per #{{ tag }}",
+            "noUsersForHashtag": "Nessun utente trovato per questo hashtag",
+            "tryOtherHashtag": "Prova un altro hashtag"
         },
         "actions": {
             "talk": "Voglio parlare"
@@ -506,7 +521,15 @@
         "trendingBadge": "Tendenza",
         "watchNow": "Guarda ora",
         "gridView": "Griglia",
-        "listView": "Lista"
+        "listView": "Lista",
+        "filterByHashtag": "Filtra per hashtag",
+        "clearFilter": "Cancella filtro",
+        "noVideosForHashtag": "Nessun video per #{{ tag }}",
+        "noVideosAvailable": "Nessun video disponibile qui",
+        "tryOtherHashtag": "Prova un altro hashtag",
+        "tryGlobal": "Prova 'Global' o un altro paese",
+        "beFirst": "Sii il primo a caricare contenuto",
+        "noTrendingHint": "Cambia paese o carica video con hashtag"
     },
     "lives": {
         "title": "In diretta",

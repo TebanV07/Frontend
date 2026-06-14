@@ -49,6 +49,32 @@
     </select>
   </div>
 
+  <!-- Filtro por hashtag -->
+  <div class="hashtag-filter-section">
+    <div class="hashtag-filter-header">
+      <span class="filter-label">{{ 'explore.filters.byHashtag' | translate }}</span>
+      <button *ngIf="selectedHashtag" class="clear-hashtag-btn" (click)="clearHashtagFilter()">
+        {{ 'explore.filters.clearHashtag' | translate }} ✕
+      </button>
+    </div>
+    <div class="hashtag-chips" *ngIf="!isLoadingHashtags && trendingHashtags.length > 0">
+      <button
+        *ngFor="let ht of trendingHashtags"
+        class="hashtag-chip"
+        [class.active]="selectedHashtag === ht.hashtag"
+        (click)="selectHashtag(ht.hashtag)">
+        <span>#{{ ht.hashtag }}</span>
+        <span class="chip-count">{{ ht.videos_count }}</span>
+      </button>
+    </div>
+    <p *ngIf="!isLoadingHashtags && trendingHashtags.length === 0" class="no-hashtags">
+      {{ 'explore.filters.noHashtags' | translate }}
+    </p>
+    <div class="active-filter-banner" *ngIf="selectedHashtag">
+      {{ 'explore.filters.showingHashtag' | translate: { tag: selectedHashtag } }}
+    </div>
+  </div>
+
   <div
     *ngIf="actionFeedback"
     class="feedback-message"
@@ -103,7 +129,7 @@
   <div class="country-groups-section">
     <div class="country-groups-header">
       <h3>{{ 'explore.byCountry.title' | translate }}</h3>
-      <span class="groups-count" *ngIf="!isLoadingExplore">{{ countryGroups.length }} {{ 'explore.byCountry.countries' | translate }}</span>
+      <span class="groups-count" *ngIf="!isLoadingExplore">{{ displayedGroups.length }} {{ 'explore.byCountry.countries' | translate }}</span>
     </div>
 
     <div class="loading-country" *ngIf="isLoadingExplore">
@@ -111,7 +137,7 @@
     </div>
 
     <ng-container *ngIf="!isLoadingExplore && countryGroups.length > 0">
-      <div class="country-group" *ngFor="let group of countryGroups">
+      <div class="country-group" *ngFor="let group of displayedGroups">
         <div class="country-group-title">
           <h4>{{ group.country_name }}</h4>
           <span>{{ group.users_count }}</span>
@@ -149,7 +175,7 @@
       </div>
     </ng-container>
 
-    <div class="no-results" *ngIf="!isLoadingExplore && countryGroups.length === 0">
+    <div class="no-results" *ngIf="!isLoadingExplore && displayedGroups.length === 0">
       <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <circle cx="11" cy="11" r="8"/>
         <path d="m21 21-4.35-4.35"/>

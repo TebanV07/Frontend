@@ -1,36 +1,88 @@
-<!-- app/features/feed/videos/video-feed/video-feed.component.html -->
+<div class="video-feed-wrapper">
 
-<div class="video-feed-container" #feedContainer>
-  <!-- Loading inicial -->
+  <!-- ════════════════════════════
+       BARRA DE FILTROS
+  ════════════════════════════ -->
+  <div class="filter-bar-standalone glass">
+    <div class="dropdown-country">
+      <span>🌐 Global</span>
+      <span class="chevron">▾</span>
+    </div>
+
+    <div class="category-tabs">
+      <span class="category-tab active">All</span>
+      <span class="category-tab">Technology</span>
+      <span class="category-tab">Design</span>
+      <span class="category-tab">News</span>
+    </div>
+
+    <div class="ia-active-indicator">
+      ⚡ IA Active
+    </div>
+  </div>
+
+  <!-- ════════════════════════════
+       LOADING INICIAL
+  ════════════════════════════ -->
   <div class="loading-initial" *ngIf="isLoading && videos.length === 0">
-    <div class="spinner"></div>
+    <div class="spinner-ring"></div>
     <p>{{ 'feed.loading' | translate }}</p>
   </div>
 
-  <!-- Videos -->
-  <div class="video-items" *ngIf="hasVideos">
+  <!-- ════════════════════════════
+       FEED DE VIDEOS
+  ════════════════════════════ -->
+  <div class="video-player-container" *ngIf="hasVideos">
+
     <div
       class="video-item"
       *ngFor="let video of videos; let i = index"
       [class.active]="i === currentVideoIndex">
 
-      <!-- Player -->
-      <app-video-player
-        [video]="video"
-        [isPlaying]="i === currentVideoIndex && isPlaying"
-        (videoEnded)="onVideoEnded()"
-      ></app-video-player>
+      <!-- Card vertical 9:16 -->
+      <div class="vertical-video-card" *ngIf="i === currentVideoIndex">
 
-      <!-- Overlay con info y controles -->
-      <app-video-overlay
-        [video]="video"
-        (like)="onLike($event)"
-        (comment)="onComment($event)"
-        (share)="onShare($event)"
-        (save)="onSave($event)"
-        (requestTranslation)="onRequestTranslation($event.video, $event.language)"
-      ></app-video-overlay>
+        <app-video-player
+          [video]="video"
+          [isPlaying]="i === currentVideoIndex && isPlaying"
+          (videoEnded)="onVideoEnded()">
+        </app-video-player>
+
+        <app-video-overlay
+          [video]="video"
+          (like)="onLike($event)"
+          (comment)="onComment($event)"
+          (share)="onShare($event)"
+          (save)="onSave($event)"
+          (requestTranslation)="onRequestTranslation($event.video, $event.language)">
+        </app-video-overlay>
+
+      </div>
+
     </div>
+
+    <!-- Acciones laterales de navegación -->
+    <div class="navigation-controls" *ngIf="hasVideos">
+      <button
+        class="nav-btn side-action-icon glass"
+        [disabled]="currentVideoIndex === 0"
+        (click)="previousVideo()">
+        ↑
+      </button>
+      <button
+        class="nav-btn side-action-icon glass"
+        [disabled]="currentVideoIndex === videos.length - 1 && !hasMore"
+        (click)="nextVideo()">
+        ↓
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Cargando más videos -->
+  <div class="loading-more" *ngIf="isLoading && videos.length > 0">
+    <div class="spinner-ring small"></div>
+    <p>{{ 'feed.loadingMore' | translate }}</p>
   </div>
 
   <!-- Estado vacío -->
@@ -38,36 +90,9 @@
     <div class="empty-icon">🎥</div>
     <h3>{{ 'feed.empty.title' | translate }}</h3>
     <p>{{ 'feed.empty.subtitle' | translate }}</p>
-    <button class="upload-btn" routerLink="/upload">
-      {{ 'feed.empty.upload' | translate }}
+    <button class="tool-btn upload-btn" routerLink="/upload">
+      {{ 'feed.empty.upload' | translate }} →
     </button>
   </div>
 
-  <!-- Loading más videos (scroll infinito) -->
-  <div class="loading-more" *ngIf="isLoading && videos.length > 0">
-    <div class="spinner-small"></div>
-    <p>{{ 'feed.loadingMore' | translate }}</p>
-  </div>
-
-  <!-- Controles de navegación -->
-  <div class="navigation-controls" *ngIf="hasVideos">
-    <button
-      class="nav-btn prev-btn"
-      [disabled]="currentVideoIndex === 0"
-      (click)="previousVideo()">
-      ↑
-    </button>
-    <button
-      class="nav-btn next-btn"
-      [disabled]="currentVideoIndex === videos.length - 1 && !hasMore"
-      (click)="nextVideo()">
-      ↓
-    </button>
-  </div>
-
-  <!-- Indicador de posición -->
-  <div class="position-indicator" *ngIf="hasVideos">
-    {{ 'feed.position' | translate: { current: currentVideoIndex + 1, total: videos.length } }}
-  </div>
 </div>
-

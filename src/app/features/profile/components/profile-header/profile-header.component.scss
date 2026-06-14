@@ -1,243 +1,282 @@
-$yellow: #fbbf24;
-$yellow-dim: rgba(251, 191, 36, 0.12);
-$bg: #0d0d14;
-$border: rgba(251, 191, 36, 0.1);
-$text-primary: #f1f5f9;
-$text-secondary: #94a3b8;
-$text-muted: #64748b;
+// ─── Profile Header ──────────────────────────────────────────────────────────
+:host { display: block; }
 
-.profile-header {
+.profile-header-box {
   position: relative;
-  margin-bottom: 0;
-}
-
-// ===== COVER =====
-.cover-area {
-  height: 160px;
-  background: linear-gradient(135deg, #0d0d14 0%, #1a1020 40%, #0d1020 100%);
-  position: relative;
-  overflow: hidden;
-
-  .cover-gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 80% at 20% 50%, rgba(251,191,36,0.08) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 60% at 80% 30%, rgba(251,191,36,0.05) 0%, transparent 60%);
-  }
-}
-
-// ===== HEADER BODY =====
-.header-body {
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px 24px;
   display: flex;
-  gap: 1.5rem;
-  padding: 0 2rem 1.5rem;
-  align-items: flex-start;
+  align-items: center;
+  gap: 28px;
+  transition: background 0.3s ease;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 0 1rem 1.5rem;
-    align-items: center;
-    text-align: center;
+  // On hover, subtle glow
+  &:hover {
+    border-color: var(--gold-border);
+    box-shadow: 0 0 0 1px var(--gold-border), 0 8px 32px rgba(0, 0, 0, 0.3);
   }
 }
 
-// ===== AVATAR =====
+// ─── Action Buttons (top-right) ───────────────────────────────────────────────
+.header-actions {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+%btn-base {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s var(--transition);
+  border: 1px solid var(--gold);
+  padding: 7px 16px;
+  line-height: 1;
+}
+
+.btn-edit {
+  @extend %btn-base;
+  background: transparent;
+  color: var(--gold);
+
+  &:hover {
+    background: var(--gold);
+    color: var(--text-inverse);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(var(--gold-rgb), 0.35);
+  }
+}
+
+.btn-follow {
+  @extend %btn-base;
+  background: var(--gold);
+  color: var(--text-inverse);
+
+  &:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(var(--gold-rgb), 0.4);
+  }
+
+  &.is-following {
+    background: transparent;
+    color: var(--gold);
+
+    &:hover {
+      background: rgba(var(--gold-rgb), 0.1);
+    }
+  }
+}
+
+.btn-message {
+  @extend %btn-base;
+  background: transparent;
+  color: var(--text-color);
+  border-color: var(--border-strong);
+
+  &:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-1px);
+  }
+}
+
+.btn-icon-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s var(--transition);
+
+  &:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: var(--gold-dim);
+  }
+}
+
+// ─── Main Info ────────────────────────────────────────────────────────────────
+.profile-main-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex: 1;
+  min-width: 0;
+}
+
+// ─── Avatar ───────────────────────────────────────────────────────────────────
 .avatar-wrap {
   position: relative;
   flex-shrink: 0;
-  margin-top: -48px;
-
-  .avatar {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    border: 3px solid $yellow;
-    object-fit: cover;
-    background: #1a1a26;
-    box-shadow: 0 0 0 4px rgba(251,191,36,0.12), 0 8px 24px rgba(0,0,0,0.5);
-  }
-
-  .verified-badge {
-    position: absolute;
-    bottom: 4px;
-    right: 4px;
-    width: 24px;
-    height: 24px;
-    background: $yellow;
-    border-radius: 50%;
-    border: 2px solid #0d0d14;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #0a0a0f;
-  }
+  width: 88px;
+  height: 88px;
 }
 
-// ===== INFO =====
-.header-info {
-  flex: 1;
-  min-width: 0;
-  padding-top: 0.5rem;
+.avatar-img {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-dim);
+  transition: border-color 0.2s;
 }
 
-.name-row {
+.verified-badge {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 22px;
+  height: 22px;
+  background: var(--gold);
+  border-radius: 50%;
+  border: 2px solid var(--bg-color, #080b14);
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.6rem;
-
-  @media (max-width: 768px) {
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-.names {
-  .full-name {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: $text-primary;
-    margin: 0 0 0.2rem;
-    line-height: 1.2;
-  }
-  .username {
-    color: $text-muted;
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-}
-
-// ===== ACCIONES =====
-.actions {
-  display: flex;
-  gap: 0.5rem;
-  flex-shrink: 0;
-  flex-wrap: wrap;
-
-  @media (max-width: 768px) { justify-content: center; }
-}
-
-.btn {
-  display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: 1px solid transparent;
-  letter-spacing: 0.01em;
-
-  &-primary {
-    background: $yellow;
-    color: #0a0a0f;
-    border-color: $yellow;
-
-    &:hover {
-      background: #f59e0b;
-      box-shadow: 0 4px 16px rgba(251,191,36,0.3);
-      transform: translateY(-1px);
-    }
-  }
-
-  &-outline {
-    background: transparent;
-    color: $yellow;
-    border-color: rgba(251,191,36,0.4);
-
-    &:hover {
-      background: $yellow-dim;
-      border-color: $yellow;
-    }
-  }
-
-  &-icon {
-    background: rgba(255,255,255,0.05);
-    color: $text-secondary;
-    border-color: $border;
-    padding: 0.5rem;
-
-    &:hover {
-      color: $yellow;
-      border-color: rgba(251,191,36,0.3);
-      background: $yellow-dim;
-    }
-  }
+  justify-content: center;
+  color: var(--text-inverse);
 }
 
-// ===== BIO =====
-.bio {
-  color: $text-secondary;
-  font-size: 0.9rem;
-  line-height: 1.55;
-  margin: 0 0 0.75rem;
-  max-width: 600px;
+// ─── User Text ────────────────────────────────────────────────────────────────
+.user-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
 }
 
-// ===== META =====
+.user-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-color);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-handle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.user-bio {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 360px;
+}
+
+// ─── Meta Row ─────────────────────────────────────────────────────────────────
 .meta-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 12px;
+  margin-top: 8px;
+}
 
-  @media (max-width: 768px) { justify-content: center; }
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-secondary);
 
-  .meta-item {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    color: $text-muted;
-    font-size: 0.82rem;
+  svg { flex-shrink: 0; stroke: var(--text-secondary); }
 
-    svg { flex-shrink: 0; opacity: 0.7; }
-
-    a {
-      color: $yellow;
-      text-decoration: none;
-      &:hover { text-decoration: underline; }
-    }
+  a {
+    color: var(--gold);
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
   }
 }
 
-// ===== STATS =====
+// ─── Stats Row ────────────────────────────────────────────────────────────────
 .stats-row {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0;
+  margin-left: auto;
+  flex-shrink: 0;
+}
 
-  @media (max-width: 768px) { justify-content: center; }
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px;
+  gap: 4px;
+}
 
-  .stat {
-    display: flex;
+.stat-num {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.stat-lbl {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--border-color);
+  flex-shrink: 0;
+}
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .profile-header-box {
     flex-direction: column;
-    align-items: center;
-    gap: 0.1rem;
-
-    .stat-value {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: $yellow;
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.75rem;
-      color: $text-muted;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
+    align-items: flex-start;
+    padding: 20px;
+    gap: 16px;
   }
 
-  .stat-sep {
-    width: 1px;
-    height: 28px;
-    background: $border;
+  .header-actions {
+    position: static;
+    order: -1;
+    align-self: flex-end;
   }
+
+  .profile-main-info {
+    width: 100%;
+  }
+
+  .stats-row {
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-around;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .stat-item { padding: 0 12px; }
+
+  .user-name { font-size: 18px; }
 }

@@ -321,6 +321,33 @@ export class ChatService implements OnDestroy {
     );
   }
 
+  translateImageInMessage(messageId: number, targetLanguage: string): Observable<{
+    original_text: string | null;
+    translated_text: string | null;
+    source_language: string | null;
+    target_language: string;
+    has_text: boolean;
+  }> {
+    return this.http.post<any>(
+      `${environment.apiUrl}/chat/messages/${messageId}/translate-image`,
+      null,
+      { params: { target_language: targetLanguage } }
+    );
+  }
+
+  translateAudioInMessage(messageId: number, targetLanguage: string): Observable<{
+    original_transcript: string | null;
+    translated_text: string | null;
+    source_language: string | null;
+    target_language: string;
+  }> {
+    return this.http.post<any>(
+      `${environment.apiUrl}/chat/messages/${messageId}/translate-audio`,
+      null,
+      { params: { target_language: targetLanguage } }
+    );
+  }
+
   // ======================================================
   // STREAMS DERIVADOS
   // ======================================================

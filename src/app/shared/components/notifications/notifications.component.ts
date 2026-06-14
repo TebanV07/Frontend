@@ -27,27 +27,26 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    // Cargar notificaciones
-    this.loadNotifications();
+ngOnInit(): void {
+  // ✅ No hacer nada si no hay sesión
+  if (!localStorage.getItem('access_token')) return;
 
-    // Suscribirse a cambios de notificaciones
-    this.notificationService.notifications$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(notifications => {
-        this.notifications = notifications;
-      });
+  this.notificationService.notifications$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(notifications => {
+      this.notifications = notifications;
+    });
 
-    // Suscribirse a cambios de contador
-    this.notificationService.unreadCount$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(count => {
-        this.unreadCount = count;
-      });
+  this.notificationService.unreadCount$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(count => {
+      this.unreadCount = count;
+    });
 
-    // Activar polling
-    this.notificationService.setPollingActive(true);
-  }
+  // ✅ Solo activar polling, no llamar loadNotifications() por separado
+  // El servicio ya lo hace internamente al activar
+  this.notificationService.setPollingActive(true);
+}
 
   ngOnDestroy(): void {
     this.notificationService.setPollingActive(false);

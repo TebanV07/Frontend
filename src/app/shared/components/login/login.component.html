@@ -6,199 +6,244 @@
     (completed)="onCountrySetupCompleted()">
   </app-country-setup>
 
+  <!-- Background decorativo -->
   <div class="login-background">
-    <div class="floating-element element-1"></div>
-    <div class="floating-element element-2"></div>
-    <div class="floating-element element-3"></div>
-    <div class="floating-element element-4"></div>
+    <div class="floating-glow glow-1"></div>
+    <div class="floating-glow glow-2"></div>
+    <div class="floating-glow glow-3"></div>
   </div>
 
-  <div class="login-content">
-    <div class="login-card" [class.register-mode]="isRegisterMode">
-      <div class="brand-section">
-        <div class="brand-logo">
-          <img class="logo" src="../../../../assets/tinko.jpg" alt="TINKO Logo">
-          <h1 class="brand-name">TINKO</h1>
-        </div>
-        <div class="ai-tagline">
-          <span class="ai-icon">✨</span>
-          <span>{{ 'brand.tagline' | translate }}</span>
-        </div>
+  <main class="auth-container">
+
+    <section
+      class="auth-card glass"
+      [class.register-mode]="isRegisterMode">
+
+      <!-- LOGO -->
+      <div class="logo-wrapper">
+        <img
+          class="logo"
+          src="../../../../assets/logoheader.png"
+          alt="TIMQU Logo">
       </div>
 
-      <div class="error-message" *ngIf="errorMessage">
-        <span class="error-icon">⚠️</span>
+      <!-- ERROR -->
+      <div
+        class="error-message"
+        *ngIf="errorMessage">
+        <span>⚠</span>
         <span>{{ errorMessage }}</span>
       </div>
 
-      <div class="form-container">
-        <div class="form-header">
-          <h2 class="form-title">{{ isRegisterMode ? ('auth.register.title' | translate) : ('auth.login.title' | translate) }}</h2>
-          <p class="form-subtitle">
-            {{ isRegisterMode ? ('auth.register.subtitle' | translate) : ('auth.login.subtitle' | translate) }}
-          </p>
+      <!-- TITULO -->
+      <div class="auth-header">
+        <h2>
+          {{
+            isRegisterMode
+              ? ('auth.register.title' | translate)
+              : ('auth.login.title' | translate)
+          }}
+        </h2>
+
+        <p>
+          {{
+            isRegisterMode
+              ? ('auth.register.subtitle' | translate)
+              : ('auth.login.subtitle' | translate)
+          }}
+        </p>
+      </div>
+
+      <!-- FORM -->
+      <form
+        class="auth-form"
+        (ngSubmit)="onSubmit()"
+        #loginForm="ngForm">
+
+        <!-- REGISTER -->
+        <div
+          class="form-group"
+          *ngIf="isRegisterMode">
+
+          <input
+            type="text"
+            [placeholder]="'auth.fields.firstName' | translate"
+            [(ngModel)]="formData.firstName"
+            name="firstName"
+            required>
         </div>
 
-        <form class="login-form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
-          <div class="form-group" *ngIf="isRegisterMode">
-            <div class="input-container">
-              <span class="input-icon">👤</span>
-              <input type="text" class="form-input" [placeholder]="'auth.fields.firstName' | translate"
-                [(ngModel)]="formData.firstName" name="firstName" required>
-              <div class="input-line"></div>
-            </div>
-          </div>
+        <div
+          class="form-group"
+          *ngIf="isRegisterMode">
 
-          <div class="form-group" *ngIf="isRegisterMode">
-            <div class="input-container">
-              <span class="input-icon">👥</span>
-              <input type="text" class="form-input" [placeholder]="'auth.fields.lastName' | translate"
-                [(ngModel)]="formData.lastName" name="lastName" required>
-              <div class="input-line"></div>
-            </div>
-          </div>
+          <input
+            type="text"
+            [placeholder]="'auth.fields.lastName' | translate"
+            [(ngModel)]="formData.lastName"
+            name="lastName"
+            required>
+        </div>
 
-          <div class="form-group" *ngIf="isRegisterMode">
-            <div class="input-container">
-              <span class="input-icon">🔖</span>
-              <input type="text" class="form-input" [placeholder]="'auth.fields.username' | translate"
-                [(ngModel)]="formData.username" name="username">
-              <div class="input-line"></div>
-            </div>
-            <small class="input-hint">{{ 'auth.register.usernameHint' | translate }}</small>
-          </div>
+        <div
+          class="form-group"
+          *ngIf="isRegisterMode">
 
-          <div class="form-group">
-            <div class="input-container">
-              <span class="input-icon">✉️</span>
-              <input type="email" class="form-input" [placeholder]="'auth.fields.email' | translate"
-                [(ngModel)]="formData.email" name="email" required>
-              <div class="input-line"></div>
-            </div>
-          </div>
+          <input
+            type="text"
+            [placeholder]="'auth.fields.username' | translate"
+            [(ngModel)]="formData.username"
+            name="username">
+        </div>
 
-          <div class="form-group">
-            <div class="input-container">
-              <span class="input-icon">🔒</span>
-              <input [type]="showPassword ? 'text' : 'password'" class="form-input" [placeholder]="'auth.fields.password' | translate"
-                [(ngModel)]="formData.password" name="password" required>
-              <button type="button" class="password-toggle" (click)="togglePassword()">
-                {{ showPassword ? '👁️' : '👁️‍🗨️' }}
-              </button>
-              <div class="input-line"></div>
-            </div>
-          </div>
+        <!-- EMAIL -->
+        <div class="form-group">
+          <input
+            type="email"
+            [placeholder]="'auth.fields.email' | translate"
+            [(ngModel)]="formData.email"
+            name="email"
+            required>
+        </div>
 
-          <div class="form-group" *ngIf="isRegisterMode">
-            <div class="input-container">
-              <span class="input-icon">🌍</span>
-              <select class="form-input form-select" [(ngModel)]="formData.nativeLanguage"
-                name="nativeLanguage" required>
-                <option *ngFor="let lang of availableLanguages" [value]="lang.code">
-                  {{ lang.flag }} {{ lang.nativeName }}
-                </option>
-              </select>
-              <div class="input-line"></div>
-            </div>
-            <small class="input-hint">{{ 'auth.register.nativeLanguageHint' | translate }}</small>
-          </div>
+        <!-- PASSWORD -->
+        <div class="form-group password-group">
 
-          <div class="form-options" *ngIf="!isRegisterMode">
-            <label class="checkbox-container">
-              <input type="checkbox" [(ngModel)]="formData.rememberMe" name="rememberMe">
-              <span class="checkmark"></span>
-              <span class="checkbox-text">{{ 'auth.login.rememberMe' | translate }}</span>
-            </label>
-            <a routerLink="/forgot-password" class="forgot-password">{{ 'auth.login.forgotPassword' | translate }}</a>
-          </div>
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            [placeholder]="'auth.fields.password' | translate"
+            [(ngModel)]="formData.password"
+            name="password"
+            required>
 
-          <button type="submit" class="submit-btn" [class.loading]="isLoading" [disabled]="isLoading">
-            <span class="btn-content" *ngIf="!isLoading">
-              <span class="btn-text">{{ isRegisterMode ? ('auth.register.submit' | translate) : ('auth.login.submit' | translate) }}</span>
-              <span class="btn-icon">✨</span>
-            </span>
-            <div class="loading-spinner" *ngIf="isLoading">
-              <div class="spinner"></div>
-              <span>{{ isRegisterMode ? ('auth.register.submitting' | translate) : ('auth.login.submitting' | translate) }}</span>
-            </div>
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="togglePassword()">
+
+            {{ showPassword ? '👁️' : '👁️‍🗨️' }}
           </button>
+        </div>
 
-          <div class="ai-features-preview" *ngIf="isRegisterMode">
-            <h4 class="features-title">{{ 'auth.features.title' | translate }}</h4>
-            <div class="features-list">
-              <div class="feature-item">
-                <span class="feature-icon">🎥</span>
-                <span class="feature-text">{{ 'auth.features.videos' | translate }}</span>
-              </div>
-              <div class="feature-item">
-                <span class="feature-icon">🌐</span>
-                <span class="feature-text">{{ 'auth.features.languages' | translate }}</span>
-              </div>
-              <div class="feature-item">
-                <span class="feature-icon">🤖</span>
-                <span class="feature-text">{{ 'auth.features.ai' | translate }}</span>
-              </div>
-            </div>
-          </div>
-        </form>
+        <!-- LANGUAGE -->
+        <div
+          class="form-group"
+          *ngIf="isRegisterMode">
 
-        <div class="form-footer">
-          <div class="social-login">
-            <div class="divider">
-              <span class="divider-text">{{ 'auth.login.orContinueWith' | translate }}</span>
-            </div>
+          <select
+            [(ngModel)]="formData.nativeLanguage"
+            name="nativeLanguage"
+            required>
 
-            <div class="social-buttons">
-              <div id="google-btn-container" style="width: 100%;"></div>
-            </div>
-          </div>
+            <option
+              *ngFor="let lang of availableLanguages"
+              [value]="lang.code">
 
-          <div class="switch-mode">
-            <span class="switch-text">
-              {{ isRegisterMode ? ('auth.register.hasAccount' | translate) : ('auth.login.noAccount' | translate) }}
+              {{ lang.flag }} {{ lang.nativeName }}
+            </option>
+          </select>
+        </div>
+
+        <!-- LOGIN OPTIONS -->
+        <div
+          class="form-options"
+          *ngIf="!isRegisterMode">
+
+          <label class="remember-me">
+
+            <input
+              type="checkbox"
+              [(ngModel)]="formData.rememberMe"
+              name="rememberMe">
+
+            <span>
+              {{ 'auth.login.rememberMe' | translate }}
             </span>
-            <button type="button" class="switch-btn" (click)="toggleMode()">
-              {{ isRegisterMode ? ('auth.register.switchToLogin' | translate) : ('auth.login.switchToRegister' | translate) }}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+          </label>
 
-    <!-- Sección de la derecha se mantiene -->
-    <div class="demo-section">
-      <div class="demo-video">
-        <div class="video-placeholder">
-          <div class="play-button">
-            <span class="play-icon">▶️</span>
-          </div>
-          <div class="video-overlay">
-            <h3 class="video-title">Mira TranslateSocial en acción</h3>
-            <p class="video-description">
-              Descubre cómo la IA rompe las barreras del idioma en tiempo real
-            </p>
-          </div>
+          <a
+            routerLink="/forgot-password"
+            class="forgot-link">
+
+            {{ 'auth.login.forgotPassword' | translate }}
+          </a>
         </div>
+
+        <!-- SUBMIT -->
+        <button
+          type="submit"
+          class="submit-btn"
+          [disabled]="isLoading">
+
+          <span *ngIf="!isLoading">
+            {{
+              isRegisterMode
+                ? ('auth.register.submit' | translate)
+                : ('auth.login.submit' | translate)
+            }}
+          </span>
+
+          <span *ngIf="isLoading">
+            {{
+              isRegisterMode
+                ? ('auth.register.submitting' | translate)
+                : ('auth.login.submitting' | translate)
+            }}
+          </span>
+        </button>
+
+      </form>
+
+      <!-- GOOGLE -->
+      <div class="social-section">
+
+        <div class="divider">
+          <span>
+            {{ 'auth.login.orContinueWith' | translate }}
+          </span>
+        </div>
+
+        <div id="google-btn-container"></div>
       </div>
 
-      <div class="testimonials">
-        <div class="testimonial active">
-          <div class="testimonial-content">
-            <p class="testimonial-text">
-              "¡Increíble! Ahora puedo ver videos de cualquier país y entenderlos perfectamente."
-            </p>
-            <div class="testimonial-author">
-              <img src="https://images.unsplash.com/photo-1494790108755-2616b612b05b?w=40&h=40&fit=crop&crop=face"
-                alt="Usuario" class="author-avatar">
-              <div class="author-info">
-                <span class="author-name">María González</span>
-                <span class="author-role">Content Creator</span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- SWITCH -->
+      <div class="toggle-section">
+
+        <p class="toggle-link">
+
+          <span>
+            {{
+              isRegisterMode
+                ? ('auth.register.hasAccount' | translate)
+                : ('auth.login.noAccount' | translate)
+            }}
+          </span>
+
+          <button
+            type="button"
+            class="toggle-btn"
+            (click)="toggleMode()">
+
+            {{
+              isRegisterMode
+                ? ('auth.register.switchToLogin' | translate)
+                : ('auth.login.switchToRegister' | translate)
+            }}
+          </button>
+        </p>
+
+        <p
+          class="forgot-text"
+          *ngIf="!isRegisterMode">
+
+          <a routerLink="/forgot-password">
+            {{ 'auth.login.forgotPassword' | translate }}
+          </a>
+        </p>
+
       </div>
-    </div>
-  </div>
+
+    </section>
+
+  </main>
 </div>
-

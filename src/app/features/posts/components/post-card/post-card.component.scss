@@ -1,489 +1,468 @@
-// ===============================================
-// VARIABLES - VITALITY DARK/YELLOW THEME
-// ===============================================
-$yellow: #f5c518;
-$yellow-bright: #ffd700;
-$yellow-glow: rgba(245, 197, 24, 0.3);
-$dark-bg: #111111;
-$dark-surface: #1c1c1c;
-$dark-card: #242424;
-$dark-border: #2e2e2e;
-$text-primary: #f0f0f0;
-$text-secondary: #a0a0a0;
-$text-muted: #5a5a5a;
+// ================================================================
+// post-card.component.scss
+// Variables: --glass-bg, --glass-border, --gold, --text-main,
+//            --text-dim, --input-bg, --status-dark
+// ================================================================
 
+// ── Card shell ──────────────────────────────────────────────────
 .post-card {
-  background: $dark-surface;
-  border: 1px solid $dark-border;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
   border-radius: 16px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  transition: all 0.3s ease;
+  overflow: hidden;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  position: relative;
 
   &:hover {
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba($yellow, 0.15);
-    transform: translateY(-2px);
-    border-color: rgba($yellow, 0.2);
-  }
-
-  // ==================== CABECERA ====================
-
-  .post-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1rem;
-
-    .author-info {
-      display: flex;
-      gap: 0.875rem;
-      flex: 1;
-      align-items: flex-start;
-
-      .avatar {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid rgba($yellow, 0.5);
-        box-shadow: 0 2px 8px $yellow-glow;
-        cursor: pointer;
-        flex-shrink: 0;
-      }
-
-      .author-details {
-        flex: 1;
-
-        .author-name-row {
-          display: flex;
-          align-items: center;
-          gap: 0.4rem;
-          margin-bottom: 0.2rem;
-          flex-wrap: wrap;
-        }
-
-        .username {
-          font-size: 1rem;
-          font-weight: 600;
-          color: $text-primary;
-          text-decoration: none;
-          &:hover { color: $yellow; }
-        }
-
-        .author-flag {
-          width: 20px;
-          height: auto;
-          border-radius: 3px;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-          vertical-align: middle;
-        }
-
-        .full-name {
-          display: block;
-          font-size: 0.8rem;
-          color: $text-secondary;
-          margin-bottom: 0.1rem;
-        }
-
-        .timestamp {
-          font-size: 0.8125rem;
-          color: $text-muted;
-        }
-      }
-    }
-
-    .post-menu {
-      position: relative;
-
-      .menu-button {
-        background: none;
-        border: none;
-        color: $text-muted;
-        cursor: pointer;
-        padding: 0.25rem 0.5rem;
-        border-radius: 8px;
-        transition: all 0.2s ease;
-        &:hover { background: rgba($yellow, 0.08); color: $yellow; }
-      }
-
-      .dropdown-menu {
-        position: absolute;
-        right: 0;
-        top: 100%;
-        background: $dark-card;
-        border: 1px solid $dark-border;
-        border-radius: 10px;
-        padding: 0.5rem;
-        z-index: 10;
-        min-width: 120px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-
-        button {
-          display: block;
-          width: 100%;
-          background: none;
-          border: none;
-          color: $text-primary;
-          padding: 0.5rem 0.75rem;
-          border-radius: 6px;
-          cursor: pointer;
-          text-align: left;
-          font-size: 0.875rem;
-          transition: background 0.2s;
-          &:hover { background: rgba($yellow, 0.08); color: $yellow; }
-          &.danger { color: #ff6b6b; }
-          &.danger:hover { background: rgba(255, 107, 107, 0.1); }
-        }
-      }
-    }
-  }
-
-  // ==================== CONTENIDO ====================
-
-  .post-content {
-    margin-bottom: 1rem;
-
-    .language-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.375rem;
-      padding: 0.25rem 0.625rem;
-      background: rgba($yellow, 0.08);
-      border: 1px solid rgba($yellow, 0.2);
-      border-radius: 20px;
-      margin-bottom: 0.75rem;
-
-      .lang-flag { width: 18px; height: auto; border-radius: 2px; }
-      .language-name { font-size: 0.75rem; font-weight: 600; color: rgba($yellow, 0.85); text-transform: capitalize; }
-    }
-
-    .content-text {
-      color: $text-primary;
-      line-height: 1.6;
-      margin-bottom: 1rem;
-      font-size: 0.9375rem;
-
-      &.translated-text {
-        background: rgba($yellow, 0.04);
-        padding: 0.75rem;
-        border-radius: 8px;
-        border-left: 3px solid $yellow;
-      }
-    }
-
-    .media-container {
-      .video-wrapper {
-        position: relative;
-        border-radius: 12px;
-        overflow: hidden;
-        background: #000;
-        margin-top: 0.75rem;
-
-        .media-video { width: 100%; max-height: 500px; display: block; }
-
-        .media-image.poster {
-          width: 100%;
-          max-height: 500px;
-          object-fit: cover;
-          cursor: pointer;
-          display: block;
-        }
-
-        .play-overlay {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(0,0,0,0.3);
-          cursor: pointer;
-          transition: background 0.2s;
-          &:hover { background: rgba(0,0,0,0.5); }
-        }
-
-        .stop-btn {
-          position: absolute;
-          top: 0.75rem;
-          right: 0.75rem;
-          background: rgba(0,0,0,0.7);
-          border: none;
-          color: #fff;
-          padding: 0.35rem 0.75rem;
-          border-radius: 8px;
-          cursor: pointer;
-          font-size: 0.8rem;
-        }
-      }
-
-      // ── Grid de imágenes ─────────────────────────────────
-      .image-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 0.5rem;
-        margin-top: 0.75rem;
-
-        // ── Cada imagen dentro de su contenedor ──────────
-        .image-item {
-          position: relative;
-          border-radius: 10px;
-          overflow: hidden;
-          background: $dark-card;
-
-          .media-image {
-            width: 100%;
-            height: auto;
-            max-height: 500px;
-            object-fit: contain;
-            display: block;
-            background: $dark-card;
-          }
-
-          // ── Barra inferior con botón de traducir ─────────
-          .img-translate-bar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 0.4rem 0.5rem;
-            background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
-            display: flex;
-            justify-content: flex-end;
-
-            .btn-img-translate {
-              display: inline-flex;
-              align-items: center;
-              gap: 0.3rem;
-              padding: 0.3rem 0.65rem;
-              background: rgba($dark-card, 0.85);
-              border: 1px solid rgba($yellow, 0.25);
-              border-radius: 20px;
-              color: rgba($yellow, 0.85);
-              font-size: 0.72rem;
-              font-weight: 600;
-              cursor: pointer;
-              transition: all 0.2s ease;
-              backdrop-filter: blur(4px);
-
-              svg { flex-shrink: 0; }
-
-              &:hover {
-                background: rgba($yellow, 0.15);
-                border-color: rgba($yellow, 0.5);
-                color: $yellow;
-                transform: translateY(-1px);
-              }
-
-              &.active {
-                background: rgba($yellow, 0.12);
-                border-color: rgba($yellow, 0.4);
-                color: $yellow;
-              }
-
-              &:disabled {
-                opacity: 0.6;
-                cursor: not-allowed;
-                transform: none;
-              }
-            }
-          }
-
-          // ── Panel de resultado OCR + traducción ───────────
-          .img-translation-panel {
-            position: absolute;
-            inset: 0;
-            background: rgba($dark-bg, 0.93);
-            backdrop-filter: blur(6px);
-            padding: 1rem;
-            overflow-y: auto;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-
-            .panel-original,
-            .panel-translated {
-              .panel-label {
-                display: flex;
-                align-items: center;
-                gap: 0.3rem;
-                font-size: 0.7rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 0.06em;
-                color: $text-muted;
-                margin-bottom: 0.35rem;
-
-                .panel-flag {
-                  width: 14px;
-                  height: auto;
-                  border-radius: 2px;
-                }
-              }
-
-              p {
-                font-size: 0.85rem;
-                line-height: 1.55;
-                color: $text-primary;
-                margin: 0;
-                white-space: pre-wrap;
-              }
-            }
-
-            .panel-original p { color: $text-secondary; }
-
-            .panel-translated p {
-              color: $text-primary;
-              font-weight: 500;
-            }
-
-            .panel-divider {
-              height: 1px;
-              background: $dark-border;
-            }
-
-            .no-text {
-              font-size: 0.82rem;
-              color: $text-muted;
-              text-align: center;
-              margin: auto 0;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // ── Indicador de traducción activa ───────────────────────
-  .translation-indicator {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-    padding: 0.5rem 0.875rem;
-    background: rgba($yellow, 0.06);
-    border: 1px solid rgba($yellow, 0.18);
-    border-radius: 10px;
-    margin-bottom: 0.75rem;
-    font-size: 0.8rem;
-    color: $text-secondary;
-
-    .lang-flag-small { width: 16px; height: auto; border-radius: 2px; vertical-align: middle; }
-    .original-lang { display: inline-flex; align-items: center; gap: 0.3rem; color: $text-muted; }
-  }
-
-  // ==================== ESTADÍSTICAS ====================
-
-  .post-stats {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.5rem 0;
-    font-size: 0.85rem;
-    color: $text-muted;
-
-    .comment-count { cursor: pointer; &:hover { color: $text-secondary; } }
-  }
-
-  // ==================== ACCIONES ====================
-
-  .post-actions {
-    display: flex;
-    gap: 0.75rem;
-    padding-top: 1rem;
-    border-top: 1px solid $dark-border;
-    flex-wrap: wrap;
-
-    .action-button {
-      display: flex;
-      align-items: center;
-      gap: 0.375rem;
-      padding: 0.5rem 1rem;
-      background: $dark-card;
-      border: 1px solid $dark-border;
-      border-radius: 20px;
-      font-size: 0.875rem;
-      color: $text-secondary;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-weight: 500;
-
-      svg { flex-shrink: 0; }
-
-      &:hover {
-        background: rgba($yellow, 0.08);
-        border-color: rgba($yellow, 0.25);
-        color: $yellow;
-        transform: translateY(-1px);
-      }
-
-      &.translate-button {
-        &:hover  { color: #a78bfa; border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.08); }
-        &.active { color: #a78bfa; border-color: rgba(167,139,250,0.4); background: rgba(167,139,250,0.1); }
-      }
-
-      &:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    }
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   }
 }
 
-// ==================== RESPONSIVE ====================
+// ── DELETE overlay ───────────────────────────────────────────────
+.delete-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-@media (max-width: 768px) {
-  .post-card {
-    padding: 1rem;
+.delete-confirm {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 28px 32px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  backdrop-filter: blur(20px);
 
-    .post-header .author-info .avatar { width: 40px; height: 40px; }
+  .confirm-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
 
-    .post-actions {
-      gap: 0.4rem;
-      .action-button {
-        flex: 1;
-        justify-content: center;
-        padding: 0.5rem 0.5rem;
-        font-size: 0.8rem;
-      }
-    }
+  h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+  }
 
-    .post-content .media-container .image-grid {
-      grid-template-columns: 1fr;
-
-      .image-item .media-image { height: 220px; }
-    }
+  p {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin-bottom: 20px;
   }
 }
-.btn-img-overlay {
+
+.delete-error {
+  font-size: 0.78rem;
+  color: #ff5252;
+  background: rgba(255, 82, 82, 0.1);
+  border: 1px solid rgba(255, 82, 82, 0.25);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn-cancel-del {
+  padding: 9px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: transparent;
+  color: var(--text-main);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover:not(:disabled) { background: var(--input-bg); }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.btn-delete-confirm {
+  padding: 9px 20px;
+  border-radius: 10px;
+  border: none;
+  background: #ff5252;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &:hover:not(:disabled) { background: #ff1744; transform: translateY(-1px); }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+// ── Header ───────────────────────────────────────────────────────
+.post-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 18px 0;
+}
+
+.author-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--glass-border);
+  cursor: pointer;
+  transition: border-color 0.2s;
+  flex-shrink: 0;
+
+  &:hover { border-color: var(--gold); }
+}
+
+.author-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.author-name-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.username {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover { color: var(--gold); }
+}
+
+.author-flag,
+.country-flag {
+  width: 18px;
+  height: auto;
+  border-radius: 2px;
+}
+
+.full-name {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.timestamp {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+// ── Dropdown menu ────────────────────────────────────────────────
+.post-menu {
+  position: relative;
+}
+
+.menu-button {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: var(--input-bg);
+    color: var(--text-main);
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  background: var(--status-dark);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 6px;
+  min-width: 170px;
+  z-index: 50;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  animation: dropIn 0.15s ease;
+
+  button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-main);
+    font-size: 0.82rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-align: left;
+
+    &:hover { background: var(--input-bg); }
+    &.danger { color: #ff5252; &:hover { background: rgba(255, 82, 82, 0.1); } }
+  }
+}
+
+.menu-divider {
+  height: 1px;
+  background: var(--glass-border);
+  margin: 4px 0;
+}
+
+// ── Content ──────────────────────────────────────────────────────
+.post-content {
+  padding: 14px 18px 0;
+}
+
+.language-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--input-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 3px 10px;
+  margin-bottom: 10px;
+  font-size: 0.72rem;
+
+  .lang-flag { width: 16px; height: auto; border-radius: 2px; }
+  .language-name { color: var(--text-dim); }
+}
+
+.content-text {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-main);
+  margin: 0 0 14px;
+  white-space: pre-wrap;
+
+  &.translated-text {
+    border-left: 2px solid var(--gold);
+    padding-left: 12px;
+    font-style: italic;
+  }
+}
+
+// ── Media ────────────────────────────────────────────────────────
+.media-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.video-wrapper {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 16/9;
+
+  .media-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &.poster { cursor: pointer; }
+}
+
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover { background: rgba(0, 0, 0, 0.45); }
+
+  svg { filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5)); }
+}
+
+.stop-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--glass-border);
+  color: #fff;
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.media-image {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+  object-fit: cover;
+  max-height: 500px;
+}
+
+.image-grid {
+  display: grid;
+  gap: 6px;
+  border-radius: 12px;
+  overflow: hidden;
+
+  &:has(.image-item:nth-child(1):last-child) { grid-template-columns: 1fr; }
+  &:has(.image-item:nth-child(2):last-child) { grid-template-columns: 1fr 1fr; }
+  &:has(.image-item:nth-child(3):last-child) {
+    grid-template-columns: 1fr 1fr;
+    .image-item:first-child { grid-column: 1 / -1; }
+  }
+  &:has(.image-item:nth-child(n+4)) { grid-template-columns: 1fr 1fr; }
+}
+
+.image-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+
+    &:hover { transform: scale(1.02); }
+  }
+}
+
+.overlay-spinner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  font-size: 1.4rem;
+}
+
+// ── Translation indicator ────────────────────────────────────────
+.translation-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  padding: 8px 18px 0;
+  flex-wrap: wrap;
+
+  .lang-flag-small { width: 14px; height: auto; border-radius: 2px; }
+
+  .original-lang {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+// ── Stats bar ────────────────────────────────────────────────────
+.post-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px 0;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+
+  .comment-count { display: flex; align-items: center; gap: 4px; }
+}
+
+// ── Actions ──────────────────────────────────────────────────────
+.post-actions {
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 4px 8px;
-  font-size: 11px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(30, 30, 30, 0.85);
-  color: #fff;
+  padding: 10px 12px 14px;
+  border-top: 1px solid var(--glass-border);
+  margin-top: 10px;
+}
+
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 0.8rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(4px);
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none;
 
-  &:hover:not(:disabled) {
-    background: rgba(50, 50, 50, 0.95);
-    border-color: rgba(255, 200, 0, 0.6);
-    color: #ffc800;
+  &:hover {
+    background: var(--input-bg);
+    color: var(--text-main);
   }
 
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
+  &.translate-button {
+    margin-left: auto;
+    border: 1px solid var(--glass-border);
 
-  &.active {
-    background: rgba(255, 200, 0, 0.15);
-    border-color: #ffc800;
-    color: #ffc800;
-  }
+    &:hover, &.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.08);
+    }
 
-  svg {
-    stroke: currentColor;
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
   }
 }
+
+// ── Animations ───────────────────────────────────────────────────
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.spinner-sm {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }

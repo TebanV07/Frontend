@@ -100,7 +100,8 @@
             "messages": "Сообщения",
             "notifications": "Уведомления",
             "profile": "Профиль",
-            "settings": "Настройки"
+            "settings": "Настройки",
+            "explore": "Найти людей"
         },
         "theme": {
             "light": "Светлая тема",
@@ -133,7 +134,15 @@
             "deleteForMe": "Удалить у меня",
             "forward": "Переслать",
             "share": "Поделиться",
-            "translate": "Перевести"
+            "translate": "Перевести",
+            "translateImage": "Перевести изображение",
+            "translateAudio": "Перевести аудио",
+            "translating": "Перевод...",
+            "transcribing": "Транскрибирование...",
+            "hideTranslation": "Скрыть перевод",
+            "hideTranscript": "Скрыть расшифровку",
+            "noTextInImage": "В этом изображении не найдено читаемого текста",
+            "originalTranscript": "Оригинал"
         }
     },
     "feed": {
@@ -289,7 +298,13 @@
         },
         "filters": {
             "byCountry": "Фильтр по стране",
-            "allCountries": "Все страны"
+            "allCountries": "Все страны",
+            "byHashtag": "Фильтр по хэштегу",
+            "clearHashtag": "Очистить хэштег",
+            "noHashtags": "Нет трендовых хэштегов",
+            "showingHashtag": "Пользователи, интересующиеся #{{ tag }}",
+            "noUsersForHashtag": "Пользователи для этого хэштега не найдены",
+            "tryOtherHashtag": "Попробуйте другой хэштег"
         },
         "actions": {
             "talk": "Хочу поговорить"
@@ -506,7 +521,15 @@
         "trendingBadge": "Тренд",
         "watchNow": "Смотреть",
         "gridView": "Сетка",
-        "listView": "Список"
+        "listView": "Список",
+        "filterByHashtag": "Фильтр по хэштегу",
+        "clearFilter": "Очистить фильтр",
+        "noVideosForHashtag": "Нет видео для #{{ tag }}",
+        "noVideosAvailable": "Нет доступных видео",
+        "tryOtherHashtag": "Попробуйте другой хэштег",
+        "tryGlobal": "Попробуйте 'Global' или другую страну",
+        "beFirst": "Станьте первым, кто загружает контент",
+        "noTrendingHint": "Смените страну или загрузите видео с хэштегами"
     },
     "lives": {
         "title": "Прямой эфир",

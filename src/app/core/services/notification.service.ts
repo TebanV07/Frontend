@@ -51,35 +51,49 @@ export class NotificationService {
 
   // Control de polling
   private pollingActive = false;
+  private pollingStarted = false; // ← evita arrancar el intervalo dos veces
   private pollingInterval = 30000; // 30 segundos
 
   constructor(private http: HttpClient) {
-    this.initializePolling();
+    // ✅ NO iniciamos polling aquí.
+    // AuthService llama startPolling() después de verificar la sesión.
   }
 
+  // ============================================================
+  // CONTROL DE POLLING
+  // ============================================================
+
   /**
-   * Inicializar polling automático de notificaciones
+   * Arranca el polling. Lo llama AuthService después de verificar la sesión.
+   * Es seguro llamarlo varias veces — pollingStarted previene doble arranque.
    */
-  private initializePolling(): void {
-    // Cargar notificaciones por primera vez (suscribir para disparar)
+  startPolling(): void {
+    if (!localStorage.getItem('access_token')) return;
+
+    this.pollingActive = true;
+
+    // Carga inmediata al arrancar
     this.loadNotifications().subscribe({
       next: () => {},
       error: err => console.error('Error inicial cargando notificaciones:', err)
     });
 
-    // Configurar polling each 30 seconds
+    // Arrancar el intervalo solo una vez
+    if (this.pollingStarted) return;
+    this.pollingStarted = true;
+
     interval(this.pollingInterval)
       .pipe(
-        filter(() => this.pollingActive),
+        filter(() => this.pollingActive && !!localStorage.getItem('access_token')),
         switchMap(() => this.getNotifications(0, 20, false))
       )
-      .subscribe(
-        (response) => {
+      .subscribe({
+        next: (response) => {
           this.notificationsSubject.next(response.notifications);
           this.unreadCountSubject.next(response.unread_count);
         },
-        (error) => console.error('Error en polling de notificaciones:', error)
-      );
+        error: (error) => console.error('Error en polling:', error)
+      });
   }
 
   /**
@@ -87,10 +101,17 @@ export class NotificationService {
    */
   setPollingActive(active: boolean): void {
     this.pollingActive = active;
-    if (active) {
-      this.loadNotifications();
+    if (active && localStorage.getItem('access_token')) {
+      this.loadNotifications().subscribe({
+        next: () => {},
+        error: err => console.error('Error cargando notificaciones:', err)
+      });
     }
   }
+
+  // ============================================================
+  // CRUD DE NOTIFICACIONES
+  // ============================================================
 
   /**
    * Cargar notificaciones
@@ -337,10 +358,9 @@ export class NotificationService {
   }
 
   /**
-   * Destructor: limpiar when component destruy
+   * Destructor
    */
   ngOnDestroy(): void {
     this.setPollingActive(false);
   }
 }
-

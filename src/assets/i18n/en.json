@@ -100,7 +100,8 @@
             "messages": "Messages",
             "notifications": "Notifications",
             "profile": "Profile",
-            "settings": "Settings"
+            "settings": "Settings",
+            "explore": "Explore people"
         },
         "theme": {
             "light": "Light Mode",
@@ -133,7 +134,15 @@
             "deleteForMe": "Delete for me",
             "forward": "Forward",
             "share": "Share",
-            "translate": "Translate"
+            "translate": "Translate",
+            "translateImage": "Translate image",
+            "translateAudio": "Translate audio",
+            "translating": "Translating...",
+            "transcribing": "Transcribing...",
+            "hideTranslation": "Hide translation",
+            "hideTranscript": "Hide transcript",
+            "noTextInImage": "No readable text found in this image",
+            "originalTranscript": "Original"
         }
     },
     "feed": {
@@ -289,7 +298,13 @@
         },
         "filters": {
             "byCountry": "Filter by country",
-            "allCountries": "All countries"
+            "allCountries": "All countries",
+            "byHashtag": "Filter by hashtag",
+            "clearHashtag": "Clear hashtag",
+            "noHashtags": "No trending hashtags",
+            "showingHashtag": "Showing users with affinity for #{{ tag }}",
+            "noUsersForHashtag": "No users found for this hashtag",
+            "tryOtherHashtag": "Try another hashtag"
         },
         "actions": {
             "talk": "I want to talk"
@@ -506,7 +521,15 @@
         "trendingBadge": "Trending",
         "watchNow": "Watch now",
         "gridView": "Grid",
-        "listView": "List"
+        "listView": "List",
+        "filterByHashtag": "Filter by hashtag",
+        "clearFilter": "Clear filter",
+        "noVideosForHashtag": "No videos for #{{ tag }}",
+        "noVideosAvailable": "No videos available here",
+        "tryOtherHashtag": "Try another hashtag",
+        "tryGlobal": "Try 'Global' or another country",
+        "beFirst": "Be the first to upload content",
+        "noTrendingHint": "Change country or upload videos with hashtags"
     },
     "lives": {
         "title": "Live",

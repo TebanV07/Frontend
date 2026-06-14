@@ -100,7 +100,8 @@
             "messages": "الرسائل",
             "notifications": "الإشعارات",
             "profile": "الملف الشخصي",
-            "settings": "الإعدادات"
+            "settings": "الإعدادات",
+            "explore": "استكشاف الأشخاص"
         },
         "theme": {
             "light": "الوضع الفاتح",
@@ -133,7 +134,15 @@
             "deleteForMe": "حذف بالنسبة لي",
             "forward": "إعادة إرسال",
             "share": "مشاركة",
-            "translate": "ترجمة"
+            "translate": "ترجمة",
+            "translateImage": "ترجمة الصورة",
+            "translateAudio": "ترجمة الصوت",
+            "translating": "جارٍ الترجمة...",
+            "transcribing": "جارٍ النسخ...",
+            "hideTranslation": "إخفاء الترجمة",
+            "hideTranscript": "إخفاء النص",
+            "noTextInImage": "لم يُعثر على نص مقروء في هذه الصورة",
+            "originalTranscript": "الأصل"
         }
     },
     "feed": {
@@ -289,7 +298,13 @@
         },
         "filters": {
             "byCountry": "تصفية حسب البلد",
-            "allCountries": "جميع البلدان"
+            "allCountries": "جميع البلدان",
+            "byHashtag": "التصفية بالوسم",
+            "clearHashtag": "مسح الوسم",
+            "noHashtags": "لا توجد وسوم رائجة",
+            "showingHashtag": "عرض المستخدمين ذوي الاهتمام بـ #{{ tag }}",
+            "noUsersForHashtag": "لم يُعثر على مستخدمين لهذا الوسم",
+            "tryOtherHashtag": "جرب وسمًا آخر"
         },
         "actions": {
             "talk": "أريد التحدث"
@@ -506,7 +521,15 @@
         "trendingBadge": "رائج",
         "watchNow": "شاهد الآن",
         "gridView": "شبكة",
-        "listView": "قائمة"
+        "listView": "قائمة",
+        "filterByHashtag": "التصفية بالوسم",
+        "clearFilter": "مسح الفلتر",
+        "noVideosForHashtag": "لا توجد مقاطع لـ #{{ tag }}",
+        "noVideosAvailable": "لا توجد مقاطع هنا",
+        "tryOtherHashtag": "جرب وسمًا آخر",
+        "tryGlobal": "جرب 'Global' أو دولة أخرى",
+        "beFirst": "كن أول من يرفع محتوى",
+        "noTrendingHint": "غيّر الدولة أو ارفع مقاطع مع وسوم"
     },
     "lives": {
         "title": "مباشر",

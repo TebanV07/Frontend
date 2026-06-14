@@ -100,7 +100,8 @@
             "messages": "Mesajlar",
             "notifications": "Bildirimler",
             "profile": "Profil",
-            "settings": "Ayarlar"
+            "settings": "Ayarlar",
+            "explore": "Kişileri keşfet"
         },
         "theme": {
             "light": "Açık mod",
@@ -133,7 +134,15 @@
             "deleteForMe": "Benim için sil",
             "forward": "İlet",
             "share": "Paylaş",
-            "translate": "Çevir"
+            "translate": "Çevir",
+            "translateImage": "Görüntüyü çevir",
+            "translateAudio": "Sesi çevir",
+            "translating": "Çevriliyor...",
+            "transcribing": "Yazıya dökülüyor...",
+            "hideTranslation": "Çeviriyi gizle",
+            "hideTranscript": "Transkripti gizle",
+            "noTextInImage": "Bu görüntüde okunabilir metin bulunamadı",
+            "originalTranscript": "Orijinal"
         }
     },
     "feed": {
@@ -289,7 +298,13 @@
         },
         "filters": {
             "byCountry": "Ülkeye göre filtrele",
-            "allCountries": "Tüm ülkeler"
+            "allCountries": "Tüm ülkeler",
+            "byHashtag": "Hashtag'e göre filtrele",
+            "clearHashtag": "Hashtag'i temizle",
+            "noHashtags": "Trend olan hashtag yok",
+            "showingHashtag": "#{{ tag }} ilgili kullanıcıları gösterme",
+            "noUsersForHashtag": "Bu hashtag için kullanıcı bulunamadı",
+            "tryOtherHashtag": "Baska bir hashtag deneyin"
         },
         "actions": {
             "talk": "Konuşmak istiyorum"
@@ -506,7 +521,15 @@
         "trendingBadge": "Trend",
         "watchNow": "Şimdi izle",
         "gridView": "Izgara",
-        "listView": "Liste"
+        "listView": "Liste",
+        "filterByHashtag": "Hashtag'e göre filtrele",
+        "clearFilter": "Filtreyi temizle",
+        "noVideosForHashtag": "#{{ tag }} için video yok",
+        "noVideosAvailable": "Burada video yok",
+        "tryOtherHashtag": "Baska bir hashtag deneyin",
+        "tryGlobal": "'Global' veya başka bir ülke deneyin",
+        "beFirst": "İçerik yükleyen ilk sen ol",
+        "noTrendingHint": "Ülke değiştirin veya hashtag'li video yükleyin"
     },
     "lives": {
         "title": "Canlı",

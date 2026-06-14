@@ -8,7 +8,7 @@ import { CommentService } from '../../../core/services/comment.service';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { FlagService } from '../../../core/services/flag.service';
-import { TranslationService, ImageTranslationResponse } from '../../../core/services/translation.service';
+import { TranslationService } from '../../../core/services/translation.service';
 import { Language, LanguageService } from '../../../core/services/language.service';
 
 import { CommentListComponent } from '../../../features/posts/comments/comment-list/comment-list.component';
@@ -56,12 +56,12 @@ export class PostComponent implements OnInit, OnChanges {
   selectedTranslationLanguage = 'es';
   lastTranslatedLanguage = '';
 
-  // ── Traducción de IMÁGENES ────────────────────────────────
-  imageTranslations: { [imageId: number]: ImageTranslationResponse } = {};
-  showImageTranslation: { [imageId: number]: boolean } = {};
-  translatingImageId: number | null = null;
+  // ── Traducción de IMÁGENES — solo overlay ─────────────────
+  // ✅ ELIMINADO: imageTranslations, showImageTranslation, translatingImageId (OCR)
+  // ✅ MANTENIDO: overlay únicamente
   imageOverlayUrls: { [imageId: number]: string } = {};
   translatingOverlayId: number | null = null;
+
   availableLanguages: Language[] = [];
 
   private readonly apiBaseUrl = environment.apiBaseUrl;
@@ -76,7 +76,7 @@ export class PostComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['currentUserId']) return; // ignorar cambios de userId
-    // Limpiar overlays y traducciones de imágenes al cambiar cualquier input relevante
+    // Limpiar overlays al cambiar cualquier input relevante
     this.imageOverlayUrls     = {};
     this.translatingOverlayId = null;
   }
@@ -161,11 +161,10 @@ export class PostComponent implements OnInit, OnChanges {
   onTranslationLanguageChange(event: Event): void {
     const newLanguage = (event.target as HTMLSelectElement).value;
     this.selectedTranslationLanguage = newLanguage;
-    // Limpiar siempre, aunque no esté mostrando traducción
+    // Limpiar siempre al cambiar idioma
     this.translatedContent      = '';
     this.lastTranslatedLanguage = '';
     this.showTranslation        = false;
-    this.imageTranslations      = {};
     // Limpiar overlays — son específicos por idioma
     Object.values(this.imageOverlayUrls).forEach(url => URL.revokeObjectURL(url));
     this.imageOverlayUrls     = {};
@@ -177,13 +176,23 @@ export class PostComponent implements OnInit, OnChanges {
   }
 
   toggleTranslation(): void {
+    // Desactivar: volver a original y limpiar overlays
     if (this.showTranslation) {
+      Object.values(this.imageOverlayUrls).forEach(url => URL.revokeObjectURL(url));
+      this.imageOverlayUrls = {};
       this.showTranslation = false;
       return;
     }
 
+    // Activar con caché de texto ya traducido
     if (this.translatedContent && this.lastTranslatedLanguage === this.selectedTranslationLanguage) {
       this.showTranslation = true;
+      // Re-aplicar overlay a imágenes que no tengan aún
+      this.post.images?.forEach(image => {
+        if (!this.imageOverlayUrls[image.id]) {
+          this.translateImageOverlay(image);
+        }
+      });
       return;
     }
 
@@ -201,31 +210,13 @@ export class PostComponent implements OnInit, OnChanges {
       }
     });
 
+    // ✅ Auto-aplicar overlay a TODAS las imágenes del post al traducir
     if (this.post.images?.length) {
-      this.post.images.forEach(image => {
-        if (
-          this.imageTranslations[image.id] &&
-          this.imageTranslations[image.id].target_language === this.selectedTranslationLanguage
-        ) {
-          return;
-        }
-
-        this.translationService.translateImageFromUrl(
-          image.id,
-          image.image_url,
-          this.selectedTranslationLanguage
-        ).then(obs$ => {
-          obs$.subscribe({
-            next: (result) => {
-              this.imageTranslations[image.id] = result;
-            },
-            error: (err) => console.error('Error traduciendo imagen:', err)
-          });
-        }).catch(err => console.error('Error descargando imagen:', err));
-      });
+      this.post.images.forEach(image => this.translateImageOverlay(image));
     }
   }
 
+  // ✅ MANTENIDO: overlay sobre imagen (única modalidad de traducción de imágenes)
   translateImageOverlay(image: { id: number; image_url: string }): void {
     if (this.translatingOverlayId === image.id) return;
 

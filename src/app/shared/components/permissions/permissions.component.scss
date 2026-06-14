@@ -1,17 +1,7 @@
-$yellow: #f5c518;
-$yellow-bright: #ffd700;
-$yellow-glow: rgba(245, 197, 24, 0.3);
-$dark-bg: #111111;
-$dark-surface: #1c1c1c;
-$dark-card: #242424;
-$dark-border: #2e2e2e;
-$text-primary: #f0f0f0;
-$text-secondary: #a0a0a0;
-$text-muted: #5a5a5a;
 
 .permissions-container {
   min-height: 100vh;
-  background: $dark-bg;
+  background: var(--bg-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,8 +14,8 @@ $text-muted: #5a5a5a;
   max-width: 460px;
 
   .welcome-card {
-    background: $dark-surface;
-    border: 1px solid $dark-border;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 24px;
     padding: 40px 36px;
     text-align: center;
@@ -41,13 +31,13 @@ $text-muted: #5a5a5a;
       margin: 0 0 12px 0;
       font-size: 1.6rem;
       font-weight: 700;
-      color: $text-primary;
+      color: var(--text-color);
     }
 
     > p {
       margin: 0 0 28px 0;
       font-size: 0.95rem;
-      color: $text-secondary;
+      color: var(--text-secondary);
       line-height: 1.6;
     }
 
@@ -62,19 +52,19 @@ $text-muted: #5a5a5a;
         display: flex;
         align-items: center;
         gap: 14px;
-        background: $dark-card;
-        border: 1px solid $dark-border;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
         border-radius: 12px;
         padding: 14px 16px;
         transition: border-color 0.2s ease;
 
-        &:hover { border-color: rgba($yellow, 0.3); }
+        &:hover { border-color: rgba(var(--gold-rgb), 0.3); }
 
         .feature-icon { font-size: 1.4rem; flex-shrink: 0; }
 
         .feature-text {
           font-size: 0.9rem;
-          color: $text-secondary;
+          color: var(--text-secondary);
           font-weight: 500;
         }
       }
@@ -93,8 +83,8 @@ $text-muted: #5a5a5a;
   .permissions-header {
     text-align: center;
 
-    h1 { margin: 0 0 8px 0; font-size: 1.5rem; font-weight: 700; color: $text-primary; }
-    p { margin: 0; font-size: 0.9rem; color: $text-muted; }
+    h1 { margin: 0 0 8px 0; font-size: 1.5rem; font-weight: 700; color: var(--text-color); }
+    p { margin: 0; font-size: 0.9rem; color: var(--muted-color); }
   }
 
   .permissions-list {
@@ -103,13 +93,13 @@ $text-muted: #5a5a5a;
     gap: 12px;
 
     .permission-card {
-      background: $dark-surface;
-      border: 1px solid $dark-border;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
       border-radius: 16px;
       padding: 18px 20px;
       transition: border-color 0.2s ease;
 
-      &:hover { border-color: rgba($yellow, 0.25); }
+      &:hover { border-color: rgba(var(--gold-rgb), 0.25); }
 
       .permission-header {
         display: flex;
@@ -125,16 +115,16 @@ $text-muted: #5a5a5a;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: $dark-card;
+          background: var(--card-bg);
           border-radius: 12px;
-          border: 1px solid $dark-border;
+          border: 1px solid var(--border-color);
         }
 
         .permission-info {
           flex: 1;
 
-          h3 { margin: 0 0 4px 0; font-size: 0.95rem; font-weight: 700; color: $text-primary; }
-          p { margin: 0; font-size: 0.84rem; color: $text-muted; line-height: 1.5; }
+          h3 { margin: 0 0 4px 0; font-size: 0.95rem; font-weight: 700; color: var(--text-color); }
+          p { margin: 0; font-size: 0.84rem; color: var(--muted-color); line-height: 1.5; }
         }
 
         .permission-status {
@@ -162,9 +152,9 @@ $text-muted: #5a5a5a;
             }
 
             &.optional {
-              background: $dark-card;
-              color: $text-muted;
-              border: 1px solid $dark-border;
+              background: var(--card-bg);
+              color: var(--muted-color);
+              border: 1px solid var(--border-color);
             }
           }
         }
@@ -172,9 +162,9 @@ $text-muted: #5a5a5a;
 
       .btn-request {
         width: 100%;
-        background: $dark-card;
-        border: 1px solid $dark-border;
-        color: $text-secondary;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
         padding: 10px;
         border-radius: 10px;
         font-size: 0.88rem;
@@ -183,10 +173,10 @@ $text-muted: #5a5a5a;
         transition: all 0.2s ease;
 
         &:not(:disabled):hover {
-          background: $yellow;
-          border-color: $yellow;
-          color: $dark-bg;
-          box-shadow: 0 4px 12px $yellow-glow;
+          background: var(--gold);
+          border-color: var(--gold);
+          color: var(--bg-color);
+          box-shadow: 0 4px 12px rgba(var(--gold-rgb), 0.3);
         }
 
         &:disabled, &.granted {
@@ -211,8 +201,8 @@ $text-muted: #5a5a5a;
   max-width: 460px;
 
   .complete-card {
-    background: $dark-surface;
-    border: 1px solid $dark-border;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 24px;
     padding: 40px 36px;
     text-align: center;
@@ -225,12 +215,12 @@ $text-muted: #5a5a5a;
       animation: popIn 0.4s ease-out;
     }
 
-    h1 { margin: 0 0 12px 0; font-size: 1.5rem; font-weight: 700; color: $text-primary; }
-    > p { margin: 0 0 24px 0; font-size: 0.95rem; color: $text-secondary; }
+    h1 { margin: 0 0 12px 0; font-size: 1.5rem; font-weight: 700; color: var(--text-color); }
+    > p { margin: 0 0 24px 0; font-size: 0.95rem; color: var(--text-secondary); }
 
     .permissions-summary {
-      background: $dark-card;
-      border: 1px solid $dark-border;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
       border-radius: 14px;
       padding: 16px;
       margin-bottom: 20px;
@@ -245,7 +235,7 @@ $text-muted: #5a5a5a;
         gap: 12px;
 
         .icon { font-size: 1.2rem; flex-shrink: 0; }
-        .name { flex: 1; font-size: 0.9rem; color: $text-secondary; font-weight: 500; }
+        .name { flex: 1; font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
 
         .status {
           font-size: 0.8rem;
@@ -260,9 +250,9 @@ $text-muted: #5a5a5a;
           }
 
           &.denied {
-            background: $dark-surface;
-            color: $text-muted;
-            border: 1px solid $dark-border;
+            background: var(--card-bg);
+            color: var(--muted-color);
+            border: 1px solid var(--border-color);
           }
         }
       }
@@ -270,7 +260,7 @@ $text-muted: #5a5a5a;
 
     .redirect-message {
       font-size: 0.82rem;
-      color: $text-muted;
+      color: var(--muted-color);
       margin-bottom: 20px;
       animation: pulse 2s ease-in-out infinite;
     }
@@ -280,10 +270,10 @@ $text-muted: #5a5a5a;
 // ── Shared Buttons ────────────────────────────────────────────
 .btn-primary {
   flex: 1;
-  background: $yellow;
+  background: var(--gold);
   border: none;
   border-radius: 12px;
-  color: $dark-bg;
+  color: var(--bg-color);
   font-size: 0.95rem;
   font-weight: 700;
   padding: 13px 24px;
@@ -291,8 +281,8 @@ $text-muted: #5a5a5a;
   transition: all 0.2s ease;
 
   &:hover {
-    background: $yellow-bright;
-    box-shadow: 0 4px 16px $yellow-glow;
+    background: var(--gold-light);
+    box-shadow: 0 4px 16px rgba(var(--gold-rgb), 0.3);
     transform: translateY(-1px);
   }
 
@@ -302,16 +292,16 @@ $text-muted: #5a5a5a;
 .btn-secondary {
   flex: 1;
   background: none;
-  border: 1px solid $dark-border;
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  color: $text-muted;
+  color: var(--muted-color);
   font-size: 0.95rem;
   font-weight: 600;
   padding: 13px 24px;
   cursor: pointer;
   transition: all 0.2s ease;
 
-  &:hover { border-color: rgba($yellow, 0.3); color: $text-secondary; }
+  &:hover { border-color: rgba(var(--gold-rgb), 0.3); color: var(--text-secondary); }
 }
 
 // ── Animations ────────────────────────────────────────────────

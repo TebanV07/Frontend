@@ -1,60 +1,50 @@
-.home-container {
+// ============================================================
+// home.component.scss
+// Transparent container — fondo global gestionado por body/styles.scss
+// ============================================================
+
+.home-wrapper {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #111111 0%, #1a1a1a 100%);
-  transition: background 0.3s ease, color 0.3s ease;
-
-  &.dark-theme {
-    background: linear-gradient(to bottom, #0a0a0a 0%, #111111 100%);
-  }
+  background: transparent;
+  padding-top: 80px; // Espacio para el header fijo global
 }
 
-.main-content {
-  display: flex;
-  padding-top: 70px;
-  max-width: 1400px;
-  margin: 0 auto;
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
   gap: 24px;
-  padding-left: 20px;
-  padding-right: 20px;
-
-  @media (max-width: 1200px) {
-    gap: 16px;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+  align-items: start;
 
   @media (max-width: 1024px) {
-    gap: 0;
-    padding-left: 0;
-    padding-right: 0;
+    grid-template-columns: 1fr 300px;
+    gap: 16px;
   }
 
   @media (max-width: 768px) {
-    padding-top: 60px;
+    grid-template-columns: 1fr;
+    padding: 16px 12px 32px;
+
+    .sidebar-column {
+      display: none; // El sidebar se oculta en móvil (puede abrirse como drawer en un paso futuro)
+    }
   }
 }
 
-.content-area {
-  flex: 1;
-  padding: 24px 16px;
-  max-width: calc(100% - 360px);
-  min-width: 0;
+.feed-column {
+  min-width: 0; // Evita overflow en grid
+}
 
-  @media (max-width: 1200px) {
-    max-width: calc(100% - 320px);
-    padding: 20px 12px;
-  }
+.sidebar-column {
+  position: sticky;
+  top: 96px; // header height + gap
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 
-  @media (max-width: 1024px) {
-    max-width: 100%;
-    padding: 20px 16px;
-  }
-
-  @media (max-width: 768px) {
-    padding: 16px 12px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 12px 8px;
-  }
+  // Scrollbar oculta pero funcional
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
 }

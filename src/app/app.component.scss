@@ -1,29 +1,41 @@
-.app-container {
-      min-height: 100vh;
-      background: #f8fafc;
-      transition: all 0.3s ease;
-    }
+// app.component.scss
+// TIMQU — wrapper raíz: SIEMPRE transparente
+// El fondo real está en el <body> definido en styles.scss
 
-    .app-container.dark-theme {
-      background: #0f172a;
-    }
+:host {
+  display: block;
+  background: transparent !important;
+  min-height: 100vh;
+}
 
-    .main-content {
-      display: flex;
-      padding-top: 80px;
-      max-width: 1400px;
-      margin: 0 auto;
-      gap: 20px;
-    }
+// Si hay un wrapper de layout interno, también transparente
+.app-container,
+.app-shell,
+.app-wrapper,
+.layout-wrapper {
+  background: transparent !important;
+  min-height: 100vh;
+  transition: color 0.3s ease;
+}
 
-    .content-area {
-      flex: 1;
-      padding: 20px;
-      max-width: calc(100% - 350px);
-    }
+// Feed centrado sin sidebar (estructura del main)
+.main-content {
+  max-width: 980px;
+  margin: 0 auto;
+  padding-top: calc(var(--header-height) + 28px);
+  padding-left: 16px;
+  padding-right: 16px;
+}
 
-    @media (max-width: 1024px) {
-      .content-area {
-        max-width: 100%;
-      }
-    }
+.content-area {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: calc(var(--header-height) + 16px);
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}

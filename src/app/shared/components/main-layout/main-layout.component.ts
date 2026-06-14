@@ -10,36 +10,33 @@ import { ThemeService } from '../../../core/services/theme.service';
   standalone: true,
   imports: [CommonModule, RouterModule, HeaderComponent, TranslateModule],
   template: `
-    <div class="main-layout" [class.dark-theme]="themeService.isDarkMode()">
+    <div class="main-layout">
       <app-header></app-header>
       <div class="layout-content">
         <router-outlet></router-outlet>
       </div>
     </div>
   `,
-  styles: [`
-    .main-layout {
-      min-height: 100vh;
-      background: linear-gradient(to bottom, #f8fafc 0%, #f1f5f9 100%);
-      transition: background 0.3s ease;
+ styles: [`
+  .main-layout {
+    background: transparent !important;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+  }
 
-      &.dark-theme {
-        background: linear-gradient(to bottom, #0f172a 0%, #1e293b 100%);
-      }
-    }
+  .layout-content {
+    padding-top: 82px;
+    background: transparent !important;
+    min-height: calc(100vh - var(--header-height));
+    width: 100%;
+  }
 
-    .layout-content {
-      padding-top: 70px; // Espacio para el header fixed
-      min-height: calc(100vh - 70px);
-
-      @media (max-width: 768px) {
-        padding-top: 60px;
-      }
-    }
-  `]
+  @media (max-width: 768px) {
+    .layout-content { padding-top: 74px; }
+  }
+`]
 })
 export class MainLayoutComponent {
   constructor(public themeService: ThemeService) {}
 }
-
-

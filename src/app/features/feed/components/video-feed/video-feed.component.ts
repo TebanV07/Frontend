@@ -1,5 +1,3 @@
-// app/features/feed/videos/video-feed/video-feed.component.ts
-
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';

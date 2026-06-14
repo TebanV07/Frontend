@@ -100,7 +100,8 @@
             "messages": "消息",
             "notifications": "通知",
             "profile": "个人主页",
-            "settings": "设置"
+            "settings": "设置",
+            "explore": "探索人脉"
         },
         "theme": {
             "light": "浅色模式",
@@ -133,7 +134,15 @@
             "deleteForMe": "仅对我删除",
             "forward": "转发",
             "share": "分享",
-            "translate": "翻译"
+            "translate": "翻译",
+            "translateImage": "翻译图片",
+            "translateAudio": "翻译音频",
+            "translating": "翻译中...",
+            "transcribing": "转录中...",
+            "hideTranslation": "隐藏翻译",
+            "hideTranscript": "隐藏转录",
+            "noTextInImage": "此图片中未找到可读文本",
+            "originalTranscript": "原文"
         }
     },
     "feed": {
@@ -289,7 +298,13 @@
         },
         "filters": {
             "byCountry": "按国家筛选",
-            "allCountries": "所有国家"
+            "allCountries": "所有国家",
+            "byHashtag": "按话题标签筛选",
+            "clearHashtag": "清除话题标签",
+            "noHashtags": "没有热门话题标签",
+            "showingHashtag": "显示对 #{{ tag }} 感兴趣的用户",
+            "noUsersForHashtag": "未找到此话题标签的用户",
+            "tryOtherHashtag": "试试其他话题标签"
         },
         "actions": {
             "talk": "我想交流"
@@ -506,7 +521,15 @@
         "trendingBadge": "热门",
         "watchNow": "立即观看",
         "gridView": "网格",
-        "listView": "列表"
+        "listView": "列表",
+        "filterByHashtag": "按话题标签筛选",
+        "clearFilter": "清除筛选",
+        "noVideosForHashtag": "#{{ tag }} 没有视频",
+        "noVideosAvailable": "这里没有视频",
+        "tryOtherHashtag": "试试其他话题标签",
+        "tryGlobal": "尝试“全球”或其他国家",
+        "beFirst": "成为第一个上传内容的人",
+        "noTrendingHint": "更换国家或上传带有话题标签的视频"
     },
     "lives": {
         "title": "直播",

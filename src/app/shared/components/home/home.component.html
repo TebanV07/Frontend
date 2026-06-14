@@ -1,9 +1,10 @@
-<div class="home-container" [class.dark-theme]="themeService.isDarkMode()">
-  <div class="main-content">
-    <main class="content-area">
+<div class="home-wrapper">
+  <div class="home-grid">
+    <main class="feed-column">
       <app-feed></app-feed>
     </main>
-    <app-sidebar></app-sidebar>
+    <aside class="sidebar-column">
+      <app-sidebar></app-sidebar>
+    </aside>
   </div>
 </div>
-

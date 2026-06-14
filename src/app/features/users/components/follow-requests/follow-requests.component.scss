@@ -1,43 +1,10 @@
-$yellow: #f5c518;
-$yellow-bright: #ffd700;
-$yellow-glow: rgba(245, 197, 24, 0.3);
-$dark-bg: #111111;
-$dark-surface: #1c1c1c;
-$dark-card: #242424;
-$dark-border: #2e2e2e;
-$text-primary: #f0f0f0;
-$text-secondary: #a0a0a0;
-$text-muted: #5a5a5a;
 
 .follow-requests-container {
-  background: $dark-card;
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid $dark-border;
+  border: 1px solid var(--border-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 20px;
-
-  h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: $text-primary;
-  }
-
-  .count-badge {
-    background: $yellow;
-    color: $dark-bg;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 700;
-  }
 }
 
 .requests-list {
@@ -51,12 +18,12 @@ $text-muted: #5a5a5a;
   align-items: center;
   gap: 12px;
   padding: 12px;
-  border: 1px solid $dark-border;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: $yellow;
+    border-color: var(--gold);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 }
@@ -67,12 +34,12 @@ $text-muted: #5a5a5a;
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
-  border: 2px solid $dark-border;
+  border: 2px solid var(--border-color);
   transition: all 0.2s ease;
 
   &:hover {
     transform: scale(1.05);
-    border-color: $yellow;
+    border-color: var(--gold);
   }
 }
 
@@ -85,27 +52,27 @@ $text-muted: #5a5a5a;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    color: $text-primary;
+    color: var(--text-color);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     transition: color 0.2s;
 
     &:hover {
-      color: $yellow;
+      color: var(--gold);
     }
   }
 
   .username {
     margin: 2px 0;
     font-size: 13px;
-    color: $text-secondary;
+    color: var(--text-secondary);
   }
 
   .time {
     margin: 4px 0 0 0;
     font-size: 12px;
-    color: $text-muted;
+    color: var(--muted-color);
   }
 }
 
@@ -132,25 +99,25 @@ $text-muted: #5a5a5a;
 }
 
 .accept-btn {
-  background: $yellow;
-  color: $dark-bg;
+  background: var(--gold);
+  color: var(--bg-color);
 
   &:hover:not(:disabled) {
-    background: $yellow-bright;
-    box-shadow: 0 4px 12px $yellow-glow;
+    background: var(--gold-light);
+    box-shadow: 0 4px 12px rgba(var(--gold-rgb), 0.3);
     transform: translateY(-1px);
   }
 }
 
 .reject-btn {
   background: transparent;
-  color: $text-secondary;
-  border: 1px solid $dark-border;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
 
   &:hover:not(:disabled) {
-    background: $dark-surface;
-    border-color: $text-muted;
-    color: $text-primary;
+    background: var(--card-bg);
+    border-color: var(--muted-color);
+    color: var(--text-color);
   }
 }
 
@@ -160,7 +127,7 @@ $text-muted: #5a5a5a;
 
   .empty-icon {
     margin-bottom: 16px;
-    color: $text-muted;
+    color: var(--muted-color);
     display: flex;
     justify-content: center;
   }
@@ -169,12 +136,12 @@ $text-muted: #5a5a5a;
     margin: 0 0 8px 0;
     font-size: 16px;
     font-weight: 600;
-    color: $text-primary;
+    color: var(--text-color);
   }
 
   p {
     margin: 0;
     font-size: 14px;
-    color: $text-secondary;
+    color: var(--text-secondary);
   }
 }

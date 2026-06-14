@@ -38,6 +38,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     { icon: 'videos',   labelKey: 'header.nav.videos', route: '/videos' },
     { icon: 'chat',     labelKey: 'header.nav.messages', route: '/chat' },
     { icon: 'profile',  labelKey: 'header.nav.profile', route: '/profile' },
+    { icon: 'explore', labelKey: 'explore.title', route: '/explore/people' },
     { icon: 'settings', labelKey: 'header.nav.settings', route: '/settings' }
   ];
 
@@ -135,6 +136,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       live:     'M12 2a10 10 0 100 20 10 10 0 000-20zm0 15a5 5 0 110-10 5 5 0 010 10z',
       chat:     'M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z',
       profile:  'M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 100 8 4 4 0 000-8z',
+      explore: 'M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z',
       settings: 'M12 15a3 3 0 100-6 3 3 0 000 6z'
     };
     return icons[iconType] || '';

@@ -1,121 +1,238 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import './styles/theme-variables';
-@import './styles/responsive';
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+// ── RESET ────────────────────────────────────────────────────
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  width: 100% !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
+// ── BODY: fondo con imagen real ──────────────────────────────
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.5;
   color: var(--text-color);
-  background: var(--bg-gradient);
   background-color: var(--bg-color);
+  // SOLO la imagen aquí — el overlay va en ::before
+  background-image: var(--bg-image);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// ── MODO OSCURO: capa de estrellas/partículas adicional ──────
+body:not(.light-theme)::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(8,11,20,0.40) 0%, rgba(8,11,20,0.20) 100%);
+  pointer-events: none;
+}
+
+body:not(.light-theme)::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--bg-overlay);
+  pointer-events: none;
+}
+body.light-theme {
+  background-color: var(--bg-color) !important;
+  background-image: none !important;
+  background: var(--bg-gradient) !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+
+body.light-theme::before,
+body.light-theme::after { content: none; }
+
+// ── CRÍTICO: todos los wrappers raíz deben ser TRANSPARENTES ─
+// Esto soluciona el bug de fondo tapado
+app-root,
+app-main-layout,
+.main-layout,
+.layout-content,
+main,
+.app-wrapper,
+.app-shell,
+.layout-wrapper,
+.page-wrapper,
+mat-sidenav-container,
+mat-sidenav-content,
+mat-sidenav {
+  background: transparent !important;
   min-height: 100vh;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+// ── SCROLLBAR ────────────────────────────────────────────────
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: rgba(0,0,0,0.03); border-radius: 10px; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--accent-1), var(--accent-2));
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { filter: brightness(0.9); }
+
+::selection { background: rgba(201,162,39,0.25); color: inherit; }
+
+// ── GLASS UTILITY ────────────────────────────────────────────
+.glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--border-color);
 }
 
-::-webkit-scrollbar-track { background: rgba(0,0,0,0.03); border-radius: 10px; }
-::-webkit-scrollbar-thumb { background: linear-gradient(45deg, var(--accent-1), var(--accent-2)); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { filter: brightness(0.95); }
+// ── HEADER GLOBAL: corregido (era left:50% + transform) ──────
+// ANTES: left: 50%; transform: translateX(-50%); ← causa el bug de compresión
+// AHORA: left + right explícito = anchura real de pantalla
+.app-header,
+.header,
+app-header {
+  position: fixed !important;
+  top: 8px !important;
+  left: 12px !important;
+  right: 12px !important;
+  width: auto !important;
+  transform: none !important;
+  z-index: 1200 !important;
+}
 
-/* Selection */
-::selection { background: rgba(245,197,24,0.18); color: inherit; }
+@media (max-width: 768px) {
+  .app-header, .header, app-header {
+    left: 8px !important;
+    right: 8px !important;
+    top: 6px !important;
+  }
+}
 
-/* Utility Classes */
-.glass-effect { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--border-color); }
+// ── LAYOUT PRINCIPAL ─────────────────────────────────────────
+.app-container {
+  background: transparent !important;
+  min-height: 100vh;
+}
 
-/* Focus Styles */
-button:focus, input:focus, textarea:focus, select:focus { outline: 2px solid rgba(245,197,24,0.18); outline-offset: 2px; }
+.main-content {
+  max-width: 980px;
+  margin: 0 auto;
+  padding-top: calc(var(--header-height) + 28px);
+  padding-left: 16px;
+  padding-right: 16px;
+}
 
-/* Animations */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+// ── CARDS GLOBALES ───────────────────────────────────────────
+.post-card,
+.video-card,
+.profile-card,
+.message-bubble,
+.conversation-item,
+.create-post-card,
+.comments,
+.modal-window {
+  background: var(--card-bg) !important;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-color) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 180ms var(--transition), box-shadow 180ms var(--transition);
+}
+
+.post-card:hover,
+.video-card:hover,
+.profile-card:hover,
+.create-post-card:hover {
+  transform: translateY(-3px);
+  background: var(--card-bg-hover) !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+// ── FOCUS ────────────────────────────────────────────────────
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid rgba(201,162,39,0.35);
+  outline-offset: 2px;
+}
+
+// ── ANIMATIONS ───────────────────────────────────────────────
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
+  0%   { background-position: -1000px 0; }
+  100% { background-position:  1000px 0; }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
+
+.animate-fade-in-up { animation: fadeInUp 0.5s ease-out; }
 
 .loading-shimmer {
   background: linear-gradient(90deg,
-    rgba(102, 126, 234, 0.1) 25%,
-    rgba(102, 126, 234, 0.2) 50%,
-    rgba(102, 126, 234, 0.1) 75%);
+    rgba(201,162,39,0.06) 25%,
+    rgba(201,162,39,0.16) 50%,
+    rgba(201,162,39,0.06) 75%);
   background-size: 2000px 100%;
   animation: shimmer 2s infinite;
 }
 
-.dark-theme .loading-shimmer {
-  background: linear-gradient(90deg,
-    rgba(50, 130, 184, 0.1) 25%,
-    rgba(50, 130, 184, 0.2) 50%,
-    rgba(50, 130, 184, 0.1) 75%);
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-  .app-container .main-content {
-    padding-top: 70px;
-  }
-}
-
+// ── RESPONSIVE ───────────────────────────────────────────────
 @media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-
-  .app-container .content-area {
-    padding: 15px;
-  }
+  body { font-size: 14px; }
 }
 
-@media (max-width: 480px) {
-  .app-container .content-area {
-    padding: 10px;
-  }
-}
-
-/* Print Styles */
+// ── PRINT ────────────────────────────────────────────────────
 @media print {
-  .sidebar,
-  .header,
-  .post-actions,
-  .create-post-card,
-  .ai-banner {
-    display: none !important;
-  }
-
+  .header, .ai-banner, .create-post-card { display: none !important; }
   .post-card {
     background: white !important;
     border: 1px solid #ccc !important;
     box-shadow: none !important;
     page-break-inside: avoid;
-    margin-bottom: 20px;
   }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body.light-theme .sidebar,
+body.light-theme .sidebar *,
+body.light-theme .create-post-card,
+body.light-theme .create-post-card *,
+body.light-theme .create-post-btn,
+body.light-theme .create-post-btn * {
+  color: #000 !important;
+}
+
+body:not(.light-theme) .sidebar,
+body:not(.light-theme) .sidebar *,
+body:not(.light-theme) .create-post-card,
+body:not(.light-theme) .create-post-card *,
+body:not(.light-theme) .create-post-btn,
+body:not(.light-theme) .create-post-btn * {
+  color: #fff !important;
+}

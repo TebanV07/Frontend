@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import {
   FollowService,
   FollowUser,
@@ -11,6 +12,15 @@ import {
 import { ChatService } from '../../../../core/services/chat.service';
 import { SuggestedUserComponent } from '../suggested-user/suggested-user.component';
 import { FollowRequestsComponent } from '../follow-requests/follow-requests.component';
+import { environment } from '../../../../../environments/environment';
+
+interface TrendingHashtag {
+  hashtag: string;
+  title: string;
+  videos_count: number;
+  views: number;
+  trend_score: number;
+}
 
 @Component({
   selector: 'app-explore-people',
@@ -27,26 +37,88 @@ export class ExplorePeopleComponent implements OnInit {
 
   isLoadingExplore = false;
   countryGroups: ExploreCountryGroup[] = [];
+  filteredCountryGroups: ExploreCountryGroup[] = [];
   availableCountries: Array<{ country_code: string; country_name: string; users_count: number }> = [];
   selectedCountry = 'ALL';
+
+  trendingHashtags: TrendingHashtag[] = [];
+  selectedHashtag: string | null = null;
+  isLoadingHashtags = false;
 
   actionLoading: { [key: string]: boolean } = {};
   actionFeedback = '';
   actionFeedbackType: 'success' | 'error' | '' = '';
 
+  private apiUrl = environment.apiUrl;
+
   constructor(
     private followService: FollowService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
     this.loadExploreCountries();
     this.loadExplorePeople();
+    this.loadTrendingHashtags();
   }
 
   onCountryChange() {
+    this.selectedHashtag = null;
     const query = this.searchQuery.trim();
     this.loadExplorePeople(query || undefined);
+    this.loadTrendingHashtags();
+  }
+
+  get displayedGroups(): ExploreCountryGroup[] {
+    return this.filteredCountryGroups;
+  }
+
+  get isHashtagFiltering(): boolean {
+    return this.selectedHashtag !== null;
+  }
+
+  loadTrendingHashtags() {
+    this.isLoadingHashtags = true;
+    const countryParam = this.selectedCountry !== 'ALL'
+      ? `?country_code=${this.selectedCountry}` : '?';
+    this.http.get<{ trends: TrendingHashtag[] }>(
+      `${this.apiUrl}/videos/trending/hashtags${countryParam}&limit=12`
+    ).subscribe({
+      next: (response) => {
+        this.trendingHashtags = response.trends || [];
+        this.isLoadingHashtags = false;
+      },
+      error: () => { this.trendingHashtags = []; this.isLoadingHashtags = false; }
+    });
+  }
+
+  selectHashtag(hashtag: string): void {
+    this.selectedHashtag = this.selectedHashtag === hashtag ? null : hashtag;
+    this.applyHashtagFilter();
+  }
+
+  clearHashtagFilter(): void {
+    this.selectedHashtag = null;
+    this.applyHashtagFilter();
+  }
+
+  private applyHashtagFilter(): void {
+    if (!this.selectedHashtag) {
+      this.filteredCountryGroups = this.countryGroups;
+      return;
+    }
+    const tag = this.selectedHashtag.toLowerCase();
+    this.filteredCountryGroups = this.countryGroups
+      .map(group => ({
+        ...group,
+        users: group.users.filter(user => {
+          const bio = ((user as any).bio || '').toLowerCase();
+          const username = (user.username || '').toLowerCase();
+          return bio.includes(tag) || bio.includes(`#${tag}`) || username.includes(tag);
+        })
+      }))
+      .filter(group => group.users.length > 0);
   }
 
   onSearch() {
@@ -101,6 +173,7 @@ export class ExplorePeopleComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.countryGroups = response.countries;
+          this.applyHashtagFilter();
           this.isLoadingExplore = false;
         },
         error: (error) => {
