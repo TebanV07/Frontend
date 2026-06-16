@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, OnInit, OnDestroy, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { trigger, style, transition, animate } from '@angular/animations';
 import { Post } from '../../../../core/models/post.model';
 import { PostsService } from '../../../../core/services/posts.service';
 import { LikeButtonComponent } from '../../likes/likes-button/likes-button.component';
@@ -16,9 +17,21 @@ import { TranslationService } from '../../../../core/services/translation.servic
   standalone: true,
   imports: [CommonModule, RouterModule, LikeButtonComponent, LikeCountComponent, ReportModalComponent, TranslateModule],
   templateUrl: './post-card.component.html',
-  styleUrls: ['./post-card.component.scss']
+  styleUrls: ['./post-card.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('200ms ease-in', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-out', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
-export class PostCardComponent implements OnChanges {
+export class PostCardComponent implements OnChanges, OnInit, OnDestroy {
   @Input() post!: Post;
   @Input() currentUserId?: number;
   @Input() userLanguage = 'en';
@@ -30,6 +43,8 @@ export class PostCardComponent implements OnChanges {
 
   showDropdown = false;
   isPlaying    = false;
+  showShareToast = false;
+  shareToastMessage = '';
 
   // ── Traducción de TEXTO ──────────────────────────────────
   showTranslation   = false;
@@ -51,10 +66,15 @@ export class PostCardComponent implements OnChanges {
   private readonly apiBaseUrl = environment.apiBaseUrl;
 
   constructor(
+    private router:             Router,
     public  flagService:        FlagService,
     private postsService:       PostsService,
     private translationService: TranslationService
   ) {}
+
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userLanguage'] && !changes['userLanguage'].firstChange) {
@@ -268,7 +288,10 @@ export class PostCardComponent implements OnChanges {
 
   // ── Acciones generales ───────────────────────────────────
 
-  sharePost(): void { console.log('Share post:', this.post.id); }
+  sharePost(): void {
+    const postUrl = this.router.createUrlTree(['/posts', this.post.id]).toString();
+    console.log('Share post:', this.post.id, 'url:', postUrl);
+  }
 
   onLikeToggled(event: { isLiked: boolean; likesCount: number }): void {
     this.post.is_liked    = event.isLiked;

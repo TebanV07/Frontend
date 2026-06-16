@@ -21,6 +21,44 @@
   }
 }
 
+// ── Share Toast Notification ────────────────────────────────────
+.share-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(76, 175, 80, 0.95);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  z-index: 999;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  animation: slideUpToast 0.3s ease-out;
+
+  svg {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@keyframes slideUpToast {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
 // ── DELETE overlay ───────────────────────────────────────────────
 .delete-overlay {
   position: fixed;
@@ -265,6 +303,7 @@
   color: var(--text-main);
   margin: 0 0 14px;
   white-space: pre-wrap;
+  word-wrap: break-word;
 
   &.translated-text {
     border-left: 2px solid var(--gold);
@@ -326,12 +365,15 @@
   z-index: 5;
 }
 
+// ── Media image — CORREGIDA ─────────────────────────────────────
+// SIN max-height restrictivo: permite mostrar imágenes completas
 .media-image {
   width: 100%;
+  height: auto !important;
   border-radius: 12px;
   display: block;
-  object-fit: cover;
-  max-height: 500px;
+  object-fit: contain !important;
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .image-grid {
@@ -353,13 +395,23 @@
   position: relative;
   overflow: hidden;
   border-radius: 8px;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.image-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
 
   img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: auto !important;
     display: block;
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
+    object-fit: contain !important;
 
     &:hover { transform: scale(1.02); }
   }
@@ -373,6 +425,7 @@
   justify-content: center;
   background: rgba(0, 0, 0, 0.4);
   font-size: 1.4rem;
+  border-radius: 8px;
 }
 
 // ── Translation indicator ────────────────────────────────────────
@@ -406,46 +459,109 @@
   .comment-count { display: flex; align-items: center; gap: 4px; }
 }
 
-// ── Actions ──────────────────────────────────────────────────────
+// ── Actions — REDISEÑO MODERNO ──────────────────────────────────
+// Inspirado en Twitter/X, Instagram y LinkedIn con micro-interacciones
 .post-actions {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 10px 12px 14px;
+  justify-content: flex-start;
+  gap: 2px;
+  padding: 10px 8px 12px;
   border-top: 1px solid var(--glass-border);
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .action-button {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 10px;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
   border: none;
   background: transparent;
   color: var(--text-dim);
   font-size: 0.8rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.2s ease;
   text-decoration: none;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  flex: 1;
+  justify-content: flex-start;
+  max-width: fit-content;
 
-  &:hover {
-    background: var(--input-bg);
-    color: var(--text-main);
+  svg {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s ease;
   }
 
-  &.translate-button {
-    margin-left: auto;
-    border: 1px solid var(--glass-border);
+  // Micro-interacción moderna: hover suave
+  &:hover {
+    background: rgba(212, 175, 55, 0.08);
+    color: var(--text-main);
 
-    &:hover, &.active {
+    svg { transform: scale(1.12); }
+  }
+
+  // Estado activo: presionado
+  &:active:not(:disabled) {
+    transform: scale(0.96);
+  }
+
+  // Deshabilitado
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  // ── Comment button ─────────────────────────────────────────────
+  &.comment-button {
+    &:hover {
+      background: rgba(33, 150, 243, 0.08);
+      color: #2196f3;
+    }
+  }
+
+  // ── Share button ───────────────────────────────────────────────
+  &.share-button {
+    &:hover {
+      background: rgba(76, 175, 80, 0.08);
+      color: #4caf50;
+    }
+  }
+
+  // ── Translate button — con borde y estado active ────────────────
+  &.translate-button {
+    border: 1px solid var(--glass-border);
+    margin-left: auto;
+    max-width: none;
+
+    &:hover:not(.active) {
       border-color: var(--gold);
       color: var(--gold);
       background: rgba(212, 175, 55, 0.08);
     }
 
-    &:disabled { opacity: 0.5; cursor: not-allowed; }
+    &.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.12);
+
+      svg {
+        fill: rgba(212, 175, 55, 0.3);
+      }
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
   }
 }
 

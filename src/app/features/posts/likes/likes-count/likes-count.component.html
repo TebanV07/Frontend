@@ -1,35 +1,40 @@
+<!-- like-count.component.html -->
 <div class="like-count">
   <span
     class="count-text"
     [class.clickable]="clickable && likesCount > 0"
     (click)="openLikersModal()"
-  >
+    [attr.role]="clickable ? 'button' : null"
+    [attr.tabindex]="clickable ? '0' : null"
+    [attr.aria-label]="'Mostrar ' + likesCount + ' ' + (likesCount === 1 ? 'like' : 'likes')">
     <strong>{{ likesCount }}</strong>
-    {{ likesCount === 1 ? 'like' : 'likes' }}
+    <span>{{ likesCount === 1 ? 'like' : 'likes' }}</span>
   </span>
 </div>
 
-<div class="modal-overlay" *ngIf="showModal" (click)="closeLikersModal()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
+<!-- Modal de likers -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeLikersModal()" [@fadeInOut]>
+  <div class="modal-content" (click)="$event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="likers-modal-title">
     <div class="modal-header">
-      <h3>{{ 'post.likes.likedBy' | translate }}</h3>
-      <button class="close-btn" (click)="closeLikersModal()">×</button>
+      <h3 id="likers-modal-title">{{ 'post.likes.likedBy' | translate }}</h3>
+      <button class="close-btn" (click)="closeLikersModal()" aria-label="Cerrar modal">×</button>
     </div>
 
     <div class="modal-body">
-      <div *ngIf="isLoadingLikers" class="loading">{{ 'post.likes.loading' | translate }}</div>
+      <div *ngIf="isLoadingLikers" class="loading" role="status" aria-live="polite">
+        {{ 'post.likes.loading' | translate }}
+      </div>
 
       <div *ngIf="!isLoadingLikers && likers.length === 0" class="empty">
         {{ 'post.likes.noLikes' | translate }}
       </div>
 
-      <div class="likers-list" *ngIf="!isLoadingLikers">
-        <div class="liker-item" *ngFor="let user of likers">
+      <div class="likers-list" *ngIf="!isLoadingLikers && likers.length > 0" role="list">
+        <div class="liker-item" *ngFor="let user of likers; let i = index" role="listitem" [attr.aria-label]="user.username">
           <img
             [src]="user.avatar_url || '/assets/default-avatar.png'"
-            [alt]="user.username"
-            class="avatar"
-          >
+            [alt]="user.username + ' avatar'"
+            class="avatar">
           <div class="user-info">
             <span class="username">{{ user.username }}</span>
             <span class="full-name" *ngIf="user.full_name">{{ user.full_name }}</span>
@@ -39,4 +44,3 @@
     </div>
   </div>
 </div>
-

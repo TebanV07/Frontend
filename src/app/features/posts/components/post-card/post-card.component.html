@@ -29,6 +29,14 @@
     (closed)="onReportClosed()">
   </app-report-modal>
 
+  <!-- ===== SHARE TOAST NOTIFICATION ===== -->
+  <div class="share-toast" *ngIf="showShareToast" [@fadeInOut]>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span>{{ shareToastMessage }}</span>
+  </div>
+
   <!-- HEADER -->
   <div class="post-header">
     <div class="author-info">
@@ -45,13 +53,13 @@
           </a>
           <img
             *ngIf="post.user?.country_code"
-            [src]="flagService.getCountryFlagUrl(post.user?.country_code, 20)"
-            [alt]="flagService.getCountryName(post.user?.country_code)"
+            [src]="flagService.getCountryFlagUrl(post.user.country_code, 20)"
+            [alt]="flagService.getCountryName(post.user.country_code)"
             class="author-flag"
             (error)="$any($event.target).style.display='none'">
         </div>
         <span class="full-name" *ngIf="post.user?.first_name">
-          {{ post.user?.first_name }} {{ post.user?.last_name }}
+          {{ post.user.first_name }} {{ post.user.last_name }}
         </span>
         <span class="timestamp">• {{ formattedDate }}</span>
       </div>
@@ -154,22 +162,22 @@
         </ng-template>
       </div>
 
-      <!-- ====== IMÁGENES — overlay automático, sin botones por imagen ====== -->
+      <!-- ====== IMÁGENES — CORREGIDAS PARA MOSTRAR COMPLETAS ====== -->
       <div *ngIf="post.has_images && post.images?.length" class="image-grid">
-        <div
-          *ngFor="let image of post.images"
-          class="image-item">
+        <div class="image-item" *ngFor="let image of post.images">
 
           <!-- Imagen: muestra overlay traducido si existe, original si no -->
-          <img
-            [src]="imageOverlayUrls[image.id] || getFullImageUrl(image.image_url)"
-            [alt]="image.alt_text || 'Post image'"
-            class="media-image"
-            (error)="onImageError($event)">
+          <div class="image-wrapper">
+            <img
+              [src]="imageOverlayUrls[image.id] || getFullImageUrl(image.image_url)"
+              [alt]="image.alt_text || 'Post image'"
+              class="media-image"
+              (error)="onImageError($event)">
 
-          <!-- Spinner mientras se genera el overlay -->
-          <div class="overlay-spinner" *ngIf="translatingOverlayId === image.id">
-            <span>⏳</span>
+            <!-- Spinner mientras se genera el overlay -->
+            <div class="overlay-spinner" *ngIf="translatingOverlayId === image.id">
+              <span>⏳</span>
+            </div>
           </div>
 
         </div>
@@ -211,7 +219,7 @@
       (likeToggled)="onLikeToggled($any($event))">
     </app-like-button>
 
-    <button class="action-button" [routerLink]="['/posts', post.id]">
+    <button class="action-button comment-button" [routerLink]="['/posts', post.id]">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
         fill="none" stroke="currentColor" stroke-width="2">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
@@ -219,14 +227,14 @@
       <span>{{ 'post.comment' | translate }}</span>
     </button>
 
-    <button class="action-button" (click)="sharePost()">
+    <button class="action-button share-button" (click)="sharePost()">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
         fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
         <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
         <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
       </svg>
-      <span>Share</span>
+      <span>{{ 'post.share' | translate }}</span>
     </button>
 
     <button

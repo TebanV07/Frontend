@@ -42,7 +42,7 @@ export interface Post {
 
   // Usuario
   user_id: number;
-  user?: UserBasic;
+  user?: UserBasic | null;
 
   // Contadores
   likes_count: number;
