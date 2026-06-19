@@ -3,12 +3,13 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LikeToggleResponse, LikeCountResponse, LikeCheckResponse, LikeUser } from '../models/like.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostLikeService {
-  private apiUrl = '/api/v1/likes';
+  private apiUrl = `${environment.apiUrl}/likes`;
   private isBrowser: boolean;
 
   constructor(
@@ -58,8 +59,8 @@ export class PostLikeService {
     const params = new HttpParams()
       .set('skip', ((page - 1) * limit).toString())
       .set('limit', limit.toString());
-    
-    return this.http.get<LikeUser[]>(`${this.apiUrl}/posts/${postId}/users`, { 
+
+    return this.http.get<LikeUser[]>(`${this.apiUrl}/posts/${postId}/users`, {
       params,
       headers: this.getAuthHeaders() // ✅ AGREGA HEADERS
     });
