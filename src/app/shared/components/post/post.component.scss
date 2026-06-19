@@ -331,11 +331,14 @@
   gap: 6px;
   border-radius: 12px;
   overflow: hidden;
-  margin-bottom: 12px;
 
-  &.single-image .image-wrapper { max-height: 500px; }
-  &.double-image { grid-template-columns: 1fr 1fr; }
-  &.grid-images  { grid-template-columns: 1fr 1fr; }
+  &.double-image {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  &.grid-images {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .image-wrapper {
@@ -343,17 +346,25 @@
   overflow: hidden;
   border-radius: 8px;
   background: var(--input-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  &.hidden { display: none; }
+  &.hidden {
+    display: none;
+  }
 
   .post-image {
     width: 100%;
-    height: 220px;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
+    max-height: 480px;
     display: block;
     transition: transform 0.3s;
 
-    &:hover { transform: scale(1.02); }
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 }
 
@@ -383,13 +394,18 @@
 }
 
 // ── Actions ──────────────────────────────────────────────────────
-.post-actions-footer,
 .post-actions {
   display: flex;
   align-items: center;
   gap: 4px;
   padding: 10px 12px 14px;
   border-top: 1px solid var(--glass-border);
+
+  app-like-button,
+  app-like-count {
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 .action-button {
