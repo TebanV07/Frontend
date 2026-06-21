@@ -1,23 +1,28 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, interval } from 'rxjs';
+import { takeUntil, switchMap, startWith } from 'rxjs/operators';
 import { ThemeService } from '../../../core/services/theme.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { NotificationsComponent } from '../../components/notifications/notifications.component';
 import { CreditService, CreditTransaction } from '../../../core/services/credit.service';
 
+const POLL_MS = 60_000;
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, NotificationsComponent, NotificationsComponent, TranslateModule],
+  imports: [CommonModule, NotificationsComponent, TranslateModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+
+  // 👇 referencia al div .credit-widget del template
+  @ViewChild('creditWidget') creditWidgetRef!: ElementRef;
+
   mobileMenuOpen = false;
   creditBalance: number | null = null;
   creditHistory: CreditTransaction[] = [];
@@ -33,85 +38,96 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private creditService: CreditService,
     private notificationService: NotificationService
-
   ) {}
 
-  ngOnInit() {
-  this.notificationService.unreadCount$
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(count => {
-      this.unreadNotifications = count;
-    });
+  // ── Click-outside sin directiva ───────────────
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (
+      this.isCreditMenuOpen &&
+      this.creditWidgetRef &&
+      !this.creditWidgetRef.nativeElement.contains(event.target)
+    ) {
+      this.isCreditMenuOpen = false;
+    }
+  }
 
-  this.loadCreditBalance();
-}
+  // ── Lifecycle ─────────────────────────────────
+  ngOnInit(): void {
+    this.notificationService.unreadCount$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(count => (this.unreadNotifications = count));
 
-  ngOnDestroy() {
+    // Carga inmediata + polling cada 60 s
+    interval(POLL_MS)
+      .pipe(
+        startWith(0),
+        switchMap(() => this.creditService.getBalance()),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: res => (this.creditBalance = res.credit_balance),
+        error: err => {
+          console.error('Error al cargar saldo:', err);
+          this.creditBalance = null;
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  navigateTo(route: string) {
+  // ── Navegación ────────────────────────────────
+  navigateTo(route: string): void {
     this.router.navigate([route]);
     this.mobileMenuOpen = false;
   }
 
-  navigateToNotifications() {
+  navigateToNotifications(): void {
     this.router.navigate(['/notifications']);
     this.mobileMenuOpen = false;
   }
 
-  toggleMobileMenu() {
+  toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
-  loadCreditBalance(): void {
-  this.creditService.getBalance()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe({
-      next: (res) => {
-        this.creditBalance = res.credit_balance;
-      },
-      error: (err) => {
-        console.error('Error al cargar saldo de créditos:', err);
-        this.creditBalance = null;
-      }
-    });
-}
-
-toggleCreditMenu(): void {
-  this.isCreditMenuOpen = !this.isCreditMenuOpen;
-  if (this.isCreditMenuOpen && this.creditHistory.length === 0) {
-    this.loadCreditHistory();
+  closeMobileMenu(): void {
+    this.mobileMenuOpen = false;
   }
-}
 
-loadCreditHistory(): void {
-  this.isLoadingCreditHistory = true;
-  this.creditHistoryError = null;
+  // ── Créditos ──────────────────────────────────
+  toggleCreditMenu(): void {
+    this.isCreditMenuOpen = !this.isCreditMenuOpen;
 
-  this.creditService.getHistory(20)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe({
-      next: (transactions) => {
-        this.creditHistory = transactions;
-        this.isLoadingCreditHistory = false;
-      },
-      error: (err) => {
-        console.error('Error al cargar historial de créditos:', err);
-        this.creditHistoryError = 'No se pudo cargar el historial.';
-        this.isLoadingCreditHistory = false;
-      }
-    });
-}
+    // Siempre refresca el historial al abrir
+    if (this.isCreditMenuOpen) {
+      this.loadCreditHistory();
+    }
+  }
 
   closeCreditMenu(): void {
     this.isCreditMenuOpen = false;
   }
 
-  closeMobileMenu() {
-    this.mobileMenuOpen = false;
+  loadCreditHistory(): void {
+    this.isLoadingCreditHistory = true;
+    this.creditHistoryError = null;
+
+    this.creditService.getHistory(20)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: transactions => {
+          this.creditHistory = transactions;
+          this.isLoadingCreditHistory = false;
+        },
+        error: err => {
+          console.error('Error al cargar historial:', err);
+          this.creditHistoryError = 'No se pudo cargar el historial.';
+          this.isLoadingCreditHistory = false;
+        }
+      });
   }
 }
-
-
