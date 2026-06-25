@@ -31,7 +31,7 @@
   <!-- Settings wrapper: sidebar + panel -->
   <div class="settings-wrapper">
 
-    <!-- ── Sidebar nav (180px) ── -->
+    <!-- ── Sidebar nav ── -->
     <aside class="settings-nav">
 
       <button class="nav-item" [class.active]="activeTab === 'profile'" (click)="activeTab = 'profile'">
@@ -65,6 +65,13 @@
         <span>{{ 'settings.nav.privacy' | translate }}</span>
       </button>
 
+      <button class="nav-item" [class.active]="activeTab === 'feedback'" (click)="activeTab = 'feedback'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        <span>{{ 'settings.nav.feedback' | translate }}</span>
+      </button>
+
       <div class="nav-sep"></div>
 
       <button class="nav-item nav-danger" (click)="logout()">
@@ -92,7 +99,9 @@
       <!-- Toast: error -->
       <div class="toast toast-error" *ngIf="saveError">
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
         </svg>
         {{ saveError }}
       </div>
@@ -147,7 +156,7 @@
           <div class="form-group full-width">
             <label>{{ 'settings.profile.bio' | translate }}</label>
             <textarea [(ngModel)]="profileForm.bio" [placeholder]="'settings.profile.bioPlaceholder' | translate" rows="4" maxlength="160"></textarea>
-            <div class="char-count">{{ (profileForm.bio?.length || 0) }} / 160</div>
+            <div class="char-count">{{ profileForm.bio.length }} / 160</div>
           </div>
           <div class="form-group">
             <label>{{ 'settings.profile.nativeLanguage' | translate }}</label>
@@ -203,6 +212,7 @@
             <input type="password" [(ngModel)]="accountForm.confirm_password" placeholder="••••••••">
           </div>
         </div>
+
         <div class="form-footer">
           <button class="btn-save" (click)="changePassword()" [disabled]="isSaving">
             <span *ngIf="!isSaving">{{ 'settings.account.changePassword' | translate }}</span>
@@ -316,6 +326,84 @@
           <button class="btn-save" (click)="saveSettings()" [disabled]="isSaving">
             <span *ngIf="!isSaving">{{ 'common.save' | translate }}</span>
             <span *ngIf="isSaving" class="spinner"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ══ TAB: FEEDBACK ══════════════════════════════════════════════════════ -->
+      <div class="panel-section" *ngIf="activeTab === 'feedback'">
+        <div class="section-heading">
+          <h2>{{ 'settings.feedback.title' | translate }}</h2>
+          <p>{{ 'settings.feedback.subtitle' | translate }}</p>
+        </div>
+
+        <!-- Type selector -->
+        <div class="feedback-types">
+          <button
+            class="feedback-type-btn"
+            [class.active]="feedbackForm.type === 'bug'"
+            (click)="selectFeedbackType('bug')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 6h8M9 3h6M5 9l-2 2M19 9l2 2M5 15l-2 2M19 15l2 2M12 9v6M9 21h6a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3z"/>
+            </svg>
+            <span>{{ 'settings.feedback.bug' | translate }}</span>
+          </button>
+
+          <button
+            class="feedback-type-btn"
+            [class.active]="feedbackForm.type === 'suggestion'"
+            (click)="selectFeedbackType('suggestion')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span>{{ 'settings.feedback.suggestion' | translate }}</span>
+          </button>
+
+          <button
+            class="feedback-type-btn"
+            [class.active]="feedbackForm.type === 'other'"
+            (click)="selectFeedbackType('other')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span>{{ 'settings.feedback.other' | translate }}</span>
+          </button>
+        </div>
+
+        <!-- Message -->
+        <div class="form-group full-width" style="margin-top: 1.25rem;">
+          <label>{{ 'settings.feedback.messageLabel' | translate }}</label>
+          <textarea
+            [(ngModel)]="feedbackForm.message"
+            [placeholder]="'settings.feedback.messagePlaceholder' | translate"
+            rows="6"
+            [maxlength]="FEEDBACK_MAX_LENGTH">
+          </textarea>
+          <div class="char-count">{{ feedbackForm.message.length }} / {{ FEEDBACK_MAX_LENGTH }}</div>
+        </div>
+
+        <div class="feedback-error" *ngIf="feedbackError">{{ feedbackError }}</div>
+
+        <div class="toast toast-success" *ngIf="feedbackSuccess">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          {{ 'settings.feedback.sent' | translate }}
+        </div>
+
+        <div class="form-footer">
+          <button
+            class="btn-save"
+            (click)="sendFeedback()"
+            [disabled]="isSendingFeedback || !feedbackForm.message.trim()">
+            <span *ngIf="!isSendingFeedback">{{ 'settings.feedback.sendBtn' | translate }}</span>
+            <span *ngIf="isSendingFeedback" class="spinner"></span>
           </button>
         </div>
       </div>

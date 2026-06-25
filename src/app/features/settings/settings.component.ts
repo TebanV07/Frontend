@@ -21,7 +21,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   private apiUrl = environment.apiUrl;
 
   currentUser: any = null;
-  activeTab: 'profile' | 'account' | 'notifications' | 'privacy' = 'profile';
+  activeTab: 'profile' | 'account' | 'notifications' | 'privacy' | 'feedback' = 'profile';
 
   // Estado UI
   isLoading = false;
@@ -39,7 +39,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
   isDeletingAccount = false;
 
   // Formulario de perfil
-  profileForm = {
+  // CAMBIO: bio tipado como string (nunca undefined) → elimina el warning NG8107
+  profileForm: {
+    first_name: string;
+    last_name: string;
+    bio: string;
+    website: string;
+    location: string;
+    native_language: string;
+  } = {
     first_name: '',
     last_name: '',
     bio: '',
@@ -69,6 +77,16 @@ export class SettingsComponent implements OnInit, OnDestroy {
     preferred_translation_language: '',
     theme: 'auto'
   };
+
+  // ── Feedback ─────────────────────────────────────────────
+  feedbackForm = {
+    type: 'suggestion' as 'bug' | 'suggestion' | 'other',
+    message: ''
+  };
+  isSendingFeedback = false;
+  feedbackSuccess = false;
+  feedbackError = '';
+  readonly FEEDBACK_MAX_LENGTH = 1000;
 
   languages = [
     { code: 'es', name: 'Espanol' },
@@ -108,7 +126,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.profileForm = {
       first_name: user.first_name || user.firstName || '',
       last_name: user.last_name || user.lastName || '',
-      bio: user.bio || '',
+      bio: user.bio || '',           // garantiza string, nunca undefined
       website: user.website || '',
       location: user.location || '',
       native_language: user.native_language || user.nativeLanguage || 'es'
@@ -192,6 +210,41 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
   }
 
+  // ── Feedback ─────────────────────────────────────────────
+
+  selectFeedbackType(type: 'bug' | 'suggestion' | 'other') {
+    this.feedbackForm.type = type;
+  }
+
+  sendFeedback() {
+    const msg = this.feedbackForm.message.trim();
+    if (!msg) { this.feedbackError = 'Por favor escribe un mensaje antes de enviar.'; return; }
+    if (msg.length > this.FEEDBACK_MAX_LENGTH) { this.feedbackError = 'El mensaje es demasiado largo.'; return; }
+
+    this.isSendingFeedback = true;
+    this.feedbackError = '';
+    this.feedbackSuccess = false;
+
+    this.http.post<any>(
+      `${this.apiUrl}/feedback`,
+      { type: this.feedbackForm.type, message: msg },
+      { headers: this.getHeaders() }
+    ).subscribe({
+      next: () => {
+        this.isSendingFeedback = false;
+        this.feedbackSuccess = true;
+        this.feedbackForm.message = '';
+        setTimeout(() => { this.feedbackSuccess = false; }, 4000);
+      },
+      error: (err) => {
+        this.isSendingFeedback = false;
+        this.feedbackError = err.error?.detail || 'No se pudo enviar el feedback. Intenta de nuevo.';
+      }
+    });
+  }
+
+  // ── Profile ───────────────────────────────────────────────
+
   saveProfile() {
     this.isSaving = true;
     this.saveError = '';
@@ -209,6 +262,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
   }
 
+  // ── Settings (notifications + privacy) ───────────────────
+
   saveSettings() {
     this.isSaving = true;
     this.saveError = '';
@@ -221,6 +276,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  // ── Account ───────────────────────────────────────────────
 
   changePassword() {
     if (!this.accountForm.current_password || !this.accountForm.new_password) {
@@ -283,7 +340,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
       body: formData
     }).subscribe({
       next: () => {
-        // Limpiar todo y redirigir al login
         localStorage.clear();
         this.authService.logout();
         this.router.navigate(['/login']);
@@ -315,5 +371,3 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 }
-
-
