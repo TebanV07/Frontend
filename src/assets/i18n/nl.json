@@ -413,6 +413,17 @@
             "privacy": "Privacy",
             "logout": "Uitloggen"
         },
+        "feedback": {
+            "title": "Feedback en Meldingen",
+            "subtitle": "Help ons het platform te verbeteren met je ideeën of door bugs te melden.",
+            "bug": "Bug melden",
+            "suggestion": "Suggestie",
+            "other": "Anders",
+            "messageLabel": "BERICHT",
+            "messagePlaceholder": "Beschrijf je suggestie of de gevonden bug in detail...",
+            "sendBtn": "Bericht versturen",
+            "sent": "Bericht succesvol verzonden!"
+        },
         "profile": {
             "title": "Profiel bewerken",
             "avatarHint": "JPG, PNG of WebP · Max. 5 MB",

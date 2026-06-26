@@ -413,6 +413,17 @@
             "privacy": "Privacy",
             "logout": "Log out"
         },
+        "feedback": {
+            "title": "Feedback & Reports",
+            "subtitle": "Help us improve the platform with your ideas or by reporting bugs.",
+            "bug": "Report Bug",
+            "suggestion": "Suggestion",
+            "other": "Other",
+            "messageLabel": "MESSAGE",
+            "messagePlaceholder": "Describe in detail your suggestion or the bug you found...",
+            "sendBtn": "Send message",
+            "sent": "Message sent successfully!"
+        },
         "profile": {
             "title": "Edit Profile",
             "avatarHint": "JPG, PNG or WebP · Max 5MB",

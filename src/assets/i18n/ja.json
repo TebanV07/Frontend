@@ -413,6 +413,17 @@
             "privacy": "プライバシー",
             "logout": "ログアウト"
         },
+        "feedback": {
+            "title": "フィードバックと報告",
+            "subtitle": "アイデアやバグの報告でプラットフォームの改善にご協力ください。",
+            "bug": "バグを報告",
+            "suggestion": "提案",
+            "other": "その他",
+            "messageLabel": "メッセージ",
+            "messagePlaceholder": "ご提案や見つかったバグについて詳しくお書きください...",
+            "sendBtn": "メッセージを送信",
+            "sent": "メッセージが正常に送信されました！"
+        },
         "profile": {
             "title": "プロフィール編集",
             "avatarHint": "JPG、PNGまたはWebP · 最大5MB",

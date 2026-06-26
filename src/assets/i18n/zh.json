@@ -413,6 +413,17 @@
             "privacy": "隐私",
             "logout": "退出登录"
         },
+        "feedback": {
+            "title": "建议与反馈",
+            "subtitle": "通过分享您的想法或报告错误，帮助我们改进平台。",
+            "bug": "报告错误",
+            "suggestion": "建议",
+            "other": "其他",
+            "messageLabel": "消息",
+            "messagePlaceholder": "请详细描述您的建议或发现的错误...",
+            "sendBtn": "发送消息",
+            "sent": "消息发送成功！"
+        },
         "profile": {
             "title": "编辑资料",
             "avatarHint": "JPG、PNG 或 WebP · 最大 5MB",

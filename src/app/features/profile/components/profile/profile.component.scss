@@ -1,6 +1,48 @@
+// ─── Profile Wrapper ──────────────────────────────────────────
+.profile-wrapper {
+  width: 100%;
+}
+
+// ─── Profile Container ────────────────────────────────────────
 .profile-container {
   width: 100%;
-  min-height: 100vh;
-  background: rgba(15, 23, 42, 0.98);
-  color: #e2e8f0;
+  max-width: 680px;
+  margin: 0 auto;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-bottom: 48px;
+}
+
+// ─── Skeleton Loading ─────────────────────────────────────────
+.profile-skeleton {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sk-block {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  background: linear-gradient(
+    90deg,
+    var(--card-bg) 25%,
+    rgba(201, 162, 39, 0.07) 50%,
+    var(--card-bg) 75%
+  );
+  background-size: 400% 100%;
+  animation: sk-shimmer 1.6s infinite;
+
+  &.sk-header { height: 130px; }
+  &.sk-tabs   { height: 50px; border-radius: var(--radius-md); }
+  &.sk-card   { height: 240px; }
+  &.sk-card.short { height: 90px; }
+}
+
+@keyframes sk-shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
 }

@@ -1,23 +1,38 @@
-<div class="profile-container" *ngIf="profile">
-  <app-profile-header
-    [profile]="profile"
-    [isOwnProfile]="isOwnProfile"
-    [isFollowing]="isFollowing"
-    (onToggleFollow)="toggleFollow()"
-    (onEditProfile)="editProfile()"
-    (onShareProfile)="shareProfile()"
-    (onOpenSettings)="openSettings()">
-  </app-profile-header>
+<div class="profile-wrapper">
 
-  <app-profile-tabs
-    [selectedTab]="selectedTab"
-    [videosCount]="profile.videos.length"
-    (onSelectTab)="selectTab($event)">
-  </app-profile-tabs>
+  <!-- ── LOADING SKELETON ───────────────────────────────────── -->
+  <div class="profile-skeleton" *ngIf="isLoading && !profile">
+    <div class="sk-block sk-header"></div>
+    <div class="sk-block sk-tabs"></div>
+    <div class="sk-block sk-card"></div>
+    <div class="sk-block sk-card short"></div>
+    <div class="sk-block sk-card"></div>
+  </div>
 
-  <app-profile-content
-    [profile]="profile"
-    [selectedTab]="selectedTab">
-  </app-profile-content>
+  <!-- ── PROFILE LOADED ─────────────────────────────────────── -->
+  <div class="profile-container" *ngIf="profile">
+
+    <app-profile-header
+      [profile]="profile"
+      [isOwnProfile]="isOwnProfile"
+      [isFollowing]="isFollowing"
+      (onToggleFollow)="toggleFollow()"
+      (onEditProfile)="editProfile()"
+      (onShareProfile)="shareProfile()"
+      (onOpenSettings)="openSettings()">
+    </app-profile-header>
+
+    <app-profile-tabs
+      [selectedTab]="selectedTab"
+      [videosCount]="profile.videos?.length || 0"
+      [postsCount]="profile.postsCount || 0"
+      (onSelectTab)="selectTab($event)">
+    </app-profile-tabs>
+
+    <app-profile-content
+      [profile]="profile"
+      [selectedTab]="selectedTab">
+    </app-profile-content>
+
+  </div>
 </div>
-

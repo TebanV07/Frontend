@@ -413,6 +413,17 @@
             "privacy": "Gizlilik",
             "logout": "Çıkış yap"
         },
+        "feedback": {
+            "title": "Öneriler ve Bildirimler",
+            "subtitle": "Fikirlerinle veya hata bildirerek platformu iyileştirmemize yardımcı ol.",
+            "bug": "Hata bildir",
+            "suggestion": "Öneri",
+            "other": "Diğer",
+            "messageLabel": "MESAJ",
+            "messagePlaceholder": "Önerini veya bulduğun hatayı ayrıntılı olarak açıkla...",
+            "sendBtn": "Mesaj gönder",
+            "sent": "Mesaj başarıyla gönderildi!"
+        },
         "profile": {
             "title": "Profili düzenle",
             "avatarHint": "JPG, PNG veya WebP · Maks. 5 MB",

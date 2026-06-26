@@ -1,54 +1,164 @@
-// ─── Profile Header ──────────────────────────────────────────────────────────
+// ─── Host ─────────────────────────────────────────────────────
 :host { display: block; }
 
-.profile-header-box {
-  position: relative;
+// ─── Card ─────────────────────────────────────────────────────
+.profile-header-card {
   background: var(--card-bg);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 28px 32px 24px;
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  transition: background 0.3s ease;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: 22px 24px 20px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
-  // On hover, subtle glow
   &:hover {
     border-color: var(--gold-border);
-    box-shadow: 0 0 0 1px var(--gold-border), 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0 1px var(--gold-border), 0 6px 28px rgba(0, 0, 0, 0.25);
   }
 }
 
-// ─── Action Buttons (top-right) ───────────────────────────────────────────────
-.header-actions {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+// ─── Header body: 3 columns ───────────────────────────────────
+.header-body {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: flex-start;
+  gap: 18px;
 }
 
-%btn-base {
+// ─── Avatar ───────────────────────────────────────────────────
+.avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatar-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid var(--gold);
+  box-shadow: 0 0 0 4px var(--gold-dim);
+  display: block;
+}
+
+.online-dot {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  width: 13px;
+  height: 13px;
+  background: var(--color-success);
+  border-radius: 50%;
+  border: 2px solid var(--bg-color, #080b14);
+}
+
+// ─── User Info ────────────────────────────────────────────────
+.user-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.user-name {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-color);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.verified-icon {
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.user-handle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.user-bio {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: 5px;
+  max-width: 360px;
+}
+
+// ─── Meta Row ─────────────────────────────────────────────────
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 7px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--muted-color);
+
+  svg { flex-shrink: 0; stroke: var(--muted-color); }
+
+  a {
+    color: var(--gold);
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}
+
+// ─── Header Right ─────────────────────────────────────────────
+.header-right {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+// ─── Actions Row ──────────────────────────────────────────────
+.actions-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+// Button base (via placeholder)
+%btn-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s var(--transition);
-  border: 1px solid var(--gold);
   padding: 7px 16px;
+  border-radius: var(--radius-full);
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .btn-edit {
-  @extend %btn-base;
+  @extend %btn-pill;
   background: transparent;
   color: var(--gold);
+  border-color: var(--gold);
 
   &:hover {
     background: var(--gold);
@@ -59,30 +169,29 @@
 }
 
 .btn-follow {
-  @extend %btn-base;
+  @extend %btn-pill;
   background: var(--gold);
   color: var(--text-inverse);
+  border-color: var(--gold);
 
   &:hover {
     background: var(--gold-light);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(var(--gold-rgb), 0.4);
+    box-shadow: 0 4px 14px rgba(var(--gold-rgb), 0.4);
   }
 
   &.is-following {
     background: transparent;
     color: var(--gold);
 
-    &:hover {
-      background: rgba(var(--gold-rgb), 0.1);
-    }
+    &:hover { background: var(--gold-dim); }
   }
 }
 
 .btn-message {
-  @extend %btn-base;
+  @extend %btn-pill;
   background: transparent;
-  color: var(--text-color);
+  color: var(--text-secondary);
   border-color: var(--border-strong);
 
   &:hover {
@@ -92,18 +201,19 @@
   }
 }
 
-.btn-icon-sm {
+.btn-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-sm);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
   background: transparent;
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.2s var(--transition);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 
   &:hover {
     border-color: var(--gold);
@@ -112,171 +222,76 @@
   }
 }
 
-// ─── Main Info ────────────────────────────────────────────────────────────────
-.profile-main-info {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  flex: 1;
-  min-width: 0;
-}
-
-// ─── Avatar ───────────────────────────────────────────────────────────────────
-.avatar-wrap {
-  position: relative;
-  flex-shrink: 0;
-  width: 88px;
-  height: 88px;
-}
-
-.avatar-img {
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--gold);
-  box-shadow: 0 0 0 3px var(--gold-dim);
-  transition: border-color 0.2s;
-}
-
-.verified-badge {
-  position: absolute;
-  bottom: 2px;
-  right: 2px;
-  width: 22px;
-  height: 22px;
-  background: var(--gold);
-  border-radius: 50%;
-  border: 2px solid var(--bg-color, #080b14);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-inverse);
-}
-
-// ─── User Text ────────────────────────────────────────────────────────────────
-.user-text {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-}
-
-.user-name {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text-color);
-  line-height: 1.2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.user-handle {
-  font-size: 14px;
-  color: var(--text-secondary);
-  font-weight: 400;
-}
-
-.user-bio {
-  margin-top: 6px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  max-width: 360px;
-}
-
-// ─── Meta Row ─────────────────────────────────────────────────────────────────
-.meta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-.meta-item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 12px;
-  color: var(--text-secondary);
-
-  svg { flex-shrink: 0; stroke: var(--text-secondary); }
-
-  a {
-    color: var(--gold);
-    text-decoration: none;
-    &:hover { text-decoration: underline; }
-  }
-}
-
-// ─── Stats Row ────────────────────────────────────────────────────────────────
+// ─── Stats Row ────────────────────────────────────────────────
 .stats-row {
   display: flex;
   align-items: center;
-  gap: 0;
-  margin-left: auto;
-  flex-shrink: 0;
 }
 
 .stat-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 24px;
-  gap: 4px;
+  padding: 0 18px;
+  gap: 2px;
+
+  &:first-child { padding-left: 0; }
+  &:last-child  { padding-right: 0; }
 }
 
 .stat-num {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--gold);
   line-height: 1;
 }
 
 .stat-lbl {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--text-secondary);
+  white-space: nowrap;
 }
 
-.stat-divider {
+.stat-sep {
   width: 1px;
-  height: 36px;
+  height: 30px;
   background: var(--border-color);
   flex-shrink: 0;
 }
 
-// ─── Responsive ───────────────────────────────────────────────────────────────
-@media (max-width: 768px) {
-  .profile-header-box {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px;
-    gap: 16px;
+// ─── Responsive ───────────────────────────────────────────────
+@media (max-width: 600px) {
+  .profile-header-card {
+    padding: 16px;
   }
 
-  .header-actions {
-    position: static;
-    order: -1;
-    align-self: flex-end;
+  .header-body {
+    flex-wrap: wrap;
   }
 
-  .profile-main-info {
+  .avatar-wrap { order: 0; }
+  .user-info   { order: 1; flex-basis: calc(100% - 90px); }
+
+  .header-right {
+    order: 2;
     width: 100%;
+    flex-direction: row-reverse;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 14px;
+    margin-top: 4px;
   }
 
   .stats-row {
-    width: 100%;
-    margin-left: 0;
-    justify-content: space-around;
-    padding-top: 16px;
-    border-top: 1px solid var(--border-color);
+    flex: 1;
+    justify-content: flex-start;
   }
 
-  .stat-item { padding: 0 12px; }
+  .stat-item { padding: 0 12px 0 0; }
 
-  .user-name { font-size: 18px; }
+  .user-name { font-size: 16px; }
+  .avatar-img { width: 60px; height: 60px; }
 }

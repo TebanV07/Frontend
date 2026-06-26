@@ -413,6 +413,17 @@
             "privacy": "Confidentialité",
             "logout": "Déconnexion"
         },
+        "feedback": {
+            "title": "Suggestions et Signalements",
+            "subtitle": "Aidez-nous à améliorer la plateforme avec vos idées ou en signalant des bugs.",
+            "bug": "Signaler un bug",
+            "suggestion": "Suggestion",
+            "other": "Autre",
+            "messageLabel": "MESSAGE",
+            "messagePlaceholder": "Décrivez en détail votre suggestion ou le bug que vous avez rencontré...",
+            "sendBtn": "Envoyer le message",
+            "sent": "Message envoyé avec succès !"
+        },
         "profile": {
             "title": "Modifier le profil",
             "avatarHint": "JPG, PNG ou WebP · Max 5 Mo",

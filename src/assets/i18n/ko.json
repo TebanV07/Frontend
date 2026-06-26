@@ -413,6 +413,17 @@
             "privacy": "개인정보",
             "logout": "로그아웃"
         },
+        "feedback": {
+            "title": "피드백 및 신고",
+            "subtitle": "아이디어나 버그 신고로 플랫폼 개선에 도움을 주세요.",
+            "bug": "버그 신고",
+            "suggestion": "제안",
+            "other": "기타",
+            "messageLabel": "메시지",
+            "messagePlaceholder": "제안이나 발견한 버그를 자세히 설명해 주세요...",
+            "sendBtn": "메시지 보내기",
+            "sent": "메시지가 성공적으로 전송되었습니다!"
+        },
         "profile": {
             "title": "프로필 편집",
             "avatarHint": "JPG, PNG 또는 WebP · 최대 5MB",

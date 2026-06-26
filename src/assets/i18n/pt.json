@@ -413,6 +413,17 @@
             "privacy": "Privacidade",
             "logout": "Sair"
         },
+        "feedback": {
+            "title": "Sugestões e Relatórios",
+            "subtitle": "Ajude-nos a melhorar a plataforma com suas ideias ou reportando erros.",
+            "bug": "Relatar erro",
+            "suggestion": "Sugestão",
+            "other": "Outro",
+            "messageLabel": "MENSAGEM",
+            "messagePlaceholder": "Descreva detalhadamente sua sugestão ou o erro encontrado...",
+            "sendBtn": "Enviar mensagem",
+            "sent": "Mensagem enviada com sucesso!"
+        },
         "profile": {
             "title": "Editar perfil",
             "avatarHint": "JPG, PNG ou WebP · Máx. 5 MB",

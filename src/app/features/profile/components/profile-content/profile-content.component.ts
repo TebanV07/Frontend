@@ -118,6 +118,26 @@ export class ProfileContentComponent implements OnChanges {
   onImageError(event: Event) {
     (event.target as HTMLImageElement).src = 'assets/default-avatar.png';
   }
+  formatDate(dateStr: string): string {
+  if (!dateStr) return '';
+  try {
+    const date      = new Date(dateStr);
+    const now       = new Date();
+    const diffMs    = now.getTime() - date.getTime();
+    const diffMins  = Math.floor(diffMs / 60_000);
+    const diffHours = Math.floor(diffMs / 3_600_000);
+    const diffDays  = Math.floor(diffMs / 86_400_000);
+
+    if (diffMins  <  1) return 'ahora';
+    if (diffMins  < 60) return `${diffMins}m`;
+    if (diffHours < 24) return `${diffHours}h`;
+    if (diffDays  <  7) return `${diffDays}d`;
+
+    return date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+  } catch {
+    return '';
+  }
+}
 }
 
 

@@ -413,6 +413,17 @@
             "privacy": "Prywatność",
             "logout": "Wyloguj się"
         },
+        "feedback": {
+            "title": "Sugestie i Zgłoszenia",
+            "subtitle": "Pomóż nam ulepszyć platformę swoimi pomysłami lub zgłaszając błędy.",
+            "bug": "Zgłoś błąd",
+            "suggestion": "Sugestia",
+            "other": "Inne",
+            "messageLabel": "WIADOMOŚĆ",
+            "messagePlaceholder": "Opisz szczegółowo swoją sugestię lub znaleziony błąd...",
+            "sendBtn": "Wyślij wiadomość",
+            "sent": "Wiadomość wysłana pomyślnie!"
+        },
         "profile": {
             "title": "Edytuj profil",
             "avatarHint": "JPG, PNG lub WebP · Maks. 5 MB",
