@@ -56,7 +56,7 @@ export class ChatWindowComponent implements OnChanges {
     }
   }
 
-  private isOtherUserOnline(): boolean {
+  isOtherUserOnline(): boolean {
     if (!this.activeConversation?.other_user) return false;
     return this.onlineUsers.some(u => u.id === this.activeConversation?.other_user?.id);
   }
@@ -64,7 +64,50 @@ export class ChatWindowComponent implements OnChanges {
   getStatusText(): string {
     const typing = this.getTypingUserNames();
     if (typing) return typing;
-    return this.isOtherUserOnline() ? 'En linea' : 'Desconectado';
+    if (this.isOtherUserOnline()) return 'Activo ahora';
+    const lastSeen = this.getLastSeenText();
+    return lastSeen ? `Activo ${lastSeen}` : 'Desconectado';
+  }
+
+  /**
+   * Soporte para last_seen: devuelve un texto relativo ("hace 5 min", "hace 2 h"…)
+   * a partir del campo last_seen del contacto, si el backend lo envía.
+   */
+  getLastSeenText(): string {
+    const raw = this.activeConversation?.other_user?.['last_seen']
+      ?? this.activeConversation?.other_user?.['last_activity'];
+    if (!raw) return '';
+
+    const last = new Date(raw).getTime();
+    if (isNaN(last)) return '';
+
+    const diff = Date.now() - last;
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+
+    if (minutes < 1) return 'hace un momento';
+    if (minutes < 60) return `hace ${minutes} min`;
+    if (hours < 24) return `hace ${hours} h`;
+    return `hace ${days} d`;
+  }
+
+  /**
+   * Avatar del contacto en una conversación directa. Se usa para el header
+   * y como avatar de las burbujas recibidas / indicador de leído.
+   */
+  getContactAvatar(): string {
+    return this.activeConversation?.other_user?.avatar || '/assets/default-avatar.png';
+  }
+
+  /**
+   * Avatar a mostrar junto a una burbuja recibida.
+   * Prioriza el remitente del mensaje (útil en grupos) y cae al contacto directo.
+   */
+  getSenderAvatar(message: Message): string {
+    return message.sender?.avatar
+      || this.activeConversation?.other_user?.avatar
+      || '/assets/default-avatar.png';
   }
 
   onMessageSent(content: string): void {
@@ -81,16 +124,28 @@ export class ChatWindowComponent implements OnChanges {
   }
 
   isMessageSent(message: Message): boolean {
-    return message.sender_id === this.getCurrentUserId();
+    const me = this.getCurrentUserId();
+    if (!me) return false;
+    // El backend/WS pueden enviar el remitente como sender_id o como sender.id.
+    const senderId = Number(message.sender_id ?? message.sender?.id);
+    if (isNaN(senderId)) return false;
+    return senderId === me;
   }
 
   private getCurrentUserId(): number {
-    const userId = this.authService.getCurrentUserId();
-    if (userId) return userId;
+    const fromService = Number(this.authService.getCurrentUserId());
+    if (fromService) return fromService;
+
+    const fromUser = Number(this.authService.getCurrentUser()?.id);
+    if (fromUser) return fromUser;
+
     if (typeof localStorage !== 'undefined') {
       const currentUserStr = localStorage.getItem('currentUser');
       if (currentUserStr) {
-        try { return JSON.parse(currentUserStr).id || 0; } catch (e) {}
+        try {
+          const id = Number(JSON.parse(currentUserStr).id);
+          if (id) return id;
+        } catch (e) {}
       }
     }
     return 0;

@@ -3,11 +3,14 @@
   <!-- Header de la conversación -->
   <div class="chat-header" *ngIf="activeConversation">
     <div class="conversation-info">
-      <img
-        [src]="activeConversation.other_user?.avatar || '/assets/default-avatar.png'"
-        alt="Avatar"
-        class="avatar"
-        (error)="$any($event.target).src = '/assets/default-avatar.png'">
+      <div class="avatar-wrapper" [class.online]="isOtherUserOnline()">
+        <img
+          [src]="getContactAvatar()"
+          alt="Avatar"
+          class="avatar"
+          (error)="$any($event.target).src = '/assets/default-avatar.png'">
+        <span class="online-dot" *ngIf="isOtherUserOnline()" title="Activo ahora"></span>
+      </div>
 
       <div class="info">
         <div class="contact-name-row">
@@ -37,7 +40,7 @@
             (error)="$any($event.target).style.display='none'">
         </div>
 
-        <span class="status">{{ getStatusText() }}</span>
+        <span class="status" [class.online]="isOtherUserOnline()">{{ getStatusText() }}</span>
       </div>
     </div>
   </div>
@@ -49,6 +52,8 @@
         *ngFor="let message of messages"
         [message]="message"
         [isSent]="isMessageSent(message)"
+        [senderAvatar]="getSenderAvatar(message)"
+        [readerAvatar]="getContactAvatar()"
         (translate)="onTranslateMessage($event)"
         (edited)="onMessageEdited($event)"
         (deleted)="onMessageDeleted($event)"

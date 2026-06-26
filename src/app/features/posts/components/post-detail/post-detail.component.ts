@@ -20,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     LikeButtonComponent,
     LikeCountComponent,
     CommentListComponent,
-    FormsModule, TranslateModule],
+    FormsModule,
+    TranslateModule
+  ],
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss']
 })
@@ -35,12 +37,16 @@ export class PostDetailComponent implements OnInit {
   isTranslating = false;
   selectedTranslationLanguage = 'en';
 
+  // ✅ Guarda el idioma con el que se hizo la última traducción
+  // para saber si hay que re-traducir al pulsar el botón de nuevo
+  private lastTranslatedLanguage: string | null = null;
+
   private readonly apiBaseUrl = environment.apiBaseUrl;
 
   constructor(
     private route: ActivatedRoute,
     private postService: PostsService,
-    public flagService: FlagService    // ⭐ NUEVO
+    public flagService: FlagService
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +62,46 @@ export class PostDetailComponent implements OnInit {
     });
   }
 
+  // ✅ Cambiar idioma en el select ya NO dispara la traducción automáticamente.
+  // Solo resetea la traducción activa si el idioma cambió, para que el
+  // botón vuelva a decir "Traducir" en vez de "Ver original".
+  onLanguageChanged(): void {
+    if (this.showTranslation && this.selectedTranslationLanguage !== this.lastTranslatedLanguage) {
+      this.showTranslation = false;
+      this.translatedContent = '';
+    }
+  }
+
+  // ✅ El botón alterna entre: traducir → ver original → traducir...
+  // Si el idioma cambió desde la última traducción, re-traduce.
+  toggleTranslation(): void {
+    if (!this.post) return;
+
+    // Si ya se está mostrando la traducción del mismo idioma → volver al original
+    if (this.showTranslation && this.selectedTranslationLanguage === this.lastTranslatedLanguage) {
+      this.showTranslation = false;
+      return;
+    }
+
+    // Llamar a la API de traducción
+    this.isTranslating = true;
+    this.postService.translatePost(this.post.id, this.selectedTranslationLanguage).subscribe({
+      next: (res: any) => {
+        this.translatedContent = res?.translated_content ?? res?.content ?? '';
+        this.lastTranslatedLanguage = this.selectedTranslationLanguage;
+        this.showTranslation = true;
+        this.isTranslating = false;
+      },
+      error: () => {
+        // Fallback en caso de error
+        this.translatedContent = `[Simulated] ${this.post?.content}`;
+        this.lastTranslatedLanguage = this.selectedTranslationLanguage;
+        this.showTranslation = true;
+        this.isTranslating = false;
+      }
+    });
+  }
+
   getFullImageUrl(imageUrl: string | undefined | null): string {
     if (!imageUrl) return '';
     return imageUrl.startsWith('http') ? imageUrl : `${this.apiBaseUrl}${imageUrl}`;
@@ -67,26 +113,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   onVideoError(event: Event): void {
-    console.error('❌ Error loading video:', (event.target as HTMLVideoElement)?.error);
-  }
-
-  toggleTranslation(): void {
-    if (!this.post) return;
-    if (this.showTranslation) { this.showTranslation = false; return; }
-
-    this.isTranslating = true;
-    this.postService.translatePost(this.post.id, this.selectedTranslationLanguage).subscribe({
-      next: (res: any) => {
-        this.translatedContent = res?.translated_content ?? res?.content ?? '';
-        this.showTranslation = true;
-        this.isTranslating = false;
-      },
-      error: () => {
-        this.translatedContent = `[Simulated] ${this.post?.content}`;
-        this.showTranslation = true;
-        this.isTranslating = false;
-      }
-    });
+    console.error('Error loading video:', (event.target as HTMLVideoElement)?.error);
   }
 
   onLikeToggled(event: { isLiked: boolean; likesCount: number }): void {
@@ -99,9 +126,8 @@ export class PostDetailComponent implements OnInit {
   get formattedDate(): string {
     if (!this.post) return '';
     return new Date(this.post.created_at as string).toLocaleDateString('en-US', {
-      year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
+      year: 'numeric', month: 'long', day: 'numeric',
+      hour: '2-digit', minute: '2-digit'
     });
   }
 }
-
-

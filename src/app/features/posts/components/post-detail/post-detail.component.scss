@@ -1,14 +1,10 @@
-// ================================================================
-// post-detail.component.scss
-// ================================================================
-
 .post-detail-container {
   max-width: 720px;
   margin: 0 auto;
   padding: 24px 16px 48px;
 }
 
-// ── States ───────────────────────────────────────────────────────
+// ── States ──────────────────────────────────────────────────────
 .loading-state {
   display: flex;
   flex-direction: column;
@@ -31,7 +27,6 @@
   text-align: center;
   padding: 48px;
   color: var(--text-dim);
-
   p { margin-bottom: 16px; }
 }
 
@@ -56,12 +51,9 @@
   }
 }
 
-// ── Back button row ──────────────────────────────────────────────
-.back-button {
-  margin-bottom: 18px;
-}
+.back-button { margin-bottom: 18px; }
 
-// ── Post detail card ─────────────────────────────────────────────
+// ── Layout ───────────────────────────────────────────────────────
 .post-detail {
   display: flex;
   flex-direction: column;
@@ -99,7 +91,6 @@
   border: 2px solid var(--glass-border);
   cursor: pointer;
   transition: border-color 0.2s;
-
   &:hover { border-color: var(--gold); }
 }
 
@@ -120,10 +111,8 @@
 }
 
 .author-flag { width: 18px; border-radius: 2px; }
-
-.full-name { font-size: 0.78rem; color: var(--text-dim); }
-
-.timestamp { font-size: 0.74rem; color: var(--text-dim); }
+.full-name   { font-size: 0.78rem; color: var(--text-dim); }
+.timestamp   { font-size: 0.74rem; color: var(--text-dim); }
 
 // ── Body ─────────────────────────────────────────────────────────
 .post-body { padding: 18px 20px; }
@@ -139,7 +128,7 @@
   margin-bottom: 12px;
   font-size: 0.74rem;
 
-  .lang-flag { width: 16px; border-radius: 2px; }
+  .lang-flag    { width: 16px; border-radius: 2px; }
   .language-name { color: var(--text-dim); }
 }
 
@@ -192,7 +181,7 @@
   margin-bottom: 10px;
   flex-wrap: wrap;
 
-  .translation-info {
+  .translation-left {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -200,28 +189,77 @@
     color: var(--text-dim);
   }
 
-  .translation-controls {
+  .translation-right {
     display: flex;
-    gap: 8px;
     align-items: center;
-
-    select {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      color: var(--text-main);
-      font-size: 0.78rem;
-      padding: 5px 8px;
-      outline: none;
-      &:focus { border-color: var(--gold); }
-    }
+    gap: 8px;
   }
 }
 
+// ── Select estilizado ────────────────────────────────────────────
+.lang-select-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  .lang-select {
+    // Reset nativo
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    // Diseño consistente con la interfaz oscura
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: var(--text-main);         // ✅ Texto legible
+    font-size: 0.78rem;
+    padding: 6px 30px 6px 10px;      // Espacio derecho para el chevron
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    min-width: 130px;
+
+    // ✅ Opciones del dropdown también oscuras
+    option {
+      background: #1a1a2e;           // Fondo oscuro para el dropdown nativo
+      color: var(--text-main);
+    }
+
+    &:focus {
+      border-color: var(--gold);
+      background: var(--input-bg);
+    }
+
+    &:hover:not(:disabled) {
+      border-color: var(--gold);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  // Chevron decorativo que reemplaza la flecha nativa
+  .select-chevron {
+    position: absolute;
+    right: 9px;
+    pointer-events: none;         // No interfiere con clicks
+    color: var(--text-dim);
+    transition: color 0.2s;
+  }
+
+  &:hover .select-chevron {
+    color: var(--gold);
+  }
+}
+
+// ── Botón traducir ────────────────────────────────────────────────
 .translate-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   padding: 6px 14px;
   border-radius: 8px;
   border: 1px solid var(--glass-border);
@@ -230,15 +268,35 @@
   font-size: 0.78rem;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
 
-  &:hover:not(:disabled), &.active {
+  &:hover:not(:disabled) {
     border-color: var(--gold);
     color: var(--gold);
     background: rgba(212, 175, 55, 0.08);
   }
+
+  &.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(212, 175, 55, 0.1);
+  }
+
   &:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  // Spinner dentro del botón
+  .btn-spinner {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-top-color: var(--gold);
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
 }
 
+// ── Indicador de traducción activa ───────────────────────────────
 .translation-indicator {
   display: inline-flex;
   align-items: center;
@@ -291,7 +349,7 @@
   &:hover { background: var(--input-bg); color: var(--text-main); }
 }
 
-// ── Comments section ─────────────────────────────────────────────
+// ── Comments ──────────────────────────────────────────────────────
 .comments-section {
   background: var(--glass-bg);
   backdrop-filter: blur(12px);

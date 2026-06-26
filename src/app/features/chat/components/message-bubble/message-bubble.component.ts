@@ -17,6 +17,12 @@ export class MessageBubbleComponent implements OnChanges {
   @Input() message!: Message;
   @Input() isSent: boolean = false;
 
+  /** Avatar del remitente, mostrado solo en mensajes recibidos (estilo Messenger). */
+  @Input() senderAvatar: string = '/assets/default-avatar.png';
+
+  /** Avatar de quien leyó el mensaje, usado en el indicador de leído (fallback ✓✓). */
+  @Input() readerAvatar: string | null = null;
+
   @Output() translate = new EventEmitter<{ message: Message, language: string }>();
   @Output() edited = new EventEmitter<{ id: number, content: string }>();
   @Output() deleted = new EventEmitter<number>();

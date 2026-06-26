@@ -37,13 +37,36 @@
   min-width: 0;
 }
 
+.avatar-wrapper {
+  position: relative;
+  flex: 0 0 auto;
+  width: 56px;
+  height: 56px;
+}
+
 .avatar {
-  width: 78px;
-  height: 78px;
-  border-radius: 22px;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   object-fit: cover;
   border: 1px solid var(--border-color);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+}
+
+.avatar-wrapper.online .avatar {
+  border-color: var(--online-green);
+}
+
+.online-dot {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--online-green);
+  border: 2px solid var(--card-bg);
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
 }
 
 .info {
@@ -70,8 +93,12 @@
 
 .status {
   font-size: 0.82rem;
-  color: var(--gold-light);
+  color: var(--text-secondary);
   font-weight: 600;
+}
+
+.status.online {
+  color: var(--online-green);
 }
 
 .contact-flag,
@@ -210,10 +237,9 @@
     padding: 16px 18px;
   }
 
-  .avatar {
-    width: 64px;
-    height: 64px;
-    border-radius: 18px;
+  .avatar-wrapper {
+    width: 48px;
+    height: 48px;
   }
 
   .messages-container {
@@ -228,9 +254,35 @@
 @media (max-width: 640px) {
   .chat-header {
     gap: 12px;
+    padding: 14px 14px;
+  }
+
+  .avatar-wrapper {
+    width: 44px;
+    height: 44px;
   }
 
   .contact-name-row h3 {
     font-size: 1.02rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .chat-header {
+    gap: 10px;
+    padding: 12px 12px;
+  }
+
+  .avatar-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .messages-container {
+    padding: 14px 12px;
+  }
+
+  .chat-input-container {
+    padding: 12px 10px 14px;
   }
 }

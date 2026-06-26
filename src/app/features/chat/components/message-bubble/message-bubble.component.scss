@@ -21,6 +21,17 @@
   align-self: flex-start;
 }
 
+.bubble-avatar {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  align-self: flex-end;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
+}
+
 .message-content {
   position: relative;
   min-width: 0;
@@ -248,6 +259,15 @@
   color: var(--text-secondary);
 }
 
+.read-avatar {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
 .read-indicator {
   color: rgba(255, 255, 255, 0.9);
   font-weight: 800;
@@ -431,6 +451,12 @@
 @media (max-width: 720px) {
   .message-bubble {
     max-width: 92%;
+    gap: 8px;
+  }
+
+  .bubble-avatar {
+    width: 28px;
+    height: 28px;
   }
 
   .media-image,

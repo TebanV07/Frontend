@@ -13,6 +13,14 @@
     <button (click)="closeActions()" class="action-item close">✖️ {{ 'common.close' | translate }}</button>
   </div>
 
+  <!-- Avatar del remitente (solo en mensajes recibidos, estilo Messenger) -->
+  <img
+    *ngIf="!isSent"
+    class="bubble-avatar"
+    [src]="senderAvatar"
+    alt="Avatar"
+    (error)="$any($event.target).src = '/assets/default-avatar.png'">
+
   <!-- Contenedor del mensaje -->
   <div class="message-content">
 
@@ -122,7 +130,21 @@
     <!-- Hora y estado del mensaje -->
     <div class="message-time">
       {{ getMessageTime() }}
-      <span *ngIf="isSent && message.is_read" class="read-indicator" title="Leído">✓✓</span>
+
+      <!-- Leído: avatar pequeño del lector si está disponible, con fallback a ✓✓ -->
+      <ng-container *ngIf="isSent && message.is_read">
+        <img
+          *ngIf="readerAvatar; else readCheck"
+          class="read-avatar"
+          [src]="readerAvatar"
+          alt="Leído"
+          title="Leído"
+          (error)="$any($event.target).style.display='none'">
+        <ng-template #readCheck>
+          <span class="read-indicator" title="Leído">✓✓</span>
+        </ng-template>
+      </ng-container>
+
       <span *ngIf="isSent && !message.is_read" class="unread-indicator" title="Enviado">✓</span>
     </div>
   </div>

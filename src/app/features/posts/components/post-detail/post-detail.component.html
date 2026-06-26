@@ -24,7 +24,7 @@
 
     <article class="post-content">
 
-      <!-- HEADER: Autor + bandera -->
+      <!-- HEADER -->
       <div class="post-header">
         <div class="author-info">
           <img
@@ -34,21 +34,19 @@
             [routerLink]="['/profile', post.user?.username]">
 
           <div class="author-details">
-
-            <!-- ⭐ Fila nombre + bandera país -->
             <div class="author-name-row">
               <a [routerLink]="['/profile', post.user?.username]" class="username">
                 {{ post.user?.username }}
               </a>
+              <!-- ✅ Fix NG8107: country_code es opcional, se accede con ?. correctamente -->
               <img
                 *ngIf="post.user?.country_code"
-                [src]="flagService.getCountryFlagUrl(post.user?.country_code, 20)"
-                [alt]="flagService.getCountryName(post.user?.country_code)"
-                [title]="flagService.getCountryName(post.user?.country_code)"
+                [src]="flagService.getCountryFlagUrl(post.user!.country_code!, 20)"
+                [alt]="flagService.getCountryName(post.user!.country_code!)"
+                [title]="flagService.getCountryName(post.user!.country_code!)"
                 class="author-flag"
                 (error)="$any($event.target).style.display='none'">
             </div>
-
             <span class="full-name" *ngIf="post.user?.first_name || post.user?.last_name">
               {{ post.user?.first_name }} {{ post.user?.last_name }}
             </span>
@@ -60,7 +58,7 @@
       <!-- BODY -->
       <div class="post-body">
 
-        <!-- ⭐ Badge idioma original -->
+        <!-- Badge idioma original -->
         <div class="language-badge" *ngIf="post.original_language">
           <img
             [src]="flagService.getLanguageFlagUrl(post.original_language, 20)"
@@ -70,7 +68,7 @@
           <span class="language-name">{{ flagService.getLanguageName(post.original_language) }}</span>
         </div>
 
-        <!-- Texto (original o traducido) -->
+        <!-- Texto -->
         <p class="content-text" [class.translated]="showTranslation">
           {{ showTranslation ? translatedContent : post.content }}
         </p>
@@ -93,36 +91,72 @@
           </ng-container>
         </div>
 
-        <!-- ⭐ Barra de traducción -->
+        <!-- ✅ Barra de traducción rediseñada -->
         <div class="translation-bar">
-          <div class="translation-info">
-            <span>🌐</span>
+          <div class="translation-left">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
             <span>{{ (showTranslation ? 'post.showingTranslation' : 'post.translatePost') | translate }}</span>
           </div>
-          <div class="translation-controls">
-            <select [(ngModel)]="selectedTranslationLanguage" [disabled]="isTranslating">
-              <option value="es">🇪🇸 Español</option>
-              <option value="en">🇺🇸 English</option>
-              <option value="fr">🇫🇷 Français</option>
-              <option value="pt">🇧🇷 Português</option>
-              <option value="de">🇩🇪 Deutsch</option>
-              <option value="it">🇮🇹 Italiano</option>
-              <option value="ja">🇯🇵 日本語</option>
-              <option value="ko">🇰🇷 한국어</option>
-              <option value="zh">🇨🇳 中文</option>
-            </select>
+
+          <div class="translation-right">
+            <!-- ✅ Select estilizado -->
+            <div class="lang-select-wrapper">
+              <select
+                [(ngModel)]="selectedTranslationLanguage"
+                [disabled]="isTranslating"
+                class="lang-select"
+                (change)="onLanguageChanged()">
+                <option value="es">🇪🇸 Español</option>
+                <option value="en">🇺🇸 English</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="pt">🇧🇷 Português</option>
+                <option value="de">🇩🇪 Deutsch</option>
+                <option value="it">🇮🇹 Italiano</option>
+                <option value="ja">🇯🇵 日本語</option>
+                <option value="ko">🇰🇷 한국어</option>
+                <option value="zh">🇨🇳 中文</option>
+                <option value="ru">🇷🇺 Русский</option>
+                <option value="ar">🇸🇦 العربية</option>
+                <option value="hi">🇮🇳 हिन्दी</option>
+                <option value="nl">🇳🇱 Nederlands</option>
+                <option value="pl">🇵🇱 Polski</option>
+                <option value="tr">🇹🇷 Türkçe</option>
+              </select>
+              <!-- Chevron icon sobre el select -->
+              <svg class="select-chevron" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+
+            <!-- ✅ Botón solo traduce al hacer click, no al cambiar idioma -->
             <button
               class="translate-btn"
               [class.active]="showTranslation"
               [disabled]="isTranslating"
               (click)="toggleTranslation()">
-              <span>{{ isTranslating ? '⏳' : '🌐' }}</span>
-              <span>{{ (isTranslating ? 'post.translating' : (showTranslation ? 'post.showOriginal' : 'post.translate')) | translate }}</span>
+              <svg *ngIf="!isTranslating" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 8l6 6M4 14l6-6 2-2M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/>
+              </svg>
+              <div *ngIf="isTranslating" class="btn-spinner"></div>
+              <span>
+                {{ isTranslating
+                  ? ('post.translating' | translate)
+                  : showTranslation
+                    ? ('post.showOriginal' | translate)
+                    : ('post.translate' | translate) }}
+              </span>
             </button>
           </div>
         </div>
 
-        <!-- ⭐ Indicador de traducción activa -->
+        <!-- Indicador de traducción activa -->
         <div class="translation-indicator" *ngIf="showTranslation">
           <img
             [src]="flagService.getLanguageFlagUrl(selectedTranslationLanguage, 20)"
@@ -180,4 +214,3 @@
 
   </div>
 </div>
-

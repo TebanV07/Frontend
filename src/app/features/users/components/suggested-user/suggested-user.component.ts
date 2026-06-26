@@ -15,6 +15,7 @@ export class SuggestedUserComponent implements OnInit {
   suggestedUsers: FollowUser[] = [];
   isLoading: { [key: number]: boolean } = {};
   showAll = false;
+  dismissedUserIds: Set<number> = new Set();
 
   constructor(private followService: FollowService) {}
 
@@ -25,7 +26,8 @@ export class SuggestedUserComponent implements OnInit {
   loadSuggestions() {
     this.followService.getSuggestedUsers(10).subscribe({
       next: (users) => {
-        this.suggestedUsers = users;
+        // Filtrar usuarios ya descartados al recargar
+        this.suggestedUsers = users.filter(u => !this.dismissedUserIds.has(u.id));
       },
       error: (error) => {
         console.error('Error cargando sugerencias:', error);
@@ -42,7 +44,6 @@ export class SuggestedUserComponent implements OnInit {
           user.isFollowing = false;
           user.isPendingRequest = false;
           this.isLoading[user.id] = false;
-          // Recargar sugerencias despues de dejar de seguir
           setTimeout(() => this.loadSuggestions(), 300);
         },
         error: (error) => {
@@ -55,9 +56,8 @@ export class SuggestedUserComponent implements OnInit {
         next: () => {
           user.isFollowing = true;
           this.isLoading[user.id] = false;
-          // Eliminar usuario seguido de la lista y recargar sugerencias
+          // Eliminar usuario seguido de la lista inmediatamente
           this.suggestedUsers = this.suggestedUsers.filter(u => u.id !== user.id);
-          // Cargar nuevas sugerencias para reemplazar el usuario seguido
           setTimeout(() => this.loadSuggestions(), 300);
         },
         error: (error) => {
@@ -68,18 +68,24 @@ export class SuggestedUserComponent implements OnInit {
     }
   }
 
-  getButtonText(user: FollowUser): string {
-    if (user.isFollowing) return 'explore.suggested.following';
-    if (user.isPendingRequest) return 'explore.suggested.pending';
-    return 'explore.suggested.follow';
+  dismissUser(user: FollowUser) {
+    this.dismissedUserIds.add(user.id);
+    this.suggestedUsers = this.suggestedUsers.filter(u => u.id !== user.id);
   }
 
   getDisplayedUsers(): FollowUser[] {
-    return this.showAll ? this.suggestedUsers : this.suggestedUsers.slice(0, 5);
+    const filtered = this.suggestedUsers.filter(u => !this.dismissedUserIds.has(u.id));
+    return this.showAll ? filtered : filtered.slice(0, 10);
   }
 
   toggleShowAll() {
     this.showAll = !this.showAll;
+  }
+
+  getButtonText(user: FollowUser): string {
+    if (user.isFollowing) return 'explore.suggested.following';
+    if (user.isPendingRequest) return 'explore.suggested.pending';
+    return 'explore.suggested.follow';
   }
 
   getDisplayName(user: FollowUser): string {
@@ -89,5 +95,3 @@ export class SuggestedUserComponent implements OnInit {
     return user.username;
   }
 }
-
-

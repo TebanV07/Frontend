@@ -1,6 +1,6 @@
 import {
   Component, OnInit, AfterViewInit, OnDestroy,
-  ViewChild, ViewChildren, ElementRef, QueryList,
+  ViewChild, ElementRef,
   Inject, PLATFORM_ID
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
@@ -17,22 +17,16 @@ import { Router } from '@angular/router';
 })
 export class TermsComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('termsContent')  termsEl?: ElementRef<HTMLElement>;
+  @ViewChild('termsContent')   termsEl?: ElementRef<HTMLElement>;
   @ViewChild('privacyContent') privacyEl?: ElementRef<HTMLElement>;
 
   activeTab: 'terms' | 'privacy' = 'terms';
 
-  // Progreso y estado de cada tab
-  scrollProgress = 0;
+  scrollProgress   = 0;
   scrolledToBottom = false;
 
-  // Guardamos si cada tab fue leído hasta el final
-  private tabRead: Record<string, boolean> = { terms: false, privacy: false };
-
-  // Ambos deben haberse leído para poder aceptar
-  get bothRead(): boolean {
-    return this.tabRead['terms'] && this.tabRead['privacy'];
-  }
+  // Public so the template can access tabRead['terms'] / tabRead['privacy']
+  tabRead: Record<string, boolean> = { terms: false, privacy: false };
 
   constructor(
     private router: Router,
@@ -59,11 +53,7 @@ export class TermsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private onResizeBound = () => this.updateScrollState();
 
-  switchTab(tab: 'terms' | 'privacy'): void {
-    this.activeTab = tab;
-    // Pequeño delay para que el DOM muestre el nuevo panel
-    setTimeout(() => this.updateScrollState(), 60);
-  }
+  // ── Internal helpers ───────────────────────────────────────
 
   private getActiveEl(): HTMLElement | null {
     return this.activeTab === 'terms'
@@ -78,34 +68,59 @@ export class TermsComponent implements OnInit, AfterViewInit, OnDestroy {
     const scrollable = el.scrollHeight - el.clientHeight;
 
     if (scrollable <= 5) {
-      this.scrollProgress = 100;
+      this.scrollProgress   = 100;
       this.scrolledToBottom = true;
       this.tabRead[this.activeTab] = true;
     } else {
       const ratio = el.scrollTop / scrollable;
-      this.scrollProgress = Math.min(100, Math.round(ratio * 100));
+      this.scrollProgress   = Math.min(100, Math.round(ratio * 100));
       this.scrolledToBottom = el.scrollTop >= scrollable - 10;
       if (this.scrolledToBottom) this.tabRead[this.activeTab] = true;
     }
   }
 
+  private switchToTab(tab: 'terms' | 'privacy'): void {
+    this.activeTab = tab;
+    // Reset progress bar for the new tab
+    this.scrollProgress   = this.tabRead[tab] ? 100 : 0;
+    this.scrolledToBottom = this.tabRead[tab];
+    // Let the DOM show the new panel, then re-measure
+    setTimeout(() => this.updateScrollState(), 60);
+  }
+
+  // ── Public (template) ─────────────────────────────────────
+
   onScroll(_event: Event): void {
     this.updateScrollState();
   }
 
-acceptTerms(): void {
-  if (!this.bothRead) return;
-  localStorage.setItem('terms_accepted', 'true');
-  localStorage.setItem('terms_accepted_date', new Date().toISOString());
-
-  // Verificar siguiente paso
-  const permissionsGranted = localStorage.getItem('permissions_granted') === 'true';
-  if (!permissionsGranted) {
-    this.router.navigate(['/permissions']);
-  } else {
-    this.router.navigate(['/home']);
+  /**
+   * Called by the "Continuar a Privacidad" button (step 1).
+   * Only active once the Terms content has been scrolled to bottom.
+   */
+  nextStep(): void {
+    if (!this.scrolledToBottom) return;
+    this.switchToTab('privacy');
+    // Scroll the privacy panel to top so the user starts fresh
+    setTimeout(() => {
+      const el = this.privacyEl?.nativeElement;
+      if (el) el.scrollTop = 0;
+      this.updateScrollState();
+    }, 80);
   }
-}
+
+  /**
+   * Called by the "Aceptar" button (step 2 / Privacy tab).
+   * Only active once the Privacy content has been scrolled to bottom.
+   */
+  acceptTerms(): void {
+    if (!this.scrolledToBottom) return;
+    localStorage.setItem('terms_accepted', 'true');
+    localStorage.setItem('terms_accepted_date', new Date().toISOString());
+
+    const permissionsGranted = localStorage.getItem('permissions_granted') === 'true';
+    this.router.navigate([permissionsGranted ? '/home' : '/permissions']);
+  }
 
   declineTerms(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -114,5 +129,3 @@ acceptTerms(): void {
     this.router.navigate(['/login']);
   }
 }
-
-
