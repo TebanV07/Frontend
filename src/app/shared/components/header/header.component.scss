@@ -386,7 +386,6 @@
     display: none;
   }
 }
-
 // ─────────────────────────────────────────────
 // MOBILE BOTTOM NAV
 // ─────────────────────────────────────────────
@@ -451,6 +450,34 @@
     &.active {
       color: #ffcc33;
       background: rgba(255, 196, 0, 0.08);
+    }
+  }
+
+  // ← AQUÍ adentro, no afuera
+  .mob-credit-widget {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+    .mob-btn {
+      width: 100%;
+    }
+
+    .credit-dropdown--up {
+      top: unset;
+      bottom: calc(100% + 10px);
+      right: unset;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+
+      @media (max-width: 380px) {
+        left: auto;
+        right: 0;
+        transform: none;
+        width: 260px;
+      }
     }
   }
 }
