@@ -57,46 +57,47 @@
         </svg>
         <span>Find people</span>
       </button>
+
       <div class="credit-widget" #creditWidget>
-  <button class="nav-btn" (click)="toggleCreditMenu()">
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M12 6v12M9 9.5c0-1.1 1.3-2 3-2s3 .9 3 2-1.3 2-3 2-3 .9-3 2 1.3 2 3 2 3-.9 3-2"/>
-    </svg>
-    <span>{{ creditBalance !== null ? creditBalance : '--' }}</span>
-  </button>
+        <button class="nav-btn" (click)="toggleCreditMenu()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v12M9 9.5c0-1.1 1.3-2 3-2s3 .9 3 2-1.3 2-3 2-3 .9-3 2 1.3 2 3 2 3-.9 3-2"/>
+          </svg>
+          <span>{{ creditBalance !== null ? creditBalance : '--' }}</span>
+        </button>
 
-  <div class="credit-dropdown" *ngIf="isCreditMenuOpen">
-    <div class="credit-dropdown-header">
-      <span>Historial de créditos</span>
-      <button class="credit-close-btn" (click)="closeCreditMenu()">✕</button>
-    </div>
+        <div class="credit-dropdown" *ngIf="isCreditMenuOpen">
+          <div class="credit-dropdown-header">
+            <span>Historial de créditos</span>
+            <button class="credit-close-btn" (click)="closeCreditMenu()">✕</button>
+          </div>
 
-    <div class="credit-dropdown-body">
-      <div *ngIf="isLoadingCreditHistory" class="credit-loading">
-        Cargando...
+          <div class="credit-dropdown-body">
+            <div *ngIf="isLoadingCreditHistory" class="credit-loading">
+              Cargando...
+            </div>
+
+            <div *ngIf="creditHistoryError && !isLoadingCreditHistory" class="credit-error">
+              {{ creditHistoryError }}
+            </div>
+
+            <ul *ngIf="!isLoadingCreditHistory && !creditHistoryError && creditHistory.length > 0" class="credit-history-list">
+              <li *ngFor="let tx of creditHistory" class="credit-history-item">
+                <span class="tx-type">{{ tx.transaction_type }}</span>
+                <span class="tx-amount" [class.positive]="tx.amount > 0" [class.negative]="tx.amount < 0">
+                  {{ tx.amount > 0 ? '+' : '' }}{{ tx.amount }}
+                </span>
+                <span class="tx-date">{{ tx.created_at | date:'short' }}</span>
+              </li>
+            </ul>
+
+            <div *ngIf="!isLoadingCreditHistory && !creditHistoryError && creditHistory.length === 0" class="credit-empty">
+              Sin transacciones todavía.
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div *ngIf="creditHistoryError && !isLoadingCreditHistory" class="credit-error">
-        {{ creditHistoryError }}
-      </div>
-
-      <ul *ngIf="!isLoadingCreditHistory && !creditHistoryError && creditHistory.length > 0" class="credit-history-list">
-        <li *ngFor="let tx of creditHistory" class="credit-history-item">
-          <span class="tx-type">{{ tx.transaction_type }}</span>
-          <span class="tx-amount" [class.positive]="tx.amount > 0" [class.negative]="tx.amount < 0">
-            {{ tx.amount > 0 ? '+' : '' }}{{ tx.amount }}
-          </span>
-          <span class="tx-date">{{ tx.created_at | date:'short' }}</span>
-        </li>
-      </ul>
-
-      <div *ngIf="!isLoadingCreditHistory && !creditHistoryError && creditHistory.length === 0" class="credit-empty">
-        Sin transacciones todavía.
-      </div>
-    </div>
-  </div>
-</div>
 
       <button class="nav-btn" (click)="navigateTo('/settings')">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -126,3 +127,45 @@
     </div>
   </div>
 </header>
+
+<!-- ── MOBILE BOTTOM NAV (visible solo en ≤768px) ── -->
+<nav class="mobile-bottom-nav">
+  <button class="mob-btn" (click)="navigateTo('/trending')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+      <polyline points="17 6 23 6 23 12"/>
+    </svg>
+    <span>Trending</span>
+  </button>
+
+  <button class="mob-btn" (click)="navigateTo('/videos')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polygon points="23 7 16 12 23 17 23 7"/>
+      <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+    </svg>
+    <span>Videos</span>
+  </button>
+
+  <button class="mob-btn" (click)="navigateTo('/chat')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <span>Chat</span>
+  </button>
+
+  <button class="mob-btn" (click)="navigateTo('/profile')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+      <circle cx="12" cy="7" r="4"/>
+    </svg>
+    <span>Profile</span>
+  </button>
+
+  <button class="mob-btn" (click)="navigateTo('/settings')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+    </svg>
+    <span>Settings</span>
+  </button>
+</nav>
