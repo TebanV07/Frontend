@@ -110,11 +110,14 @@ export class CreatePostComponent implements OnInit {
 
   // ==================== MANEJO DE VIDEO ====================
 
-  onVideoSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (!file) return;
+onVideoSelected(event: Event) {
+  const file = (event.target as HTMLInputElement).files?.[0];
+  if (!file) return;
 
-    if (!file.type.startsWith('video/')) { alert('Por favor selecciona un archivo de video valido'); return; }
+  // 🔍 DIAGNÓSTICO TEMPORAL
+  alert(`DEBUG ARCHIVO:\nnombre: ${file.name}\ntype: "${file.type}"\nsize: ${file.size} bytes\nlastModified: ${new Date(file.lastModified)}`);
+
+  if (!file.type.startsWith('video/')) { alert('Por favor selecciona un archivo de video valido'); return; }
     if (file.size > 200 * 1024 * 1024)  { alert('El video debe ser menor a 200MB'); return; }
 
     this.selectedImages = [];
