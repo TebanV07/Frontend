@@ -98,7 +98,7 @@ export class PostsService {
  * Devuelve un Observable que emite el progreso (0-100) y al final el resultado.
  */
 smartUploadChunked(
-  file: File,
+  file: File | Blob,
   content?: string,
   title?: string,
   description?: string,
@@ -116,7 +116,8 @@ smartUploadChunked(
       try {
         // ── 1. Iniciar sesión ──────────────────────────────────────────────
         const initForm = new FormData();
-        initForm.append('filename', file.name);
+        const filename = (file as File).name || 'video.mp4';
+        initForm.append('filename', filename);
         initForm.append('content_type', file.type || 'video/mp4');
         initForm.append('total_size', String(file.size));
         initForm.append('total_parts', String(totalParts));

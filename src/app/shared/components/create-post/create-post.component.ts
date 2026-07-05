@@ -25,6 +25,8 @@ export class CreatePostComponent implements OnInit {
   currentUser: any = null;
   readonly defaultAvatar = 'assets/default-avatar.png';
 
+  selectedVideoBlob: Blob | null = null;
+
   postContent    = '';
   isPosting      = false;
   uploadProgress = 0;
@@ -110,26 +112,32 @@ export class CreatePostComponent implements OnInit {
 
   // ==================== MANEJO DE VIDEO ====================
 
-onVideoSelected(event: Event) {
+async onVideoSelected(event: Event) {
   const file = (event.target as HTMLInputElement).files?.[0];
   if (!file) return;
 
-  // 🔍 DIAGNÓSTICO TEMPORAL
-  alert(`DEBUG ARCHIVO:\nnombre: ${file.name}\ntype: "${file.type}"\nsize: ${file.size} bytes\nlastModified: ${new Date(file.lastModified)}`);
-
   if (!file.type.startsWith('video/')) { alert('Por favor selecciona un archivo de video valido'); return; }
-    if (file.size > 200 * 1024 * 1024)  { alert('El video debe ser menor a 200MB'); return; }
+  if (file.size > 200 * 1024 * 1024)  { alert('El video debe ser menor a 200MB'); return; }
 
-    this.selectedImages = [];
-    this.imagePreviews  = [];
-    this.selectedVideo  = file;
-    this.mediaType      = 'video';
+  this.selectedImages = [];
+  this.imagePreviews  = [];
+  this.selectedVideo  = file;
+  this.mediaType      = 'video';
 
-    // ✅ Uso de URL temporal para evitar colapsos de memoria y pasar la seguridad de Angular
-    const objectUrl = URL.createObjectURL(file);
-    this.videoPreview = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+  // ✅ Leer el archivo YA, mientras el permiso del sistema sigue vigente
+  try {
+    const buffer = await file.arrayBuffer();
+    this.selectedVideoBlob = new Blob([buffer], { type: file.type });
+  } catch (err) {
+    console.error('No se pudo leer el archivo al seleccionarlo:', err);
+    alert('No se pudo leer este video. Intenta seleccionarlo de nuevo.');
+    this.removeVideo();
+    return;
   }
 
+  const objectUrl = URL.createObjectURL(file);
+  this.videoPreview = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+}
   removeVideo() {
     this.selectedVideo   = null;
     this.videoPreview    = null;
@@ -137,6 +145,7 @@ onVideoSelected(event: Event) {
     this.videoDescription = '';
     this.mediaType       = null;
     this.uploadProgress  = 0;
+    this.selectedVideoBlob = null;
     if (this.videoInput) this.videoInput.nativeElement.value = '';
   }
 
@@ -149,6 +158,7 @@ onVideoSelected(event: Event) {
     this.videoDescription = '';
     this.mediaType       = null;
     this.uploadProgress  = 0;
+    this.selectedVideoBlob = null;
     if (this.imageInput) this.imageInput.nativeElement.value = '';
     if (this.videoInput) this.videoInput.nativeElement.value = '';
   }
@@ -167,8 +177,8 @@ if (this.selectedVideo) {
   const title       = this.videoTitle       || this.postContent.trim() || 'Mi video';
   const description = this.videoDescription || this.postContent.trim() || '';
 
-  this.postsService.smartUploadChunked(
-    this.selectedVideo,
+ this.postsService.smartUploadChunked(
+  this.selectedVideoBlob as any,
     this.postContent.trim(),
     title,
     description,
