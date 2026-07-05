@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { tap, catchError, map } from 'rxjs/operators';
@@ -322,27 +322,48 @@ export class FollowService {
    * Buscar usuarios
    * ⭐ MEJORADO: Usa /users/search endpoint
    */
-  searchUsers(query: string, limit: number = 20): Observable<FollowUser[]> {
-    let params = new HttpParams()
-      .set('q', query)
-      .set('limit', limit.toString());
+ searchUsers(query: string, limit: number = 20): Observable<FollowUser[]> {
+  const token = (typeof localStorage !== 'undefined')
+    ? localStorage.getItem('access_token')
+    : null;
 
-    return this.http.get<any>(`${this.apiUrl}/users/search`, { params })
-      .pipe(
-        tap(response => {
-          const users = Array.isArray(response) ? response : (response.users || []);
-          console.log('✅ Usuarios encontrados:', users);
-        }),
-        map(response => {
-          const users = Array.isArray(response) ? response : (response.users || []);
-          return this.mapUsers(users);
-        }),
-        catchError(error => {
-          console.error('Error buscando usuarios:', error);
-          return of([]);
-        })
-      );
+  if (!token) {
+    console.warn('searchUsers: sin token de autenticación');
+    return of([]);
   }
+
+  // HttpParams garantiza encoding correcto de caracteres internacionales
+  // generados por teclados móviles (acentos, CJK, árabe, etc.)
+  const params = new HttpParams()
+    .set('q', query.trim())
+    .set('limit', String(limit));
+
+  return this.http.get<any>(
+    `${this.apiUrl}/users/search`,
+    {
+      headers: new HttpHeaders({ Authorization: `Bearer ${token}` }),
+      params
+    }
+  ).pipe(
+    map(response => {
+      const users = Array.isArray(response) ? response : (response.users ?? []);
+      console.log('✅ Usuarios encontrados:', users.length);
+      return this.mapUsers(users);
+    }),
+    catchError(error => {
+      // Loguear el error real para diagnosticar en móvil
+      console.error('searchUsers error:', {
+        status: error.status,
+        message: error.message,
+        url: error.url,
+        isNetworkError: error.status === 0
+      });
+      // Retornar array vacío sin mocks — la UI muestra "sin resultados"
+      // en vez de datos falsos que ocultan el bug real
+      return of([]);
+    })
+  );
+}
 
   getExploreCountries(): Observable<Array<{ country_code: string; country_name: string; users_count: number }>> {
     return this.http.get<any>(`${this.apiUrl}/users/explore/countries`).pipe(
