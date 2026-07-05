@@ -88,7 +88,105 @@ export class PostsService {
       formData
     );
   }
+// ==================== UPLOAD POR CHUNKS (para móviles) ====================
 
+/**
+ * Sube un video por partes pequeñas (chunks) en vez de un solo POST grande.
+ * Soluciona fallos de transporte en ciertos navegadores/redes móviles con
+ * archivos de video "pesados de armar" (ej. videos descargados de otras apps).
+ *
+ * Devuelve un Observable que emite el progreso (0-100) y al final el resultado.
+ */
+smartUploadChunked(
+  file: File,
+  content?: string,
+  title?: string,
+  description?: string,
+  originalLanguage: string = 'es',
+  category?: string,
+  tags?: string[],
+  isPublic: boolean = true,
+  onProgress?: (percent: number) => void
+): Observable<any> {
+  const CHUNK_SIZE = 1024 * 1024; // 1MB por parte
+  const totalParts = Math.ceil(file.size / CHUNK_SIZE);
+
+  return new Observable((observer) => {
+    (async () => {
+      try {
+        // ── 1. Iniciar sesión ──────────────────────────────────────────────
+        const initForm = new FormData();
+        initForm.append('filename', file.name);
+        initForm.append('content_type', file.type || 'video/mp4');
+        initForm.append('total_size', String(file.size));
+        initForm.append('total_parts', String(totalParts));
+        if (content !== undefined) initForm.append('content', content);
+        if (title) initForm.append('title', title);
+        if (description) initForm.append('description', description);
+        initForm.append('original_language', originalLanguage);
+        initForm.append('is_public', String(isPublic));
+        if (category) initForm.append('category', category);
+        if (tags && tags.length > 0) initForm.append('tags', JSON.stringify(tags));
+
+        const initResponse: any = await this.http
+          .post(`${this.apiUrl}/upload/chunked/init`, initForm)
+          .toPromise();
+
+        const sessionId = initResponse.session_id;
+
+        // ── 2. Subir cada parte, en orden, una por una ─────────────────────
+        for (let partNumber = 0; partNumber < totalParts; partNumber++) {
+          const start = partNumber * CHUNK_SIZE;
+          const end = Math.min(start + CHUNK_SIZE, file.size);
+          const chunkBlob = file.slice(start, end);
+
+          const chunkForm = new FormData();
+          chunkForm.append('chunk', chunkBlob, `part_${partNumber}`);
+
+          // Reintentar cada parte hasta 3 veces si falla (redes móviles inestables)
+          let attempts = 0;
+          let success = false;
+          let lastError: any = null;
+
+          while (attempts < 3 && !success) {
+            try {
+              await this.http
+                .post(
+                  `${this.apiUrl}/upload/chunked/${sessionId}/part/${partNumber}`,
+                  chunkForm
+                )
+                .toPromise();
+              success = true;
+            } catch (err) {
+              lastError = err;
+              attempts++;
+              if (attempts < 3) {
+                await new Promise(resolve => setTimeout(resolve, 800 * attempts));
+              }
+            }
+          }
+
+          if (!success) {
+            throw lastError;
+          }
+
+          const percent = Math.round(((partNumber + 1) / totalParts) * 100);
+          if (onProgress) onProgress(percent);
+        }
+
+        // ── 3. Completar / reensamblar ──────────────────────────────────────
+        const finalResult = await this.http
+          .post(`${this.apiUrl}/upload/chunked/${sessionId}/complete`, {})
+          .toPromise();
+
+        observer.next(finalResult);
+        observer.complete();
+      } catch (error) {
+        observer.error(error);
+      }
+    })();
+  });
+}
   // ==================== MÉTODO CORREGIDO ====================
 
 createVideo(
