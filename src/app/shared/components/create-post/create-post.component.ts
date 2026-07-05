@@ -187,16 +187,21 @@ export class CreatePostComponent implements OnInit {
           }
           this.resetForm();
         },
-        error: (error) => {
-          let msg = 'Error subiendo el video.';
-          if      (error.status === 401) msg = 'No estas autenticado. Por favor inicia sesion.';
-          else if (error.status === 413) msg = 'El video es demasiado grande. Maximo 100MB.';
-          else if (error.status === 400) msg = error.error?.detail || 'Datos invalidos.';
-          else if (error.status === 500) msg = 'Error en el servidor. Intenta de nuevo.';
-          else if (error.error?.detail)  msg = error.error.detail;
-          alert(msg);
-          this.isPosting      = false;
-          this.uploadProgress = 0;
+       error: (error) => {
+  console.error('DEBUG UPLOAD ERROR:', error);
+
+  let msg = 'Error subiendo el video.';
+  if      (error.status === 401) msg = 'No estas autenticado. Por favor inicia sesion.';
+  else if (error.status === 413) msg = 'El video es demasiado grande. Maximo 100MB.';
+  else if (error.status === 400) msg = error.error?.detail || 'Datos invalidos.';
+  else if (error.status === 500) msg = 'Error en el servidor. Intenta de nuevo.';
+  else if (error.error?.detail)  msg = error.error.detail;
+
+  // TEMPORAL: mostrar el error real completo
+  alert(`STATUS: ${error.status}\nNAME: ${error.name}\nMESSAGE: ${error.message}\nERROR: ${JSON.stringify(error.error)}\nURL: ${error.url}`);
+
+  this.isPosting      = false;
+  this.uploadProgress = 0;
         },
         complete: () => { this.isPosting = false; }
       });
