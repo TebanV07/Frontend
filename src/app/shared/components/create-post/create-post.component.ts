@@ -160,51 +160,53 @@ export class CreatePostComponent implements OnInit {
 
     this.isPosting      = true;
     this.uploadProgress = 0;
+if (this.selectedVideo) {
+  const title       = this.videoTitle       || this.postContent.trim() || 'Mi video';
+  const description = this.videoDescription || this.postContent.trim() || '';
 
-    if (this.selectedVideo) {
-      const title       = this.videoTitle       || this.postContent.trim() || 'Mi video';
-      const description = this.videoDescription || this.postContent.trim() || '';
+  this.postsService.smartUploadChunked(
+    this.selectedVideo,
+    this.postContent.trim(),
+    title,
+    description,
+    this.userLanguage,
+    undefined,
+    [],
+    true,
+    (percent: number) => {
+      // Callback de progreso: actualiza la barra mientras se suben las partes
+      this.uploadProgress = percent;
+    }
+  ).subscribe({
+    next: (response) => {
+      this.uploadProgress = 100;
+      this.videoCreated.emit(response);
 
-      this.postsService.smartUpload(
-        this.selectedVideo,
-        this.postContent.trim(),
-        title,
-        description,
-        this.userLanguage,
-        undefined,
-        [],
-        true
-      ).subscribe({
-        next: (response) => {
-          this.uploadProgress = 100;
-          this.videoCreated.emit(response);
+      if (response.content_type === 'post' && response.id) {
+        this.postsService.getPostById(response.id).subscribe({
+          next:  (post) => this.postCreated.emit(post),
+          error: (err)  => console.error('No se pudo obtener el post creado:', err)
+        });
+      }
+      this.resetForm();
+    },
+    error: (error) => {
+      console.error('DEBUG UPLOAD ERROR:', error);
 
-          if (response.content_type === 'post' && response.id) {
-            this.postsService.getPostById(response.id).subscribe({
-              next:  (post) => this.postCreated.emit(post),
-              error: (err)  => console.error('No se pudo obtener el post creado:', err)
-            });
-          }
-          this.resetForm();
-        },
-       error: (error) => {
-  console.error('DEBUG UPLOAD ERROR:', error);
+      let msg = 'Error subiendo el video.';
+      if      (error.status === 401) msg = 'No estas autenticado. Por favor inicia sesion.';
+      else if (error.status === 413) msg = 'El video es demasiado grande. Maximo 100MB.';
+      else if (error.status === 400) msg = error.error?.detail || 'Datos invalidos.';
+      else if (error.status === 500) msg = 'Error en el servidor. Intenta de nuevo.';
+      else if (error.error?.detail)  msg = error.error.detail;
 
-  let msg = 'Error subiendo el video.';
-  if      (error.status === 401) msg = 'No estas autenticado. Por favor inicia sesion.';
-  else if (error.status === 413) msg = 'El video es demasiado grande. Maximo 100MB.';
-  else if (error.status === 400) msg = error.error?.detail || 'Datos invalidos.';
-  else if (error.status === 500) msg = 'Error en el servidor. Intenta de nuevo.';
-  else if (error.error?.detail)  msg = error.error.detail;
+      alert(msg);
 
-  // TEMPORAL: mostrar el error real completo
-  alert(`STATUS: ${error.status}\nNAME: ${error.name}\nMESSAGE: ${error.message}\nERROR: ${JSON.stringify(error.error)}\nURL: ${error.url}`);
-
-  this.isPosting      = false;
-  this.uploadProgress = 0;
-        },
-        complete: () => { this.isPosting = false; }
-      });
+      this.isPosting      = false;
+      this.uploadProgress = 0;
+    },
+    complete: () => { this.isPosting = false; }
+  });
 
     } else {
       this.postsService.createPostWithMedia(
