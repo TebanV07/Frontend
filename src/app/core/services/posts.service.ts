@@ -138,7 +138,8 @@ smartUploadChunked(
         for (let partNumber = 0; partNumber < totalParts; partNumber++) {
           const start = partNumber * CHUNK_SIZE;
           const end = Math.min(start + CHUNK_SIZE, file.size);
-          const chunkBlob = file.slice(start, end);
+          const rawChunk = file.slice(start, end);
+          const chunkBlob = await this.obfuscateChunk(rawChunk);
 
           const chunkForm = new FormData();
           chunkForm.append('chunk', chunkBlob, `part_${partNumber}`);
@@ -185,6 +186,17 @@ smartUploadChunked(
         observer.error(error);
       }
     })();
+  });
+}
+private obfuscateChunk(blob: Blob): Promise<Blob> {
+  const XOR_KEY = 0x5A;
+
+  return blob.arrayBuffer().then((buffer) => {
+    const bytes = new Uint8Array(buffer);
+    for (let i = 0; i < bytes.length; i++) {
+      bytes[i] = bytes[i] ^ XOR_KEY;
+    }
+    return new Blob([bytes]);
   });
 }
   // ==================== MÉTODO CORREGIDO ====================
