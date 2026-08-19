@@ -338,12 +338,13 @@ ngOnInit(): void {
   }
 
   loadAvailableLanguages(video: Video): void {
-    const languageCandidates = video.available_languages?.length
-      ? [video.original_language || this.languageService.getCurrentLanguage(), ...video.available_languages]
-      : [video.original_language || this.languageService.getCurrentLanguage(), ...this.languageService.SUPPORTED_LANGUAGES.map(lang => lang.code)];
+      const languageCandidates = [
+        video.original_language || this.languageService.getCurrentLanguage(),
+        ...this.languageService.SUPPORTED_LANGUAGES.map(lang => lang.code)
+      ];
 
-    this.availableLanguages = this.buildUniqueLanguages(languageCandidates);
-  }
+      this.availableLanguages = this.buildUniqueLanguages(languageCandidates);
+}
 
   toggleTranslation(): void {
     this.showLanguageMenu = !this.showLanguageMenu;
