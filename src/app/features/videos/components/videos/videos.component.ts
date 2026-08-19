@@ -231,19 +231,13 @@ currentUserId: number | null = null;
   }
 
   // ==================== TRADUCCION ====================
+private readonly SUPPORTED_LANGUAGES = [
+    'es', 'en', 'fr', 'de', 'pt', 'it', 'ru', 'zh-cn', 'ja', 'ko'
+  ];
 
   loadAvailableLanguages(video: Video) {
-    if (video.available_languages && video.available_languages.length > 0) {
-      this.availableLanguages = video.available_languages;
-    } else {
-      // Idiomas por defecto disponibles para traducir
-      this.availableLanguages = [
-        video.original_language || 'es', // Idioma original primero
-        'es', 'en', 'fr', 'de', 'pt', 'it', 'ru', 'zh-cn', 'ja', 'ko'
-      ];
-      // Eliminar duplicados
-      this.availableLanguages = [...new Set(this.availableLanguages)];
-    }
+    const original = video.original_language || 'es';
+    this.availableLanguages = [...new Set([original, ...this.SUPPORTED_LANGUAGES])];
   }
 
   toggleTranslation() {

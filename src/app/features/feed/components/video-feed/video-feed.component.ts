@@ -56,12 +56,6 @@ export class VideoFeedComponent implements OnInit {
       error: (error) => {
         console.error('Error cargando videos:', error);
         this.isLoading = false;
-
-        // Fallback a datos mock solo si falla
-        if (this.videos.length === 0) {
-          console.warn('Usando datos mock como fallback');
-          this.loadMockVideos();
-        }
       }
     });
   }
@@ -226,45 +220,4 @@ export class VideoFeedComponent implements OnInit {
   get hasVideos(): boolean {
     return this.videos.length > 0;
   }
-
-  // ==================== FALLBACK MOCK DATA ====================
-
-  private loadMockVideos() {
-    console.warn('Cargando datos MOCK (sin conexion al backend)');
-
-    this.videos = [
-      {
-        id: 1,
-        uuid: 'mock-vid-001',
-        video_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-        thumbnail_url: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400',
-        title: 'Video de Prueba #1',
-        description: 'Este es un video de prueba mientras el backend se conecta',
-        duration: 45,
-        views_count: 1250,
-        likes_count: 89,
-        comments_count: 23,
-        shares_count: 12,
-        saves_count: 45,
-        original_language: 'es',
-        available_languages: ['es', 'en'],
-        processing_status: 'ready',
-        is_public: true,
-        is_liked: false,
-        is_saved: false,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        user_id: 1,
-        user: {
-          id: 1,
-          username: 'test_user',
-          full_name: 'Usuario de Prueba',
-          avatar: 'https://ui-avatars.com/api/?name=Test+User',
-          profile_picture_url: 'https://ui-avatars.com/api/?name=Test+User',
-          is_verified: true
-        }
-      } as Video
-    ];
-  }
 }
-
