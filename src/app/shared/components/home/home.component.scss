@@ -1,16 +1,44 @@
 // ============================================================
 // home.component.scss
-// Transparent container — fondo global gestionado por body/styles.scss
-// FIX: padding-top ahora usa el mismo token que .main-content global
+// hero-glow = las estrellas "por sección" (solo header + fila
+// de personas). El resto del feed vive sobre --bg-color sólido.
 // ============================================================
 
 .home-wrapper {
+  position: relative;
   min-height: 100vh;
   background: transparent;
   padding-top: calc(var(--header-height) + var(--content-top-gap));
 }
 
+.hero-glow {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 200px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+// Solo en modo oscuro — en claro no hay cielo, se queda transparente
+body:not(.light-theme) .hero-glow {
+  background-image:
+    linear-gradient(180deg, rgba(11,13,20,0) 0%, rgba(11,13,20,.55) 55%, var(--bg-color) 100%),
+    radial-gradient(1px 1px at 8% 18%, rgba(255,255,255,.85), transparent 60%),
+    radial-gradient(1px 1px at 22% 40%, rgba(255,255,255,.5), transparent 60%),
+    radial-gradient(1.5px 1.5px at 35% 12%, rgba(255,255,255,.7), transparent 60%),
+    radial-gradient(1px 1px at 48% 55%, rgba(255,255,255,.4), transparent 60%),
+    radial-gradient(1px 1px at 60% 22%, rgba(255,255,255,.6), transparent 60%),
+    radial-gradient(1.5px 1.5px at 72% 45%, rgba(255,255,255,.5), transparent 60%),
+    radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,.7), transparent 60%),
+    radial-gradient(1px 1px at 92% 50%, rgba(255,255,255,.4), transparent 60%),
+    radial-gradient(1px 1px at 15% 70%, rgba(255,255,255,.35), transparent 60%),
+    radial-gradient(1px 1px at 78% 68%, rgba(255,255,255,.4), transparent 60%),
+    linear-gradient(180deg, #171d34 0%, #0f1322 55%, var(--bg-color) 100%);
+}
+
 .home-grid {
+  position: relative; // necesario para pintar por encima del hero-glow
+  z-index: 2;
   display: grid;
   grid-template-columns: 1fr 340px;
   gap: 24px;
@@ -28,15 +56,11 @@
     grid-template-columns: 1fr;
     padding: 16px 12px 32px;
 
-    .sidebar-column {
-      display: none;
-    }
+    .sidebar-column { display: none; }
   }
 }
 
-.feed-column {
-  min-width: 0;
-}
+.feed-column { min-width: 0; }
 
 .sidebar-column {
   position: sticky;
@@ -44,7 +68,6 @@
   max-height: calc(100vh - 110px);
   overflow-y: auto;
   overscroll-behavior: contain;
-
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
 }

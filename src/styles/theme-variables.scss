@@ -1,144 +1,118 @@
 // ============================================================
 // TIMQU — Design Tokens
-// Actualizado: card-bg sólido, content-top-gap unificado,
-// header-height sincronizado, dropdown tokens para header/créditos
+// Cards sólidas, sin imagen de fondo, header-height sincronizado
 // ============================================================
 
 body {
   // ── MODO OSCURO (DEFAULT) ──────────────────────────────
-  --bg-color:          #080b14;
-  --bg-gradient:       transparent;
-  --bg-image:          url('/assets/bg-stars.jpeg');
-  --bg-overlay:        linear-gradient(180deg,
-                         rgba(8, 11, 20, 0.55) 0%,
-                         rgba(8, 11, 20, 0.35) 100%);
+  --bg-color:          #0b0d13;
 
-  // Cards & Surfaces — base oscura sólida, no blanco transparente
-  --card-bg:           rgba(12, 14, 22, 0.55);
-  --card-bg-hover:     rgba(12, 14, 22, 0.72);
-  --input-bg:          rgba(12, 14, 22, 0.45);
-  --sidebar-bg:        rgba(12, 14, 22, 0.40);
+  --card-bg:           #171a22;
+  --card-bg-hover:     #1d212b;
+  --card-shadow:       none;
+  --card-shadow-hover: 0 8px 24px rgba(0,0,0,.35);
+  --input-bg:          rgba(255,255,255,.06);
+  --sidebar-bg:        rgba(255,255,255,.03);
 
-  // Header glass tokens
-  --header-bg:         rgba(8, 11, 20, 0.75);
-  --header-border:     rgba(255, 255, 255, 0.10);
+  --header-bg:         rgba(11,13,20,.55);
+  --header-border:     rgba(255,255,255,.10);
 
-  // Dropdown tokens (créditos, menús flotantes) — más opacos que las cards
-  --dropdown-bg:       rgba(10, 10, 14, 0.97);
-  --dropdown-border:   rgba(255, 255, 255, 0.10);
+  --dropdown-bg:       rgba(10,10,14,.97);
+  --dropdown-border:   rgba(255,255,255,.10);
 
-  // Glass utility
-  --glass-bg:          rgba(12, 14, 22, 0.50);
+  --glass-bg:          rgba(255,255,255,.05);
   --glass-blur:        16px;
-  --overlay-bg:        rgba(0, 0, 0, 0.5);
+  --overlay-bg:        rgba(0,0,0,.5);
 
-  // Typography
   --text-color:        #f0f0f0;
   --text-secondary:    #a0a8b8;
   --muted-color:       #64748b;
   --text-inverse:      #1a1208;
 
-  // Borders
-  --border-color:      rgba(255, 255, 255, 0.10);
-  --border-strong:     rgba(255, 255, 255, 0.20);
-  --border-input:      rgba(255, 255, 255, 0.15);
+  --border-color:      rgba(255,255,255,.10);
+  --border-strong:     rgba(255,255,255,.20);
+  --border-input:      rgba(255,255,255,.15);
 
-  // Brand Gold
   --gold:              #c9a227;
   --gold-light:        #e8c14a;
   --gold-dark:         #a07d10;
-  --gold-rgb:          201, 162, 39;
-  --gold-gradient:     linear-gradient(135deg, #a07d10, #c9a227, #e8c14a);
-  --gold-dim:          rgba(201, 162, 39, 0.12);
-  --gold-border:       rgba(201, 162, 39, 0.28);
+  --gold-rgb:          201,162,39;
+  --gold-gradient:     linear-gradient(135deg,#a07d10,#c9a227,#e8c14a);
+  --gold-dim:          rgba(201,162,39,.12);
+  --gold-border:       rgba(201,162,39,.28);
   --accent-1:          #c9a227;
   --accent-2:          #e8c14a;
-  --bg-hover:          rgba(255, 255, 255, 0.03);
+  --bg-hover:          rgba(255,255,255,.03);
 
-  // Semantic colors
   --color-danger:      #ef4444;
-  --color-danger-rgb:  239, 68, 68;
-  --danger-dim:        rgba(239, 68, 68, 0.12);
-  --danger-border:     rgba(239, 68, 68, 0.25);
+  --color-danger-rgb:  239,68,68;
+  --danger-dim:        rgba(239,68,68,.12);
+  --danger-border:     rgba(239,68,68,.25);
 
   --color-success:     #22c55e;
-  --color-success-rgb: 34, 197, 94;
+  --color-success-rgb: 34,197,94;
   --color-info:        #3b82f6;
-  --color-info-rgb:    59, 130, 246;
+  --color-info-rgb:    59,130,246;
   --color-warning:     #f59e0b;
-  --color-warning-rgb: 245, 158, 11;
+  --color-warning-rgb: 245,158,11;
 
   --white:             #ffffff;
-  --white-muted:       rgba(255, 255, 255, 0.75);
+  --white-muted:       rgba(255,255,255,.75);
   --online-green:      var(--color-success);
 
-  // Radii
   --radius-sm:         6px;
   --radius-md:         10px;
   --radius-lg:         14px;
   --radius-xl:         20px;
   --radius-full:       9999px;
 
-  // Misc
-  --transition:        0.2s ease;
+  --transition:        .2s ease;
   --blur:              blur(16px);
 
-  // Header height real — 72px en desktop (coincide con .header en
-  // header.component.scss). Se sobreescribe a 56px en mobile abajo.
   --header-height:     72px;
-
-  // Token unificado para espacio bajo el header — úsalo en TODAS
-  // las páginas en vez de valores hardcodeados (ej. home.component.scss)
   --content-top-gap:   28px;
 }
 
 // ── MODO CLARO ──────────────────────────────────────────────
 body.light-theme {
-  --bg-color:          #ede2c8 !important;
-  --bg-gradient:       linear-gradient(160deg, #ede2c8, #d9c9a8, #c8b890);
-  --bg-image:          none !important;
-  --bg-overlay:        linear-gradient(180deg,
-                         rgba(237, 226, 200, 0.60) 0%,
-                         rgba(237, 226, 200, 0.30) 100%);
+  --bg-color:          #f4f5f7 !important;
 
-  --card-bg:           rgba(255, 255, 255, 0.65);
-  --card-bg-hover:     rgba(255, 255, 255, 0.85);
-  --input-bg:          rgba(255, 255, 255, 0.65);
-  --sidebar-bg:        rgba(255, 255, 255, 0.45);
+  --card-bg:           #ffffff;
+  --card-bg-hover:     #f7f7f8;
+  --card-shadow:       0 2px 8px rgba(20,20,20,.05);
+  --card-shadow-hover: 0 8px 20px rgba(20,20,20,.10);
+  --input-bg:          #f0f1f4;
+  --sidebar-bg:        rgba(20,20,20,.03);
 
-  --header-bg:         rgba(237, 226, 200, 0.85);
-  --header-border:     rgba(26, 18, 8, 0.15);
+  --header-bg:         rgba(255,255,255,.92);
+  --header-border:     rgba(20,20,20,.08);
 
-  --dropdown-bg:       rgba(255, 255, 255, 0.97);
-  --dropdown-border:   rgba(26, 18, 8, 0.15);
+  --dropdown-bg:       #ffffff;
+  --dropdown-border:   rgba(20,20,20,.10);
 
-  --glass-bg:          rgba(255, 255, 255, 0.55);
-  --overlay-bg:        rgba(26, 18, 8, 0.2);
+  --glass-bg:          rgba(255,255,255,.55);
+  --overlay-bg:        rgba(20,20,20,.2);
 
-  --text-color:        #1a1208;
-  --text-secondary:    #5a4e38;
-  --muted-color:       #8c7e65;
+  --text-color:        #14161c;
+  --text-secondary:    #4b4f5a;
+  --muted-color:       #6b7280;
   --text-inverse:      #f0f0f0;
 
-  --border-color:      rgba(26, 18, 8, 0.12);
-  --border-strong:     rgba(26, 18, 8, 0.25);
-  --border-input:      rgba(26, 18, 8, 0.18);
+  --border-color:      rgba(20,20,20,.10);
+  --border-strong:     rgba(20,20,20,.20);
+  --border-input:      rgba(20,20,20,.14);
 
-  // Dorado más oscuro en claro para que no choque con el fondo beige
   --gold:              #a07d10;
   --gold-light:        #c9a227;
   --gold-dark:         #7d6108;
-  --gold-rgb:          160, 125, 16;
-  --gold-gradient:     linear-gradient(135deg, #7d6108, #a07d10, #c9a227);
-  --gold-dim:          rgba(160, 125, 16, 0.12);
-  --gold-border:       rgba(160, 125, 16, 0.28);
+  --gold-rgb:          160,125,16;
+  --gold-gradient:     linear-gradient(135deg,#7d6108,#a07d10,#c9a227);
+  --gold-dim:          rgba(160,125,16,.10);
+  --gold-border:       rgba(160,125,16,.25);
   --accent-1:          #a07d10;
   --accent-2:          #c9a227;
 }
 
-// ── AJUSTE MOBILE: header más bajo + menos gap bajo el header ─
-// Mantiene sincronizado --header-height con la altura real de
-// .header en mobile (56px, ver header.component.scss)
 @media (max-width: 768px) {
   body {
     --header-height:   56px;

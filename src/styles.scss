@@ -2,95 +2,44 @@
 @import './styles/theme-variables';
 
 // ── RESET ────────────────────────────────────────────────────
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin:0; padding:0; box-sizing:border-box; }
 html, body {
-  width: 100% !important;
-  min-height: 100vh !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  width:100% !important;
+  min-height:100vh !important;
+  margin:0 !important;
+  padding:0 !important;
 }
 
-// ── BODY: fondo con imagen real ──────────────────────────────
+// ── BODY: fondo sólido, sin imagen (ver hero-glow en home) ───
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.5;
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  line-height:1.5;
   color: var(--text-color);
   background-color: var(--bg-color);
-  background-image: var(--bg-image);
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height:100vh;
+  overflow-x:hidden;
+  transition: background-color .3s ease, color .3s ease;
 }
-
-// FIX: background-attachment: fixed rompe en mobile (Safari/Chrome iOS)
-// causa el efecto de "bordes sucios" que ves al hacer scroll
-@media (max-width: 768px) {
-  body {
-    background-attachment: scroll;
-  }
-}
-
-// ── MODO OSCURO: una sola capa de overlay (antes había 2 redundantes) ─
-body:not(.light-theme)::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: var(--bg-overlay);
-  pointer-events: none;
-}
-
-body.light-theme {
-  background-color: var(--bg-color) !important;
-  background-image: none !important;
-  background: var(--bg-gradient) !important;
-  background-attachment: fixed !important;
-  background-size: cover !important;
-  background-position: center center !important;
-  background-repeat: no-repeat !important;
-}
-
-@media (max-width: 768px) {
-  body.light-theme {
-    background-attachment: scroll !important;
-  }
-}
-
-body.light-theme::before { content: none; }
 
 // ── CRÍTICO: todos los wrappers raíz deben ser TRANSPARENTES ─
-app-root,
-app-main-layout,
-.main-layout,
-.layout-content,
-main,
-.app-wrapper,
-.app-shell,
-.layout-wrapper,
-.page-wrapper,
-mat-sidenav-container,
-mat-sidenav-content,
-mat-sidenav {
+app-root, app-main-layout, .main-layout, .layout-content, main,
+.app-wrapper, .app-shell, .layout-wrapper, .page-wrapper,
+mat-sidenav-container, mat-sidenav-content, mat-sidenav {
   background: transparent !important;
-  min-height: 100vh;
+  min-height:100vh;
 }
 
 // ── SCROLLBAR ────────────────────────────────────────────────
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: rgba(0,0,0,0.03); border-radius: 10px; }
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background: rgba(0,0,0,0.03); border-radius:10px; }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, var(--accent-1), var(--accent-2));
-  border-radius: 10px;
+  background: linear-gradient(45deg,var(--accent-1),var(--accent-2));
+  border-radius:10px;
 }
-::-webkit-scrollbar-thumb:hover { filter: brightness(0.9); }
+::-webkit-scrollbar-thumb:hover { filter:brightness(0.9); }
+::selection { background: rgba(201,162,39,0.25); color:inherit; }
 
-::selection { background: rgba(201,162,39,0.25); color: inherit; }
-
-// ── GLASS UTILITY ────────────────────────────────────────────
+// ── GLASS UTILITY (para modales/overlays, no para cards) ─────
 .glass-effect {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -99,10 +48,7 @@ mat-sidenav {
 }
 
 // ── HEADER GLOBAL ──────────────────────────────────────────
-// Desktop: pill flotante con margen. Mobile: edge-to-edge, sin radius.
-.app-header,
-.header,
-app-header {
+.app-header, .header, app-header {
   position: fixed !important;
   top: 8px !important;
   left: 12px !important;
@@ -125,127 +71,68 @@ app-header {
     border-left: none !important;
     border-right: none !important;
     border-top: none !important;
-    padding-top: env(safe-area-inset-top); // notch / isla dinámica
+    padding-top: env(safe-area-inset-top);
   }
 }
 
 // ── LAYOUT PRINCIPAL ─────────────────────────────────────────
-.app-container {
-  background: transparent !important;
-  min-height: 100vh;
-}
+.app-container { background: transparent !important; min-height:100vh; }
 
-// FIX: usa el mismo token --content-top-gap que ahora comparten
-// todas las páginas (ver home.component.scss)
 .main-content {
-  max-width: 980px;
-  margin: 0 auto;
+  max-width:980px;
+  margin:0 auto;
   padding-top: calc(var(--header-height) + var(--content-top-gap));
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left:16px; padding-right:16px;
 }
 
 .container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-left: 16px;
-  padding-right: 16px;
+  width:100%; max-width:1200px; margin:0 auto;
+  padding-left:16px; padding-right:16px;
 }
 
-// ── CARDS GLOBALES ───────────────────────────────────────────
-.post-card,
-.video-card,
-.profile-card,
-.message-bubble,
-.conversation-item,
-.create-post-card,
-.comments,
-.modal-window {
+// ── CARDS GLOBALES — sólidas, sin blur ────────────────────────
+.post-card, .video-card, .profile-card, .message-bubble,
+.conversation-item, .create-post-card, .comments, .modal-window {
   background: var(--card-bg) !important;
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--border-color) !important;
   border-radius: var(--radius-md) !important;
   color: var(--text-color) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-  transition: transform 180ms var(--transition), box-shadow 180ms var(--transition);
+  box-shadow: var(--card-shadow);
+  transition: transform 180ms var(--transition), box-shadow 180ms var(--transition), background 180ms var(--transition);
 }
 
-.post-card:hover,
-.video-card:hover,
-.profile-card:hover,
-.create-post-card:hover {
+.post-card:hover, .video-card:hover, .profile-card:hover, .create-post-card:hover {
   transform: translateY(-3px);
   background: var(--card-bg-hover) !important;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--card-shadow-hover);
 }
 
 // ── FOCUS ────────────────────────────────────────────────────
-button:focus,
-input:focus,
-textarea:focus,
-select:focus {
+button:focus, input:focus, textarea:focus, select:focus {
   outline: 2px solid rgba(201,162,39,0.35);
   outline-offset: 2px;
 }
 
 // ── ANIMATIONS ───────────────────────────────────────────────
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeInUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+@keyframes shimmer { 0%{background-position:-1000px 0;} 100%{background-position:1000px 0;} }
+@keyframes spin { to{transform:rotate(360deg);} }
 
-@keyframes shimmer {
-  0%   { background-position: -1000px 0; }
-  100% { background-position:  1000px 0; }
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.animate-fade-in-up { animation: fadeInUp 0.5s ease-out; }
+.animate-fade-in-up { animation: fadeInUp .5s ease-out; }
 
 .loading-shimmer {
-  background: linear-gradient(90deg,
-    rgba(201,162,39,0.06) 25%,
-    rgba(201,162,39,0.16) 50%,
-    rgba(201,162,39,0.06) 75%);
-  background-size: 2000px 100%;
+  background: linear-gradient(90deg, rgba(201,162,39,.06) 25%, rgba(201,162,39,.16) 50%, rgba(201,162,39,.06) 75%);
+  background-size:2000px 100%;
   animation: shimmer 2s infinite;
 }
 
 // ── RESPONSIVE ───────────────────────────────────────────────
-@media (max-width: 768px) {
-  body { font-size: 14px; }
+@media (max-width:768px) {
+  body { font-size:14px; }
 }
 
 // ── PRINT ────────────────────────────────────────────────────
 @media print {
-  .header, .ai-banner, .create-post-card { display: none !important; }
-  .post-card {
-    background: white !important;
-    border: 1px solid #ccc !important;
-    box-shadow: none !important;
-    page-break-inside: avoid;
-  }
-}
-
-body.light-theme .sidebar,
-body.light-theme .sidebar *,
-body.light-theme .create-post-card,
-body.light-theme .create-post-card *,
-body.light-theme .create-post-btn,
-body.light-theme .create-post-btn * {
-  color: #000 !important;
-}
-
-body:not(.light-theme) .sidebar,
-body:not(.light-theme) .sidebar *,
-body:not(.light-theme) .create-post-card,
-body:not(.light-theme) .create-post-card *,
-body:not(.light-theme) .create-post-btn,
-body:not(.light-theme) .create-post-btn * {
-  color: #fff !important;
+  .header, .ai-banner, .create-post-card { display:none !important; }
+  .post-card { background:white !important; border:1px solid #ccc !important; box-shadow:none !important; page-break-inside:avoid; }
 }

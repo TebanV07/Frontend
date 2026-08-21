@@ -1,43 +1,25 @@
 // header.component.scss
-// TIMQU Header — responsive, ahora 100% themeable (dark/light)
+// TIMQU Header — responsive, themeable dark/light
 
-:host {
-  display: contents;
-}
+:host { display: contents; }
 
-// ─────────────────────────────────────────────
-// HEADER PRINCIPAL
-// ─────────────────────────────────────────────
 .header {
   position: fixed;
-  top: 8px;
-  left: 14px;
-  right: 14px;
+  top: 8px; left: 14px; right: 14px;
   z-index: 1300;
-
-  // FIX: usa la variable en vez de un valor fijo desincronizado
   height: var(--header-height);
   padding: 0 18px;
-
   display: flex;
   align-items: center;
-
   border-radius: 22px;
-
-  // FIX: antes era #050505 fijo — ahora respeta el tema
   background: var(--header-bg);
   border: 1px solid var(--header-border);
-
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-
   box-sizing: border-box;
   transition: background var(--transition), border-color var(--transition);
 }
 
-// ─────────────────────────────────────────────
-// CONTENIDO INTERNO
-// ─────────────────────────────────────────────
 .header-content {
   width: 100%;
   display: flex;
@@ -46,14 +28,7 @@
   gap: 18px;
 }
 
-// ─────────────────────────────────────────────
-// IZQUIERDA — LOGO
-// ─────────────────────────────────────────────
-.header-left {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
+.header-left { display: flex; align-items: center; flex-shrink: 0; }
 
 .logo {
   display: flex;
@@ -61,76 +36,40 @@
   gap: 8px;
   cursor: pointer;
   transition: opacity 0.2s ease;
-
-  &:hover {
-    opacity: 0.9;
-  }
+  &:hover { opacity: 0.9; }
 }
 
-.logo-img {
-  height: 42px;
-  width: auto;
-  object-fit: contain;
-}
+.logo-img { height: 42px; width: auto; object-fit: contain; }
 
 .logo-title {
   font-size: 0.88rem;
   font-weight: 600;
   letter-spacing: 0.3px;
-  // FIX: usa var(--text-color) para que se vea bien en modo claro
   color: var(--text-color);
   white-space: nowrap;
 }
 
-// ─────────────────────────────────────────────
-// CENTRO — SEARCH
-// ─────────────────────────────────────────────
-.header-center {
-  flex: 1;
-  max-width: 520px;
-  display: flex;
-  justify-content: center;
-}
-
-.search-container {
-  width: 100%;
-  position: relative;
-}
+.header-center { flex: 1; max-width: 520px; display: flex; justify-content: center; }
+.search-container { width: 100%; position: relative; }
 
 .search-icon {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 18px;
-  height: 18px;
-  // FIX: usa var(--muted-color)
-  color: var(--muted-color);
-  pointer-events: none;
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  width: 18px; height: 18px; color: var(--muted-color); pointer-events: none;
 }
 
 .search-input {
-  width: 100%;
-  height: 44px;
+  width: 100%; height: 44px;
   padding: 0 18px 0 46px;
   border-radius: var(--radius-full);
-  // FIX: crítico — antes era blanco 6% con texto blanco fijo,
-  // en modo claro esto era ilegible. Ahora usa tokens de tema.
   background: var(--input-bg);
   border: 1px solid var(--border-input);
   color: var(--text-color);
   font-size: 0.95rem;
   font-family: 'Inter', sans-serif;
   box-sizing: border-box;
-  transition:
-    background var(--transition),
-    border-color var(--transition),
-    box-shadow var(--transition);
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
 
-  &::placeholder {
-    color: var(--muted-color);
-  }
-
+  &::placeholder { color: var(--muted-color); }
   &:focus {
     outline: none;
     background: var(--card-bg-hover);
@@ -139,382 +78,160 @@
   }
 }
 
-// ─────────────────────────────────────────────
-// DERECHA — BOTONES
-// ─────────────────────────────────────────────
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  margin-left: auto;
-  flex-shrink: 0;
-}
+.header-right { display: flex; align-items: center; gap: 2px; margin-left: auto; flex-shrink: 0; }
 
 .nav-btn {
   min-width: 58px;
   padding: 6px 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 4px;
   border: none;
   border-radius: 14px;
   background: transparent;
-  // FIX: usa var(--text-secondary) en vez de rgba blanco fijo
   color: var(--text-secondary);
   cursor: pointer;
-  transition:
-    background var(--transition),
-    color var(--transition),
-    transform 0.15s ease;
+  transition: background var(--transition), color var(--transition), transform 0.15s ease;
   white-space: nowrap;
 
-  svg {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-  }
+  svg { width: 20px; height: 20px; flex-shrink: 0; }
+  span { font-size: 0.70rem; font-weight: 500; line-height: 1; }
 
-  span {
-    font-size: 0.70rem;
-    font-weight: 500;
-    line-height: 1;
-  }
-
-  &:hover {
-    background: var(--card-bg-hover);
-    color: var(--text-color);
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
+  &:hover { background: var(--card-bg-hover); color: var(--text-color); transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
 }
 
-// ─────────────────────────────────────────────
-// BOTÓN THEME
-// ─────────────────────────────────────────────
 .theme-btn {
   min-width: 72px;
-  // FIX: usa los tokens gold ya definidos, no valores hardcodeados
   border: 1px solid var(--gold-border);
   background: var(--gold-dim);
   color: var(--gold);
-
-  &:hover {
-    background: rgba(var(--gold-rgb), 0.18);
-  }
+  &:hover { background: rgba(var(--gold-rgb), 0.18); }
 }
 
-// ─────────────────────────────────────────────
-// CRÉDITOS
-// ─────────────────────────────────────────────
-.credit-widget {
-  position: relative;
-}
+.credit-widget { position: relative; }
 
 .credit-dropdown {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  width: 300px;
-  max-height: 380px;
-  // FIX: usa el nuevo token opaco --dropdown-bg (agregado a theme-variables.scss)
+  position: absolute; top: calc(100% + 10px); right: 0;
+  width: 300px; max-height: 380px;
   background: var(--dropdown-bg);
   border: 1px solid var(--dropdown-border);
   border-radius: 16px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 12px 32px rgba(0,0,0,.35);
   overflow: hidden;
   z-index: 1400;
 }
 
 .credit-dropdown-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between;
   padding: 14px 16px;
   border-bottom: 1px solid var(--border-color);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-color);
+  font-size: 0.85rem; font-weight: 600; color: var(--text-color);
 }
 
 .credit-close-btn {
-  background: transparent;
-  border: none;
-  color: var(--muted-color);
-  cursor: pointer;
-  font-size: 0.9rem;
-  padding: 0;
-
-  &:hover {
-    color: var(--text-color);
-  }
+  background: transparent; border: none; color: var(--muted-color);
+  cursor: pointer; font-size: 0.9rem; padding: 0;
+  &:hover { color: var(--text-color); }
 }
 
-.credit-dropdown-body {
-  max-height: 320px;
-  overflow-y: auto;
-  padding: 8px;
-}
+.credit-dropdown-body { max-height: 320px; overflow-y: auto; padding: 8px; }
 
-.credit-loading,
-.credit-error,
-.credit-empty {
-  padding: 16px;
-  text-align: center;
-  font-size: 0.82rem;
-  color: var(--muted-color);
+.credit-loading, .credit-error, .credit-empty {
+  padding: 16px; text-align: center; font-size: 0.82rem; color: var(--muted-color);
 }
+.credit-error { color: #ff6b6b; }
 
-.credit-error {
-  color: #ff6b6b;
-}
-
-.credit-history-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+.credit-history-list { list-style: none; margin: 0; padding: 0; }
 
 .credit-history-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 10px 8px;
-  border-radius: 10px;
-  font-size: 0.8rem;
-
-  &:hover {
-    background: var(--card-bg-hover);
-  }
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; padding: 10px 8px; border-radius: 10px; font-size: 0.8rem;
+  &:hover { background: var(--card-bg-hover); }
 }
 
-.tx-type {
-  flex: 1;
-  color: var(--text-secondary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.tx-type { flex: 1; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tx-amount { font-weight: 600; white-space: nowrap; &.positive { color: #4ade80; } &.negative { color: #ff6b6b; } }
+.tx-date { color: var(--muted-color); font-size: 0.72rem; white-space: nowrap; }
 
-.tx-amount {
-  font-weight: 600;
-  white-space: nowrap;
-
-  &.positive {
-    color: #4ade80;
-  }
-
-  &.negative {
-    color: #ff6b6b;
-  }
-}
-
-.tx-date {
-  color: var(--muted-color);
-  font-size: 0.72rem;
-  white-space: nowrap;
-}
-
-// ─────────────────────────────────────────────
-// RESPONSIVE — DESKTOP / TABLET
-// ─────────────────────────────────────────────
 @media (max-width: 1200px) {
-  .header-center {
-    max-width: 420px;
-  }
-
-  .nav-btn {
-    min-width: 52px;
-  }
+  .header-center { max-width: 420px; }
+  .nav-btn { min-width: 52px; }
 }
 
 @media (max-width: 992px) {
-  .header {
-    padding: 0 14px;
-  }
-
-  .header-center {
-    max-width: 300px;
-  }
-
-  .nav-btn span {
-    display: none;
-  }
-
-  .nav-btn {
-    min-width: auto;
-    padding: 8px;
-  }
-
-  .theme-btn {
-    min-width: auto;
-  }
+  .header { padding: 0 14px; }
+  .header-center { max-width: 300px; }
+  .nav-btn span { display: none; }
+  .nav-btn { min-width: auto; padding: 8px; }
+  .theme-btn { min-width: auto; }
 }
 
-// ─────────────────────────────────────────────
-// MOBILE — top bar compacto + bottom nav
-// ─────────────────────────────────────────────
 @media (max-width: 768px) {
   .header {
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     border-radius: 0;
-    // FIX: altura real + espacio para notch/isla dinámica, sin desincronizar var(--header-height)
     height: var(--header-height);
     padding: 0 12px;
     padding-top: env(safe-area-inset-top, 0px);
-    border-left: none;
-    border-right: none;
-    border-top: none;
+    border-left: none; border-right: none; border-top: none;
   }
-
-  .logo-img {
-    height: 32px;
-  }
-
-  .logo-title {
-    font-size: 0.8rem;
-  }
-
-  .header-center {
-    flex: 1;
-    max-width: unset;
-    margin: 0 10px;
-  }
-
-  .search-input {
-    height: 38px;
-    font-size: 0.85rem;
-  }
-
-  .header-right {
-    display: none;
-  }
+  .logo-img { height: 32px; }
+  .logo-title { font-size: 0.8rem; }
+  .header-center { flex: 1; max-width: unset; margin: 0 10px; }
+  .search-input { height: 38px; font-size: 0.85rem; }
+  .header-right { display: none; }
 }
 
-// FIX: en pantallas muy angostas, el logo-title se come el espacio
-// del buscador y provoca el corte que veías ("Buscar en la r...")
 @media (max-width: 420px) {
-  .logo-title {
-    display: none;
-  }
-
-  .header {
-    padding: 0 10px;
-  }
-
-  .header-center {
-    margin: 0 8px;
-  }
+  .logo-title { display: none; }
+  .header { padding: 0 10px; }
+  .header-center { margin: 0 8px; }
 }
 
-// ─────────────────────────────────────────────
-// MOBILE BOTTOM NAV
-// ─────────────────────────────────────────────
 .mobile-bottom-nav {
   display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1300;
-  height: 64px;
-  padding: 0 4px;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 1300;
+  height: 64px; padding: 0 4px;
   padding-bottom: env(safe-area-inset-bottom, 4px);
-
-  // FIX: usa var(--header-bg) y var(--header-border) — coherente con el tema
   background: var(--header-bg);
   border-top: 1px solid var(--header-border);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
+  align-items: center; justify-content: space-around;
 
-  align-items: center;
-  justify-content: space-around;
-
-  @media (max-width: 768px) {
-    display: flex;
-  }
+  @media (max-width: 768px) { display: flex; }
 
   .mob-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    flex: 1;
-    padding: 6px 2px;
-    border: none;
-    border-radius: 14px;
-    background: transparent;
-    // FIX: usa var(--muted-color)
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 3px; flex: 1; padding: 6px 2px;
+    border: none; border-radius: 14px; background: transparent;
     color: var(--muted-color);
     cursor: pointer;
-    transition:
-      background var(--transition),
-      color var(--transition);
+    transition: background var(--transition), color var(--transition);
 
-    svg {
-      width: 21px;
-      height: 21px;
-      flex-shrink: 0;
-    }
+    svg { width: 21px; height: 21px; flex-shrink: 0; }
+    span { font-size: 0.58rem; font-weight: 500; line-height: 1; white-space: nowrap; }
 
-    span {
-      font-size: 0.58rem;
-      font-weight: 500;
-      line-height: 1;
-      white-space: nowrap;
-    }
-
-    &:hover {
-      color: var(--text-color);
-      background: var(--card-bg-hover);
-    }
-
-    &.active {
-      color: var(--gold);
-      background: var(--gold-dim);
-    }
+    &:hover { color: var(--text-color); background: var(--card-bg-hover); }
+    &.active { color: var(--gold); background: var(--gold-dim); }
   }
 
-  // NUEVO: estilo distintivo para el toggle de tema en mobile
   .mob-theme-btn {
     color: var(--gold);
-
-    &:hover {
-      background: var(--gold-dim);
-    }
+    &:hover { background: var(--gold-dim); }
   }
 
   .mob-credit-widget {
-    position: relative;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-
-    .mob-btn {
-      width: 100%;
-    }
+    position: relative; flex: 1; display: flex; justify-content: center;
+    .mob-btn { width: 100%; }
 
     .credit-dropdown--up {
-      top: unset;
-      bottom: calc(100% + 10px);
-      right: unset;
-      left: 50%;
-      transform: translateX(-50%);
+      top: unset; bottom: calc(100% + 10px);
+      right: unset; left: 50%; transform: translateX(-50%);
       width: 300px;
 
       @media (max-width: 380px) {
-        left: auto;
-        right: 0;
-        transform: none;
-        width: 260px;
+        left: auto; right: 0; transform: none; width: 260px;
       }
     }
   }

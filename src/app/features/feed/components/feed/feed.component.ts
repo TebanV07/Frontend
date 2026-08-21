@@ -9,11 +9,22 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import { ExplorePeopleComponent } from '../../../users/components/explore-people/explore-people.component';
+
 
 @Component({
   selector: 'app-feed',
   standalone: true,
-  imports: [PostComponent, CreatePostComponent, NgFor, NgIf, CommonModule, RouterModule, TranslateModule],
+  imports: [
+    PostComponent,
+    CreatePostComponent,
+    ExplorePeopleComponent,
+    NgFor,
+    NgIf,
+    CommonModule,
+    RouterModule,
+    TranslateModule
+  ],
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss']
 })
