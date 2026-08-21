@@ -16,7 +16,6 @@ body {
   line-height: 1.5;
   color: var(--text-color);
   background-color: var(--bg-color);
-  // SOLO la imagen aquí — el overlay va en ::before
   background-image: var(--bg-image);
   background-attachment: fixed;
   background-size: cover;
@@ -27,17 +26,16 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-// ── MODO OSCURO: capa de estrellas/partículas adicional ──────
-body:not(.light-theme)::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, rgba(8,11,20,0.40) 0%, rgba(8,11,20,0.20) 100%);
-  pointer-events: none;
+// FIX: background-attachment: fixed rompe en mobile (Safari/Chrome iOS)
+// causa el efecto de "bordes sucios" que ves al hacer scroll
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
 }
 
-body:not(.light-theme)::after {
+// ── MODO OSCURO: una sola capa de overlay (antes había 2 redundantes) ─
+body:not(.light-theme)::before {
   content: '';
   position: fixed;
   inset: 0;
@@ -45,6 +43,7 @@ body:not(.light-theme)::after {
   background: var(--bg-overlay);
   pointer-events: none;
 }
+
 body.light-theme {
   background-color: var(--bg-color) !important;
   background-image: none !important;
@@ -55,11 +54,15 @@ body.light-theme {
   background-repeat: no-repeat !important;
 }
 
-body.light-theme::before,
-body.light-theme::after { content: none; }
+@media (max-width: 768px) {
+  body.light-theme {
+    background-attachment: scroll !important;
+  }
+}
+
+body.light-theme::before { content: none; }
 
 // ── CRÍTICO: todos los wrappers raíz deben ser TRANSPARENTES ─
-// Esto soluciona el bug de fondo tapado
 app-root,
 app-main-layout,
 .main-layout,
@@ -95,9 +98,8 @@ mat-sidenav {
   border: 1px solid var(--border-color);
 }
 
-// ── HEADER GLOBAL: corregido (era left:50% + transform) ──────
-// ANTES: left: 50%; transform: translateX(-50%); ← causa el bug de compresión
-// AHORA: left + right explícito = anchura real de pantalla
+// ── HEADER GLOBAL ──────────────────────────────────────────
+// Desktop: pill flotante con margen. Mobile: edge-to-edge, sin radius.
 .app-header,
 .header,
 app-header {
@@ -108,13 +110,22 @@ app-header {
   width: auto !important;
   transform: none !important;
   z-index: 1200 !important;
+  background: var(--header-bg) !important;
+  border: 1px solid var(--header-border) !important;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
 }
 
 @media (max-width: 768px) {
   .app-header, .header, app-header {
-    left: 8px !important;
-    right: 8px !important;
-    top: 6px !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    padding-top: env(safe-area-inset-top); // notch / isla dinámica
   }
 }
 
@@ -124,10 +135,12 @@ app-header {
   min-height: 100vh;
 }
 
+// FIX: usa el mismo token --content-top-gap que ahora comparten
+// todas las páginas (ver home.component.scss)
 .main-content {
   max-width: 980px;
   margin: 0 auto;
-  padding-top: calc(var(--header-height) + 28px);
+  padding-top: calc(var(--header-height) + var(--content-top-gap));
   padding-left: 16px;
   padding-right: 16px;
 }

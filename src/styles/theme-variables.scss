@@ -1,6 +1,7 @@
 // ============================================================
 // TIMQU — Design Tokens
-// Actualizado: bg-stars / bg-light + glassmorphism refinado
+// Actualizado: card-bg sólido, content-top-gap unificado,
+// header-height sincronizado, dropdown tokens para header/créditos
 // ============================================================
 
 body {
@@ -10,20 +11,24 @@ body {
   --bg-image:          url('/assets/bg-stars.jpeg');
   --bg-overlay:        linear-gradient(180deg,
                          rgba(8, 11, 20, 0.55) 0%,
-                         rgba(8, 11, 20, 0.30) 100%);
+                         rgba(8, 11, 20, 0.35) 100%);
 
-  // Cards & Surfaces
-  --card-bg:           rgba(255, 255, 255, 0.04);
-  --card-bg-hover:     rgba(255, 255, 255, 0.08);
-  --input-bg:          rgba(255, 255, 255, 0.07);
-  --sidebar-bg:        rgba(255, 255, 255, 0.03);
+  // Cards & Surfaces — base oscura sólida, no blanco transparente
+  --card-bg:           rgba(12, 14, 22, 0.55);
+  --card-bg-hover:     rgba(12, 14, 22, 0.72);
+  --input-bg:          rgba(12, 14, 22, 0.45);
+  --sidebar-bg:        rgba(12, 14, 22, 0.40);
 
   // Header glass tokens
-  --header-bg:         rgba(8, 11, 20, 0.55);
+  --header-bg:         rgba(8, 11, 20, 0.75);
   --header-border:     rgba(255, 255, 255, 0.10);
 
+  // Dropdown tokens (créditos, menús flotantes) — más opacos que las cards
+  --dropdown-bg:       rgba(10, 10, 14, 0.97);
+  --dropdown-border:   rgba(255, 255, 255, 0.10);
+
   // Glass utility
-  --glass-bg:          rgba(255, 255, 255, 0.05);
+  --glass-bg:          rgba(12, 14, 22, 0.50);
   --glass-blur:        16px;
   --overlay-bg:        rgba(0, 0, 0, 0.5);
 
@@ -77,7 +82,14 @@ body {
   // Misc
   --transition:        0.2s ease;
   --blur:              blur(16px);
-  --header-height:     58px;
+
+  // Header height real — 72px en desktop (coincide con .header en
+  // header.component.scss). Se sobreescribe a 56px en mobile abajo.
+  --header-height:     72px;
+
+  // Token unificado para espacio bajo el header — úsalo en TODAS
+  // las páginas en vez de valores hardcodeados (ej. home.component.scss)
+  --content-top-gap:   28px;
 }
 
 // ── MODO CLARO ──────────────────────────────────────────────
@@ -89,15 +101,18 @@ body.light-theme {
                          rgba(237, 226, 200, 0.60) 0%,
                          rgba(237, 226, 200, 0.30) 100%);
 
-  --card-bg:           rgba(255, 255, 255, 0.55);
-  --card-bg-hover:     rgba(255, 255, 255, 0.75);
-  --input-bg:          rgba(255, 255, 255, 0.55);
-  --sidebar-bg:        rgba(255, 255, 255, 0.35);
+  --card-bg:           rgba(255, 255, 255, 0.65);
+  --card-bg-hover:     rgba(255, 255, 255, 0.85);
+  --input-bg:          rgba(255, 255, 255, 0.65);
+  --sidebar-bg:        rgba(255, 255, 255, 0.45);
 
-  --header-bg:         rgba(237, 226, 200, 0.60);
+  --header-bg:         rgba(237, 226, 200, 0.85);
   --header-border:     rgba(26, 18, 8, 0.15);
 
-  --glass-bg:          rgba(255, 255, 255, 0.45);
+  --dropdown-bg:       rgba(255, 255, 255, 0.97);
+  --dropdown-border:   rgba(26, 18, 8, 0.15);
+
+  --glass-bg:          rgba(255, 255, 255, 0.55);
   --overlay-bg:        rgba(26, 18, 8, 0.2);
 
   --text-color:        #1a1208;
@@ -109,11 +124,24 @@ body.light-theme {
   --border-strong:     rgba(26, 18, 8, 0.25);
   --border-input:      rgba(26, 18, 8, 0.18);
 
-  --gold:              #c9a227;
-  --gold-light:        #e8c14a;
-  --gold-dark:         #a07d10;
-  --gold-rgb:          201, 162, 39;
-  --gold-gradient:     linear-gradient(135deg, #a07d10, #c9a227, #e8c14a);
-  --accent-1:          #c9a227;
-  --accent-2:          #e8c14a;
+  // Dorado más oscuro en claro para que no choque con el fondo beige
+  --gold:              #a07d10;
+  --gold-light:        #c9a227;
+  --gold-dark:         #7d6108;
+  --gold-rgb:          160, 125, 16;
+  --gold-gradient:     linear-gradient(135deg, #7d6108, #a07d10, #c9a227);
+  --gold-dim:          rgba(160, 125, 16, 0.12);
+  --gold-border:       rgba(160, 125, 16, 0.28);
+  --accent-1:          #a07d10;
+  --accent-2:          #c9a227;
+}
+
+// ── AJUSTE MOBILE: header más bajo + menos gap bajo el header ─
+// Mantiene sincronizado --header-height con la altura real de
+// .header en mobile (56px, ver header.component.scss)
+@media (max-width: 768px) {
+  body {
+    --header-height:   56px;
+    --content-top-gap: 16px;
+  }
 }

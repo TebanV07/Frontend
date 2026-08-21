@@ -66,6 +66,14 @@ input, textarea, select {
   transition: opacity var(--transition), transform var(--transition);
   &:hover { opacity: 0.88; transform: translateY(-1px); }
   &:active { transform: scale(0.97); }
+
+  // FIX: en mobile los botones del composer se ven muy juntos/descentrados
+  // Reducimos padding y forzamos min-height para que todos midan igual
+  @media (max-width: 480px) {
+    padding: 0.5rem 1rem;
+    font-size: 0.82rem;
+    min-height: 38px;
+  }
 }
 
 .btn-outline {
@@ -80,6 +88,12 @@ input, textarea, select {
   font-size: 0.875rem;
   transition: background var(--transition), border-color var(--transition), color var(--transition);
   &:hover { background: var(--card-bg-hover); border-color: var(--gold); color: var(--gold); }
+
+  @media (max-width: 480px) {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.82rem;
+    min-height: 38px;
+  }
 }
 
 // ─── UTILIDADES ──────────────────────────────────────────────

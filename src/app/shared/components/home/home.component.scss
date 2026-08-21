@@ -1,12 +1,13 @@
 // ============================================================
 // home.component.scss
 // Transparent container — fondo global gestionado por body/styles.scss
+// FIX: padding-top ahora usa el mismo token que .main-content global
 // ============================================================
 
 .home-wrapper {
   min-height: 100vh;
   background: transparent;
-  padding-top: 80px; // Espacio para el header fijo global
+  padding-top: calc(var(--header-height) + var(--content-top-gap));
 }
 
 .home-grid {
@@ -28,23 +29,22 @@
     padding: 16px 12px 32px;
 
     .sidebar-column {
-      display: none; // El sidebar se oculta en móvil (puede abrirse como drawer en un paso futuro)
+      display: none;
     }
   }
 }
 
 .feed-column {
-  min-width: 0; // Evita overflow en grid
+  min-width: 0;
 }
 
 .sidebar-column {
   position: sticky;
-  top: 96px; // header height + gap
+  top: calc(var(--header-height) + var(--content-top-gap) + 10px);
   max-height: calc(100vh - 110px);
   overflow-y: auto;
   overscroll-behavior: contain;
 
-  // Scrollbar oculta pero funcional
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
 }

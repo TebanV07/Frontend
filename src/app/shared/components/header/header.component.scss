@@ -1,5 +1,5 @@
 // header.component.scss
-// TIMQU Header — responsive con bottom nav móvil
+// TIMQU Header — responsive, ahora 100% themeable (dark/light)
 
 :host {
   display: contents;
@@ -15,7 +15,8 @@
   right: 14px;
   z-index: 1300;
 
-  height: 72px;
+  // FIX: usa la variable en vez de un valor fijo desincronizado
+  height: var(--header-height);
   padding: 0 18px;
 
   display: flex;
@@ -23,13 +24,15 @@
 
   border-radius: 22px;
 
-  background: #050505 !important;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  // FIX: antes era #050505 fijo — ahora respeta el tema
+  background: var(--header-bg);
+  border: 1px solid var(--header-border);
 
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
 
   box-sizing: border-box;
+  transition: background var(--transition), border-color var(--transition);
 }
 
 // ─────────────────────────────────────────────
@@ -74,7 +77,8 @@
   font-size: 0.88rem;
   font-weight: 600;
   letter-spacing: 0.3px;
-  color: rgba(255, 255, 255, 0.92);
+  // FIX: usa var(--text-color) para que se vea bien en modo claro
+  color: var(--text-color);
   white-space: nowrap;
 }
 
@@ -100,7 +104,8 @@
   transform: translateY(-50%);
   width: 18px;
   height: 18px;
-  color: rgba(255, 255, 255, 0.55);
+  // FIX: usa var(--muted-color)
+  color: var(--muted-color);
   pointer-events: none;
 }
 
@@ -108,27 +113,29 @@
   width: 100%;
   height: 44px;
   padding: 0 18px 0 46px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: white;
+  border-radius: var(--radius-full);
+  // FIX: crítico — antes era blanco 6% con texto blanco fijo,
+  // en modo claro esto era ilegible. Ahora usa tokens de tema.
+  background: var(--input-bg);
+  border: 1px solid var(--border-input);
+  color: var(--text-color);
   font-size: 0.95rem;
   font-family: 'Inter', sans-serif;
   box-sizing: border-box;
   transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    background var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
 
   &::placeholder {
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--muted-color);
   }
 
   &:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.08) !important;
-    border-color: rgba(255, 196, 0, 0.45);
-    box-shadow: 0 0 0 3px rgba(255, 196, 0, 0.08);
+    background: var(--card-bg-hover);
+    border-color: var(--gold-border);
+    box-shadow: 0 0 0 3px var(--gold-dim);
   }
 }
 
@@ -154,11 +161,12 @@
   border: none;
   border-radius: 14px;
   background: transparent;
-  color: rgba(255, 255, 255, 0.82);
+  // FIX: usa var(--text-secondary) en vez de rgba blanco fijo
+  color: var(--text-secondary);
   cursor: pointer;
   transition:
-    background 0.2s ease,
-    color 0.2s ease,
+    background var(--transition),
+    color var(--transition),
     transform 0.15s ease;
   white-space: nowrap;
 
@@ -175,8 +183,8 @@
   }
 
   &:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
+    background: var(--card-bg-hover);
+    color: var(--text-color);
     transform: translateY(-1px);
   }
 
@@ -190,12 +198,13 @@
 // ─────────────────────────────────────────────
 .theme-btn {
   min-width: 72px;
-  border: 1px solid rgba(255, 196, 0, 0.35);
-  background: rgba(255, 196, 0, 0.05);
-  color: #ffcc33;
+  // FIX: usa los tokens gold ya definidos, no valores hardcodeados
+  border: 1px solid var(--gold-border);
+  background: var(--gold-dim);
+  color: var(--gold);
 
   &:hover {
-    background: rgba(255, 196, 0, 0.12);
+    background: rgba(var(--gold-rgb), 0.18);
   }
 }
 
@@ -212,10 +221,11 @@
   right: 0;
   width: 300px;
   max-height: 380px;
-  background: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  // FIX: usa el nuevo token opaco --dropdown-bg (agregado a theme-variables.scss)
+  background: var(--dropdown-bg);
+  border: 1px solid var(--dropdown-border);
   border-radius: 16px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
   overflow: hidden;
   z-index: 1400;
 }
@@ -225,22 +235,22 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--border-color);
   font-size: 0.85rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--text-color);
 }
 
 .credit-close-btn {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--muted-color);
   cursor: pointer;
   font-size: 0.9rem;
   padding: 0;
 
   &:hover {
-    color: white;
+    color: var(--text-color);
   }
 }
 
@@ -256,7 +266,7 @@
   padding: 16px;
   text-align: center;
   font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--muted-color);
 }
 
 .credit-error {
@@ -279,13 +289,13 @@
   font-size: 0.8rem;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--card-bg-hover);
   }
 }
 
 .tx-type {
   flex: 1;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--text-secondary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -305,7 +315,7 @@
 }
 
 .tx-date {
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--muted-color);
   font-size: 0.72rem;
   white-space: nowrap;
 }
@@ -355,8 +365,10 @@
     left: 0;
     right: 0;
     border-radius: 0;
-    height: 56px;
+    // FIX: altura real + espacio para notch/isla dinámica, sin desincronizar var(--header-height)
+    height: var(--header-height);
     padding: 0 12px;
+    padding-top: env(safe-area-inset-top, 0px);
     border-left: none;
     border-right: none;
     border-top: none;
@@ -381,11 +393,27 @@
     font-size: 0.85rem;
   }
 
-  // Nav se oculta del top — pasa al bottom nav
   .header-right {
     display: none;
   }
 }
+
+// FIX: en pantallas muy angostas, el logo-title se come el espacio
+// del buscador y provoca el corte que veías ("Buscar en la r...")
+@media (max-width: 420px) {
+  .logo-title {
+    display: none;
+  }
+
+  .header {
+    padding: 0 10px;
+  }
+
+  .header-center {
+    margin: 0 8px;
+  }
+}
+
 // ─────────────────────────────────────────────
 // MOBILE BOTTOM NAV
 // ─────────────────────────────────────────────
@@ -400,10 +428,11 @@
   padding: 0 4px;
   padding-bottom: env(safe-area-inset-bottom, 4px);
 
-  background: #050505;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  // FIX: usa var(--header-bg) y var(--header-border) — coherente con el tema
+  background: var(--header-bg);
+  border-top: 1px solid var(--header-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
 
   align-items: center;
   justify-content: space-around;
@@ -419,41 +448,50 @@
     justify-content: center;
     gap: 3px;
     flex: 1;
-    padding: 6px 4px;
+    padding: 6px 2px;
     border: none;
     border-radius: 14px;
     background: transparent;
-    color: rgba(255, 255, 255, 0.45);
+    // FIX: usa var(--muted-color)
+    color: var(--muted-color);
     cursor: pointer;
     transition:
-      background 0.2s ease,
-      color 0.2s ease;
+      background var(--transition),
+      color var(--transition);
 
     svg {
-      width: 22px;
-      height: 22px;
+      width: 21px;
+      height: 21px;
       flex-shrink: 0;
     }
 
     span {
-      font-size: 0.60rem;
+      font-size: 0.58rem;
       font-weight: 500;
       line-height: 1;
       white-space: nowrap;
     }
 
     &:hover {
-      color: white;
-      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-color);
+      background: var(--card-bg-hover);
     }
 
     &.active {
-      color: #ffcc33;
-      background: rgba(255, 196, 0, 0.08);
+      color: var(--gold);
+      background: var(--gold-dim);
     }
   }
 
-  // ← AQUÍ adentro, no afuera
+  // NUEVO: estilo distintivo para el toggle de tema en mobile
+  .mob-theme-btn {
+    color: var(--gold);
+
+    &:hover {
+      background: var(--gold-dim);
+    }
+  }
+
   .mob-credit-widget {
     position: relative;
     flex: 1;

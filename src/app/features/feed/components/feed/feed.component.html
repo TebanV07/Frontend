@@ -128,17 +128,6 @@
       (translateVideo)="onTranslateVideo($any($event))">
     </app-post>
 
-    <!-- Debug en desarrollo -->
-    <div class="debug-block" *ngIf="invalidPosts.length > 0">
-      <div class="debug-block__header">
-        <span>⚠️</span>
-        <h4>Posts con problemas ({{ invalidPosts.length }})</h4>
-      </div>
-      <div class="debug-item" *ngFor="let invalidPost of invalidPosts">
-        {{ invalidPost | json }}
-      </div>
-    </div>
-
     <!-- Empty state -->
     <div class="empty-state" *ngIf="validPosts.length === 0 && invalidPosts.length === 0">
       <div class="empty-state__icon">
