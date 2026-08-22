@@ -50,7 +50,11 @@
 }
 
 .header-center { flex: 1; max-width: 520px; display: flex; justify-content: center; }
-.search-container { width: 100%; position: relative; }
+.search-container {
+  width: 100%;
+  position: relative;
+  border-radius: var(--radius-full);
+}
 
 .search-icon {
   position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
@@ -166,26 +170,71 @@
   .theme-btn { min-width: auto; }
 }
 
+// ============================================================
+// MÓVIL — header sólido, plano, con búsqueda colapsada a icono
+// ============================================================
 @media (max-width: 768px) {
   .header {
     top: 0; left: 0; right: 0;
     border-radius: 0;
     height: var(--header-height);
-    padding: 0 12px;
+    padding: 0 14px;
     padding-top: env(safe-area-inset-top, 0px);
     border-left: none; border-right: none; border-top: none;
+
+    // Fondo sólido en vez de translúcido: en modo oscuro casi
+    // no había diferencia entre --header-bg y --bg-color, así
+    // que el header "desaparecía". Solo tocamos móvil, desktop
+    // se queda con el look flotante que ya funciona.
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
-  .logo-img { height: 32px; }
+
+  .logo-img { height: 30px; }
   .logo-title { font-size: 0.8rem; }
-  .header-center { flex: 1; max-width: unset; margin: 0 10px; }
-  .search-input { height: 38px; font-size: 0.85rem; }
+
+  // La barra de búsqueda deja de ocupar el centro y se colapsa
+  // a un botón circular con solo el icono (como en el boceto).
+  // Con :focus-within se expande sin necesidad de JS.
+  .header-center {
+    flex: 0 0 auto;
+    max-width: none;
+    margin: 0;
+  }
+
+  .search-container {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--card-bg-hover);
+    overflow: hidden;
+    transition: width .25s ease, border-radius .25s ease, background .25s ease;
+
+    &:focus-within {
+      width: min(62vw, 260px);
+      border-radius: var(--radius-full);
+      background: var(--input-bg);
+    }
+  }
+
+  .search-icon { left: 10px; }
+
+  .search-input {
+    height: 38px;
+    padding: 0 14px 0 36px;
+    font-size: 0.85rem;
+    background: transparent;
+    border: none;
+  }
+
   .header-right { display: none; }
 }
 
 @media (max-width: 420px) {
   .logo-title { display: none; }
   .header { padding: 0 10px; }
-  .header-center { margin: 0 8px; }
 }
 
 .mobile-bottom-nav {
@@ -193,10 +242,9 @@
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 1300;
   height: 64px; padding: 0 4px;
   padding-bottom: env(safe-area-inset-bottom, 4px);
-  background: var(--header-bg);
-  border-top: 1px solid var(--header-border);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  // Mismo criterio que el header: sólido, no translúcido.
+  background: var(--card-bg);
+  border-top: 1px solid var(--border-color);
   align-items: center; justify-content: space-around;
 
   @media (max-width: 768px) { display: flex; }

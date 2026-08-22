@@ -33,7 +33,12 @@ import { ThemeService } from '../../../core/services/theme.service';
   }
 
   @media (max-width: 768px) {
-    .layout-content { padding-top: 74px; }
+    .layout-content {
+      /* Antes: 74px fijo, más que la altura real del header
+         (56px en móvil) -> sobraba espacio en blanco.
+         Ahora queda atado a la variable real + un pequeño gap. */
+      padding-top: calc(var(--header-height) + env(safe-area-inset-top, 0px) + 10px);
+    }
   }
 `]
 })
