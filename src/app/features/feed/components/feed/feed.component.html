@@ -1,9 +1,6 @@
 <!-- feed.component.html -->
 <div class="feed-container">
 
-  <!-- 👥 Explorar personas -->
-  <app-explore-people></app-explore-people>
-
   <!-- 👥 Personas que quizás conozcas -->
   <div class="suggested-section glass-card" *ngIf="suggestedUsers.length > 0">
     <div class="suggested-section__header">
@@ -30,15 +27,21 @@
         *ngFor="let user of suggestedUsers"
         (click)="navigateToProfile(user.username, $event)"
         style="cursor:pointer">
+
         <div class="explore-ring">
-          <img
-            class="explore-avatar"
-            [src]="$any(user).avatar || 'assets/default-avatar.png'"
-            [alt]="user.username">
-          <span class="explore-flag" *ngIf="$any(user).countryFlag">{{ $any(user).countryFlag }}</span>
+          <div class="explore-ring__inner">
+            <img
+              class="explore-avatar"
+              [src]="$any(user).avatar || 'assets/default-avatar.png'"
+              [alt]="user.username">
+          </div>
+          <span class="explore-flag" *ngIf="getUserFlagUrl(user)">
+            <img [src]="getUserFlagUrl(user)" [alt]="getUserCountryCode(user)">
+          </span>
         </div>
+
         <span class="explore-name">
-          {{ $any(user).name || ($any(user).firstName && $any(user).lastName ? $any(user).firstName + ' ' + $any(user).lastName : user.username) }}
+          {{ getUserDisplayName(user) }}
         </span>
       </div>
     </div>

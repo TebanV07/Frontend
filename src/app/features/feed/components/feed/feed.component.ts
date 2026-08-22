@@ -5,12 +5,11 @@ import { CreatePostComponent } from '../../../../shared/components/create-post/c
 import { PostsService, Post } from '../../../../core/services/posts.service';
 import { PostLikeService } from '../../../../core/services/post-like.service';
 import { FollowService, FollowUser } from '../../../../core/services/follow.service';
+import { FlagService } from '../../../../core/services/flag.service'; // ⚠️ ajusta la ruta si es distinta
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { ExplorePeopleComponent } from '../../../users/components/explore-people/explore-people.component';
-
 
 @Component({
   selector: 'app-feed',
@@ -18,7 +17,6 @@ import { ExplorePeopleComponent } from '../../../users/components/explore-people
   imports: [
     PostComponent,
     CreatePostComponent,
-    ExplorePeopleComponent,
     NgFor,
     NgIf,
     CommonModule,
@@ -43,6 +41,7 @@ export class FeedComponent implements OnInit {
     private postsService: PostsService,
     private likeService: PostLikeService,
     private followService: FollowService,
+    private flagService: FlagService,
     private router: Router
   ) {}
 
@@ -193,26 +192,51 @@ export class FeedComponent implements OnInit {
     }
   }
 
-navigateToProfile(username: string, event?: Event): void {
-  if (event) {
-    event.stopPropagation();
-    event.preventDefault();
+  navigateToProfile(username: string, event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+
+    if (!username) {
+      console.error('Nombre de usuario no definido');
+      return;
+    }
+
+    this.router.navigate(['/profile', username]);
   }
 
-  if (!username) {
-    console.error('Nombre de usuario no definido');
-    return;
+  navigateToExplorePeople(): void {
+    this.router.navigate(['/explore/people']);
   }
-
-  this.router.navigate(['/profile', username]);
-}
-
-navigateToExplorePeople(): void {
-  this.router.navigate(['/explore/people']);
-}
 
   removeSuggestedUser(userId: number): void {
     this.suggestedUsers = this.suggestedUsers.filter(u => u.id !== userId);
+  }
+
+  // ============================================================
+  // Helpers para la fila de "Personas que quizás conozcas"
+  // ============================================================
+
+  /** Código ISO2 del país del usuario (ej: "co", "mx"). Ajusta el
+   *  nombre del campo según lo que realmente devuelva tu backend. */
+  getUserCountryCode(user: FollowUser): string | null {
+    const u: any = user;
+    const code = u.country || u.countryCode || u.country_code || null;
+    return code ? String(code).toLowerCase() : null;
+  }
+
+  /** URL de la bandera lista para usar en un <img>. Vacío si el
+   *  usuario no tiene país configurado. */
+  getUserFlagUrl(user: FollowUser): string {
+    const code = this.getUserCountryCode(user);
+    return code ? this.flagService.getCountryFlagUrl(code, 40) : '';
+  }
+
+  /** Nombre a mostrar debajo del avatar. */
+  getUserDisplayName(user: FollowUser): string {
+    const u: any = user;
+    return u.name || (u.firstName && u.lastName ? `${u.firstName} ${u.lastName}` : user.username);
   }
 
   onPostCreated(payload: any) {
@@ -231,15 +255,9 @@ navigateToExplorePeople(): void {
     }
   }
 
-  /**
-   * Maneja la subida de un video desde el componente de crear post.
-   * Si la orientación NO es vertical automáticamente genera un post
-   * vinculado al video para que aparezca en el feed de posts.
-   */
   onVideoCreated(video: any) {
     if (!video) return;
 
-    // si el servidor ya creo un post, obtenerlo y agregarlo al feed
     if (video.content_type === 'post' && video.id) {
       this.postsService.getPostById(video.id).subscribe({
         next: (post) => {
@@ -252,14 +270,11 @@ navigateToExplorePeople(): void {
       return;
     }
 
-    // si solo se creo un video (vertical), no hacemos nada en el feed de posts
     if (video.content_type === 'video') {
       return;
     }
 
-    // de lo contrario quiza sea un objeto simple con id y orientation
     if (video.id && video.orientation && video.orientation !== 'vertical') {
-      // intentar crear post fallback
       this.postsService.createPost({ content: '', video_id: video.id }).subscribe({
         next: (resp) => {
           if (resp && (resp as any).id) {
@@ -281,5 +296,3 @@ navigateToExplorePeople(): void {
     console.debug('Traducir video del post:', postId);
   }
 }
-
-
