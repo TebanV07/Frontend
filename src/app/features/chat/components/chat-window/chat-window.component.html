@@ -20,27 +20,34 @@
               || activeConversation.name
               || ('chat.window.noName' | translate) }}
           </h3>
-
-          <!-- ⭐ Bandera del país del contacto en el header -->
-          <img
-            *ngIf="activeConversation.other_user?.country_code"
-            [src]="flagService.getCountryFlagUrl(activeConversation.other_user?.country_code, 20)"
-            [alt]="flagService.getCountryName(activeConversation.other_user?.country_code)"
-            [title]="flagService.getCountryName(activeConversation.other_user?.country_code)"
-            class="contact-flag"
-            (error)="$any($event.target).style.display='none'">
-
-          <!-- ⭐ Bandera del idioma nativo del contacto (si está disponible) -->
-          <img
-            *ngIf="activeConversation.other_user?.native_language"
-            [src]="flagService.getLanguageFlagUrl(activeConversation.other_user?.native_language, 20)"
-            [alt]="flagService.getLanguageName(activeConversation.other_user?.native_language)"
-            [title]="('chat.window.speaksLanguage' | translate) + flagService.getLanguageName(activeConversation.other_user?.native_language)"
-            class="contact-lang-flag"
-            (error)="$any($event.target).style.display='none'">
         </div>
 
-        <span class="status" [class.online]="isOtherUserOnline()">{{ getStatusText() }}</span>
+        <div class="identity-row">
+          <span class="status" [class.online]="isOtherUserOnline()">{{ getStatusText() }}</span>
+
+          <!-- ⭐ Chip de idioma/país — usa flag.service.ts -->
+          <div class="identity-flags" *ngIf="activeConversation.other_user?.country_code || activeConversation.other_user?.native_language">
+            <img
+              *ngIf="activeConversation.other_user?.country_code"
+              [src]="flagService.getCountryFlagUrl(activeConversation.other_user?.country_code, 20)"
+              [alt]="flagService.getCountryName(activeConversation.other_user?.country_code)"
+              [title]="flagService.getCountryName(activeConversation.other_user?.country_code)"
+              class="contact-flag"
+              (error)="$any($event.target).style.display='none'">
+
+            <span class="flags-arrow" *ngIf="activeConversation.other_user?.country_code && activeConversation.other_user?.native_language">→</span>
+
+            <img
+              *ngIf="activeConversation.other_user?.native_language"
+              [src]="flagService.getLanguageFlagUrl(activeConversation.other_user?.native_language, 20)"
+              [alt]="flagService.getLanguageName(activeConversation.other_user?.native_language)"
+              class="contact-lang-flag"
+              (error)="$any($event.target).style.display='none'">
+            <span class="lang-name" *ngIf="activeConversation.other_user?.native_language">
+              {{ flagService.getLanguageName(activeConversation.other_user?.native_language) }}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -72,13 +79,13 @@
 
     <!-- Indicador de subida de archivo -->
     <div class="upload-indicator" *ngIf="isUploadingFile">
-      <span class="upload-spinner">⏳</span>
+      <svg class="upload-spinner" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
       <span class="upload-text">{{ 'chat.window.uploading' | translate }}</span>
     </div>
 
     <!-- Error de subida -->
     <div class="upload-error" *ngIf="uploadError">
-      <span>⚠️ {{ uploadError }}</span>
+      <span>{{ uploadError }}</span>
     </div>
   </div>
 
@@ -94,10 +101,11 @@
 
   <!-- Estado vacío -->
   <div class="empty-state" *ngIf="!activeConversation">
-    <div class="empty-icon">💬</div>
+    <div class="empty-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </div>
     <h3>{{ 'chat.window.selectConversation' | translate }}</h3>
     <p>{{ 'chat.window.selectConversationHint' | translate }}</p>
   </div>
 
 </div>
-

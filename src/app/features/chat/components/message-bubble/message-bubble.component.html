@@ -5,15 +5,33 @@
 
   <!-- Menú de acciones (long press / clic derecho) -->
   <div class="action-menu" *ngIf="showActions">
-    <button *ngIf="isSent" (click)="actionEdit()" class="action-item">✏️ {{ 'chat.bubble.edit' | translate }}</button>
-    <button (click)="actionDeleteForMe()" class="action-item">🗑️ {{ 'chat.bubble.deleteForMe' | translate }}</button>
-    <button (click)="actionDeleteForAll()" class="action-item">🚫 {{ 'chat.bubble.delete' | translate }}</button>
-    <button (click)="actionForward()" class="action-item">🔁 {{ 'chat.bubble.forward' | translate }}</button>
-    <button (click)="actionShare()" class="action-item">📤 {{ 'chat.bubble.share' | translate }}</button>
-    <button (click)="closeActions()" class="action-item close">✖️ {{ 'common.close' | translate }}</button>
+    <button *ngIf="isSent" (click)="actionEdit()" class="action-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+      {{ 'chat.bubble.edit' | translate }}
+    </button>
+    <button (click)="actionDeleteForMe()" class="action-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+      {{ 'chat.bubble.deleteForMe' | translate }}
+    </button>
+    <button (click)="actionDeleteForAll()" class="action-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+      {{ 'chat.bubble.delete' | translate }}
+    </button>
+    <button (click)="actionForward()" class="action-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+      {{ 'chat.bubble.forward' | translate }}
+    </button>
+    <button (click)="actionShare()" class="action-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      {{ 'chat.bubble.share' | translate }}
+    </button>
+    <button (click)="closeActions()" class="action-item close">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      {{ 'common.close' | translate }}
+    </button>
   </div>
 
-  <!-- Avatar del remitente (solo en mensajes recibidos, estilo Messenger) -->
+  <!-- Avatar del remitente (solo en mensajes recibidos) -->
   <img
     *ngIf="!isSent"
     class="bubble-avatar"
@@ -24,13 +42,15 @@
   <!-- Contenedor del mensaje -->
   <div class="message-content">
 
-    <!-- ✅ FIX: eliminada condición has_media para que funcione con URLs locales -->
     <div *ngIf="message.media_urls?.length" class="media-container">
       <ng-container *ngFor="let url of message.media_urls">
         <img *ngIf="message.media_type === 'image'" [src]="url" class="media-image" (error)="$any($event.target).style.display='none'">
         <video *ngIf="message.media_type === 'video'" [src]="url" controls class="media-video"></video>
         <audio *ngIf="message.media_type === 'audio'" [src]="url" controls class="media-audio"></audio>
-        <a *ngIf="message.media_type === 'file'" [href]="url" target="_blank" class="file-link">📎 Archivo adjunto</a>
+        <a *ngIf="message.media_type === 'file'" [href]="url" target="_blank" class="file-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          Archivo adjunto
+        </a>
       </ng-container>
     </div>
 
@@ -75,18 +95,19 @@
       </div>
     </div>
 
-    <!-- ✅ FIX: eliminado el bloque .message-header con avatar (solo queda en el sidebar) -->
-
     <!-- Controles de edición/eliminación (para mensajes propios) -->
     <div class="message-controls" *ngIf="isSent && !message.media_urls?.length">
-      <button class="ctrl-btn edit" (click)="startEdit()" [title]="'chat.bubble.edit' | translate">✏️</button>
-      <button class="ctrl-btn delete" (click)="deleteMessage()" [title]="'chat.bubble.delete' | translate">🗑️</button>
+      <button class="ctrl-btn edit" (click)="startEdit()" [title]="'chat.bubble.edit' | translate">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+      </button>
+      <button class="ctrl-btn delete" (click)="deleteMessage()" [title]="'chat.bubble.delete' | translate">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+      </button>
     </div>
 
     <!-- Texto o formulario de edición del mensaje -->
     <div class="message-text" *ngIf="message.content">
       <ng-container *ngIf="!isEditing; else editForm">
-        <!-- Mostrar siempre el texto original -->
         <p>{{ message.content }}</p>
 
         <!-- Lista de idiomas traducidos guardados -->
@@ -123,7 +144,7 @@
       role="button"
       tabindex="0"
       [attr.aria-label]="showTranslation ? 'Ver mensaje original' : 'Ver traducción'">
-      <span class="icon">🌐</span>
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></svg>
       <span class="text">{{ showTranslation ? 'Ocultar traducción' : 'Mostrar traducción' }}</span>
     </div>
 
@@ -131,7 +152,6 @@
     <div class="message-time">
       {{ getMessageTime() }}
 
-      <!-- Leído: avatar pequeño del lector si está disponible, con fallback a ✓✓ -->
       <ng-container *ngIf="isSent && message.is_read">
         <img
           *ngIf="readerAvatar; else readCheck"
@@ -141,11 +161,16 @@
           title="Leído"
           (error)="$any($event.target).style.display='none'">
         <ng-template #readCheck>
-          <span class="read-indicator" title="Leído">✓✓</span>
+          <span class="read-indicator" title="Leído">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
         </ng-template>
       </ng-container>
 
-      <span *ngIf="isSent && !message.is_read" class="unread-indicator" title="Enviado">✓</span>
+      <span *ngIf="isSent && !message.is_read" class="unread-indicator" title="Enviado">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+      </span>
     </div>
   </div>
 
@@ -159,11 +184,11 @@
       [title]="'chat.bubble.translate' | translate"
       type="button"
       [attr.aria-label]="'chat.bubble.translate' | translate">
-      <span *ngIf="!isTranslating">🌐</span>
-      <span *ngIf="isTranslating" class="spinner">⏳</span>
+      <svg *ngIf="!isTranslating" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></svg>
+      <svg *ngIf="isTranslating" class="spinner" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
     </button>
 
-    <!-- Menú desplegable de idiomas -->
+    <!-- Menú desplegable de idiomas — ahora con bandera real (flag.service.ts) -->
     <div
       class="language-menu"
       *ngIf="showLanguageMenu"
@@ -177,7 +202,11 @@
         type="button"
         role="menuitem"
         [attr.aria-label]="'Traducir a ' + lang.name">
-        <span class="flag" aria-hidden="true">{{ lang.flag }}</span>
+        <img
+          class="flag"
+          [src]="flagService.getLanguageFlagUrl(lang.code, 20)"
+          [alt]="lang.name"
+          (error)="$any($event.target).style.display='none'">
         <span class="name">{{ lang.name }}</span>
       </button>
     </div>
@@ -185,9 +214,8 @@
 
   <!-- Mensaje de error de traducción -->
   <div *ngIf="translationError" class="translation-error" role="alert">
-    <span class="icon" aria-hidden="true">⚠️</span>
+    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     <span class="text">{{ translationError }}</span>
   </div>
 
 </div>
-

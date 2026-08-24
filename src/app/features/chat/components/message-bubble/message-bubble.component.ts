@@ -4,6 +4,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import type { Message } from '../../../../core/models';
 import { ChatService } from '../../../../core/services/chat.service';
+import { FlagService } from '../../../../core';
 
 @Component({
   selector: 'app-message-bubble',
@@ -41,7 +42,8 @@ export class MessageBubbleComponent implements OnChanges {
   constructor(
     private elementRef: ElementRef,
     private chatService: ChatService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    public flagService: FlagService
   ) {}
 
 

@@ -3,7 +3,9 @@
   <div class="emoji-picker" *ngIf="showEmojiPicker">
     <div class="emoji-picker-header">
       <h4>{{ 'chat.input.emojis' | translate }}</h4>
-      <button class="close-btn" (click)="toggleEmojiPicker()">✕</button>
+      <button class="close-btn" (click)="toggleEmojiPicker()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
     <div class="emoji-grid">
       <button
@@ -22,14 +24,14 @@
       class="attach-btn"
       (click)="onAttachFile()"
       [title]="'chat.input.attach' | translate">
-      📎
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
     </button>
     <!-- Botón Cámara -->
     <button
       class="camera-btn"
       (click)="onTakePhoto()"
       [title]="'chat.input.camera' | translate">
-      📷
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
     </button>
     <!-- Input oculto para seleccionar archivo general -->
     <input #fileInput type="file" style="display:none" accept="image/*,video/*,audio/*" capture="environment" (change)="handleFileInput($event)" />
@@ -52,7 +54,7 @@
       (click)="toggleEmojiPicker()"
       [class.active]="showEmojiPicker"
       [title]="'chat.input.emojis' | translate">
-      😊
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
     </button>
 
     <!-- Botón Voz (cuando no hay texto) -->
@@ -62,7 +64,7 @@
       (click)="toggleVoiceRecording()"
       [class.recording]="isRecording"
       [title]="'chat.input.voice' | translate">
-      <span class="voice-icon">🎤</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
     </button>
 
     <!-- Botón Enviar (cuando hay texto) -->
@@ -72,7 +74,7 @@
       (click)="sendMessage()"
       [class.active]="newMessage.trim()"
       [title]="'chat.input.send' | translate">
-      <span class="send-icon">➤</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     </button>
   </div>
 
@@ -85,4 +87,3 @@
     </button>
   </div>
 </div>
-

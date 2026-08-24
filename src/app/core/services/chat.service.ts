@@ -49,6 +49,8 @@ export interface OnlineUser {
   name: string;
   avatar?: string;
   is_online: boolean;
+  country_code?: string;      
+  native_language?: string;
 }
 
 // ========================================================================

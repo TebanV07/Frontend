@@ -8,7 +8,9 @@
 
     <div class="sidebar-header">
       <h2>{{ 'header.nav.messages' | translate }}</h2>
-      <button class="new-chat-btn" title="Nueva conversación">✏️</button>
+      <button class="new-chat-btn" title="Nueva conversación">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+      </button>
     </div>
 
     <!-- USUARIOS CONECTADOS AHORA -->
@@ -27,9 +29,18 @@
           [title]="user.name || user.username">
 
           <div class="online-avatar-wrapper">
+            <span class="online-pulse"></span>
             <img [src]="getAvatarUrl(user.avatar)"
               (error)="$any($event.target).src = 'assets/default-avatar.png'">
-            <span class="online-status-dot"></span>
+            <img
+              *ngIf="user.country_code"
+              class="online-flag"
+              [src]="flagService.getCountryFlagUrl(user.country_code, 20)"
+              [alt]="flagService.getCountryName(user.country_code)"
+              (error)="$any($event.target).style.display='none'">
+            <span class="online-ai-badge" title="Lista para traducir">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </span>
           </div>
 
           <span class="online-username">
@@ -41,7 +52,7 @@
 
     <!-- BUSCADOR -->
     <div class="search-box">
-      <span class="search-icon">🔍</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input type="text" [placeholder]="'common.search' | translate">
     </div>
 
@@ -68,13 +79,21 @@
 
         <div class="conversation-info">
           <div class="conversation-header">
-            <h4>
-              <!-- ✅ FIX: usar name → username → name_del_grupo → fallback genérico -->
-              {{ conversation.other_user?.name
-                || conversation.other_user?.username
-                || conversation.name
-                || ('chat.window.noName' | translate) }}
-            </h4>
+            <div class="name-row">
+              <h4>
+                <!-- ✅ FIX: usar name → username → name_del_grupo → fallback genérico -->
+                {{ conversation.other_user?.name
+                  || conversation.other_user?.username
+                  || conversation.name
+                  || ('chat.window.noName' | translate) }}
+              </h4>
+              <img
+                *ngIf="conversation.other_user?.country_code"
+                class="name-flag"
+                [src]="flagService.getCountryFlagUrl(conversation.other_user?.country_code, 20)"
+                [alt]="flagService.getCountryName(conversation.other_user?.country_code)"
+                (error)="$any($event.target).style.display='none'">
+            </div>
             <div class="right-header">
               <span class="time">
                 {{ getFormattedTime(conversation.last_message_at) }}
@@ -111,7 +130,9 @@
       </div>
 
       <div class="empty-conversations" *ngIf="conversations.length === 0">
-        <div class="empty-icon">💬</div>
+        <div class="empty-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
         <h4>No tienes conversaciones</h4>
         <p>Comienza a chatear con alguien</p>
       </div>
@@ -131,4 +152,3 @@
   </app-chat-window>
 
 </div>
-

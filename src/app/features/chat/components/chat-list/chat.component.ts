@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ChatWindowComponent } from '../chat-window/chat-window.component';
 import { ChatService, OnlineUser } from '../../../../core/services/chat.service';
+import { FlagService } from '../../../../core/services/flag.service';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
 import { Subscription } from 'rxjs';
 
@@ -40,7 +41,8 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   constructor(
     private chatService: ChatService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public flagService: FlagService
   ) {}
 
   /**

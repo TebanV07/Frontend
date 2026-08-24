@@ -15,18 +15,16 @@
   right: 0;
   bottom: calc(100% + 12px);
   width: min(340px, calc(100vw - 32px));
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 22px;
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  background: var(--dropdown-bg);
+  border: 1px solid var(--dropdown-border);
+  border-radius: 20px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
   overflow: hidden;
   z-index: 20;
 }
 
 .emoji-picker-header {
-  padding: 14px 16px;
+  padding: 12px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -35,20 +33,25 @@
 
   h4 {
     margin: 0;
-    font-size: 0.95rem;
-    font-weight: 800;
+    font-size: 0.9rem;
+    font-weight: 700;
     color: var(--text-color);
   }
 
   .close-btn {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: 0;
     border-radius: 10px;
     background: transparent;
     color: var(--text-secondary);
     cursor: pointer;
     transition: background var(--transition), color var(--transition);
+
+    svg { width: 15px; height: 15px; }
 
     &:hover {
       background: var(--card-bg-hover);
@@ -60,31 +63,25 @@
 .emoji-grid {
   display: grid;
   grid-template-columns: repeat(8, minmax(0, 1fr));
-  gap: 8px;
-  padding: 14px;
-  max-height: 240px;
+  gap: 6px;
+  padding: 12px;
+  max-height: 220px;
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--gold) transparent;
 }
 
-.emoji-grid::-webkit-scrollbar {
-  width: 8px;
-}
-
-.emoji-grid::-webkit-scrollbar-thumb {
-  background: var(--gold-border);
-  border-radius: 999px;
-}
+.emoji-grid::-webkit-scrollbar { width: 8px; }
+.emoji-grid::-webkit-scrollbar-thumb { background: var(--gold-border); border-radius: 999px; }
 
 .emoji-item {
   aspect-ratio: 1;
   border: 0;
-  border-radius: 12px;
+  border-radius: 10px;
   background: transparent;
   color: inherit;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   line-height: 1;
   transition: transform var(--transition), background var(--transition);
 
@@ -97,12 +94,11 @@
 .message-input {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 11px 12px;
+  gap: 6px;
+  padding: 8px 10px;
   background: var(--input-bg);
   border: 1px solid var(--border-input);
   border-radius: 999px;
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
 }
 
 .attach-btn,
@@ -110,22 +106,20 @@
 .emoji-btn,
 .voice-btn,
 .send-btn {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: 0;
-  border-radius: 14px;
+  border-radius: 12px;
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
-  transition:
-    transform var(--transition),
-    background var(--transition),
-    color var(--transition),
-    box-shadow var(--transition);
+  transition: transform var(--transition), background var(--transition), color var(--transition);
+
+  svg { width: 17px; height: 17px; }
 
   &:hover {
     background: var(--card-bg-hover);
@@ -140,44 +134,33 @@
 }
 
 .emoji-btn.active {
-  background: rgba(var(--gold-rgb), 0.18);
-  color: var(--gold-light);
+  background: var(--gold-dim);
+  color: var(--gold);
 }
 
 .text-input {
   flex: 1;
   min-width: 0;
-  height: 40px;
+  height: 36px;
   border: 0;
   outline: none;
   background: transparent;
   color: var(--text-color);
-  font-size: 0.96rem;
+  font-size: 0.92rem;
 
-  &::placeholder {
-    color: var(--text-secondary);
-  }
+  &::placeholder { color: var(--muted-color); }
 }
 
 .send-btn {
   background: var(--gold-gradient);
-  color: #1a1208;
-  box-shadow: 0 12px 24px rgba(201, 162, 39, 0.24);
+  color: #1a1000;
 
-  &:hover {
-    background: var(--gold-gradient);
-    color: #1a1208;
-    box-shadow: 0 16px 28px rgba(201, 162, 39, 0.34);
-  }
-
-  &.active {
-    background: var(--gold-gradient);
-    color: #1a1208;
-  }
+  &:hover { background: var(--gold-gradient); color: #1a1000; }
+  &.active { background: var(--gold-gradient); color: #1a1000; }
 }
 
 .voice-btn.recording {
-  background: rgba(239, 68, 68, 0.14);
+  background: var(--danger-dim);
   color: var(--color-danger);
   animation: voicePulse 1.4s infinite ease-in-out;
 }
@@ -186,82 +169,58 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 14px;
+  padding: 10px 14px;
   border: 1px solid var(--danger-border);
-  border-radius: 18px;
+  border-radius: 16px;
   background: var(--danger-dim);
   color: var(--color-danger);
 }
 
 .recording-pulse {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: var(--color-danger);
   box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.35);
   animation: pulse 1.4s infinite;
 }
 
-.recording-text {
-  flex: 1;
-  font-size: 0.9rem;
-  font-weight: 700;
-}
+.recording-text { flex: 1; font-size: 0.86rem; font-weight: 700; }
 
 .stop-recording-btn {
   border: 0;
   border-radius: 999px;
-  padding: 8px 12px;
+  padding: 7px 12px;
   background: rgba(239, 68, 68, 0.18);
   color: var(--color-danger);
   font-weight: 700;
+  font-size: 0.82rem;
   cursor: pointer;
   transition: transform var(--transition), background var(--transition);
 
-  &:hover {
-    transform: translateY(-1px);
-    background: rgba(239, 68, 68, 0.24);
-  }
+  &:hover { transform: translateY(-1px); background: rgba(239, 68, 68, 0.24); }
 }
 
 @keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.35);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
-  }
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.35); }
+  70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
 
 @keyframes voicePulse {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-1px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
 }
 
 @media (max-width: 720px) {
-  .message-input {
-    padding: 10px 10px;
-    gap: 8px;
+  .message-input { padding: 7px 8px; gap: 4px; }
+
+  .attach-btn, .camera-btn, .emoji-btn, .voice-btn, .send-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    svg { width: 16px; height: 16px; }
   }
 
-  .attach-btn,
-  .camera-btn,
-  .emoji-btn,
-  .voice-btn,
-  .send-btn {
-    width: 38px;
-    height: 38px;
-    border-radius: 12px;
-  }
-
-  .emoji-grid {
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-  }
+  .emoji-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); }
 }
