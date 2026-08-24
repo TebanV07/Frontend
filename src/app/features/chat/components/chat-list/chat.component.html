@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="chat-container">
+<div class="chat-container" [class.show-thread]="activeConversation">
 
   <!-- ============================================================ -->
   <!-- SIDEBAR -->
@@ -65,7 +65,6 @@
         [class.active]="activeConversation?.id === conversation.id"
         (click)="onConversationSelected(conversation)">
 
-        <!-- ✅ Avatar con indicador online (se mantiene SOLO en el sidebar) -->
         <div class="conversation-avatar">
           <img
             [src]="getAvatarUrl(conversation.other_user?.avatar)"
@@ -81,7 +80,6 @@
           <div class="conversation-header">
             <div class="name-row">
               <h4>
-                <!-- ✅ FIX: usar name → username → name_del_grupo → fallback genérico -->
                 {{ conversation.other_user?.name
                   || conversation.other_user?.username
                   || conversation.name
@@ -148,7 +146,8 @@
     [messages]="messages"
     [typingUsers]="activeConversation ? (typingUsers[activeConversation.id] || []) : []"
     (messageSent)="onMessageSent($event)"
-    (typing)="activeConversation && onTyping(activeConversation.id, $event)">
+    (typing)="activeConversation && onTyping(activeConversation.id, $event)"
+    (back)="onBackToList()">
   </app-chat-window>
 
 </div>

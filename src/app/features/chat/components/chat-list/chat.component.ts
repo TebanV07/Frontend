@@ -131,6 +131,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatService.markConversationAsRead(conversation.id).subscribe();
   }
 
+  // 🆕 Volver a la lista desde el chat abierto (botón atrás en mobile)
+  onBackToList(): void {
+    this.chatService.clearActiveConversation();
+  }
+
   onMessageSent(content: string): void {
     if (!this.activeConversation) return;
     this.chatService.sendMessage(this.activeConversation.id, content);
@@ -244,5 +249,3 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 }
-
-

@@ -2,6 +2,10 @@
 
   <!-- Header de la conversación -->
   <div class="chat-header" *ngIf="activeConversation">
+    <button class="back-btn" (click)="onBack()" title="Volver a mensajes">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+
     <div class="conversation-info">
       <div class="avatar-wrapper" [class.online]="isOtherUserOnline()">
         <img
@@ -25,7 +29,6 @@
         <div class="identity-row">
           <span class="status" [class.online]="isOtherUserOnline()">{{ getStatusText() }}</span>
 
-          <!-- ⭐ Chip de idioma/país — usa flag.service.ts -->
           <div class="identity-flags" *ngIf="activeConversation.other_user?.country_code || activeConversation.other_user?.native_language">
             <img
               *ngIf="activeConversation.other_user?.country_code"
@@ -70,20 +73,17 @@
       </app-message-bubble>
     </div>
 
-    <!-- Indicador de escritura -->
     <div class="typing-indicator" *ngIf="getTypingUserNames()">
       <span class="dot"></span>
       <span class="dot"></span>
       <span class="dot"></span>
     </div>
 
-    <!-- Indicador de subida de archivo -->
     <div class="upload-indicator" *ngIf="isUploadingFile">
       <svg class="upload-spinner" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
       <span class="upload-text">{{ 'chat.window.uploading' | translate }}</span>
     </div>
 
-    <!-- Error de subida -->
     <div class="upload-error" *ngIf="uploadError">
       <span>{{ uploadError }}</span>
     </div>

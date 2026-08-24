@@ -34,6 +34,8 @@ export class ChatWindowComponent implements OnChanges {
 
   @Output() messageSent = new EventEmitter<string>();
   @Output() typing = new EventEmitter<boolean>();
+  // 🆕 Emite cuando el usuario toca el botón de volver (visible solo en mobile)
+  @Output() back = new EventEmitter<void>();
 
   @ViewChildren(MessageBubbleComponent) messageBubbles!: QueryList<MessageBubbleComponent>;
 
@@ -54,6 +56,11 @@ export class ChatWindowComponent implements OnChanges {
     if (changes['activeConversation'] || changes['messages']) {
       setTimeout(() => this.scrollToBottom(), 100);
     }
+  }
+
+  // 🆕 Notifica al padre (ChatComponent) que debe limpiar la conversación activa
+  onBack(): void {
+    this.back.emit();
   }
 
   isOtherUserOnline(): boolean {
@@ -248,5 +255,3 @@ export class ChatWindowComponent implements OnChanges {
     return `${this.activeConversation.other_user.name} esta escribiendo...`;
   }
 }
-
-
