@@ -203,7 +203,9 @@
           </span>
         </div>
 
-        <div id="google-btn-container"></div>
+        <button type="button" class="google-btn" (click)="signInWithGoogle()">
+        {{ 'auth.login.continueWithGoogle' | translate }}
+      </button>
       </div>
 
       <!-- SWITCH -->

@@ -41,5 +41,6 @@ Thumbs.db
 estructura.txt
 *.txt
 
-# Android (Capacitor - no subir builds)
-/android/
+# Variables de entorno
+.env
+.env.*

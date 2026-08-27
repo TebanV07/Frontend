@@ -7,6 +7,7 @@ import { AuthService, LoginResponse, RegisterResponse } from '../../../core/serv
 import { Language, LanguageService } from '../../../core/services/language.service';
 import { CountrySetupComponent } from '../index';
 import { environment } from '../../../../environments/environment';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
 @Component({
   selector: 'app-login',
@@ -46,50 +47,24 @@ export class LoginComponent {
   }
 
   /** Configurar Google Sign-In con el nuevo SDK */
-  private initializeGoogleSignIn(): void {
-    const checkGoogleSDK = setInterval(() => {
-      const google = (window as any).google;
-      if (google?.accounts?.id) {
-        clearInterval(checkGoogleSDK);
+private initializeGoogleSignIn(): void {
+  GoogleAuth.initialize();
+}
 
-        const clientId = this.getGoogleClientIdFromEnv();
-        if (!clientId) {
-          console.warn('GOOGLE_CLIENT_ID no configurado');
-          return;
-        }
-
-        google.accounts.id.initialize({
-          client_id: clientId,
-          callback: (response: any) => {
-            this.ngZone.run(() => {
-              if (response.credential) {
-                this.onGoogleLogin(response.credential);
-              }
-            });
-          },
-          auto_select: false,
-          use_fedcm_for_prompt: true
-        });
-
-        const btnContainer = document.getElementById('google-btn-container');
-        if (btnContainer) {
-          google.accounts.id.renderButton(btnContainer, {
-            theme: 'outline',
-            size: 'large',
-            width: btnContainer.offsetWidth || 300,
-            text: 'signin_with'
-          });
-        }
-      }
-    }, 100);
-
-    setTimeout(() => clearInterval(checkGoogleSDK), 5000);
+async signInWithGoogle(): Promise<void> {
+  try {
+    const user = await GoogleAuth.signIn();
+    const idToken = user.authentication.idToken;
+    if (idToken) {
+      this.onGoogleLogin(idToken);
+    } else {
+      this.errorMessage = 'No se recibió token de Google';
+    }
+  } catch (err) {
+    console.error('Error de Google Sign-In nativo:', err);
+    this.errorMessage = 'Login con Google cancelado o fallido.';
   }
-
-  /** Obtener CLIENT_ID desde el archivo de environment */
-  private getGoogleClientIdFromEnv(): string {
-    return environment.googleClientId || '';
-  }
+}
 
   toggleMode() {
     this.isRegisterMode = !this.isRegisterMode;

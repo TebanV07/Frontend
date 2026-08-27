@@ -1,14 +1,22 @@
 import type { CapacitorConfig } from '@capacitor/cli';
+import { KeyboardResize, KeyboardStyle } from '@capacitor/keyboard';
+import { Style } from '@capacitor/status-bar';
 
 const config: CapacitorConfig = {
-  appId: 'com.redsocialai.app',
-  appName: 'RedSocialIA',
-  webDir: 'dist',
+  appId: 'lat.timqu.app',
+  appName: 'TIMQU',
+  webDir: 'dist/frontend/browser',
   server: {
     androidScheme: 'https'
   },
   plugins: {
-    // Plugins adicionales pueden ir aquí
+  StatusBar: { overlaysWebView: false, style: Style.Dark, backgroundColor: '#0b0d13' },
+  Keyboard: { resize: KeyboardResize.Body, style: KeyboardStyle.Dark, resizeOnFullScreen: true },
+  GoogleAuth: {
+    scopes: ['profile', 'email'],
+    serverClientId: '259954016870-carbome69mftn4pcfirb31qbc6uqq08v.apps.googleusercontent.com',
+    forceCodeForRefreshToken: true
+  }
   }
 };
 

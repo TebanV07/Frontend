@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">RedSocialIA</string>
-    <string name="title_activity_main">RedSocialIA</string>
-    <string name="package_name">com.redsocialai.app</string>
-    <string name="custom_url_scheme">com.redsocialai.app</string>
+    <string name="app_name">TIMQU</string>
+    <string name="title_activity_main">TIMQU</string>
+    <string name="package_name">lat.timqu.app</string>
+    <string name="custom_url_scheme">lat.timqu.app</string>
 </resources>

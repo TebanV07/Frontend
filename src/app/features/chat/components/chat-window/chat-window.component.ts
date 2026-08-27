@@ -13,6 +13,9 @@ import { ChatService } from '../../../../core/services/chat.service';
 import { WebSocketService } from '../../../../core/services/websocket.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { FlagService } from '../../../../core/services/flag.service';
+import { OnDestroy } from '@angular/core';
+import { Keyboard } from '@capacitor/keyboard';
+import { Capacitor } from '@capacitor/core';
 import { environment } from '../../../../../environments/environment';
 
 @Component({
@@ -22,7 +25,7 @@ import { environment } from '../../../../../environments/environment';
   templateUrl: './chat-window.component.html',
   styleUrl: './chat-window.component.scss'
 })
-export class ChatWindowComponent implements OnChanges {
+export class ChatWindowComponent implements OnChanges, OnDestroy {
 
   @Input() activeConversation: Conversation | null = null;
   @Input() messages: Message[] = [];
@@ -40,6 +43,7 @@ export class ChatWindowComponent implements OnChanges {
   @ViewChildren(MessageBubbleComponent) messageBubbles!: QueryList<MessageBubbleComponent>;
 
   private readonly uploadUrl = `${environment.apiUrl}/messages/upload`;
+  private keyboardShowListener?: any;
 
   constructor(
     private http: HttpClient,
@@ -50,6 +54,7 @@ export class ChatWindowComponent implements OnChanges {
   ) {
     this.chatService.loadOnlineUsers();
     this.chatService.onlineUsers$.subscribe(list => { this.onlineUsers = list; });
+    this.setupKeyboardListener(); // ← nuevo
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -129,6 +134,17 @@ export class ChatWindowComponent implements OnChanges {
     const container = document.querySelector('.messages-container');
     if (container) container.scrollTop = container.scrollHeight;
   }
+  private setupKeyboardListener(): void {
+  if (!Capacitor.isNativePlatform()) return;
+
+  Keyboard.addListener('keyboardWillShow', () => {
+    // Damos un pequeño margen para que el resize del body
+    // termine de aplicarse antes de hacer scroll.
+    setTimeout(() => this.scrollToBottom(), 150);
+  }).then(listener => {
+    this.keyboardShowListener = listener;
+  });
+}
 
   isMessageSent(message: Message): boolean {
     const me = this.getCurrentUserId();
@@ -253,5 +269,8 @@ export class ChatWindowComponent implements OnChanges {
     if (!this.activeConversation || this.typingUsers.length === 0) return '';
     if (!this.activeConversation.other_user) return 'Escribiendo...';
     return `${this.activeConversation.other_user.name} esta escribiendo...`;
+  }
+  ngOnDestroy(): void {
+  this.keyboardShowListener?.remove();
   }
 }

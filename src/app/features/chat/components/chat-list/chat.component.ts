@@ -7,6 +7,7 @@ import { ChatWindowComponent } from '../chat-window/chat-window.component';
 import { ChatService, OnlineUser } from '../../../../core/services/chat.service';
 import { FlagService } from '../../../../core/services/flag.service';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
+import { BackButtonService } from '../../../../core/services/back-button.service';
 import { Subscription } from 'rxjs';
 
 import type {
@@ -38,11 +39,13 @@ export class ChatComponent implements OnInit, OnDestroy {
   private conversationsLoaded = false;
 
   private subscriptions: Subscription[] = [];
+  private unregisterBackHandler?: () => void;
 
   constructor(
     private chatService: ChatService,
     private route: ActivatedRoute,
-    public flagService: FlagService
+    public flagService: FlagService,
+    private backButtonService: BackButtonService
   ) {}
 
   /**
@@ -116,10 +119,20 @@ export class ChatComponent implements OnInit, OnDestroy {
       }
     });
     this.chatService.loadOnlineUsers();
+
+    // 🆕 Registro del handler del botón atrás físico (Android)
+    this.unregisterBackHandler = this.backButtonService.register(() => {
+      if (this.activeConversation) {
+        this.onBackToList();
+        return true; // consumido: no navega ni cierra la app
+      }
+      return false; // no hay conversación abierta, dejar comportamiento normal
+    });
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.unregisterBackHandler?.();
   }
 
   // ======================================================
