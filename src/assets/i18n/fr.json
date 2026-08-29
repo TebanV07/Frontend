@@ -410,8 +410,7 @@
             "profile": "Profil",
             "account": "Compte",
             "notifications": "Notifications",
-            "privacy": "Confidentialité",
-            "logout": "Déconnexion"
+            "privacy": "Confidentialité",            "feedback": "Suggestions",            "logout": "Déconnexion"
         },
         "feedback": {
             "title": "Suggestions et Signalements",

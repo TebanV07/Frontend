@@ -411,6 +411,7 @@
             "account": "계정",
             "notifications": "알림",
             "privacy": "개인정보",
+            "feedback": "건의",
             "logout": "로그아웃"
         },
         "feedback": {

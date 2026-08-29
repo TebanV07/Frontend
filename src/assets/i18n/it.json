@@ -410,8 +410,7 @@
             "profile": "Profilo",
             "account": "Account",
             "notifications": "Notifiche",
-            "privacy": "Privacy",
-            "logout": "Esci"
+            "privacy": "Privacy",            "feedback": "Suggerimenti",            "logout": "Esci"
         },
         "feedback": {
             "title": "Suggerimenti e Segnalazioni",

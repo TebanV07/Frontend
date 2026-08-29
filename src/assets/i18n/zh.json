@@ -410,8 +410,7 @@
             "profile": "个人主页",
             "account": "账号",
             "notifications": "通知",
-            "privacy": "隐私",
-            "logout": "退出登录"
+            "privacy": "隐私",            "feedback": "建议",            "logout": "退出登录"
         },
         "feedback": {
             "title": "建议与反馈",
