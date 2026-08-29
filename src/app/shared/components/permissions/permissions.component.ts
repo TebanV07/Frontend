@@ -1,3 +1,6 @@
+import { Geolocation } from '@capacitor/geolocation';
+import { PushNotifications } from '@capacitor/push-notifications';
+import { VoiceRecorder } from 'capacitor-voice-recorder';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -110,10 +113,14 @@ export class PermissionsComponent implements OnInit {
    */
   private async requestMicrophonePermission(permission: Permission): Promise<void> {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      stream.getTracks().forEach(track => track.stop());
-      permission.granted = true;
-      this.savePermissionPreference('microphone', true);
+      const { value: alreadyGranted } = await VoiceRecorder.hasAudioRecordingPermission();
+      let granted = alreadyGranted;
+      if (!granted) {
+        const result = await VoiceRecorder.requestAudioRecordingPermission();
+        granted = result.value;
+      }
+      permission.granted = granted;
+      this.savePermissionPreference('microphone', granted);
     } catch (error) {
       console.error('Microphone permission denied:', error);
       permission.granted = false;
@@ -124,35 +131,29 @@ export class PermissionsComponent implements OnInit {
     * Solicitar permiso de ubicación.
    */
   private async requestGeolocationPermission(permission: Permission): Promise<void> {
-    return new Promise((resolve) => {
-      navigator.geolocation.getCurrentPosition(
-        () => {
-          permission.granted = true;
-          this.savePermissionPreference('geolocation', true);
-          resolve();
-        },
-        () => {
-          console.error('Geolocation permission denied');
-          permission.granted = false;
-          resolve();
-        }
-      );
-    });
+    try {
+      const status = await Geolocation.requestPermissions();
+      const granted = status.location === 'granted' || status.coarseLocation === 'granted';
+      permission.granted = granted;
+      this.savePermissionPreference('geolocation', granted);
+    } catch (error) {
+      console.error('Geolocation permission denied:', error);
+      permission.granted = false;
+    }
   }
 
   /**
    * Solicitar permiso de notificaciones
    */
   private async requestNotificationsPermission(permission: Permission): Promise<void> {
-    if ('Notification' in window) {
-      try {
-        const result = await Notification.requestPermission();
-        permission.granted = result === 'granted';
-        this.savePermissionPreference('notifications', permission.granted);
-      } catch (error) {
-        console.error('Notification permission error:', error);
-        permission.granted = false;
-      }
+    try {
+      const result = await PushNotifications.requestPermissions();
+      const granted = result.receive === 'granted';
+      permission.granted = granted;
+      this.savePermissionPreference('notifications', granted);
+    } catch (error) {
+      console.error('Notification permission error:', error);
+      permission.granted = false;
     }
   }
 

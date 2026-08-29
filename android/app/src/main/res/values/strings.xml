@@ -4,4 +4,5 @@
     <string name="title_activity_main">TIMQU</string>
     <string name="package_name">lat.timqu.app</string>
     <string name="custom_url_scheme">lat.timqu.app</string>
+    <string name="server_client_id">259954016870-carbome69mftn4pcfirb31qbc6uqq08v.apps.googleusercontent.com</string>
 </resources>

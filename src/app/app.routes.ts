@@ -20,12 +20,14 @@ import { VideoFeedComponent } from './features/videos/components/video-feed/vide
 import { EditPostComponent } from './features/posts/components/edit-post/edit-post.component';
 import { PostDetailComponent } from './features/posts/components/post-detail/post-detail.component';
 import { NotificationsPageComponent } from './features/settings/notifications-page/notifications-page.component';
+import { LegalPrivacyComponent } from './shared/components/legal-privacy/legal-privacy.component';
+import { LegalTermsComponent } from './shared/components/legal-terms/legal-terms.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [guestGuard] },
-  { path: 'terms', component: TermsComponent },
-  { path: 'permissions', component: PermissionsComponent },
+  { path: 'terms', component: TermsComponent, canActivate: [guestGuard] },
+  { path: 'permissions', component: PermissionsComponent, canActivate: [guestGuard] },
 
   {
     path: 'verify-email-required',
@@ -70,6 +72,8 @@ export const routes: Routes = [
       { path: 'profile/:username', component: ProfileComponent },
       { path: 'explore/people', component: ExplorePeopleComponent },
       { path: 'trending', component: TrendingComponent },
+      { path: 'legal/terminos', component: LegalTermsComponent },
+      { path: 'legal/privacidad', component: LegalPrivacyComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'upload', component: UploadComponent },
       { path: 'videos/:id', component: VideoFeedComponent },
