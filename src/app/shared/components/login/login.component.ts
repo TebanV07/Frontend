@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import { Component, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -8,7 +9,7 @@ import { Language, LanguageService } from '../../../core/services/language.servi
 import { CountrySetupComponent } from '../index';
 import { environment } from '../../../../environments/environment';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-
+declare const google: any;
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -17,8 +18,10 @@ import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+
   isRegisterMode = false;
   isLoading = false;
+  isNative = Capacitor.isNativePlatform();
   showPassword = false;
   errorMessage = '';
   readonly availableLanguages: Language[];
@@ -47,8 +50,47 @@ export class LoginComponent {
   }
 
   /** Configurar Google Sign-In con el nuevo SDK */
+/** Bifurca la inicialización de Google Sign-In según la plataforma */
 private initializeGoogleSignIn(): void {
-  GoogleAuth.initialize();
+  if (this.isNative) {
+    // Flujo nativo (Android/iOS) - plugin de Capacitor
+    GoogleAuth.initialize();
+  } else {
+    // Flujo web - Google Identity Services (GIS)
+    this.initializeGoogleSignInWeb();
+  }
+}
+
+/**
+ * Inicializa el botón de Google en la versión WEB usando Google Identity Services.
+ * El script de GIS se carga async/defer en index.html, por eso esperamos con un
+ * setInterval a que 'google' esté disponible antes de usarlo.
+ */
+private initializeGoogleSignInWeb(): void {
+  const checkGoogleLoaded = setInterval(() => {
+    if (typeof google !== 'undefined' && google.accounts?.id) {
+      clearInterval(checkGoogleLoaded);
+
+      google.accounts.id.initialize({
+        client_id: environment.googleClientId,
+        callback: (response: any) => {
+          // El callback corre fuera de la zona de Angular, por eso ngZone.run()
+          this.ngZone.run(() => {
+            this.onGoogleLogin(response.credential);
+          });
+        }
+      });
+
+      const container = document.getElementById('google-btn-container');
+      if (container) {
+        google.accounts.id.renderButton(container, {
+          theme: 'outline',
+          size: 'large',
+          width: 280
+        });
+      }
+    }
+  }, 200);
 }
 
 async signInWithGoogle(): Promise<void> {
