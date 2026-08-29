@@ -203,9 +203,13 @@
           </span>
         </div>
 
-        <button type="button" class="google-btn" (click)="signInWithGoogle()">
-        {{ 'auth.login.continueWithGoogle' | translate }}
-      </button>
+          <!-- Nativo: botón custom que dispara el plugin de Capacitor -->
+          <button type="button" class="google-btn" *ngIf="isNative" (click)="signInWithGoogle()">
+            {{ 'auth.login.continueWithGoogle' | translate }}
+          </button>
+
+          <!-- Web: contenedor donde Google renderiza SU PROPIO botón -->
+          <div id="google-btn-container" *ngIf="!isNative"></div>
       </div>
 
       <!-- SWITCH -->
