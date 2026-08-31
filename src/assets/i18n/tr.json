@@ -52,6 +52,7 @@
             "rememberMe": "Beni hatırla",
             "forgotPassword": "Şifreni mi unuttun?",
             "orContinueWith": "veya şununla devam et",
+            "continueWithGoogle": "Google ile devam et",
             "google": "Google"
         },
         "register": {

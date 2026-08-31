@@ -26,9 +26,11 @@ import { LegalTermsComponent } from './shared/components/legal-terms/legal-terms
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [guestGuard] },
-  { path: 'terms', component: TermsComponent, canActivate: [guestGuard] },
-  { path: 'permissions', component: PermissionsComponent, canActivate: [guestGuard] },
+  { path: 'terms', component: TermsComponent, canActivate: [authGuard] },
+  { path: 'permissions', component: PermissionsComponent, canActivate: [authGuard] },
 
+  { path: 'legal/terminos', component: LegalTermsComponent },
+  { path: 'legal/privacidad', component: LegalPrivacyComponent },
   {
     path: 'verify-email-required',
     loadComponent: () =>
@@ -72,8 +74,6 @@ export const routes: Routes = [
       { path: 'profile/:username', component: ProfileComponent },
       { path: 'explore/people', component: ExplorePeopleComponent },
       { path: 'trending', component: TrendingComponent },
-      { path: 'legal/terminos', component: LegalTermsComponent },
-      { path: 'legal/privacidad', component: LegalPrivacyComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'upload', component: UploadComponent },
       { path: 'videos/:id', component: VideoFeedComponent },

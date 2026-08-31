@@ -8,7 +8,7 @@ import { AuthService, LoginResponse, RegisterResponse } from '../../../core/serv
 import { Language, LanguageService } from '../../../core/services/language.service';
 import { CountrySetupComponent } from '../index';
 import { environment } from '../../../../environments/environment';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { SocialLogin } from '@capgo/capacitor-social-login';
 declare const google: any;
 @Component({
   selector: 'app-login',
@@ -49,12 +49,14 @@ export class LoginComponent {
     this.initializeGoogleSignIn();
   }
 
-  /** Configurar Google Sign-In con el nuevo SDK */
-/** Bifurca la inicialización de Google Sign-In según la plataforma */
 private initializeGoogleSignIn(): void {
   if (this.isNative) {
-    // Flujo nativo (Android/iOS) - plugin de Capacitor
-    GoogleAuth.initialize();
+    // Flujo nativo (Android/iOS) - nuevo plugin @capgo/capacitor-social-login
+    SocialLogin.initialize({
+      google: {
+        webClientId: environment.googleClientId,
+      }
+    });
   } else {
     // Flujo web - Google Identity Services (GIS)
     this.initializeGoogleSignInWeb();
@@ -95,16 +97,29 @@ private initializeGoogleSignInWeb(): void {
 
 async signInWithGoogle(): Promise<void> {
   try {
-    const user = await GoogleAuth.signIn();
-    const idToken = user.authentication.idToken;
-    if (idToken) {
-      this.onGoogleLogin(idToken);
-    } else {
-      this.errorMessage = 'No se recibió token de Google';
-    }
+    const { result } = await SocialLogin.login({
+      provider: 'google',
+      options: {
+        scopes: ['email', 'profile'],
+      },
+    });
+
+    // Según la doc oficial del plugin, en modo 'online' (default) el resultado
+    // trae idToken en result.idToken directamente.
+    const idToken = (result as any).idToken;
+
+    this.ngZone.run(() => {
+      if (idToken) {
+        this.onGoogleLogin(idToken);
+      } else {
+        this.errorMessage = 'No se recibió token de Google';
+      }
+    });
   } catch (err) {
-    console.error('Error de Google Sign-In nativo:', err);
-    this.errorMessage = 'Login con Google cancelado o fallido.';
+    this.ngZone.run(() => {
+      console.error('Error de Google Sign-In nativo:', err);
+      this.errorMessage = 'Login con Google cancelado o fallido.';
+    });
   }
 }
 

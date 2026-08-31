@@ -52,6 +52,7 @@
             "rememberMe": "记住我",
             "forgotPassword": "忘记密码？",
             "orContinueWith": "或通过以下方式继续",
+            "continueWithGoogle": "继续使用 Google",
             "google": "Google"
         },
         "register": {

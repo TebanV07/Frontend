@@ -52,6 +52,7 @@
             "rememberMe": "Запомнить меня",
             "forgotPassword": "Забыли пароль?",
             "orContinueWith": "или продолжить через",
+            "continueWithGoogle": "Продолжить через Google",
             "google": "Google"
         },
         "register": {

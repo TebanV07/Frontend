@@ -17,6 +17,20 @@
   align-items: center;
 
   padding: 24px;
+
+  background-image: url('/assets/bg-stars.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.login-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* =========================================================
@@ -372,6 +386,12 @@
   margin-top: 26px;
 }
 
+#google-btn-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .divider {
   position: relative;
   margin-bottom: 18px;
@@ -402,6 +422,44 @@
   color: var(--text-secondary);
 
   font-size: .85rem;
+}
+
+.google-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 13px 16px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.08);
+
+  background: #ffffff;
+  color: #3c4043;
+
+  font-size: .95rem;
+  font-weight: 600;
+  font-family: 'Roboto', Arial, sans-serif;
+
+  cursor: pointer;
+  transition: all .2s ease;
+
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+.google-btn:hover {
+  background: #f7f7f7;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.google-btn:active {
+  background: #f1f1f1;
+}
+
+.google-icon {
+  flex-shrink: 0;
 }
 
 /* =========================================================

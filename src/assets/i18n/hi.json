@@ -52,6 +52,7 @@
             "rememberMe": "मुझे याद रखें",
             "forgotPassword": "पासवर्ड भूल गए?",
             "orContinueWith": "या इससे जारी रखें",
+            "continueWithGoogle": "Google से जारी रखें",
             "google": "Google"
         },
         "register": {

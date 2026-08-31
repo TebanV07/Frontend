@@ -52,6 +52,7 @@
             "rememberMe": "ログイン状態を保持",
             "forgotPassword": "パスワードをお忘れですか？",
             "orContinueWith": "または以下で続ける",
+            "continueWithGoogle": "Googleで続ける",
             "google": "Google"
         },
         "register": {

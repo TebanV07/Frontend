@@ -1,8 +1,10 @@
 package lat.timqu.app;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 
@@ -10,9 +12,17 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.getcapacitor.BridgeActivity;
-import com.codetrixstudio.capacitor.GoogleAuth.GoogleAuth;
+import com.getcapacitor.Plugin;
+import com.getcapacitor.PluginHandle;
 
-public class MainActivity extends BridgeActivity {
+import ee.forgr.capacitor.social.login.GoogleProvider;
+import ee.forgr.capacitor.social.login.SocialLoginPlugin;
+import ee.forgr.capacitor.social.login.ModifiedMainActivityForSocialLoginPlugin;
+
+// ModifiedMainActivityForSocialLoginPlugin es OBLIGATORIO para que
+// @capgo/capacitor-social-login pueda recibir el resultado del login
+// de Google en Android (usa Credential Manager por debajo).
+public class MainActivity extends BridgeActivity implements ModifiedMainActivityForSocialLoginPlugin {
 
     private static final int PERMISSION_REQUEST_CODE = 1001;
     private PermissionRequest pendingWebViewPermissionRequest;
@@ -20,8 +30,6 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        registerPlugin(GoogleAuth.class);
 
         // Reemplazamos el WebChromeClient para poder interceptar
         // las peticiones de camara/microfono que hace getUserMedia()
@@ -82,6 +90,23 @@ public class MainActivity extends BridgeActivity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        // Fix: después de que una Activity externa (como el selector de
+        // cuenta de Google) devuelve el control a la app, el WebView a veces
+        // no se repinta solo. Forzamos un invalidate + requestLayout para
+        // que la pantalla se actualice sin necesidad de que el usuario
+        // reabra la app manualmente.
+        if (this.bridge != null && this.bridge.getWebView() != null) {
+            this.bridge.getWebView().post(() -> {
+                this.bridge.getWebView().invalidate();
+                this.bridge.getWebView().requestLayout();
+            });
+        }
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -102,4 +127,28 @@ public class MainActivity extends BridgeActivity {
             pendingWebViewPermissionRequest = null;
         }
     }
+
+    // ─── Requerido por @capgo/capacitor-social-login ───────────────────────
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode >= GoogleProvider.REQUEST_AUTHORIZE_GOOGLE_MIN && requestCode < GoogleProvider.REQUEST_AUTHORIZE_GOOGLE_MAX) {
+            PluginHandle pluginHandle = getBridge().getPlugin("SocialLogin");
+            if (pluginHandle == null) {
+                Log.i("Google Activity Result", "SocialLogin login handle is null");
+                return;
+            }
+            Plugin plugin = pluginHandle.getInstance();
+            if (!(plugin instanceof SocialLoginPlugin)) {
+                Log.i("Google Activity Result", "SocialLogin plugin instance is not SocialLoginPlugin");
+                return;
+            }
+            ((SocialLoginPlugin) plugin).handleGoogleLoginIntent(requestCode, data);
+        }
+    }
+
+    // Esta función nunca se llama, se deja vacía (requisito de la interfaz).
+    @Override
+    public void IHaveModifiedTheMainActivityForTheUseWithSocialLoginPlugin() {}
 }

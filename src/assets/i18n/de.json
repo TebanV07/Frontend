@@ -52,6 +52,7 @@
             "rememberMe": "Angemeldet bleiben",
             "forgotPassword": "Passwort vergessen?",
             "orContinueWith": "oder weiter mit",
+            "continueWithGoogle": "Mit Google weiter",
             "google": "Google"
         },
         "register": {
