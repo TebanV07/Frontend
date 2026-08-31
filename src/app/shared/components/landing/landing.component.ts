@@ -148,28 +148,28 @@ export class LandingComponent implements AfterViewInit, OnDestroy {
 
   features = [
     {
-      image: '/assets/landing/feature-translation.png',
+      image: '/assets/feature-translation.png',
       title: 'Traducción con IA integrada',
       description: 'Publica posts, videos, chats e imágenes y que se traduzcan automáticamente para que cualquier persona del mundo te entienda, sin importar el idioma.'
     },
     {
-      image: '/assets/landing/feature-trends.png',
+      image: '/assets/feature-trends.png',
       title: 'Tendencias de cada país',
       description: 'Descubre qué se habla y qué es popular en cada rincón del mundo, y conoce más sobre su cultura mientras te conectas con su gente.'
     },
     {
-      image: '/assets/landing/feature-community.png',
+      image: '/assets/feature-community.png',
       title: 'Gente nueva, cerca o lejos',
       description: 'TIMQU te sugiere personas de cualquier país para conocer, sin que el idioma sea un obstáculo para empezar la conversación.'
     },
     {
-      image: '/assets/landing/feature-voice.png',
+      image: '/assets/feature-voice.png',
       isIcon: true,
       title: 'Voces personalizadas',
       description: 'Los videos traducidos mantienen la personalización de voz de cada creador, para una experiencia más natural y cercana.'
     },
     {
-      image: '/assets/landing/feature-maps.png',
+      image: '/assets/feature-maps.png',
       isIcon: true,
       badge: 'Próximamente',
       title: 'Mapas para viajeros',
