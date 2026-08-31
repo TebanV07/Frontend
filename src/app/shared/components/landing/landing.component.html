@@ -1,5 +1,7 @@
 <div class="landing-container">
 
+  <canvas #starfield class="starfield-canvas"></canvas>
+
   <div class="landing-background">
     <div class="floating-glow glow-1"></div>
     <div class="floating-glow glow-2"></div>
@@ -12,7 +14,7 @@
   </header>
 
   <main class="hero">
-    <div class="hero-text">
+    <div class="hero-text" [class.is-in]="heroLoaded">
       <h1 class="hero-title">
         Conecta con el mundo, <span class="highlight">sin barreras de idioma</span>
       </h1>
@@ -29,8 +31,14 @@
       </div>
     </div>
 
-    <div class="hero-image">
-      <img src="/assets/landing/hero-mockup.png" alt="TIMQU App Preview">
+    <div
+      class="hero-image"
+      [class.is-in]="heroLoaded"
+      (mousemove)="onHeroMouseMove($event)"
+      (mouseleave)="onHeroMouseLeave()"
+      [style.transform]="heroTiltTransform"
+    >
+      <img src="/assets/landing/hero-preview.png" alt="Vista previa del feed de TIMQU con traducción activa">
     </div>
   </main>
 
@@ -49,8 +57,9 @@
     <h2 class="section-title">Todo lo que TIMQU tiene para ti</h2>
     <div class="features-grid">
       <div class="feature-card" *ngFor="let feature of features">
-        <div class="feature-image">
+        <div class="feature-image" [class.feature-image-icon]="feature.isIcon">
           <img [src]="feature.image" [alt]="feature.title">
+          <span class="feature-badge" *ngIf="feature.badge">{{ feature.badge }}</span>
         </div>
         <h3>{{ feature.title }}</h3>
         <p>{{ feature.description }}</p>
