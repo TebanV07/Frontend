@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './shared/components/login/login.component';
 import { MainLayoutComponent } from './shared/components/main-layout/main-layout.component';
+import { LandingComponent } from './shared/components/landing/landing.component';
 import { HomeComponent } from './shared/components/home/home.component';
 import { ChatComponent } from './features/chat/components/chat-list/chat.component';
 import { LivesComponent } from './features/lives/components/lives/lives.component';
@@ -24,7 +25,7 @@ import { LegalPrivacyComponent } from './shared/components/legal-privacy/legal-p
 import { LegalTermsComponent } from './shared/components/legal-terms/legal-terms.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent, canActivate: [guestGuard] },
   { path: 'terms', component: TermsComponent, canActivate: [authGuard] },
   { path: 'permissions', component: PermissionsComponent, canActivate: [authGuard] },
